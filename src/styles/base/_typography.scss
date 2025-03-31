@@ -1,0 +1,111 @@
+// ==========================
+// Imported Fonts
+// ==========================
+@import url(https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap);
+// On hold for possible later use
+//@import url(https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap);
+
+
+$primary-font: 'Space Mono', sans-serif;
+$navbar-font: "JetBrains Mono", serif;
+
+// ==========================
+// Font Measurements 
+// ==========================
+$font-size-xs: 11px;   
+$font-size-sm: 14px;   
+$font-size-md: 16px;
+$font-size-lg: 20px; 
+$font-size-xl: 25px;
+
+$font-weight-extra-light: 100;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+
+$line-height-base: 1.5;
+$line-height-heading: 1.2;
+
+// ==========================
+// Tag Adjustments
+// ==========================
+body {
+    font-family: $primary-font;
+    font-weight: 100;
+    font-size: $font-size-md;
+    line-height: $line-height-base;
+    color: black; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $primary-font;
+    line-height: $line-height-heading;
+    font-weight: 300;
+}
+
+h1 {
+    font-family: $primary-font;
+    color: black;
+    font-size: 2.2rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+h4 {
+    font-size: 1.6rem;
+}
+
+h5 {
+    font-size: 1.4rem;
+}
+
+p {
+    font-size: $font-size-md;
+    line-height: $line-height-base;
+}
+
+a {
+    color: black;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-light;
+}
+
+button {
+    font-family: $primary-font;
+}
+
+// ==========================
+// Tag Breakpoint Adaptations
+// ==========================
+@media (max-width: #{$breakpoint-xs}) {
+    h1 {
+      font-size: 2rem;
+    }
+  
+    h2 {
+      font-size: 1.6rem;
+    }
+  
+    h3 {
+      font-size: 1.4rem;
+    }
+  
+    h4 {
+      font-size: 1.2rem;
+    }
+  
+    h5 {
+      font-size: 1rem;
+    }
+
+    p {
+        font-size: $font-size-sm;
+    }
+}

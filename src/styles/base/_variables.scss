@@ -1,0 +1,66 @@
+// ==========================
+// Colors
+// ==========================
+// --- Accent Colors --- 
+$primary-color:                rgb(244, 235, 226);
+$secondary-color:                rgb(154, 154, 154);
+
+// --- Background Colors ---
+$primary-background-color:      rgb(40, 38, 38) !default;
+// $secondary-background-color:   NONE YET ;
+
+// --- Alert Colors --- 
+$success-color: rgb(42, 169, 42);
+$error-color: rgb(209, 56, 56);
+
+// --- Gray + Shades ---
+$gray-base:                     #000;
+$gray-darker:                   lighten($gray-base, 13.5%); 
+$gray-dark:                     lighten($gray-base, 20%);   
+$gray:                          lighten($gray-base, 33.5%); 
+$gray-light:                    lighten($gray-base, 46.7%); 
+$gray-lighter:                  lighten($gray-base, 73.5%); 
+
+// ==========================
+// Spacings
+// ==========================
+// --- Spacing units ---
+$spacing-xs:                    0.25rem;
+$spacing-sm:                    0.5rem;
+$spacing-md:                    1rem;
+$spacing-lg:                    2rem;
+$spacing-xl:                    3rem;
+
+// --- Breakpoints ---
+$breakpoint-xs:                 480px;
+$breakpoint-sm:                 768px;
+$breakpoint-md:                 1024px;
+$breakpoint-lg:                 1200px;
+$breakpoint-xl:                 1800px;
+
+// --- Border thickness ---
+$border-thickness-xs:           0.01rem;
+$border-thickness-small:        0.07rem;
+$border-thickness-base:         0.1rem;
+
+// --- Border radius ---
+$border-radius-xs:              5px;
+$border-radius-sm:              10px;
+$border-radius-md:              20px;
+$border-radius-lg:              25px;
+$border-radius-xl:              35px;
+$border-radius-c:               10000px;
+
+// ==========================
+// Transition Speeds
+// ==========================
+$transition-instant:            0.15s;
+$transition-fast:               0.25s;
+$transition-base:               0.5s;
+$transition-slow:               0.7s;
+
+$transition-ease:               ease-in-out;
+
+// ==========================
+// Z-Indexes
+// ==========================

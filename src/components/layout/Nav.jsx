@@ -4,7 +4,6 @@ export default function Nav() {
             <a href="">TODO</a>
             <a href="">CALENDAR</a>
             <a href="">THOUGHTS</a>
-            <a href="">TRAINING</a>
             <a href="">OTHER</a>
         </nav>
     )
