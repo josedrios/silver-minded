@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import TerminalContainer from "./TerminalContainer";
+import { TerminalContainer } from "../layout/TerminalContainer";
 
 export default function Nav() {
   return (
-    <TerminalContainer id="navbar-container" labels={["Nav"]}  color='greenyellow'>
+    <TerminalContainer id="navbar-container" labels={["Nav"]} color='green'>
       <NavBody />
     </TerminalContainer>
   );
