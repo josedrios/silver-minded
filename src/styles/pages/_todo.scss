@@ -1,7 +1,4 @@
-.tasklist {
-    height: 102px;
-}
-
-.todo-sub {
-    padding: $spacing-sm;
+.cat-progress-bar-container {
+    padding: 0 $spacing-sm;
+    @include flex(column, left);
 }

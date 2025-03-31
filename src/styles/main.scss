@@ -2,8 +2,15 @@
 @import './base/_typography';
 @import './base/_reset';
 
+@import './abstracts/_functions';
+@import './abstracts/_mixins';
+
 @import './layout/_nav';
 @import './layout/_app';
 @import './layout/_terminalcontainer';
 
 @import './pages/_todo';
+
+@import './components/_graphs';
+
+
