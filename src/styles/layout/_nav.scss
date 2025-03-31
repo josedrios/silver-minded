@@ -1,15 +1,17 @@
+#navbar-container {
+    max-width: 600px;
+    margin: auto;
+    margin-top: $spacing-sm;
+}
+
 nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    max-width: 600px;
-    margin: auto;
-    margin-top: $spacing-sm;
 
     a {
-        font-size: $font-size-md;
+        font-size: $font-size-lg;
         color: $primary-color;
-        transition: color $transition-instant;
 
         &:hover {
             color: $secondary-color;

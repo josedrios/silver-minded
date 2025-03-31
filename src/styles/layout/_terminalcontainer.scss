@@ -1,0 +1,39 @@
+.terminal-container {
+    position: relative;
+    padding: $spacing-sm;
+    
+    .label-container, .controller-container {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        gap: $spacing-sm;
+    }
+
+    .label-container {
+        top: -10px;
+
+        h5 {
+            font-size: $font-size-md;
+            font-weight: bold;
+            margin-right: $spacing-md;
+            background-color: $primary-background-color;
+            padding: 0px $spacing-xs;
+        }
+    }
+
+    .controller-container {
+        bottom: -10px;
+        right: $spacing-sm;
+
+        button {
+            font-size: $font-size-md;
+            font-weight: bold;
+            background-color: $primary-background-color;
+            padding: 0px $spacing-xs;
+
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+}
