@@ -1,44 +1,54 @@
 .cat-progress-bar {
+  @include flex(row, center, center);
+  gap: $spacing-sm;
+
+  .cat-progress-units-container {
     @include flex(row, center, center);
-    gap: $spacing-sm;
 
-    .cat-progress-units-container {
-        @include flex(row, center, center);
+    gap: $spacing-xs;
 
-        gap: $spacing-xs;
-
-        .cat-progress-unit {
-            @include box(7px);
-            background-color: $gray;
-        }
+    .cat-progress-unit {
+      @include box(7px);
+      background-color: $gray;
     }
+  }
 
-    .cat-progress-label {
-        width: 75px;
-        text-align: right;
-        font-weight: 700;
+  .cat-progress-label {
+    width: 75px;
+    text-align: right;
+    font-weight: 700;
+    font-size: 15px;
 
-        span {
-            margin-left: $spacing-xs;
-            color: $gray;
-        }
+    span {
+      margin-left: $spacing-xs;
+      color: $gray;
     }
+  }
 
-    .cat-progress-percentage {
-        color: $secondary-color;
-    }
+  .cat-progress-percentage {
+    font-size: $font-size-md;
+    color: $secondary-color;
+  }
 }
 
 #heatmap {
+  margin-right: $spacing-sm;
   width: 100%;
-  height: 100px; // fixed container height
+  margin-top: $spacing-xs;
+  height: 90px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 10px); // fill horizontally
+  grid-template-columns: repeat(auto-fill, 9px);
   gap: $spacing-xs;
   overflow: hidden;
   align-content: start;
 
-    .heatmap-unit {
-        @include box(10px);
-    }
+  .heatmap-unit {
+    @include box(9px);
+  }
+}
+
+@media (max-width: 575px) {
+  #heatmap {
+    margin-left: $spacing-md;
+  }
 }

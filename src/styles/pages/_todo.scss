@@ -42,3 +42,9 @@
         text-decoration: line-through;
     }
 }
+
+@media (max-width: 575px) {
+    #todo-header {
+        flex-wrap: wrap;
+    }
+}

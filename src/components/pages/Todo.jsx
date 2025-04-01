@@ -34,8 +34,8 @@ function TaskProgressBars() {
     <div className="cat-progress-bar-container">
       <CatProgressBar color="rgb(34, 156, 34)" label="Done" />
       <CatProgressBar color="rgb(34, 156, 34)" label="New" />
-      <CatProgressBar color="rgb(34, 156, 34)" label="Old" />
-      <CatProgressBar color="rgb(34, 156, 34)" label="Urg" />
+      <CatProgressBar color="rgb(183, 181, 79)" label="Old" />
+      <CatProgressBar color="rgb(125, 15, 184)" label="Urg" />
     </div>
   );
 }
@@ -86,19 +86,23 @@ function TaskOverview() {
 
 function TaskHeatMap() {
   const boxes = Array.from({ length: 200 });
+  const base = "46, 48, 171";
+  const opacities = [0.3, 0.55, 0.80, 1.0];
+  const colors = opacities.map((opacity) => `rgba(${base}, ${opacity})`);
 
   return (
     <div id="heatmap">
-      {boxes.map((_, i) => (
-        <div
-          key={i}
-          className="heatmap-unit"
-          style={{
-            backgroundColor: `red`,
-          }}
-          title={i}
-        />
-      ))}
+      {boxes.map((_, i) => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        return (
+          <div
+            key={i}
+            className="heatmap-unit"
+            style={{ backgroundColor: randomColor }}
+            title={i}
+          />
+        );
+      })}
     </div>
   );
 }
