@@ -1,4 +1,44 @@
+#todo-header {
+    @include flex(row);
+    gap: $spacing-md;
+}
+
 .cat-progress-bar-container {
     padding: 0 $spacing-sm;
     @include flex(column, left);
+}
+
+#task-overview {
+    width: 100px;
+    min-width: 100px;
+
+    .task-overview-row {
+        @include flex(row, space-between);
+        text-align: left;
+    }
+}
+
+.hold {
+    .task-overview-label {
+        color: $error-color;
+    }
+}
+
+.pending {
+    .task-overview-label {
+        color: $neutral-color;
+    }
+}
+
+.active {
+    .task-overview-label {
+        color: $success-color;
+    }
+}
+
+.done {
+    .task-overview-label {
+        color: $gray;
+        text-decoration: line-through;
+    }
 }

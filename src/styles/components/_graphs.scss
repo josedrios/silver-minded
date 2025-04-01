@@ -1,5 +1,4 @@
 .cat-progress-bar {
-    max-width: 210px;
     @include flex(row, center, center);
     gap: $spacing-sm;
 
@@ -15,12 +14,31 @@
     }
 
     .cat-progress-label {
-        width: 52px;
+        width: 75px;
         text-align: right;
         font-weight: 700;
+
+        span {
+            margin-left: $spacing-xs;
+            color: $gray;
+        }
     }
 
     .cat-progress-percentage {
         color: $secondary-color;
+    }
+}
+
+#heatmap {
+  width: 100%;
+  height: 100px; // fixed container height
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 10px); // fill horizontally
+  gap: $spacing-xs;
+  overflow: hidden;
+  align-content: start;
+
+    .heatmap-unit {
+        @include box(10px);
     }
 }
