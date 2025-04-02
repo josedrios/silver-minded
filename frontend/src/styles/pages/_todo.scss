@@ -127,12 +127,17 @@
     @include flex(row, left, center);
 }
 
-#task-creation-input {
-    flex: 1;
+.task-creation-form{
+  flex: 1;
+}
+
+.task-creation-input {
+    width: 100%;
     background-color: transparent;
     text-decoration: none;
     outline: none;
     margin-left: $spacing-xs;
     font-family: $primary-font;
     font-size: $font-size-sm;
+    padding: $spacing-xs;
 }
