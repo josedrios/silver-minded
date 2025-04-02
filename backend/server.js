@@ -9,7 +9,7 @@ const app = express();
 // Middleware (Foundation)
 app.use(
     cors({
-      origin: `http://localhost:${process.env.PORT}`, 
+      origin: `http://localhost:5173`, 
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -19,7 +19,7 @@ app.use(express.json());
 // Database
 connectDB();
 
-app.use('/api/tasks', require('./routes/taskRoutes'));
+app.use('/api/task', require('./routes/taskRoutes'));
 
 // Middleware (Error catchers)
 

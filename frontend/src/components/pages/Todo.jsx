@@ -1,4 +1,4 @@
-import { TaskList, TaskCreation } from "../features/TaskList";
+import { TaskList } from "../features/TaskList";
 import {
   TerminalContainer,
   SubTerminalContainer,
@@ -26,7 +26,6 @@ export default function Todo() {
         labels={["Task", "42"]}
         divider={[2]}
       >
-        <TaskCreation />
         <TaskList />
       </SubTerminalContainer>
     </TerminalContainer>

@@ -1,38 +1,57 @@
 import { useState, useEffect, useRef } from "react";
+import { createTask, fetchTasks } from "../../util/taskUtil";
 
 export function TaskList() {
+  const [tasks, setTasks] = useState(null);
+  
+  const loadTasks = async () => {
+    const data = await fetchTasks();
+    setTasks(data);
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
   return (
     <div id="task-list">
+      <TaskCreation onTaskCreated={loadTasks}/>
       <div id="task-header" className="task-row">
         <span className="task-name">Name</span>
         <span className="task-info">Task</span>
         <span className="task-tag">Tag</span>
         <span className="task-status">Status</span>
       </div>
-      <TaskRow />
+      {tasks === null ? (
+        <div>no tasks yet...</div>
+      ) : (
+        tasks.map((task, key) => (
+          <TaskRow
+            key={key}
+            task={task}
+          />
+        ))
+      )}
     </div>
   );
 }
 
-function TaskRow() {
+function TaskRow({task}) {
   return (
     <div className="task-row">
-      <span className="task-name">Comment</span>
+      <span className="task-name">{task.name}</span>
       <div className="task-info-container">
-        <span
-          className="task-info"
-          title="Branch subcomments off parent comments and add those lines"
-        >
-          Branch subcomments off parent comments and add those lines
+        <span className="task-info" title={task.info}>
+          {task.info}{" "}
         </span>
       </div>{" "}
-      <span className="task-tag">/root</span>
-      <span className="task-status">PENDING</span>
+      <span className="task-tag">/{task.tag}</span>
+      <span className="task-status">{task.status.toUpperCase()}</span>
     </div>
   );
 }
 
-export function TaskCreation() {
+export function TaskCreation({onTaskCreated}) {
   // Task object data
   const [taskForm, setTaskForm] = useState({
     name: "",
@@ -69,13 +88,23 @@ export function TaskCreation() {
     } else if (taskForm.tag === "") {
       setCurrentInput("tag");
       setInputValue("");
-    } else {
-      console.log('Task created')
-      console.log(taskForm)
-      setInputValue("");
-      setCurrentInput("name")
     }
   }, [taskForm]);
+
+  useEffect(() => {
+    const allFieldsFilled = taskForm.name && taskForm.info && taskForm.tag;
+    if (!allFieldsFilled) return;
+  
+    const submitTask = async () => {
+      await createTask(taskForm);
+      onTaskCreated();
+      setTaskForm({ name: "", info: "", tag: "" });
+      setInputValue("");
+      setCurrentInput("name");
+    };
+  
+    submitTask();
+  }, [taskForm, onTaskCreated]);
 
   return (
     <div id="task-creation">

@@ -2,13 +2,13 @@ const Task = require('../models/tasks');
 
 exports.createTask = async (req,res) => {
     try {
-        const { name, info, tag, status } = req.body;
+        console.log(req.body);
+        const { name, info, tag } = req.body;
 
         const newTask = new Task({
             name,
             info, 
             tag,
-            status
         })
 
         await newTask.save();
@@ -43,9 +43,8 @@ exports.editTask = async (req,res) => {
 
 exports.getTasks = async (req,res) => {
     try {
-        const { id } = req.params;
         const tasks = await Task.find().sort({createdAt: -1});
-        res.json(posts);
+        res.json(tasks);
     } catch (err) {
         console.log(err)
         return res.status(500).json({
