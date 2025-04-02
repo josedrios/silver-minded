@@ -53,7 +53,30 @@ export async function editTask( id, task ) {
         console.log("Error:", err);
         return;
       }
-    return;
+}
+
+export async function removeTask( id ) {
+    console.log(id)
+    try {
+        const response = await fetch(`http://localhost:3001/api/task/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+    
+        const responseData = await response.json();
+    
+        if (!response.ok) {
+          console.log(responseData.message);
+          return;
+        } else {
+          return;
+        }
+      } catch (err) {
+        console.log("Error:", err);
+        return;
+      }
 }
 
 export async function fetchTasks() {
@@ -78,3 +101,4 @@ export async function fetchTasks() {
     return;
   }
 }
+

@@ -50,6 +50,33 @@ exports.editTask = async (req, res) => {
   }
 };
 
+exports.statusUpdateTask = async (req, res) => {
+    try {
+      const { name, info, tag } = req.body;
+      const { id } = req.params;
+  
+      const task = await Task.findByIdAndUpdate(
+        id,
+        {
+          name,
+          info,
+          tag,
+        },
+        {
+          new: true,
+        }
+      );
+  
+      return res.status(201).json(task);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: "Error occurred while editing task",
+        error: err.message,
+      });
+    }
+  };
+
 exports.getTasks = async (req, res) => {
   try {
     const tasks = await Task.find().sort({ createdAt: -1 });
@@ -65,6 +92,13 @@ exports.getTasks = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   try {
+    const deleted = await Task.findByIdAndDelete(req.params.id);
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.json({ message: "Task deleted" });
+    return;
   } catch (err) {
     console.log(err);
     return res.status(500).json({

@@ -1,17 +1,46 @@
+import { fetchTasks, removeTask } from "../../util/taskUtil";
 import { TaskList } from "../features/TaskList";
 import {
   TerminalContainer,
   SubTerminalContainer,
 } from "../layout/TerminalContainer";
+import { useState, useEffect } from "react";
 
 export default function Todo() {
+  const [selectedTask, setSelectedTask] = useState("");
+
+  const [tasks, setTasks] = useState(null);
+
+  const loadTasks = async () => {
+    const data = await fetchTasks();
+    setTasks(data);
+  };
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const killTask = () => {
+    if(selectedTask) {
+      removeTask(selectedTask._id);
+      loadTasks();
+    } 
+  };
+
+  const changeTaskStatus = () => {
+    if(selectedTask) {
+      removeTask(selectedTask._id);
+      loadTasks();
+    } 
+  }
+
   return (
     <TerminalContainer
       id="todo-container"
       classname="full-terminal-container"
       color="red"
       labels={["Categories", "Heatmap"]}
-      controllers={["filter", "sort", "stat","kill"]}
+      controllers={[{ name: "status", function: changeTaskStatus },{ name: "kill", function: killTask }]}
       divider={[1, 3]}
     >
       <div id="todo-header">
@@ -26,7 +55,13 @@ export default function Todo() {
         labels={["Task", "42"]}
         divider={[2]}
       >
-        <TaskList />
+        <TaskList
+          loadTasks={loadTasks}
+          tasks={tasks}
+          setTasks={setTasks}
+          selectedTask={selectedTask}
+          setSelectedTask={setSelectedTask}
+        />
       </SubTerminalContainer>
     </TerminalContainer>
   );

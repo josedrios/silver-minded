@@ -3,6 +3,7 @@ export function TerminalContainer({
   children,
   labels,
   controllers,
+  functions,
   color,
   classname,
   divider,
@@ -45,8 +46,9 @@ export function TerminalContainer({
                   borderRight: `1px solid ${color}`,
                   ...(isDivider && { marginLeft: "auto" }),
                 }}
+                onClick={control.function}
               >
-                {control}
+                {control.name}
               </button>
             );
           })}

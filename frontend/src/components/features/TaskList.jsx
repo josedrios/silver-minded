@@ -1,19 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { createTask, editTask, fetchTasks } from "../../util/taskUtil";
+import { createTask, editTask } from "../../util/taskUtil";
 
-export function TaskList() {
-  const [tasks, setTasks] = useState(null);
-
-  const loadTasks = async () => {
-    const data = await fetchTasks();
-    setTasks(data);
-  };
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
-  const [selectedTask, setSelectedTask] = useState("");
+export function TaskList({loadTasks, tasks, setTasks, selectedTask, setSelectedTask}) {
 
   return (
     <div id="task-list">
