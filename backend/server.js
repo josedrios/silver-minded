@@ -5,7 +5,6 @@ const connectDB = require("./db");
 
 dotenv.config();
 const app = express();
-app.use(cors());
 
 // Middleware (Foundation)
 app.use(
