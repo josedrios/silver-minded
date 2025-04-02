@@ -1,50 +1,111 @@
 #todo-header {
-    @include flex(row);
-    gap: $spacing-md;
+  @include flex(row);
+  gap: $spacing-md;
 }
 
 .cat-progress-bar-container {
-    padding: 0 $spacing-sm;
-    @include flex(column, left);
+  padding: 0 $spacing-sm;
+  @include flex(column, left);
 }
 
 #task-overview {
-    width: 100px;
-    min-width: 100px;
+  width: 110px;
+  min-width: 110px;
 
-    .task-overview-row {
-        @include flex(row, space-between);
-        text-align: left;
-    }
+  .task-overview-row {
+    @include flex(row, space-between);
+    text-align: left;
+  }
 }
 
 .hold {
-    .task-overview-label {
-        color: $error-color;
-    }
+  .task-overview-label {
+    color: $error-color;
+  }
 }
 
 .pending {
-    .task-overview-label {
-        color: $neutral-color;
-    }
+  .task-overview-label {
+    color: $neutral-color;
+  }
 }
 
 .active {
-    .task-overview-label {
-        color: $success-color;
-    }
+  .task-overview-label {
+    color: $success-color;
+  }
 }
 
 .done {
-    .task-overview-label {
-        color: $gray;
-        text-decoration: line-through;
-    }
+  .task-overview-label {
+    color: $gray;
+    text-decoration: line-through;
+  }
 }
 
 @media (max-width: 575px) {
-    #todo-header {
-        flex-wrap: wrap;
-    }
+  #todo-header {
+    flex-wrap: wrap;
+  }
+}
+
+#task-list {
+  @include flex(column);
+  margin: 0px $spacing-sm;
+}
+
+#task-header {
+  span {
+    color: white;
+  }
+  margin-bottom: $spacing-xs;
+}
+
+.task-row {
+  @include flex(row);
+  font-size: $font-size-sm;
+
+  span {
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .task-name {
+    width: 15%;
+    min-width: 100px;
+    color: $success-color;
+  }
+
+  .task-info-container {
+    margin-right: $spacing-sm;
+  }
+
+  .task-info-container,
+  .task-info {
+    overflow: hidden;
+    text-wrap: nowrap;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .task-info {
+    display: inline-block;
+    transition: none;
+  }
+
+  .task-info-container:hover .task-info {
+    transition: transform 3s linear;
+    transform: translateX(calc(80px - 100%));
+  }
+
+  .task-tag {
+    width: 60px;
+    color: $success-color;
+  }
+
+  .task-status {
+    width: 85px;
+    color: $neutral-color;
+  }
 }

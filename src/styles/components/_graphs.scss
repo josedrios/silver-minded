@@ -14,10 +14,10 @@
   }
 
   .cat-progress-label {
-    width: 75px;
-    text-align: right;
+    width: 100px;
+    text-align: left;
     font-weight: 700;
-    font-size: 15px;
+    font-size: $font-size-md;
 
     span {
       margin-left: $spacing-xs;
@@ -34,7 +34,6 @@
 #heatmap {
   margin-right: $spacing-sm;
   width: 100%;
-  margin-top: $spacing-xs;
   height: 90px;
   display: grid;
   grid-template-columns: repeat(auto-fill, 9px);

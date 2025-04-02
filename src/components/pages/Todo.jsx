@@ -1,3 +1,4 @@
+import TaskList from "../features/TaskList";
 import {
   TerminalContainer,
   SubTerminalContainer,
@@ -10,7 +11,7 @@ export default function Todo() {
       classname="full-terminal-container"
       color="red"
       labels={["Categories", "Heatmap"]}
-      controllers={["note", "complete", "edit", "kill"]}
+      controllers={["filter", "sort", "edit", "kill"]}
       divider={[1, 3]}
     >
       <div id="todo-header">
@@ -22,9 +23,11 @@ export default function Todo() {
       <SubTerminalContainer
         classname="todo-sub"
         color="red"
-        labels={["Name", "Task", "Tag", "Status"]}
+        labels={["Task","42"]}
         divider={[2]}
-      />
+      >
+        <TaskList />
+      </SubTerminalContainer>
     </TerminalContainer>
   );
 }
@@ -87,7 +90,7 @@ function TaskOverview() {
 function TaskHeatMap() {
   const boxes = Array.from({ length: 200 });
   const base = "46, 48, 171";
-  const opacities = [0.3, 0.55, 0.80, 1.0];
+  const opacities = [0.3, 0.55, 0.8, 1.0];
   const colors = opacities.map((opacity) => `rgba(${base}, ${opacity})`);
 
   return (
