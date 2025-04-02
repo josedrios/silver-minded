@@ -51,7 +51,7 @@ export function TerminalContainer({
             );
           })}
         </div>
-      )}
+      )} 
     </div>
   );
 }

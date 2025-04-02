@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { TerminalContainer } from "../layout/TerminalContainer";
+import { TerminalContainer } from "./TerminalContainer";
 
 export default function Nav() {
   return (

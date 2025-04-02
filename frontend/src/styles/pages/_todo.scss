@@ -62,8 +62,9 @@
 }
 
 .task-row {
-  @include flex(row);
+  @include flex(row, initial, center);
   font-size: $font-size-sm;
+  padding: $spacing-xs 0;
 
   span {
     overflow: hidden;
@@ -79,6 +80,7 @@
 
   .task-info-container {
     margin-right: $spacing-sm;
+    @include flex(row, left, center);
   }
 
   .task-info-container,
@@ -92,12 +94,14 @@
   .task-info {
     display: inline-block;
     transition: none;
+    margin: auto;
   }
 
-  .task-info-container:hover .task-info {
-    transition: transform 3s linear;
-    transform: translateX(calc(80px - 100%));
-  }
+  // Sliding text banner for overflowing task infos
+//   .task-info-container:hover .task-info {
+//     transition: transform 5s linear;
+//     transform: translateX(calc(80px - 100%));
+//   }
 
   .task-tag {
     width: 60px;
@@ -108,4 +112,27 @@
     width: 85px;
     color: $neutral-color;
   }
+
+  &:hover {
+    background-color: $gray-dark;
+  }
+}
+
+#task-creation {
+    margin: 0 $spacing-sm;
+    margin-bottom: $spacing-sm;
+    font-size: $font-size-sm;
+    border-bottom: 1px solid $gray;
+    padding-bottom: $spacing-sm;
+    @include flex(row, left, center);
+}
+
+#task-creation-input {
+    flex: 1;
+    background-color: transparent;
+    text-decoration: none;
+    outline: none;
+    margin-left: $spacing-xs;
+    font-family: $primary-font;
+    font-size: $font-size-sm;
 }
