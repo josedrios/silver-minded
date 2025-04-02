@@ -55,10 +55,16 @@
 }
 
 #task-header {
+  margin-bottom: $spacing-xs;
+
   span {
     color: white;
   }
-  margin-bottom: $spacing-xs;
+
+  &:hover {
+    cursor: default;
+    background-color: transparent;
+  }
 }
 
 .task-row {
@@ -114,6 +120,7 @@
   }
 
   &:hover {
+    cursor: pointer;
     background-color: $gray-dark;
   }
 }
@@ -127,6 +134,7 @@
 }
 
 .task-creation-form{
+  display: block;
   flex: 1;
 }
 

@@ -11,7 +11,7 @@ export default function Todo() {
       classname="full-terminal-container"
       color="red"
       labels={["Categories", "Heatmap"]}
-      controllers={["filter", "sort", "edit", "kill"]}
+      controllers={["filter", "sort", "stat","kill"]}
       divider={[1, 3]}
     >
       <div id="todo-header">
