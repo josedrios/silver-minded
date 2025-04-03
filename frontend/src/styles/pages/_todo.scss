@@ -58,7 +58,7 @@
   margin-bottom: $spacing-xs;
 
   span {
-    color: white;
+    color: $gray-dark;
   }
 
   &:hover {
@@ -81,7 +81,6 @@
   .task-name {
     width: 15%;
     min-width: 100px;
-    color: $success-color;
   }
 
   .task-info-container {
@@ -101,6 +100,7 @@
     display: inline-block;
     transition: none;
     margin: auto;
+    color: $gray-light;
   }
 
   // Sliding text banner for overflowing task infos
@@ -111,7 +111,6 @@
 
   .task-tag {
     width: 60px;
-    color: $success-color;
   }
 
   .task-status {

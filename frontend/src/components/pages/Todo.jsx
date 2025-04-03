@@ -45,7 +45,7 @@ export default function Todo() {
     >
       <div id="todo-header">
         <TaskProgressBars />
-        <TaskOverview />
+        <TaskOverview tasks={tasks}/>
         <TaskHeatMap />
       </div>
 
@@ -104,20 +104,25 @@ function CatProgressBar({ color, label }) {
   );
 }
 
-function TaskOverview() {
+function TaskOverview({tasks}) {
+  const statusCounts = tasks.reduce((acc, task) => {
+    acc[task.status] = (acc[task.status] || 0) + 1;
+    return acc;
+  }, {});
+  
   return (
     <div id="task-overview">
       <div className="task-overview-row hold">
-        <span className="task-overview-label">HOLD</span> <span>2</span>
+        <span className="task-overview-label">HOLD</span> <span>{statusCounts['hold']}</span>
       </div>
       <div className="task-overview-row pending">
-        <span className="task-overview-label">PENDING</span> <span>3</span>
+        <span className="task-overview-label">PENDING</span> <span>{statusCounts['pending']}</span>
       </div>
       <div className="task-overview-row active">
-        <span className="task-overview-label">ACTIVE</span> <span>2</span>
+        <span className="task-overview-label">ACTIVE</span> <span>{statusCounts['active']}</span>
       </div>
       <div className="task-overview-row done">
-        <span className="task-overview-label">DONE</span> <span>5</span>
+        <span className="task-overview-label">DONE</span> <span>{statusCounts['done']}</span>
       </div>
     </div>
   );
