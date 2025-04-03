@@ -55,6 +55,33 @@ export async function editTask( id, task ) {
       }
 }
 
+export async function editTaskStatus( id, status ) {
+    console.log(id)
+    try {
+        const response = await fetch(`http://localhost:3001/api/task/status/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: status
+          }),
+        });
+    
+        const responseData = await response.json();
+    
+        if (!response.ok) {
+          console.log(responseData.message);
+          return;
+        } else {
+          return;
+        }
+      } catch (err) {
+        console.log("Error:", err);
+        return;
+      }
+}
+
 export async function removeTask( id ) {
     console.log(id)
     try {

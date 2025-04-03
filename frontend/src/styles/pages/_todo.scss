@@ -148,3 +148,16 @@
     font-size: $font-size-sm;
     padding: $spacing-xs;
 }
+
+.status-change-container {
+
+  .status-change-btn {
+    padding: 1px $spacing-xs;
+    font-size: $font-size-sm;
+    background-color: transparent;
+
+    &:hover {
+      background-color: red;
+    }
+  }
+}

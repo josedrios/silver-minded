@@ -1,4 +1,4 @@
-import { fetchTasks, removeTask } from "../../util/taskUtil";
+import { editTaskStatus, fetchTasks, removeTask } from "../../util/taskUtil";
 import { TaskList } from "../features/TaskList";
 import {
   TerminalContainer,
@@ -20,19 +20,19 @@ export default function Todo() {
     loadTasks();
   }, []);
 
-  const killTask = () => {
-    if(selectedTask) {
-      removeTask(selectedTask._id);
-      loadTasks();
-    } 
+  const killTask = async () => {
+    if (selectedTask) {
+      await removeTask(selectedTask._id);
+      await loadTasks();
+    }
   };
 
-  const changeTaskStatus = () => {
-    if(selectedTask) {
-      removeTask(selectedTask._id);
-      loadTasks();
-    } 
-  }
+  const changeTaskStatus = async (status) => {
+    if (selectedTask) {
+      await editTaskStatus(selectedTask._id, status);
+      await loadTasks();
+    }
+  };
 
   return (
     <TerminalContainer
@@ -40,7 +40,7 @@ export default function Todo() {
       classname="full-terminal-container"
       color="red"
       labels={["Categories", "Heatmap"]}
-      controllers={[{ name: "status", function: changeTaskStatus },{ name: "kill", function: killTask }]}
+      controllers={[{ name: "kill", function: killTask }]}
       divider={[1, 3]}
     >
       <div id="todo-header">
@@ -61,6 +61,7 @@ export default function Todo() {
           setTasks={setTasks}
           selectedTask={selectedTask}
           setSelectedTask={setSelectedTask}
+          changeTaskStatus={changeTaskStatus}
         />
       </SubTerminalContainer>
     </TerminalContainer>

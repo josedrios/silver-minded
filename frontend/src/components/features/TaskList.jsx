@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { createTask, editTask } from "../../util/taskUtil";
 
-export function TaskList({loadTasks, tasks, setTasks, selectedTask, setSelectedTask}) {
-
+export function TaskList({
+  loadTasks,
+  tasks,
+  setTasks,
+  selectedTask,
+  setSelectedTask,
+  changeTaskStatus,
+}) {
   return (
     <div id="task-list">
       <TaskCreation
@@ -25,6 +31,7 @@ export function TaskList({loadTasks, tasks, setTasks, selectedTask, setSelectedT
             task={task}
             setSelectedTask={setSelectedTask}
             selectedTask={selectedTask}
+            changeTaskStatus={changeTaskStatus}
           />
         ))
       )}
@@ -32,7 +39,14 @@ export function TaskList({loadTasks, tasks, setTasks, selectedTask, setSelectedT
   );
 }
 
-function TaskRow({ task, setSelectedTask, selectedTask }) {
+function TaskRow({ task, setSelectedTask, selectedTask, changeTaskStatus }) {
+  const statusColors = {
+    pending: "rgb(228, 153, 48)",  
+    active: "rgb(38, 181, 38)",   
+    hold: "rgb(209, 56, 56)",     
+    done: "rgb(128, 128, 128)",   
+  };
+
   return (
     <div
       className="task-row"
@@ -54,7 +68,20 @@ function TaskRow({ task, setSelectedTask, selectedTask }) {
         </span>
       </div>{" "}
       <span className="task-tag">/{task.tag}</span>
-      <span className="task-status">{task.status.toUpperCase()}</span>
+      <span className="task-status">
+        {selectedTask === task ? (
+          <div className="status-change-container">
+            <button className="status-change-btn" onClick={() => changeTaskStatus('pending')}>P</button>
+            <button className="status-change-btn" onClick={() => changeTaskStatus('active')}>A</button>
+            <button className="status-change-btn" onClick={() => changeTaskStatus('done')}>D</button>
+            <button className="status-change-btn" onClick={() => changeTaskStatus('hold')}>H</button>
+          </div>
+        ):(
+          <span
+          style={{color: statusColors[task.status]}}
+          >{task.status.toUpperCase()}</span>
+        )}
+      </span>
     </div>
   );
 }
@@ -104,9 +131,9 @@ function TaskCreation({ onTaskCreated, setSelectedTask, selectedTask }) {
     if (!allFieldsFilled) return;
 
     const submitTask = async () => {
-      if(selectedTask){
+      if (selectedTask) {
         await editTask(selectedTask._id, taskForm);
-        setSelectedTask('');
+        setSelectedTask("");
       } else {
         await createTask(taskForm);
       }
@@ -121,7 +148,9 @@ function TaskCreation({ onTaskCreated, setSelectedTask, selectedTask }) {
 
   return (
     <div id="task-creation">
-      <span>{selectedTask ? 'edit' : 'create'}/task/{currentInput} &gt;</span>
+      <span>
+        {selectedTask ? "edit" : "create"}/task/{currentInput} &gt;
+      </span>
       <form onSubmit={handleSubmit} className="task-creation-form">
         <input
           ref={inputRef}

@@ -28,12 +28,16 @@ exports.editTask = async (req, res) => {
     const { name, info, tag } = req.body;
     const { id } = req.params;
 
+    const existingTask = await Task.findById(id);
+    if (!existingTask)
+      return res.status(404).json({ message: "Task not found" });
+
     const task = await Task.findByIdAndUpdate(
       id,
       {
-        name,
-        info,
-        tag,
+        name: name?.trim() === "" ? existingTask.name : name,
+        info: info?.trim() === "" ? existingTask.info : info,
+        tag: tag?.trim() === "" ? existingTask.tag : tag,
       },
       {
         new: true,
@@ -51,31 +55,29 @@ exports.editTask = async (req, res) => {
 };
 
 exports.statusUpdateTask = async (req, res) => {
-    try {
-      const { name, info, tag } = req.body;
-      const { id } = req.params;
-  
-      const task = await Task.findByIdAndUpdate(
-        id,
-        {
-          name,
-          info,
-          tag,
-        },
-        {
-          new: true,
-        }
-      );
-  
-      return res.status(201).json(task);
-    } catch (err) {
-      console.log(err);
-      return res.status(500).json({
-        message: "Error occurred while editing task",
-        error: err.message,
-      });
-    }
-  };
+  try {
+    const { status } = req.body;
+    const { id } = req.params;
+
+    const task = await Task.findByIdAndUpdate(
+      id,
+      {
+        status,
+      },
+      {
+        new: true,
+      }
+    );
+
+    return res.status(201).json(task);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error occurred while editing task",
+      error: err.message,
+    });
+  }
+};
 
 exports.getTasks = async (req, res) => {
   try {
