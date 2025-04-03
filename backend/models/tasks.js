@@ -6,10 +6,12 @@ const taskSchema = new mongoose.Schema({
   tag: { type: String, required: true },
   status: {
     type: String,
-    enum: ["pending", "active", "done", "hold"],
+    enum: ["pending", "active", "done"],
     default: "pending",
     required: true,
   },
+  createdAt: { type: Date, default: Date.now },
+  dueAt: {type: Date}
 });
 
 const Task = mongoose.model("Task", taskSchema);
