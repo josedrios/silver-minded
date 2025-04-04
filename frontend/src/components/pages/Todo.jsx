@@ -35,15 +35,16 @@ export default function Todo() {
 
   return (
     <div id="todo-container">
-      <div id="todo-header">
+      <div id="todo-dashboard">
         <TodoForm
           selectedTask={selectedTask}
           setSelectedTask={setSelectedTask}
           onTaskCreated={loadTasks}
           killTask={killTask}
         />
-        <div>
-          <TaskHeatMap />
+        <div id="todo-dashboard-misc">
+          {/* <TaskHeatMap /> */}
+          <TaskDemographics tasks={tasks} />
         </div>
       </div>
       <TaskList
@@ -171,6 +172,60 @@ function TaskHeatMap() {
           />
         );
       })}
+    </div>
+  );
+}
+
+function TaskDemographics({ tasks }) {
+  if (!Array.isArray(tasks) || tasks.length === 0) {
+    return <div></div>;
+  }
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const categoryCounts = tasks.reduce(
+    (acc, task) => {
+      const createdAt = new Date(task.createdAt);
+
+      const dueAtExists = !!task.dueAt;
+
+      if (dueAtExists) acc.due += 1;
+      else if (createdAt >= today) acc.new += 1;
+      else acc.old += 1;
+
+      return acc;
+    },
+    { due: 0, old: 0, new: 0 }
+  );
+
+  return (
+    <div id="task-demographic-container">
+      <DemographicCard sections={categoryCounts} tasks={tasks} />
+    </div>
+  );
+}
+
+function DemographicCard({ sections, tasks }) {
+  return (
+    <div className="demographic-section">
+      {Object.entries(sections).map(([key, value]) => (
+        <button key={key} className='demographic-card'>
+          <p className={`demographic-card-title`}>
+            {key.charAt(0).toUpperCase() + key.slice(1)}
+          </p>
+          <p className="demographic-card-count">({value})</p>
+          
+          <div className="demographic-fill-container">
+          <div
+            className={`demographic-fill-bar ${key}`}
+            style={{ width: `${(value / tasks.length) * 100}%` }}
+          />
+          </div>
+          <p className="demographic-card-percentage">
+            {(value / tasks.length) * 100}%
+          </p>
+        </button>
+      ))}
     </div>
   );
 }

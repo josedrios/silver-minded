@@ -1,14 +1,14 @@
-#todo-header {
+#todo-container {
+  @include flex(row);
+  gap: $spacing-sm;
+}
+
+#todo-dashboard {
   border: 1px solid $primary-color;
   padding: $spacing-md;
   border-radius: $border-radius-md;
-  @include flex(row);
-  column-gap: $spacing-md;
-}
-
-.cat-progress-bar-container {
-  padding: 0 $spacing-sm;
-  @include flex(column, left);
+  @include flex(column);
+  gap: $spacing-md;
 }
 
 @media (max-width: 575px) {
@@ -20,13 +20,15 @@
 #task-list {
   @include flex(column);
   margin: 0px $spacing-sm;
+  width: 100%;
 }
 
 #task-header {
   margin-bottom: $spacing-xs;
+  border-bottom: 1px solid $primary-color;
 
   span {
-    color: $gray-dark;
+    color: $gray;
   }
 
   &:hover {
@@ -96,5 +98,13 @@
     &:hover {
       background-color: red;
     }
+  }
+}
+
+#task-demographic-container {
+  width: 100%;
+
+  .demographic-section {
+    width: 100%;
   }
 }

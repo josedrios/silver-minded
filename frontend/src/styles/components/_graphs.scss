@@ -12,9 +12,3 @@
     @include box(15px);
   }
 }
-
-@media (max-width: 575px) {
-  #heatmap {
-    margin-left: $spacing-md;
-  }
-}
