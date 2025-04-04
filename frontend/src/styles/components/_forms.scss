@@ -1,0 +1,23 @@
+.standard-input {
+    background-color: $secondary-background-color;
+    padding: $spacing-xs $spacing-sm;
+    color: $secondary-color;
+    outline: none;
+    font-family: 'IBM Plex Mono';
+    transition: color $transition-instant;
+    border-radius: $border-radius-xs;
+
+    &:focus {
+        color: $primary-color;
+    }
+}
+
+#todo-form {
+    @include flex(column, left);
+    min-width: 200px;
+    row-gap: $spacing-sm;
+  
+    #todo-form-header {
+      @include flex(row, space-between, center);
+    }
+}

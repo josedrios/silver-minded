@@ -1,37 +1,3 @@
-.cat-progress-bar {
-  @include flex(row, center, center);
-  gap: $spacing-sm;
-
-  .cat-progress-units-container {
-    @include flex(row, center, center);
-
-    gap: $spacing-xs;
-
-    .cat-progress-unit {
-      @include box(7px);
-      background-color: $gray;
-    }
-  }
-
-  .cat-progress-label {
-    width: 100px;
-    text-align: left;
-    font-weight: 700;
-    font-size: $font-size-md;
-
-    span {
-      margin-left: $spacing-xs;
-      color: $gray;
-    }
-  }
-
-  .cat-progress-percentage {
-    font-size: $font-size-md;
-    color: $secondary-color;
-    width: 55px;
-  }
-}
-
 #heatmap {
   margin-right: $spacing-sm;
   width: 100%;

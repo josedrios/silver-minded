@@ -6,13 +6,18 @@ $primary-color:                rgb(248, 240, 211);
 $secondary-color:                rgb(190, 183, 153);
 
 // --- Background Colors ---
-$primary-background-color:      rgb(58, 56, 56) !default;
+$primary-background-color:      rgb(31, 29, 29) !default;
+$secondary-background-color:      rgb(58, 56, 56) !default;
 // $secondary-background-color:   NONE YET ;
 
 // --- Alert Colors --- 
 $success-color: rgb(38, 181, 38);
+$success-color-fade: rgba(38, 181, 38, 0.5);
 $error-color: rgb(209, 56, 56);
+$error-color-fade: rgba(209, 56, 56, 0.5);
 $neutral-color: rgb(228, 153, 48);
+$neutral-color-fade: rgba(228, 153, 48, 0.5);
+
 
 // --- Gray + Shades ---
 $gray-base:                     #000;
@@ -45,11 +50,10 @@ $border-thickness-small:        0.07rem;
 $border-thickness-base:         0.1rem;
 
 // --- Border radius ---
-$border-radius-xs:              5px;
-$border-radius-sm:              10px;
-$border-radius-md:              20px;
-$border-radius-lg:              25px;
-$border-radius-xl:              35px;
+$border-radius-xs:              3px;
+$border-radius-sm:              8px;
+$border-radius-md:              13px;
+$border-radius-lg:              18px;
 $border-radius-c:               10000px;
 
 // ==========================

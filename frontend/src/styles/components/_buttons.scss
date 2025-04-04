@@ -1,0 +1,21 @@
+.standard-btn {
+    border-radius: $border-radius-xs;
+    background-color: $primary-color;
+    color: black;
+    padding: $spacing-xs $spacing-sm;
+}
+
+.delete-task-icon {
+    @include flex(row, center, bottom);
+  background-color: transparent;
+
+  svg {
+    fill: $error-color-fade;
+    transition: fill $transition-instant;
+
+    &:hover {
+      fill: $error-color;
+      cursor: pointer;
+    }
+  }
+}

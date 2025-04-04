@@ -1,10 +1,8 @@
 import { editTaskStatus, fetchTasks, removeTask } from "../../util/taskUtil";
 import { TaskList } from "../features/TaskList";
-import {
-  TerminalContainer,
-  SubTerminalContainer,
-} from "../layout/TerminalContainer";
 import { useState, useEffect } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { createTask, editTask } from "../../util/taskUtil";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -25,6 +23,7 @@ export default function Todo() {
       await removeTask(selectedTask._id);
       await loadTasks();
     }
+    setSelectedTask("");
   };
 
   const changeTaskStatus = async (status) => {
@@ -35,127 +34,126 @@ export default function Todo() {
   };
 
   return (
-    <TerminalContainer
-      id="todo-container"
-      classname="full-terminal-container"
-      color="red"
-      labels={["Categories", "Heatmap"]}
-      controllers={[{ name: "kill", function: killTask }]}
-      divider={[1, 3]}
-    >
+    <div id="todo-container">
       <div id="todo-header">
-        <TaskProgressBars tasks={tasks}/>
-        <TaskOverview tasks={tasks}/>
-        <TaskHeatMap />
-      </div>
-
-      <SubTerminalContainer
-        classname="todo-sub"
-        color="red"
-        labels={["Task", "42"]}
-        divider={[2]}
-      >
-        <TaskList
-          loadTasks={loadTasks}
-          tasks={tasks}
-          setTasks={setTasks}
+        <TodoForm
           selectedTask={selectedTask}
           setSelectedTask={setSelectedTask}
-          changeTaskStatus={changeTaskStatus}
+          onTaskCreated={loadTasks}
+          killTask={killTask}
         />
-      </SubTerminalContainer>
-    </TerminalContainer>
-  );
-}
-
-function TaskProgressBars({tasks}) {
-  return (
-    <div className="cat-progress-bar-container">
-      <CatProgressBar color="rgb(34, 156, 34)" label="new" tasks={tasks}/>
-      <CatProgressBar color="rgb(183, 181, 79)" label="old" tasks={tasks}/>
-      <CatProgressBar color="rgb(125, 15, 184)" label="due" tasks={tasks}/>
+        <div>
+          <TaskHeatMap />
+        </div>
+      </div>
+      <TaskList
+        loadTasks={loadTasks}
+        tasks={tasks}
+        setTasks={setTasks}
+        selectedTask={selectedTask}
+        setSelectedTask={setSelectedTask}
+        changeTaskStatus={changeTaskStatus}
+      />
     </div>
   );
 }
 
-function CatProgressBar({ color, label, tasks }) {
-  if (!Array.isArray(tasks) || tasks.length === 0) {
-    return <div id="task-overview">NONE</div>;
-  }
-  
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // midnight today
-  
-  const categoryCounts = tasks.reduce(
-    (acc, task) => {
-      const createdAt = new Date(task.createdAt);
-      const dueAtExists = !!task.dueAt;
-  
-      if (dueAtExists) acc.due += 1;
-      else if (createdAt >= today) acc.new += 1;
-      else acc.old += 1;
-  
-      return acc;
-    },
-    { new: 0, old: 0, due: 0 }
-  );
+function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
+  const [taskForm, setTaskForm] = useState({
+    name: "",
+    info: "",
+    tag: "",
+  });
 
-  const rgb = color.match(/\d+/g).join(",");
-  const boxes = Array.from({ length: 10 });
-  const percentage = ((categoryCounts[label] / tasks.length) * 100).toFixed(0);
+  useEffect(() => {
+    if (selectedTask) {
+      setTaskForm({
+        name: selectedTask.name,
+        info: selectedTask.info,
+        tag: selectedTask.tag,
+      });
+    } else {
+      setTaskForm({ name: "", info: "", tag: "" });
+    }
+  }, [selectedTask]);
 
-  return (
-    <div className="cat-progress-bar">
-      <p className="cat-progress-label">
-        {label.toUpperCase()}
-        <span>({categoryCounts[label]})</span>
-      </p>
-      <div className="cat-progress-units-container">
-        {boxes.map((_, i) =>{
-          const fill = (i*10) > percentage;
-           return (
-            <div
-              key={i}
-              className="cat-progress-unit"
-              style={{
-                backgroundColor: fill ? "" : `rgba(${rgb}, ${0.7 + i * 0.03})`,
-              }}
-            />
-          )
-        })}
-      </div>
-      <p className="cat-progress-percentage">{percentage}%</p>
-    </div>
-  );
-}
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTaskForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-function TaskOverview({tasks}) {
-  if (!Array.isArray(tasks) || tasks.length === 0) {
-    return <div id="task-overview">NONE</div>;
-  }
-  
-  const statusCounts = tasks.reduce((acc, task) => {
-    acc[task.status] = (acc[task.status] || 0) + 1;
-    return acc;
-  }, {});
+  const submitTask = async () => {
+    if (selectedTask) {
+      await editTask(selectedTask._id, taskForm);
+      setSelectedTask("");
+    } else {
+      await createTask(taskForm);
+    }
+    onTaskCreated();
+    setTaskForm({ name: "", info: "", tag: "" });
+  };
 
   return (
-    <div id="task-overview">
-      <div className="task-overview-row pending">
-        <span className="task-overview-label">PENDING</span> <span>{!statusCounts['pending'] ? '0' : statusCounts['pending']}</span>
+    <form
+      id="todo-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        submitTask();
+      }}
+    >
+      <div id="todo-form-header">
+        <p>{selectedTask ? "Edit" : "Create"} Task</p>
+        <button
+          type="button"
+          className="delete-task-icon"
+          onClick={() => {
+            if (selectedTask) killTask();
+          }}
+        >
+          {" "}
+          <FaRegTrashAlt />
+        </button>
       </div>
-      <div className="task-overview-row active">
-        <span className="task-overview-label">ACTIVE</span> <span>{!statusCounts['active'] ? '0' : statusCounts['active']}</span>
-      </div>
-      <div className="task-overview-row done">
-        <span className="task-overview-label">DONE</span> <span>{!statusCounts['done'] ? '0' : statusCounts['done']}</span>
-      </div>
-    </div>
+
+      <input
+        name="name"
+        type="text"
+        value={taskForm.name}
+        onChange={handleChange}
+        className="todo-name-input standard-input"
+        placeholder="Name"
+      />
+
+      <input
+        name="info"
+        type="text"
+        value={taskForm.info}
+        onChange={handleChange}
+        className="todo-info-input standard-input"
+        placeholder="Info"
+      />
+
+      <input
+        name="tag"
+        type="text"
+        value={taskForm.tag}
+        onChange={handleChange}
+        className="todo-info-tag standard-input"
+        placeholder="Tag"
+      />
+
+      <button type="submit" className="todo-form-submit standard-btn">
+        {selectedTask ? "Edit" : "Create"}
+      </button>
+    </form>
   );
 }
 
 function TaskHeatMap() {
-  const boxes = Array.from({ length: 200 });
+  const boxes = Array.from({ length: 20 });
   const base = "46, 48, 171";
   const opacities = [0.3, 0.55, 0.8, 1.0];
   const colors = opacities.map((opacity) => `rgba(${base}, ${opacity})`);
