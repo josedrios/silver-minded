@@ -79,7 +79,7 @@
 
   .task-status {
     width: 85px;
-    color: $neutral-color;
+    color: $pending-color;
   }
 
   &:hover {
@@ -101,10 +101,18 @@
   }
 }
 
-#task-demographic-container {
-  width: 100%;
+#todo-dashboard-filters {
+  @include flex(column, left);
 
-  .demographic-section {
-    width: 100%;
+  p {
+    margin-bottom: $spacing-sm;
   }
 }
+
+.filter-button-container {
+  @include flex(row, left);
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  margin-bottom: $spacing-sm;
+}
+

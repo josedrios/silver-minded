@@ -2,9 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { createTask, editTask } from "../../util/taskUtil";
 
 export function TaskList({
-  loadTasks,
   tasks,
-  setTasks,
   selectedTask,
   setSelectedTask,
   changeTaskStatus,

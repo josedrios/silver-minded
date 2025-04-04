@@ -10,18 +10,22 @@ $primary-background-color:      rgb(31, 29, 29) !default;
 $secondary-background-color:      rgb(58, 56, 56) !default;
 // $secondary-background-color:   NONE YET ;
 
-// --- Alert Colors --- 
+// --- NICHE Colors --- 
 $success-color: rgb(38, 181, 38);
-$success-color-fade: rgba(38, 181, 38, 0.4);
-
 $error-color: rgb(209, 56, 56);
-$error-color-fade: rgba(209, 56, 56, 0.4);
+$warning-color: rgb(228, 153, 48);
 
-$neutral-color: rgb(228, 153, 48);
-$neutral-color-fade: rgba(228, 153, 48, 0.4);
+$active-color: $success-color;
+$pending-color: $warning-color;
+$done-color: gray;
 
-$urgent-color:rgb(204, 48, 228);
-$urgent-color-fade:rgba(204, 48, 228, 0.4);
+$due-color:rgb(204, 48, 228);
+$old-color:rgb(75, 216, 28);
+$new-color: $success-color;
+
+$dev-color:rgb(224, 166, 19);
+$root-color:rgb(223, 77, 114);
+$misc-color:rgb(226, 113, 217);
 
 // --- Gray + Shades ---
 $gray-base:                     #000;

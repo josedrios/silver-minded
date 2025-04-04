@@ -1,21 +1,72 @@
 .standard-btn {
-    border-radius: $border-radius-xs;
-    background-color: $primary-color;
-    color: black;
-    padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-xs;
+  background-color: $primary-color;
+  color: black;
+  padding: $spacing-xs $spacing-sm;
 }
 
 .delete-task-icon {
-    @include flex(row, center, bottom);
+  @include flex(row, center, bottom);
   background-color: transparent;
 
   svg {
-    fill: $error-color-fade;
+    fill: color-fade($error-color, 0.4);
     transition: fill $transition-instant;
 
     &:hover {
       fill: $error-color;
       cursor: pointer;
     }
+  }
+}
+
+.filter-button {
+  @include flex(row, center, center);
+  background-color: transparent;
+  border: 1px solid gray;
+  padding: $spacing-xs;
+  border-radius: $border-radius-sm;
+
+  .filter-icon {
+    margin-right: $spacing-xs;
+  }
+}
+
+$filter-types: (
+  dev: $dev-color,
+  root: $root-color,
+  misc: $misc-color,
+  pending: $pending-color,
+  active: $active-color,
+  done: $done-color,
+  due: $misc-color,
+  new: $dev-color,
+  old: $done-color,
+);
+
+@each $type, $color in $filter-types {
+  .filter-button.#{$type} {
+    border: 1px solid $color;
+    transition: background-color $transition-instant;
+
+    span {
+      color: $color;
+    }
+
+    svg {
+      color: $color;
+      fill: $color;
+      stroke: $color;
+    }
+
+    &:hover {
+        background-color: color-fade($color, 0.15);
+    }
+  }
+}
+
+.filter-button.root {
+  svg {
+    fill: transparent !important;
   }
 }

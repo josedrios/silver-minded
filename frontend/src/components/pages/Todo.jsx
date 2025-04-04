@@ -1,8 +1,12 @@
-import { editTaskStatus, fetchTasks, removeTask } from "../../util/taskUtil";
+import { fetchTasks, createTask, editTask, editTaskStatus, removeTask } from "../../util/taskUtil";
 import { TaskList } from "../features/TaskList";
 import { useState, useEffect } from "react";
+import { FaCode, FaCheck } from "react-icons/fa6";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { createTask, editTask } from "../../util/taskUtil";
+import { RiRobot2Line } from "react-icons/ri";
+import { TbPlant } from "react-icons/tb";
+import { IoIosTimer } from "react-icons/io";
+import { BsFillLightningFill } from "react-icons/bs";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -44,13 +48,11 @@ export default function Todo() {
         />
         <div id="todo-dashboard-misc">
           {/* <TaskHeatMap /> */}
-          <TaskDemographics tasks={tasks} />
+          <TodoFilter />
         </div>
       </div>
       <TaskList
-        loadTasks={loadTasks}
         tasks={tasks}
-        setTasks={setTasks}
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
         changeTaskStatus={changeTaskStatus}
@@ -176,56 +178,41 @@ function TaskHeatMap() {
   );
 }
 
-function TaskDemographics({ tasks }) {
-  if (!Array.isArray(tasks) || tasks.length === 0) {
-    return <div></div>;
-  }
-
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const categoryCounts = tasks.reduce(
-    (acc, task) => {
-      const createdAt = new Date(task.createdAt);
-
-      const dueAtExists = !!task.dueAt;
-
-      if (dueAtExists) acc.due += 1;
-      else if (createdAt >= today) acc.new += 1;
-      else acc.old += 1;
-
-      return acc;
-    },
-    { due: 0, old: 0, new: 0 }
-  );
-
+function TodoFilter() {
   return (
-    <div id="task-demographic-container">
-      <DemographicCard sections={categoryCounts} tasks={tasks} />
+    <div id="todo-dashboard-filters">
+      <p>Filters</p>
+      <TodoFilterSection
+        title={"Tag"}
+        items={[
+          { name: "root", icon: TbPlant },
+          { name: "dev", icon: FaCode },
+          { name: "misc", icon: RiRobot2Line },
+        ]}
+      />
+      <TodoFilterSection
+        title={"Status"}
+        items={[
+          { name: "Pending", icon: IoIosTimer },
+          { name: "Active", icon: BsFillLightningFill },
+          { name: "Done", icon: FaCheck },
+        ]}
+      />
     </div>
   );
 }
 
-function DemographicCard({ sections, tasks }) {
+function TodoFilterSection({ title, items }) {
   return (
-    <div className="demographic-section">
-      {Object.entries(sections).map(([key, value]) => (
-        <button key={key} className='demographic-card'>
-          <p className={`demographic-card-title`}>
-            {key.charAt(0).toUpperCase() + key.slice(1)}
-          </p>
-          <p className="demographic-card-count">({value})</p>
-          
-          <div className="demographic-fill-container">
-          <div
-            className={`demographic-fill-bar ${key}`}
-            style={{ width: `${(value / tasks.length) * 100}%` }}
-          />
-          </div>
-          <p className="demographic-card-percentage">
-            {(value / tasks.length) * 100}%
-          </p>
-        </button>
-      ))}
-    </div>
+    <>
+      <div className="filter-button-container">
+        {items.map(({ name, icon: Icon }, index) => (
+          <button key={index} className={`filter-button ${name.toLowerCase()}`}>
+            {Icon && <Icon className="filter-icon" />}
+            <span>{name}</span>
+          </button>
+        ))}
+      </div>
+    </>
   );
 }
