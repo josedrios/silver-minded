@@ -1,21 +1,19 @@
-#navbar-container {
+nav {
     max-width: 600px;
     margin: auto;
-    margin-top: $spacing-sm;
     padding: $spacing-sm;
-}
-
-nav {
+    margin-bottom: $spacing-md;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 
     a {
-        font-size: $font-size-lg;
-        color: $primary-color;
+        font-size: $font-size-md;
+        color: $secondary-color;
+        transition: color $transition-instant;
 
         &:hover {
-            color: $secondary-color;
+            color: $primary-color;
         }
     }
 }

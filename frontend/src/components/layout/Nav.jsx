@@ -3,14 +3,6 @@ import { TerminalContainer } from "./TerminalContainer";
 
 export default function Nav() {
   return (
-    <TerminalContainer id="navbar-container" labels={["Nav"]} color='green'>
-      <NavBody />
-    </TerminalContainer>
-  );
-}
-
-function NavBody() {
-  return (
     <nav>
       <Link to="/todo">TODO</Link>
       <Link to="/calendar">CALENDAR</Link>

@@ -2,16 +2,9 @@
 // Imported Fonts
 // ==========================
 
-@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap);
 
-@font-face{
-  font-family: "templeos";
-  src: url("/src/assets/fonts/templeos_font.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-$primary-font: "IBM Plex Sans", sans-serif;
+$primary-font: "IBM Plex Mono", sans-serif;
 
 // ==========================
 // Font Measurements
