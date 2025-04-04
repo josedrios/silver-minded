@@ -1,6 +1,6 @@
 export async function createTask(task) {
   try {
-    const response = await fetch(`http://localhost:3001/api/task/`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export async function createTask(task) {
 export async function editTask( id, task ) {
     console.log(id)
     try {
-        const response = await fetch(`http://localhost:3001/api/task/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export async function editTask( id, task ) {
 export async function editTaskStatus( id, status ) {
     console.log(id)
     try {
-        const response = await fetch(`http://localhost:3001/api/task/status/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/status/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ export async function editTaskStatus( id, status ) {
 export async function removeTask( id ) {
     console.log(id)
     try {
-        const response = await fetch(`http://localhost:3001/api/task/${id}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/${id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export async function removeTask( id ) {
 
 export async function fetchTasks() {
   try {
-    const response = await fetch(`http://localhost:3001/api/task/`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

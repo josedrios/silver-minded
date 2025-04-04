@@ -1,6 +1,9 @@
 // ==========================
 // Imported Fonts
 // ==========================
+
+@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap);
+
 @font-face{
   font-family: "templeos";
   src: url("/src/assets/fonts/templeos_font.ttf") format("truetype");
@@ -8,14 +11,14 @@
   font-style: normal;
 }
 
-$primary-font: "templeos", sans-serif;
+$primary-font: "IBM Plex Sans", sans-serif;
 
 // ==========================
 // Font Measurements
 // ==========================
-$font-size-sm: 10px;
-$font-size-md: 12px;
-$font-size-lg: 15px;
+$font-size-sm: 12px;
+$font-size-md: 15px;
+$font-size-lg: 20px;
 
 $font-weight-extra-light: 100;
 $font-weight-light: 300;
@@ -30,7 +33,7 @@ $line-height-heading: 1.2;
 // ==========================
 body {
   font-family: $primary-font;
-  font-weight: 100;
+  font-weight: 400;
   font-size: $font-size-md;
   line-height: $line-height-base;
   color: $primary-color;
@@ -44,7 +47,6 @@ h5,
 h6 {
   font-family: $primary-font;
   line-height: $line-height-heading;
-  font-weight: 300;
 }
 
 h1 {

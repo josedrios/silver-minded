@@ -5,11 +5,12 @@ const connectDB = require("./db");
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 // Middleware (Foundation)
 app.use(
     cors({
-      origin: `http://localhost:5173`, 
+      origin: ['http://localhost:5173', process.env.FRONTEND_URL],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -24,6 +25,6 @@ app.use('/api/task', require('./routes/taskRoutes'));
 // Middleware (Error catchers)
 
 // Server
-app.listen(process.env.PORT, () => 
-    console.log(`Server is running on port http://localhost:${process.env.PORT}`)
+app.listen(PORT, '0.0.0.0', () => 
+    console.log(`Server is running on port http://0.0.0.0:${PORT}`)
 )
