@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { createTask, editTask, editTaskStatus } from "../../util/taskUtil";
+import { editTaskStatus } from "../../util/taskUtil";
 import { FaCode } from "react-icons/fa6";
 import { TbPlant } from "react-icons/tb";
 import { RiRobot2Line } from "react-icons/ri";

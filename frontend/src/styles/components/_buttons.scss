@@ -63,6 +63,10 @@ $filter-types: (
       background-color: color-fade($color, 0.15);
     }
   }
+
+  .filter-button.#{$type}.active-filter-btn {
+    background-color: color-fade($color, 0.15);
+  }
 }
 
 .filter-button.root {
@@ -108,7 +112,7 @@ $tag-btn-types: (
     }
 
     &:hover {
-        border: 1px solid $color;
+      border: 1px solid $color;
     }
   }
 

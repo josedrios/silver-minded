@@ -2,7 +2,6 @@ import {
   fetchTasks,
   createTask,
   editTask,
-  editTaskStatus,
   removeTask,
 } from "../../util/taskUtil";
 import { TaskList } from "../features/TaskList";
@@ -18,6 +17,34 @@ export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
 
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [filters, setFilters] = useState({
+    tags: [],
+    status: [],
+  });
+  const [sortType, setSortType] = useState("created-desc");
+
+  useEffect(() => {
+    let temp = tasks.filter((task) => {
+      const tagMatches =
+        filters.tags.length === 0 || filters.tags.includes(task.tag);
+      const statusMatches =
+        filters.status.length === 0 || filters.status.includes(task.status);
+      return tagMatches && statusMatches;
+    });
+
+    if (sortType === "created-desc") {
+      temp.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortType === "created-asc") {
+      temp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (sortType === "due-asc") {
+      temp.sort(
+        (a, b) => new Date(a.dueAt || Infinity) - new Date(b.dueAt || Infinity)
+      );
+    }
+
+    setFilteredTasks(temp);
+  }, [tasks, filters, sortType]);
 
   const loadTasks = async () => {
     const data = await fetchTasks();
@@ -47,11 +74,11 @@ export default function Todo() {
         />
         <div id="todo-dashboard-misc">
           {/* <TaskHeatMap /> */}
-          <TodoFilter />
+          <TodoFilter filters={filters} setFilters={setFilters} />
         </div>
       </div>
       <TaskList
-        tasks={tasks}
+        tasks={filteredTasks}
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
         setTasks={setTasks}
@@ -240,41 +267,62 @@ function TaskHeatMap() {
   );
 }
 
-function TodoFilter() {
+function TodoFilter({ filters, setFilters }) {
   return (
     <div id="todo-dashboard-filters">
       <p>Filters</p>
       <TodoFilterSection
-        title={"Tag"}
+        type={"tags"}
         items={[
           { name: "root", icon: TbPlant },
           { name: "dev", icon: FaCode },
           { name: "misc", icon: RiRobot2Line },
         ]}
+        filters={filters}
+        setFilters={setFilters}
       />
       <TodoFilterSection
-        title={"Status"}
+        type={"status"}
         items={[
           { name: "Pending", icon: IoIosTimer },
           { name: "Active", icon: BsFillLightningFill },
           { name: "Done", icon: FaCheck },
         ]}
+        filters={filters}
+        setFilters={setFilters}
       />
     </div>
   );
 }
 
-function TodoFilterSection({ title, items }) {
+function TodoFilterSection({ type, items, filters, setFilters }) {
+  const toggleFilter = (type, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [type]: prev[type].includes(value)
+        ? prev[type].filter((v) => v !== value)
+        : [...prev[type], value],
+    }));
+  };
+
   return (
-    <>
-      <div className="filter-button-container">
-        {items.map(({ name, icon: Icon }, index) => (
-          <button key={index} className={`filter-button ${name.toLowerCase()}`}>
-            {Icon && <Icon className="filter-icon" />}
-            <span>{name}</span>
-          </button>
-        ))}
-      </div>
-    </>
+    <div className="filter-button-container">
+      {items.map(({ name, icon: Icon }, index) => (
+        <button
+          key={index}
+          className={`filter-button ${name.toLowerCase()} ${
+            filters[type].includes(name.toLowerCase())
+              ? "active-filter-btn"
+              : ""
+          }`}
+          onClick={() => {
+            toggleFilter(type, name.toLowerCase());
+          }}
+        >
+          {Icon && <Icon className="filter-icon" />}
+          <span>{name}</span>
+        </button>
+      ))}
+    </div>
   );
 }
