@@ -1,17 +1,13 @@
-import {
-  fetchTasks,
-  createTask,
-  editTask,
-  removeTask,
-} from "../../util/taskUtil";
+import { fetchTasks, removeTask } from "../../util/taskUtil";
+import TodoForm from "../features/TodoForm";
 import { TaskList } from "../features/TaskList";
 import { useState, useEffect } from "react";
 import { FaCode, FaCheck } from "react-icons/fa6";
-import { FaRegTrashAlt } from "react-icons/fa";
 import { RiRobot2Line } from "react-icons/ri";
 import { TbPlant } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { BsFillLightningFill } from "react-icons/bs";
+import { GoSortAsc, GoSortDesc, GoAlertFill } from "react-icons/go";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -22,7 +18,13 @@ export default function Todo() {
     tags: [],
     status: [],
   });
-  const [sortType, setSortType] = useState("created-desc");
+  const [sortType, setSortType] = useState("");
+
+  const statusPriority = {
+    active: 0,
+    pending: 1,
+    done: 2,
+  };
 
   useEffect(() => {
     let temp = tasks.filter((task) => {
@@ -38,9 +40,12 @@ export default function Todo() {
     } else if (sortType === "created-asc") {
       temp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     } else if (sortType === "due-asc") {
-      temp.sort(
-        (a, b) => new Date(a.dueAt || Infinity) - new Date(b.dueAt || Infinity)
-      );
+      const withDue = temp.filter((task) => task.dueAt);
+      const withoutDue = temp.filter((task) => !task.dueAt);
+      withDue.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt)); // closest first
+      temp = [...withDue, ...withoutDue];
+    } else {
+      temp.sort((a, b) => statusPriority[a.status] - statusPriority[b.status]);
     }
 
     setFilteredTasks(temp);
@@ -73,8 +78,8 @@ export default function Todo() {
           killTask={killTask}
         />
         <div id="todo-dashboard-misc">
-          {/* <TaskHeatMap /> */}
           <TodoFilter filters={filters} setFilters={setFilters} />
+          <TodoSort sortType={sortType} setSortType={setSortType} />
         </div>
       </div>
       <TaskList
@@ -83,186 +88,6 @@ export default function Todo() {
         setSelectedTask={setSelectedTask}
         setTasks={setTasks}
       />
-    </div>
-  );
-}
-
-function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
-  const [taskForm, setTaskForm] = useState({
-    name: "",
-    info: "",
-    tag: "",
-  });
-
-  useEffect(() => {
-    if (selectedTask) {
-      setTaskForm({
-        name: selectedTask.name,
-        info: selectedTask.info,
-        tag: selectedTask.tag,
-      });
-    } else {
-      setTaskForm({ name: "", info: "", tag: "" });
-    }
-  }, [selectedTask]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTaskForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const submitTask = async () => {
-    const updatedForm = {
-      ...taskForm,
-      tag: taskForm.tag === "" ? "misc" : taskForm.tag,
-    };
-
-    if (selectedTask) {
-      await editTask(selectedTask._id, updatedForm);
-      setSelectedTask("");
-    } else {
-      await createTask(updatedForm);
-    }
-    onTaskCreated();
-    setTaskForm({ name: "", info: "", tag: "" });
-  };
-
-  return (
-    <form
-      id="todo-form"
-      onSubmit={(e) => {
-        e.preventDefault();
-        submitTask();
-      }}
-    >
-      <div id="todo-form-header">
-        <p>{selectedTask ? "Edit" : "Create"} Task</p>
-        <button
-          type="button"
-          className="delete-task-icon"
-          onClick={() => {
-            if (selectedTask) killTask();
-          }}
-        >
-          {" "}
-          <FaRegTrashAlt />
-        </button>
-      </div>
-
-      <input
-        name="name"
-        type="text"
-        value={taskForm.name}
-        onChange={handleChange}
-        className="todo-name-input standard-input"
-        placeholder="Name"
-        autoComplete="off"
-      />
-
-      <input
-        name="info"
-        type="text"
-        value={taskForm.info}
-        onChange={handleChange}
-        className="todo-info-input standard-input"
-        placeholder="Info"
-        autoComplete="off"
-      />
-      <div id="task-tag-editor">
-        <button
-          type="button"
-          className={`dev ${taskForm.tag === "dev" ? "selected" : ""}`}
-          onClick={() => {
-            if (taskForm.tag === "dev") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "dev",
-              }));
-            }
-          }}
-        >
-          <FaCode />
-        </button>
-        <button
-          type="button"
-          className={`root ${taskForm.tag === "root" ? "selected" : ""}`}
-          onClick={() => {
-            if (taskForm.tag === "root") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "root",
-              }));
-            }
-          }}
-        >
-          {" "}
-          <TbPlant />
-        </button>
-        <button
-          type="button"
-          className={`misc ${
-            taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
-              ? "selected"
-              : ""
-          }`}
-          onClick={() => {
-            if (taskForm.tag === "misc") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "misc",
-              }));
-            }
-          }}
-        >
-          {" "}
-          <RiRobot2Line />
-        </button>
-      </div>
-
-      <button type="submit" className="todo-form-submit standard-btn">
-        {selectedTask ? "Edit" : "Create"}
-      </button>
-    </form>
-  );
-}
-
-function TaskHeatMap() {
-  const boxes = Array.from({ length: 20 });
-  const base = "46, 48, 171";
-  const opacities = [0.3, 0.55, 0.8, 1.0];
-  const colors = opacities.map((opacity) => `rgba(${base}, ${opacity})`);
-
-  return (
-    <div id="heatmap">
-      {boxes.map((_, i) => {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        return (
-          <div
-            key={i}
-            className="heatmap-unit"
-            style={{ backgroundColor: randomColor }}
-            title={i}
-          />
-        );
-      })}
     </div>
   );
 }
@@ -323,6 +148,58 @@ function TodoFilterSection({ type, items, filters, setFilters }) {
           <span>{name}</span>
         </button>
       ))}
+    </div>
+  );
+}
+
+function TodoSort({ sortType, setSortType }) {
+  return (
+    <div id="todo-sort-container">
+      <p id="todo-sort-title">Sorts</p>
+      <div id="todo-sort-buttons-container">
+        <button
+          className={`todo-sort-btn ${
+            sortType === "created-desc" ? "selected-sort" : ""
+          }`}
+          onClick={() => {
+            if (sortType === "created-desc") {
+              setSortType("");
+            } else {
+              setSortType("created-desc");
+            }
+          }}
+        >
+          <GoSortDesc />
+        </button>
+        <button
+          className={`todo-sort-btn ${
+            sortType === "created-asc" ? "selected-sort" : ""
+          }`}
+          onClick={() => {
+            if (sortType === "created-asc") {
+              setSortType("");
+            } else {
+              setSortType("created-asc");
+            }
+          }}
+        >
+          <GoSortAsc />
+        </button>
+        <button
+          className={`todo-sort-btn ${
+            sortType === "due-asc" ? "selected-sort" : ""
+          }`}
+          onClick={() => {
+            if (sortType === "due-asc") {
+              setSortType("");
+            } else {
+              setSortType("due-asc");
+            }
+          }}
+        >
+          <GoAlertFill />
+        </button>
+      </div>
     </div>
   );
 }

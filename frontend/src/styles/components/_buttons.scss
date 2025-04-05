@@ -3,6 +3,11 @@
   background-color: $primary-color;
   color: black;
   padding: $spacing-xs $spacing-sm;
+  transition: background-color $transition-instant;
+  
+  &:hover {
+    background-color: $secondary-color;
+  }
 }
 
 .delete-task-icon {
@@ -123,4 +128,22 @@ $tag-btn-types: (
 
 #task-tag-editor button.root svg {
   fill: transparent;
+}
+
+.todo-sort-btn {
+    @include flex(initial, center, center);
+    background-color: transparent;
+    border-radius: $border-radius-sm;
+    border: 1px solid $primary-color;
+    padding: $spacing-sm;
+    font-size: $font-size-md;
+    transition: background-color $transition-instant;
+
+    &:hover {
+        background-color: $gray-dark;
+    }
+}
+
+.todo-sort-btn.selected-sort {
+    background-color: $gray-dark;
 }
