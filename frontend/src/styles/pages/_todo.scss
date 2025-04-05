@@ -74,31 +74,44 @@
   }
 
   .task-tag {
-    width: 60px;
+    min-width: 30px;
+    margin: 0 $spacing-xs
+  }
+
+  .task-tag.non-header-tag {
+    @include flex(row, left);
+    font-size: $font-size-md;
+    margin-left: $spacing-sm;
+
+    svg {
+      fill: $misc-color;
+    }
+  }
+
+  .task-tag.root {
+    svg {
+      fill: transparent !important;
+      stroke: $root-color;
+    }
+  }
+  .task-tag.dev {
+    svg {
+      fill: $dev-color;
+    }
   }
 
   .task-status {
     width: 85px;
-    color: $pending-color;
   }
 
   &:hover {
     cursor: pointer;
-    background-color: $gray-dark;
+    background-color: color-fade($gray, 0.5);
   }
 }
 
-.status-change-container {
-
-  .status-change-btn {
-    padding: 1px $spacing-xs;
-    font-size: $font-size-sm;
-    background-color: transparent;
-
-    &:hover {
-      background-color: red;
-    }
-  }
+.selected-task {
+  background-color: color-fade($gray, 0.2) !important;
 }
 
 #todo-dashboard-filters {
@@ -115,4 +128,3 @@
   flex-wrap: wrap;
   margin-bottom: $spacing-sm;
 }
-

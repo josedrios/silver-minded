@@ -30,13 +30,6 @@ export default function Todo() {
     setSelectedTask("");
   };
 
-  const changeTaskStatus = async (status) => {
-    if (selectedTask) {
-      await editTaskStatus(selectedTask._id, status);
-      await loadTasks();
-    }
-  };
-
   return (
     <div id="todo-container">
       <div id="todo-dashboard">
@@ -55,7 +48,7 @@ export default function Todo() {
         tasks={tasks}
         selectedTask={selectedTask}
         setSelectedTask={setSelectedTask}
-        changeTaskStatus={changeTaskStatus}
+        setTasks={setTasks}
       />
     </div>
   );
@@ -128,6 +121,7 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
         onChange={handleChange}
         className="todo-name-input standard-input"
         placeholder="Name"
+        autoComplete="off" 
       />
 
       <input
@@ -137,6 +131,7 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
         onChange={handleChange}
         className="todo-info-input standard-input"
         placeholder="Info"
+        autoComplete="off" 
       />
 
       <input
@@ -146,6 +141,7 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
         onChange={handleChange}
         className="todo-info-tag standard-input"
         placeholder="Tag"
+        autoComplete="off" 
       />
 
       <button type="submit" className="todo-form-submit standard-btn">

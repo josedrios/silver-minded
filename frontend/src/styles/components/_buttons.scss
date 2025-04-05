@@ -70,3 +70,13 @@ $filter-types: (
     fill: transparent !important;
   }
 }
+
+.task-status-button {
+    background-color: transparent;
+    padding: 0 $spacing-xs;
+    border-radius: $border-radius-xs;
+
+    &:hover {
+        background-color: $gray-darker;
+    }
+}
