@@ -88,11 +88,16 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
   };
 
   const submitTask = async () => {
+    const updatedForm = {
+      ...taskForm,
+      tag: taskForm.tag === "" ? "misc" : taskForm.tag,
+    };
+
     if (selectedTask) {
-      await editTask(selectedTask._id, taskForm);
+      await editTask(selectedTask._id, updatedForm);
       setSelectedTask("");
     } else {
-      await createTask(taskForm);
+      await createTask(updatedForm);
     }
     onTaskCreated();
     setTaskForm({ name: "", info: "", tag: "" });
@@ -144,10 +149,17 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
           type="button"
           className={`dev ${taskForm.tag === "dev" ? "selected" : ""}`}
           onClick={() => {
-            setTaskForm((prev) => ({
-              ...prev,
-              tag: "dev",
-            }));
+            if (taskForm.tag === "dev") {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "",
+              }));
+            } else {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "dev",
+              }));
+            }
           }}
         >
           <FaCode />
@@ -156,10 +168,17 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
           type="button"
           className={`root ${taskForm.tag === "root" ? "selected" : ""}`}
           onClick={() => {
-            setTaskForm((prev) => ({
-              ...prev,
-              tag: "root",
-            }));
+            if (taskForm.tag === "root") {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "",
+              }));
+            } else {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "root",
+              }));
+            }
           }}
         >
           {" "}
@@ -168,17 +187,22 @@ function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
         <button
           type="button"
           className={`misc ${
-            taskForm.tag &&
-            taskForm.tag !== "root" &&
-            taskForm.tag !== "dev"
+            taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
               ? "selected"
               : ""
           }`}
-          onClick={(e) => {
-            setTaskForm((prev) => ({
-              ...prev,
-              tag: "misc",
-            }));
+          onClick={() => {
+            if (taskForm.tag === "misc") {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "",
+              }));
+            } else {
+              setTaskForm((prev) => ({
+                ...prev,
+                tag: "misc",
+              }));
+            }
           }}
         >
           {" "}
