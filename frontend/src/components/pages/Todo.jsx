@@ -1,4 +1,4 @@
-import { fetchTasks, removeTask } from "../../util/taskUtil";
+import { fetchTasks, removeDoneTasks, removeTask } from "../../util/taskUtil";
 import TodoForm from "../features/TodoForm";
 import { TaskList } from "../features/TaskList";
 import { useState, useEffect } from "react";
@@ -7,7 +7,8 @@ import { RiRobot2Line } from "react-icons/ri";
 import { TbPlant, TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { BsFillLightningFill } from "react-icons/bs";
-import { GoSortAsc, GoSortDesc, GoAlertFill } from "react-icons/go";
+import { GoSortAsc, GoAlertFill } from "react-icons/go";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -68,6 +69,12 @@ export default function Todo() {
     setSelectedTask("");
   };
 
+  const killDoneTask = async () => {
+    await removeDoneTasks();
+    await loadTasks();
+    setSelectedTask("");
+  }
+
   return (
     <div id="todo-container">
       <div id="todo-dashboard">
@@ -77,9 +84,13 @@ export default function Todo() {
           onTaskCreated={loadTasks}
           killTask={killTask}
         />
-        <div id="todo-dashboard-misc">
+        <div id="todo-dashboard-settings">
           <TodoFilter filters={filters} setFilters={setFilters} />
           <TodoSort sortType={sortType} setSortType={setSortType} />
+          <div id="todo-dashboard-misc">
+            <p>Other</p>
+          <button id="delete-done-tasks-btn" onClick={() => killDoneTask()}>Done Tasks <FaRegTrashAlt /></button>
+          </div>
         </div>
       </div>
       <TaskList

@@ -109,3 +109,22 @@ exports.deleteTask = async (req, res) => {
     });
   }
 };
+
+exports.deleteDoneTasks = async (req, res) => {
+  try {
+    const doneTasks = await Task.deleteMany({ status: "done" });
+
+    if (!doneTasks) {
+      return res.status(404).json({ message: "Tasks not found" });
+    }
+
+    res.json({ message: "Tasks deleted" });
+    return;
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error occurred while deleting done tasks",
+      error: err.message,
+    });
+  }
+};

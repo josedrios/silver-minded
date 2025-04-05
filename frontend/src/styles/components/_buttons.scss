@@ -147,3 +147,24 @@ $tag-btn-types: (
 .todo-sort-btn.selected-sort {
     background-color: $gray-dark;
 }
+
+#delete-done-tasks-btn {
+  @include flex(row, space-between, center);
+  background-color: transparent;
+  padding: $spacing-xs $spacing-sm;
+  border: 1px solid $error-color;
+  border-radius: $border-radius-xs;
+  color: $error-color;
+  transition: background-color $transition-instant;
+  text-wrap: nowrap;
+  width: min-content;
+
+  svg {
+    margin-left: $spacing-sm;
+    fill: $error-color;
+  }
+
+  &:hover {
+    background-color: color-fade($error-color, 0.15);
+  }
+}

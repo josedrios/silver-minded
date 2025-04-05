@@ -106,6 +106,29 @@ export async function removeTask( id ) {
       }
 }
 
+export async function removeDoneTasks() {
+  try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/done`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+  
+      const responseData = await response.json();
+  
+      if (!response.ok) {
+        console.log(responseData.message);
+        return;
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.log("Error:", err);
+      return;
+    }
+}
+
 export async function fetchTasks() {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/task/`, {

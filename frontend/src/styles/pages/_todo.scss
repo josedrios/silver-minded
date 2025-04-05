@@ -13,6 +13,16 @@
   width: 100%;
   max-width: 300px;
   min-width: 250px;
+
+  #todo-dashboard-settings {
+    @include flex(column);
+    gap: $spacing-sm;
+
+    #todo-dashboard-misc {
+      @include flex(column);
+      gap: $spacing-xs;
+    }
+  }
 }
 
 #task-list {

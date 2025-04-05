@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from "react";
 import { editTaskStatus } from "../../util/taskUtil";
 import { FaCode } from "react-icons/fa6";
 import { TbPlant } from "react-icons/tb";
