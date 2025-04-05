@@ -21,3 +21,9 @@
       @include flex(row, space-between, center);
     }
 }
+
+#task-tag-editor {
+    margin: auto;
+    @include flex(row);
+    gap: $spacing-sm;
+}

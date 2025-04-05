@@ -8,8 +8,6 @@ export function TaskList({
   tasks,
   selectedTask,
   setSelectedTask,
-  changeTaskStatus,
-  loadTasks,
   setTasks
 }) {
   return (

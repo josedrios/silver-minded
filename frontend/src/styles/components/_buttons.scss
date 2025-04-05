@@ -60,7 +60,7 @@ $filter-types: (
     }
 
     &:hover {
-        background-color: color-fade($color, 0.15);
+      background-color: color-fade($color, 0.15);
     }
   }
 }
@@ -72,11 +72,51 @@ $filter-types: (
 }
 
 .task-status-button {
+  background-color: transparent;
+  padding: 0 $spacing-xs;
+  border-radius: $border-radius-xs;
+
+  &:hover {
+    background-color: $gray-darker;
+  }
+}
+
+#task-tag-editor {
+  button {
     background-color: transparent;
-    padding: 0 $spacing-xs;
-    border-radius: $border-radius-xs;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    @include flex(initial, center, center);
+  }
+}
+
+$tag-btn-types: (
+  dev: $dev-color,
+  root: $root-color,
+  misc: $misc-color,
+);
+
+@each $type, $color in $tag-btn-types {
+  #task-tag-editor button.#{$type} {
+    border: 1px solid color-fade($color, 0.4);
+    @include flex(initial, center, center);
+    transition: border $transition-instant;
+
+    svg {
+      fill: $color;
+      stroke: $color;
+    }
 
     &:hover {
-        background-color: $gray-darker;
+        border: 1px solid $color;
     }
+  }
+
+  #task-tag-editor button.#{$type}.selected {
+    border: 1px solid $color;
+  }
+}
+
+#task-tag-editor button.root svg {
+  fill: transparent;
 }
