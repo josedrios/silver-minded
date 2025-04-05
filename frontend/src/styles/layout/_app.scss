@@ -1,5 +1,13 @@
 #app-wrapper {
     width: 100vw;
     height: 100vh;
-    padding: $spacing-md;
+}
+
+main {
+    padding: 0 $spacing-md;
+    width: 100vw;
+}
+
+.main-body-view {
+    width: 100%;
 }

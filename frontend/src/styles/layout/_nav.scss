@@ -2,7 +2,7 @@ nav {
     max-width: 600px;
     margin: auto;
     padding: $spacing-sm;
-    margin-bottom: $spacing-md;
+    margin: $spacing-md auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

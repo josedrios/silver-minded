@@ -4,7 +4,7 @@ import { TaskList } from "../features/TaskList";
 import { useState, useEffect } from "react";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
-import { TbPlant } from "react-icons/tb";
+import { TbPlant, TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { BsFillLightningFill } from "react-icons/bs";
 import { GoSortAsc, GoSortDesc, GoAlertFill } from "react-icons/go";
@@ -35,17 +35,17 @@ export default function Todo() {
       return tagMatches && statusMatches;
     });
 
-    if (sortType === "created-desc") {
-      temp.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    if (sortType === "prio-desc") {
+      temp.sort((a, b) => statusPriority[a.status] - statusPriority[b.status]); // descending priority
     } else if (sortType === "created-asc") {
-      temp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      temp.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); //ascending creation
     } else if (sortType === "due-asc") {
-      const withDue = temp.filter((task) => task.dueAt);
+      const withDue = temp.filter((task) => task.dueAt); // ascending due date
       const withoutDue = temp.filter((task) => !task.dueAt);
-      withDue.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt)); // closest first
+      withDue.sort((a, b) => new Date(a.dueAt) - new Date(b.dueAt));
       temp = [...withDue, ...withoutDue];
     } else {
-      temp.sort((a, b) => statusPriority[a.status] - statusPriority[b.status]);
+      temp.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // descending creation (default)
     }
 
     setFilteredTasks(temp);
@@ -159,17 +159,18 @@ function TodoSort({ sortType, setSortType }) {
       <div id="todo-sort-buttons-container">
         <button
           className={`todo-sort-btn ${
-            sortType === "created-desc" ? "selected-sort" : ""
+            sortType === "prio-desc" ? "selected-sort" : ""
           }`}
           onClick={() => {
-            if (sortType === "created-desc") {
+            if (sortType === "prio-desc") {
               setSortType("");
             } else {
-              setSortType("created-desc");
+              setSortType("prio-desc");
             }
           }}
+          title="Descending Status"
         >
-          <GoSortDesc />
+          <TbCheckbox />
         </button>
         <button
           className={`todo-sort-btn ${
@@ -182,6 +183,7 @@ function TodoSort({ sortType, setSortType }) {
               setSortType("created-asc");
             }
           }}
+          title="Ascending Creation"
         >
           <GoSortAsc />
         </button>
@@ -196,6 +198,7 @@ function TodoSort({ sortType, setSortType }) {
               setSortType("due-asc");
             }
           }}
+          title="Ascending Due Date"
         >
           <GoAlertFill />
         </button>

@@ -9,10 +9,12 @@ function App() {
       <div id="app-wrapper">
         <Nav />
         {/* Main tab */}
+        <main>
         <Routes>
           <Route path="/todo" element={<Todo />} />
           <Route path="/" element={<Home />} />
         </Routes>
+        </main>
       </div>
     </Router>
   );

@@ -4,18 +4,13 @@ import { FaCode } from "react-icons/fa6";
 import { TbPlant } from "react-icons/tb";
 import { RiRobot2Line } from "react-icons/ri";
 
-export function TaskList({
-  tasks,
-  selectedTask,
-  setSelectedTask,
-  setTasks
-}) {
+export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
   return (
     <div id="task-list">
       <div id="task-header" className="task-row">
         <span className="task-tag">Tag</span>
         <span className="task-name">Name</span>
-        <span className="task-info">Task</span>
+        <span className="task-info">Task</span>{" "}
         <span className="task-status">Status</span>
       </div>
       {!Array.isArray(tasks) || tasks.length === 0 ? (
@@ -35,18 +30,12 @@ export function TaskList({
   );
 }
 
-function TaskRow({
-  task,
-  setSelectedTask,
-  selectedTask,
-  setTasks
-}) {
+function TaskRow({ task, setSelectedTask, selectedTask, setTasks }) {
   const statusColors = {
     pending: "rgb(228, 153, 48)",
     active: "rgb(38, 181, 38)",
     done: "rgb(128, 128, 128)",
   };
-  const statusOrder = ["pending", "active", "done"];
 
   return (
     <div
@@ -69,11 +58,9 @@ function TaskRow({
         )}
       </span>
       <span className="task-name">{task.name}</span>
-      <div className="task-info-container">
-        <span className="task-info" title={task.info}>
-          {task.info}{" "}
-        </span>
-      </div>{" "}
+      <span className="task-info" title={task.info}>
+        {task.info}{" "}
+      </span>
       <span className="task-status">
         <button
           className="task-status-button"

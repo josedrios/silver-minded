@@ -1,26 +1,24 @@
 #todo-container {
   @include flex(row);
+  width: 100%;
   gap: $spacing-sm;
 }
 
 #todo-dashboard {
   border: 1px solid $primary-color;
   padding: $spacing-md;
-  border-radius: $border-radius-md;
+  border-radius: $border-radius-sm;
   @include flex(column);
   gap: $spacing-md;
-}
-
-@media (max-width: 575px) {
-  #todo-header {
-    flex-wrap: wrap;
-  }
+  width: 100%;
+  max-width: 300px;
+  min-width: 250px;
 }
 
 #task-list {
+  flex: 1 1 auto; min-width: 0;
   @include flex(column);
   margin: 0px $spacing-sm;
-  width: 100%;
 }
 
 #task-header {
@@ -36,48 +34,42 @@
     cursor: default;
     background-color: transparent;
   }
+
+  .task-tag {
+    width: 26px;
+  }
 }
 
 .task-row {
-  @include flex(row, initial, center);
+  @include flex(row, left, center);
   font-size: $font-size-sm;
   padding: $spacing-xs 0;
   border-radius: $border-radius-xs;
 
   span {
     overflow: hidden;
-    text-wrap: nowrap;
-    white-space: nowrap;
   }
 
   .task-name {
-    width: 15%;
-    min-width: 100px;
-    margin-right: $spacing-sm;
-  }
-
-  .task-info-container {
-    margin-right: $spacing-sm;
-    @include flex(row, left, center);
-  }
-
-  .task-info-container,
-  .task-info {
-    overflow: hidden;
-    text-wrap: nowrap;
+    text-wrap: none;
     white-space: nowrap;
-    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 15%;
+    margin-right: $spacing-sm;
   }
 
   .task-info {
     display: inline-block;
-    transition: none;
-    margin: auto;
     color: $gray-light;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
   }
 
   .task-tag {
-    min-width: 30px;
+    min-width: 25px;
     margin: 0 $spacing-xs;
   }
 
