@@ -28,7 +28,8 @@ export default function Todo() {
   };
 
   useEffect(() => {
-    let temp = tasks.filter((task) => {
+    const safeTasks = tasks || [];
+    let temp = safeTasks.filter((task) => {
       const tagMatches =
         filters.tags.length === 0 || filters.tags.includes(task.tag);
       const statusMatches =
