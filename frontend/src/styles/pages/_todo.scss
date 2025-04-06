@@ -1,29 +1,20 @@
 #todo-container {
-  @include flex(row);
+  @include flex(column);
   width: 100%;
   gap: $spacing-sm;
 }
 
 #todo-dashboard {
-  border: 1px solid $primary-color;
-  padding: $spacing-md;
-  border-radius: $border-radius-sm;
+  padding: $spacing-sm;
   @include flex(column);
   gap: $spacing-md;
   width: 100%;
-  max-width: 300px;
-  min-width: 250px;
 
   #todo-dashboard-settings {
     @include flex(column);
-    gap: $spacing-sm;
-
-    #todo-dashboard-misc {
-      @include flex(column);
-      gap: $spacing-xs;
-    }
   }
 }
+
 
 #task-list {
   flex: 1 1 auto; min-width: 0;
@@ -65,7 +56,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 15%;
+    width: 20%;
     margin-right: $spacing-sm;
   }
 
@@ -79,7 +70,7 @@
   }
 
   .task-tag {
-    min-width: 25px;
+    min-width: 23px;
     margin: 0 $spacing-xs;
   }
 
@@ -106,7 +97,12 @@
   }
 
   .task-status {
-    width: 85px;
+    position: relative;
+    width: 60px;
+  }
+
+  .task-status.non-header {
+    right: 3px;
   }
 
   &:hover {
@@ -119,27 +115,8 @@
   background-color: color-fade($gray, 0.2) !important;
 }
 
-#todo-dashboard-filters {
-  @include flex(column, left);
-
-  p {
-    margin-bottom: $spacing-sm;
-  }
-}
-
-.filter-button-container {
-  @include flex(row, left);
-  gap: $spacing-sm;
-  flex-wrap: wrap;
-  margin-bottom: $spacing-sm;
-}
-
-#todo-sort-title {
-  font-size: $font-size-md;
-  margin-bottom: $spacing-xs;
-}
-
-#todo-sort-buttons-container {
+.filter-button-container, .sort-buttons-container {
   @include flex(row, left, center);
+  flex-wrap: wrap;
   gap: $spacing-sm;
 }

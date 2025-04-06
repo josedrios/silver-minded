@@ -60,7 +60,7 @@ function TaskRow({ task, setSelectedTask, selectedTask, setTasks }) {
       <span className="task-info" title={task.info}>
         {task.info}{" "}
       </span>
-      <span className="task-status">
+      <span className="task-status non-header">
         <button
           className="task-status-button"
           onClick={(e) => {

@@ -1,29 +1,67 @@
 .standard-input {
-    background-color: $gray-dark;
-    padding: $spacing-xs $spacing-sm;
-    color: $secondary-color;
-    outline: none;
-    font-family: 'IBM Plex Mono';
-    transition: color $transition-instant;
-    border-radius: $border-radius-xs;
+  background-color: $gray-dark;
+  padding: $spacing-xs $spacing-sm;
+  color: $secondary-color;
+  outline: none;
+  font-family: "IBM Plex Mono";
+  transition: color $transition-instant;
+  border-radius: $border-radius-xs;
+  height: 32px;
 
-    &:focus {
-        color: $primary-color;
-    }
+  &:focus {
+    color: $primary-color;
+  }
 }
 
 #todo-form {
-    @include flex(column, left);
-    min-width: 200px;
-    row-gap: $spacing-sm;
-  
-    #todo-form-header {
-      @include flex(row, space-between, center);
-    }
+  @include flex(column);
+  width: 100%;
+  gap: $spacing-sm;
+}
+
+.todo-form-row {
+  @include flex(row, flex-start);
+  min-width: 0px;
+  width: 100%;
+  gap: $spacing-sm;
 }
 
 #task-tag-editor {
-    margin: auto;
-    @include flex(row);
-    gap: $spacing-sm;
+  width: 110px;
+  @include flex(row);
+  gap: $spacing-sm;
+  min-width: 0px;
+}
+
+.todo-name-input {
+  flex: 1;
+}
+
+@media (min-width: #{$breakpoint-xs}) {
+  #todo-form {
+    max-width: none;
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .todo-form-row {
+    display: contents;
+  }
+
+  .todo-name-input {
+    width: 20%;
+    max-width: 170px;
+  }
+
+  .todo-info-input {
+    flex: 1;
+  }
+
+  input {
+    min-width: 0;
+  }
+
+  .todo-form-submit {
+    max-width: 100px;
+  }
 }

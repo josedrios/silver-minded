@@ -11,17 +11,21 @@
 }
 
 .delete-task-icon {
-  @include flex(row, center, bottom);
+  @include flex(row, center, center);
   background-color: transparent;
+  border: 1px solid color-fade($error-color, 0.5);
+  padding: $spacing-sm;
+  border-radius: $border-radius-sm;
+  transition: border-color $transition-instant;
 
   svg {
-    fill: color-fade($error-color, 0.4);
+    fill: $error-color;
     transition: fill $transition-instant;
+  }
 
-    &:hover {
-      fill: $error-color;
-      cursor: pointer;
-    }
+  &:hover {
+    border-color: $error-color;
+    cursor: pointer;
   }
 }
 
@@ -31,9 +35,19 @@
   border: 1px solid gray;
   padding: $spacing-xs;
   border-radius: $border-radius-sm;
+  transition: background-color $transition-instant;
+  font-size: $font-size-sm;
 
   .filter-icon {
     margin-right: $spacing-xs;
+  }
+
+  svg {
+    margin-right: $spacing-xs;
+  }
+
+  &:hover {
+    background-color: color-fade(gray, 0.15);
   }
 }
 
@@ -130,21 +144,7 @@ $tag-btn-types: (
   fill: transparent;
 }
 
-.todo-sort-btn {
-    @include flex(initial, center, center);
-    background-color: transparent;
-    border-radius: $border-radius-sm;
-    border: 1px solid $primary-color;
-    padding: $spacing-sm;
-    font-size: $font-size-md;
-    transition: background-color $transition-instant;
-
-    &:hover {
-        background-color: $gray-dark;
-    }
-}
-
-.todo-sort-btn.selected-sort {
+.filter-button.selected-sort {
     background-color: $gray-dark;
 }
 
@@ -152,19 +152,30 @@ $tag-btn-types: (
   @include flex(row, space-between, center);
   background-color: transparent;
   padding: $spacing-xs $spacing-sm;
-  border: 1px solid $error-color;
+  border: 1px solid $done-color;
   border-radius: $border-radius-xs;
-  color: $error-color;
+  color: $done-color;
   transition: background-color $transition-instant;
   text-wrap: nowrap;
   width: min-content;
 
   svg {
     margin-left: $spacing-sm;
-    fill: $error-color;
+    fill: $done-color;
   }
 
   &:hover {
-    background-color: color-fade($error-color, 0.15);
+    background-color: color-fade($done-color, 0.15);
+  }
+}
+
+.todo-form-submit {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+
+  &:hover {
+    background-color: color-fade($primary-color, 0.15);
   }
 }

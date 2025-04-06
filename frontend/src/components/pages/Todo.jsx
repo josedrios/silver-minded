@@ -73,7 +73,7 @@ export default function Todo() {
     await removeDoneTasks();
     await loadTasks();
     setSelectedTask("");
-  }
+  };
 
   return (
     <div id="todo-container">
@@ -85,12 +85,18 @@ export default function Todo() {
           killTask={killTask}
         />
         <div id="todo-dashboard-settings">
-          <TodoFilter filters={filters} setFilters={setFilters} />
-          <TodoSort sortType={sortType} setSortType={setSortType} />
-          <div id="todo-dashboard-misc">
+          <TodoFilter
+            filters={filters}
+            setFilters={setFilters}
+            sortType={sortType}
+            setSortType={setSortType}
+          />
+          {/* <div id="todo-dashboard-misc">
             <p>Other</p>
-          <button id="delete-done-tasks-btn" onClick={() => killDoneTask()}>Done Tasks <FaRegTrashAlt /></button>
-          </div>
+            <button id="delete-done-tasks-btn" onClick={() => killDoneTask()}>
+              Done Tasks <FaRegTrashAlt />
+            </button>
+          </div> */}
         </div>
       </div>
       <TaskList
@@ -103,35 +109,45 @@ export default function Todo() {
   );
 }
 
-function TodoFilter({ filters, setFilters }) {
+function TodoFilter({ filters, setFilters, sortType, setSortType }) {
   return (
     <div id="todo-dashboard-filters">
-      <p>Filters</p>
-      <TodoFilterSection
-        type={"tags"}
-        items={[
-          { name: "root", icon: TbPlant },
-          { name: "dev", icon: FaCode },
-          { name: "misc", icon: RiRobot2Line },
-        ]}
-        filters={filters}
-        setFilters={setFilters}
-      />
-      <TodoFilterSection
-        type={"status"}
-        items={[
-          { name: "Pending", icon: IoIosTimer },
-          { name: "Active", icon: BsFillLightningFill },
-          { name: "Done", icon: FaCheck },
-        ]}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      <div className="filter-button-container">
+        <TodoFilterSection
+          type={"tags"}
+          items={[
+            { name: "dev", icon: FaCode },
+            { name: "root", icon: TbPlant },
+            { name: "misc", icon: RiRobot2Line },
+          ]}
+          filters={filters}
+          setFilters={setFilters}
+        />
+        <TodoFilterSection
+          type={"status"}
+          items={[
+            { name: "Pending", icon: IoIosTimer },
+            { name: "Active", icon: BsFillLightningFill },
+            { name: "Done", icon: FaCheck },
+          ]}
+          filters={filters}
+          setFilters={setFilters}
+          sortType={sortType}
+          setSortType={setSortType}
+        />
+      </div>
     </div>
   );
 }
 
-function TodoFilterSection({ type, items, filters, setFilters }) {
+function TodoFilterSection({
+  type,
+  items,
+  filters,
+  setFilters,
+  sortType,
+  setSortType,
+}) {
   const toggleFilter = (type, value) => {
     setFilters((prev) => ({
       ...prev,
@@ -142,7 +158,8 @@ function TodoFilterSection({ type, items, filters, setFilters }) {
   };
 
   return (
-    <div className="filter-button-container">
+    <>
+      {" "}
       {items.map(({ name, icon: Icon }, index) => (
         <button
           key={index}
@@ -159,61 +176,57 @@ function TodoFilterSection({ type, items, filters, setFilters }) {
           <span>{name}</span>
         </button>
       ))}
-    </div>
-  );
-}
-
-function TodoSort({ sortType, setSortType }) {
-  return (
-    <div id="todo-sort-container">
-      <p id="todo-sort-title">Sorts</p>
-      <div id="todo-sort-buttons-container">
-        <button
-          className={`todo-sort-btn ${
-            sortType === "prio-desc" ? "selected-sort" : ""
-          }`}
-          onClick={() => {
-            if (sortType === "prio-desc") {
-              setSortType("");
-            } else {
-              setSortType("prio-desc");
-            }
-          }}
-          title="Descending Status"
-        >
-          <TbCheckbox />
-        </button>
-        <button
-          className={`todo-sort-btn ${
-            sortType === "created-asc" ? "selected-sort" : ""
-          }`}
-          onClick={() => {
-            if (sortType === "created-asc") {
-              setSortType("");
-            } else {
-              setSortType("created-asc");
-            }
-          }}
-          title="Ascending Creation"
-        >
-          <GoSortAsc />
-        </button>
-        <button
-          className={`todo-sort-btn ${
-            sortType === "due-asc" ? "selected-sort" : ""
-          }`}
-          onClick={() => {
-            if (sortType === "due-asc") {
-              setSortType("");
-            } else {
-              setSortType("due-asc");
-            }
-          }}
-          title="Ascending Due Date"
-        >
-          <GoAlertFill />
-        </button>
-      </div>
-    </div>
+      {type == "status" ? (
+        <>
+          <button
+            className={`filter-button ${
+              sortType === "prio-desc" ? "selected-sort" : ""
+            }`}
+            onClick={() => {
+              if (sortType === "prio-desc") {
+                setSortType("");
+              } else {
+                setSortType("prio-desc");
+              }
+            }}
+            title="Descending Status"
+          >
+            <TbCheckbox /> Status
+          </button>
+          <button
+            className={`filter-button ${
+              sortType === "created-asc" ? "selected-sort" : ""
+            }`}
+            onClick={() => {
+              if (sortType === "created-asc") {
+                setSortType("");
+              } else {
+                setSortType("created-asc");
+              }
+            }}
+            title="Ascending Creation"
+          >
+            <GoSortAsc /> Time
+          </button>
+          <button
+            className={`filter-button ${
+              sortType === "due-asc" ? "selected-sort" : ""
+            }`}
+            onClick={() => {
+              if (sortType === "due-asc") {
+                setSortType("");
+              } else {
+                setSortType("due-asc");
+              }
+            }}
+            title="Ascending Due Date"
+          >
+            <GoAlertFill /> Priority
+          </button>
+        </>
+      ) : (
+        ""
+      )}
+    </>
   );
 }

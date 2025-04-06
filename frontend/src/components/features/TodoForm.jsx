@@ -5,7 +5,12 @@ import { RiRobot2Line } from "react-icons/ri";
 import { TbPlant } from "react-icons/tb";
 import { createTask, editTask } from "../../util/taskUtil";
 
-export default function TodoForm({ selectedTask, setSelectedTask, onTaskCreated, killTask }) {
+export default function TodoForm({
+  selectedTask,
+  setSelectedTask,
+  onTaskCreated,
+  killTask,
+}) {
   const [taskForm, setTaskForm] = useState({
     name: "",
     info: "",
@@ -56,30 +61,82 @@ export default function TodoForm({ selectedTask, setSelectedTask, onTaskCreated,
         submitTask();
       }}
     >
-      <div id="todo-form-header">
-        <p>{selectedTask ? "Edit" : "Create"} Task</p>
-        <button
-          type="button"
-          className="delete-task-icon"
-          onClick={() => {
-            if (selectedTask) killTask();
-          }}
-        >
-          {" "}
-          <FaRegTrashAlt />
-        </button>
+      <div className="todo-form-row">
+        <input
+          name="name"
+          type="text"
+          value={taskForm.name}
+          onChange={handleChange}
+          className="todo-name-input standard-input"
+          placeholder="Name"
+          autoComplete="off"
+        />
+        <div id="task-tag-editor">
+          <button
+            type="button"
+            className={`dev ${taskForm.tag === "dev" ? "selected" : ""}`}
+            onClick={() => {
+              if (taskForm.tag === "dev") {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "",
+                }));
+              } else {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "dev",
+                }));
+              }
+            }}
+          >
+            <FaCode />
+          </button>
+          <button
+            type="button"
+            className={`root ${taskForm.tag === "root" ? "selected" : ""}`}
+            onClick={() => {
+              if (taskForm.tag === "root") {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "",
+                }));
+              } else {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "root",
+                }));
+              }
+            }}
+          >
+            {" "}
+            <TbPlant />
+          </button>
+          <button
+            type="button"
+            className={`misc ${
+              taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
+                ? "selected"
+                : ""
+            }`}
+            onClick={() => {
+              if (taskForm.tag === "misc") {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "",
+                }));
+              } else {
+                setTaskForm((prev) => ({
+                  ...prev,
+                  tag: "misc",
+                }));
+              }
+            }}
+          >
+            {" "}
+            <RiRobot2Line />
+          </button>
+        </div>
       </div>
-
-      <input
-        name="name"
-        type="text"
-        value={taskForm.name}
-        onChange={handleChange}
-        className="todo-name-input standard-input"
-        placeholder="Name"
-        autoComplete="off"
-      />
-
       <input
         name="info"
         type="text"
@@ -89,75 +146,26 @@ export default function TodoForm({ selectedTask, setSelectedTask, onTaskCreated,
         placeholder="Info"
         autoComplete="off"
       />
-      <div id="task-tag-editor">
+
+      <div className="todo-form-row">
         <button
+          style={{display: selectedTask ? '' : 'none'}}
           type="button"
-          className={`dev ${taskForm.tag === "dev" ? "selected" : ""}`}
+          className="delete-task-icon"
           onClick={() => {
-            if (taskForm.tag === "dev") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "dev",
-              }));
-            }
-          }}
-        >
-          <FaCode />
-        </button>
-        <button
-          type="button"
-          className={`root ${taskForm.tag === "root" ? "selected" : ""}`}
-          onClick={() => {
-            if (taskForm.tag === "root") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "root",
-              }));
-            }
+            if (selectedTask) killTask();
           }}
         >
           {" "}
-          <TbPlant />
+          <FaRegTrashAlt />
         </button>
-        <button
-          type="button"
-          className={`misc ${
-            taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
-              ? "selected"
-              : ""
-          }`}
-          onClick={() => {
-            if (taskForm.tag === "misc") {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "",
-              }));
-            } else {
-              setTaskForm((prev) => ({
-                ...prev,
-                tag: "misc",
-              }));
-            }
-          }}
+        <button 
+        type="submit" 
+        className="todo-form-submit standard-btn"           
         >
-          {" "}
-          <RiRobot2Line />
+          {selectedTask ? "Edit" : "Create"}
         </button>
       </div>
-
-      <button type="submit" className="todo-form-submit standard-btn">
-        {selectedTask ? "Edit" : "Create"}
-      </button>
     </form>
   );
 }
