@@ -21,12 +21,6 @@ connectDB();
 
 app.use('/api/task', require('./routes/taskRoutes'));
 
-// Middleware (Error catchers)
-app.use('*', (req, res) => {
-  console.log('Fallback route hit. Origin:', req.headers.origin);
-  res.json({ message: 'Fallback working' });
-});
-
 // Server
 app.listen(PORT, '0.0.0.0', () => 
     console.log(`Server is running on port http://0.0.0.0:${PORT}`)
