@@ -13,9 +13,11 @@ app.use((req, res, next) => {
 });
 
 // Middleware (Foundation)
+console.log("FRONTEND_URL (env):", process.env.FRONTEND_URL);
+
 app.use(
     cors({
-      origin: ['http://localhost:5173', process.env.FRONTEND_URL],
+      origin: ['http://localhost:5173', process.env.FRONTEND_URL, process.env.FRONTEND_URL2],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
@@ -28,6 +30,10 @@ connectDB();
 app.use('/api/task', require('./routes/taskRoutes'));
 
 // Middleware (Error catchers)
+app.use('*', (req, res) => {
+  console.log('Fallback route hit. Origin:', req.headers.origin);
+  res.json({ message: 'Fallback working' });
+});
 
 // Server
 app.listen(PORT, '0.0.0.0', () => 
