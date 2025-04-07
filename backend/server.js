@@ -7,17 +7,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use((req, res, next) => {
-  console.log("Incoming Origin:", req.headers.origin);
-  next();
-});
-
-// Middleware (Foundation)
-console.log("FRONTEND_URL (env):", process.env.FRONTEND_URL);
-
 app.use(
     cors({
-      origin: ['http://localhost:5173', process.env.FRONTEND_URL, process.env.FRONTEND_URL2],
+      origin: ['http://localhost:5173', process.env.FRONTEND_URL],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
       allowedHeaders: ['Content-Type', 'Authorization'],
     })
