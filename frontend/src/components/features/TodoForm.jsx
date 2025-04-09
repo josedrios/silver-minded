@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
-import { TbPlant } from "react-icons/tb";
 import { createTask, editTask } from "../../util/taskUtil";
 
 export default function TodoForm({
@@ -12,7 +11,6 @@ export default function TodoForm({
   killTask,
 }) {
   const [taskForm, setTaskForm] = useState({
-    name: "",
     info: "",
     tag: "",
   });
@@ -20,12 +18,11 @@ export default function TodoForm({
   useEffect(() => {
     if (selectedTask) {
       setTaskForm({
-        name: selectedTask.name,
         info: selectedTask.info,
         tag: selectedTask.tag,
       });
     } else {
-      setTaskForm({ name: "", info: "", tag: "" });
+      setTaskForm({ info: "", tag: "" });
     }
   }, [selectedTask]);
 
@@ -50,7 +47,7 @@ export default function TodoForm({
       await createTask(updatedForm);
     }
     onTaskCreated();
-    setTaskForm({ name: "", info: "", tag: "" });
+    setTaskForm({ info: "", tag: "" });
   };
 
   return (
@@ -61,20 +58,20 @@ export default function TodoForm({
         submitTask();
       }}
     >
+      <input
+        name="info"
+        type="text"
+        value={taskForm.info}
+        onChange={handleChange}
+        className="todo-info-input standard-input"
+        placeholder="Enter task ..."
+        autoComplete="off"
+      />
       <div className="todo-form-row">
-        <input
-          name="name"
-          type="text"
-          value={taskForm.name}
-          onChange={handleChange}
-          className="todo-name-input standard-input"
-          placeholder="Name"
-          autoComplete="off"
-        />
         <div id="task-tag-editor">
           <button
             type="button"
-            className={`dev ${taskForm.tag === "dev" ? "selected" : ""}`}
+            className={`ts-hover dev ${taskForm.tag === "dev" ? "selected" : ""}`}
             onClick={() => {
               if (taskForm.tag === "dev") {
                 setTaskForm((prev) => ({
@@ -93,27 +90,7 @@ export default function TodoForm({
           </button>
           <button
             type="button"
-            className={`root ${taskForm.tag === "root" ? "selected" : ""}`}
-            onClick={() => {
-              if (taskForm.tag === "root") {
-                setTaskForm((prev) => ({
-                  ...prev,
-                  tag: "",
-                }));
-              } else {
-                setTaskForm((prev) => ({
-                  ...prev,
-                  tag: "root",
-                }));
-              }
-            }}
-          >
-            {" "}
-            <TbPlant />
-          </button>
-          <button
-            type="button"
-            className={`misc ${
+            className={`ts-hover misc ${
               taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
                 ? "selected"
                 : ""
@@ -136,22 +113,10 @@ export default function TodoForm({
             <RiRobot2Line />
           </button>
         </div>
-      </div>
-      <input
-        name="info"
-        type="text"
-        value={taskForm.info}
-        onChange={handleChange}
-        className="todo-info-input standard-input"
-        placeholder="Info"
-        autoComplete="off"
-      />
-
-      <div className="todo-form-row">
         <button
-          style={{display: selectedTask ? '' : 'none'}}
+          style={{ display: selectedTask ? "" : "none" }}
           type="button"
-          className="delete-task-icon"
+          className="ts-hover delete-task-icon"
           onClick={() => {
             if (selectedTask) killTask();
           }}
@@ -159,10 +124,7 @@ export default function TodoForm({
           {" "}
           <FaRegTrashAlt />
         </button>
-        <button 
-        type="submit" 
-        className="todo-form-submit standard-btn"           
-        >
+        <button type="submit" className="ts-hover todo-form-submit standard-btn">
           {selectedTask ? "Edit" : "Create"}
         </button>
       </div>

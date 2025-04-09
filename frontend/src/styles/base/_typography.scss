@@ -9,7 +9,7 @@ $primary-font: "IBM Plex Mono", sans-serif;
 // ==========================
 // Font Measurements
 // ==========================
-$font-size-sm: 12px;
+$font-size-sm: 13px;
 $font-size-md: 15px;
 $font-size-lg: 20px;
 
@@ -65,7 +65,7 @@ h5 {
 }
 
 p {
-  font-size: $font-size-md;
+  font-size: $font-size-sm;
   line-height: $line-height-base;
 }
 

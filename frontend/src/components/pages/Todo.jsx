@@ -4,11 +4,9 @@ import { TaskList } from "../features/TaskList";
 import { useState, useEffect } from "react";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
-import { TbPlant, TbCheckbox } from "react-icons/tb";
+import { TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
-import { BsFillLightningFill } from "react-icons/bs";
 import { GoSortAsc, GoAlertFill } from "react-icons/go";
-import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -22,9 +20,8 @@ export default function Todo() {
   const [sortType, setSortType] = useState("");
 
   const statusPriority = {
-    active: 0,
-    pending: 1,
-    done: 2,
+    pending: 0,
+    done: 1,
   };
 
   useEffect(() => {
@@ -118,7 +115,6 @@ function TodoFilter({ filters, setFilters, sortType, setSortType }) {
           type={"tags"}
           items={[
             { name: "dev", icon: FaCode },
-            { name: "root", icon: TbPlant },
             { name: "misc", icon: RiRobot2Line },
           ]}
           filters={filters}
@@ -128,7 +124,6 @@ function TodoFilter({ filters, setFilters, sortType, setSortType }) {
           type={"status"}
           items={[
             { name: "Pending", icon: IoIosTimer },
-            { name: "Active", icon: BsFillLightningFill },
             { name: "Done", icon: FaCheck },
           ]}
           filters={filters}
@@ -164,7 +159,7 @@ function TodoFilterSection({
       {items.map(({ name, icon: Icon }, index) => (
         <button
           key={index}
-          className={`filter-button ${name.toLowerCase()} ${
+          className={`ts-hover filter-button ${name.toLowerCase()} ${
             filters[type].includes(name.toLowerCase())
               ? "active-filter-btn"
               : ""
@@ -180,7 +175,7 @@ function TodoFilterSection({
       {type == "status" ? (
         <>
           <button
-            className={`filter-button ${
+            className={`ts-hover filter-button ${
               sortType === "prio-desc" ? "selected-sort" : ""
             }`}
             onClick={() => {
@@ -195,7 +190,7 @@ function TodoFilterSection({
             <TbCheckbox /> Status
           </button>
           <button
-            className={`filter-button ${
+            className={`ts-hover filter-button ${
               sortType === "created-asc" ? "selected-sort" : ""
             }`}
             onClick={() => {
@@ -210,7 +205,7 @@ function TodoFilterSection({
             <GoSortAsc /> Time
           </button>
           <button
-            className={`filter-button ${
+            className={`ts-hover filter-button ${
               sortType === "due-asc" ? "selected-sort" : ""
             }`}
             onClick={() => {

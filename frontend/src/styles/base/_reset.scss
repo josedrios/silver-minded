@@ -14,10 +14,6 @@
   margin: 0;
   padding: 0;
   color: $primary-color;
-
-  &::-webkit-scrollbar {
-      display: none;
-  }
 }
 
 #root {
@@ -42,11 +38,4 @@ button:hover {
 
 .hide {
   display: none;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .your-hover-class:hover {
-    background-color: initial;
-    color: initial;
-  }
 }

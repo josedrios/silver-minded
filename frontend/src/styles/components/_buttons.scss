@@ -5,8 +5,10 @@
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
   
-  &:hover {
-    background-color: $secondary-color;
+  @media (hover: hover){
+    &:hover {
+      background-color: $secondary-color;
+    }
   }
 }
 
@@ -23,9 +25,11 @@
     transition: fill $transition-instant;
   }
 
-  &:hover {
-    border-color: $error-color;
-    cursor: pointer;
+  @media (hover: hover){
+    &:hover {
+      border-color: $error-color;
+      cursor: pointer;
+    }
   }
 }
 
@@ -46,21 +50,18 @@
     margin-right: $spacing-xs;
   }
 
-  &:hover {
-    background-color: color-fade(gray, 0.15);
+  @media (hover: hover){
+    &:hover {
+      background-color: color-fade(gray, 0.15);
+    }
   }
 }
 
 $filter-types: (
   dev: $dev-color,
-  root: $root-color,
   misc: $misc-color,
   pending: $pending-color,
-  active: $active-color,
-  done: $done-color,
-  due: $misc-color,
-  new: $dev-color,
-  old: $done-color,
+  done: $done-color
 );
 
 @each $type, $color in $filter-types {
@@ -78,8 +79,10 @@ $filter-types: (
       stroke: $color;
     }
 
-    &:hover {
-      background-color: color-fade($color, 0.15);
+    @media (hover: hover){
+      &:hover {
+        background-color: color-fade($color, 0.15);
+      }
     }
   }
 
@@ -88,19 +91,25 @@ $filter-types: (
   }
 }
 
-.filter-button.root {
-  svg {
-    fill: transparent !important;
-  }
-}
-
 .task-status-button {
+  @include flex(initial, center, center);
   background-color: transparent;
   padding: 0 $spacing-xs;
   border-radius: $border-radius-xs;
+  width: 20px;
+  height: 20px;
+  color: $gray;
 
-  &:hover {
-    background-color: $gray-darker;
+  @media (hover: hover){
+    &:hover {
+      background-color: $gray-darker;
+    }
+  }
+}
+
+.done-status-btn {
+  svg {
+    fill: $done-color;
   }
 }
 
@@ -115,7 +124,6 @@ $filter-types: (
 
 $tag-btn-types: (
   dev: $dev-color,
-  root: $root-color,
   misc: $misc-color,
 );
 
@@ -130,18 +138,16 @@ $tag-btn-types: (
       stroke: $color;
     }
 
-    &:hover {
-      border: 1px solid $color;
+    @media (hover: hover){
+      &:hover {
+        border: 1px solid $color;
+      }
     }
   }
 
   #task-tag-editor button.#{$type}.selected {
     border: 1px solid $color;
   }
-}
-
-#task-tag-editor button.root svg {
-  fill: transparent;
 }
 
 .filter-button.selected-sort {
@@ -152,7 +158,7 @@ $tag-btn-types: (
   @include flex(row, space-between, center);
   background-color: transparent;
   padding: $spacing-xs $spacing-sm;
-  border: 1px solid $done-color;
+  border: 1px solid $gray;
   border-radius: $border-radius-xs;
   color: $done-color;
   transition: background-color $transition-instant;
@@ -161,21 +167,25 @@ $tag-btn-types: (
 
   svg {
     margin-left: $spacing-sm;
-    fill: $done-color;
+    fill: $gray;
   }
 
-  &:hover {
-    background-color: color-fade($done-color, 0.15);
+  @media (hover: hover){
+    &:hover {
+      background-color: color-fade($gray, 0.15);
+    }
   }
 }
 
 .todo-form-submit {
-  width: 100%;
+  flex: 1;
   background-color: transparent;
   border: 1px solid $primary-color;
   color: $primary-color;
 
-  &:hover {
-    background-color: color-fade($primary-color, 0.15);
+  @media (hover: hover){
+    &:hover {
+      background-color: color-fade($primary-color, 0.15);
+    }
   }
 }

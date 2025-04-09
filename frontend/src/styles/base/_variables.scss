@@ -11,20 +11,14 @@ $secondary-background-color:      rgb(58, 56, 56) !default;
 // $secondary-background-color:   NONE YET ;
 
 // --- NICHE Colors --- 
-$success-color: rgb(38, 181, 38);
+$success-color: rgb(45, 226, 117);
 $error-color: rgb(209, 56, 56);
 $warning-color: rgb(228, 153, 48);
 
-$active-color: $success-color;
-$pending-color: $warning-color;
-$done-color: gray;
-
-$due-color:rgb(204, 48, 228);
-$old-color:rgb(75, 216, 28);
-$new-color: $success-color;
+$done-color: $success-color;
+$pending-color: rgb(64, 112, 233);
 
 $dev-color:rgb(224, 166, 19);
-$root-color:rgb(223, 77, 114);
 $misc-color:rgb(226, 113, 217);
 
 // --- Gray + Shades ---

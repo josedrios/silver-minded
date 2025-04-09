@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "sd": "npm run dev -- --host & npm run dev --prefix ../backend"
+    "dev": "vite --host"
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -1,5 +1,7 @@
 #todo-container {
   @include flex(column);
+  max-width: 800px;
+  margin: auto;
   width: 100%;
   gap: $spacing-sm;
 }
@@ -15,7 +17,6 @@
   }
 }
 
-
 #task-list {
   flex: 1 1 auto; min-width: 0;
   @include flex(column);
@@ -24,45 +25,56 @@
 
 #task-header {
   margin-bottom: $spacing-xs;
-  border-bottom: 1px solid $primary-color;
-  border-radius: 0px !important;
 
   span {
-    color: $gray;
+    padding-bottom: $spacing-xs;
+    border-bottom: 1px solid $gray-dark;
+    color: $gray-lighter;
+    font-size: $font-size-sm;
   }
 
-  &:hover {
-    cursor: default;
-    background-color: transparent;
-  }
-
-  .task-tag {
-    width: 26px;
+  @media (hover: hover){
+    &:hover {
+      cursor: default;
+      background-color: transparent;
+    }
   }
 }
 
-.task-row {
+#task-header-count {
+  color: $gray !important;
+}
+
+#no-tasks-list {
+  color: $gray-light;
+  margin-left: $spacing-md;
+}
+
+.task-row.non-header {
   @include flex(row, left, center);
   font-size: $font-size-sm;
-  padding: $spacing-xs 0;
+  padding: 3px $spacing-xs;
+  margin-left: $spacing-md;
   border-radius: $border-radius-xs;
+
+  .task-count-number {
+    color: $gray;
+  }
 
   span {
     overflow: hidden;
   }
 
-  .task-name {
-    text-wrap: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 20%;
-    margin-right: $spacing-sm;
+  .task-status {
+    @include flex(row, center, center);
+    position: relative;
+    margin: 0 $spacing-sm;
+    width: 20px;
   }
 
   .task-info {
     display: inline-block;
-    color: $gray-light;
+    color: $gray-lighter;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -70,13 +82,10 @@
   }
 
   .task-tag {
-    min-width: 23px;
-    margin: 0 $spacing-xs;
-  }
-
-  .task-tag.non-header-tag {
     @include flex(row, left);
     font-size: $font-size-md;
+    min-width: 15px;
+    margin: 0 $spacing-xs;
     margin-left: $spacing-sm;
 
     svg {
@@ -84,30 +93,35 @@
     }
   }
 
-  .task-tag.root {
-    svg {
-      fill: transparent !important;
-      stroke: $root-color;
-    }
-  }
   .task-tag.dev {
     svg {
       fill: $dev-color;
     }
   }
 
-  .task-status {
-    position: relative;
-    width: 60px;
+  @media (hover: hover){
+    &:hover {
+      cursor: pointer;
+      background-color: color-fade($gray, 0.5);
+    }
   }
+}
 
-  .task-status.non-header {
-    right: 3px;
-  }
+#task-list-footer {
+  margin-top: $spacing-sm;
+  margin-bottom: $spacing-md;
 
-  &:hover {
-    cursor: pointer;
-    background-color: color-fade($gray, 0.5);
+  p {
+    font-size: $font-size-sm;
+    color: $gray;
+
+    .task-footer-done-span {
+      color: $done-color;
+    }
+
+    .task-footer-pending-span {
+      color: $pending-color;
+    }
   }
 }
 

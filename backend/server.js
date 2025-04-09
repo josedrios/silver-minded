@@ -5,11 +5,11 @@ const connectDB = require("./db");
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 4000;
 
 app.use(
     cors({
-      origin: ['http://localhost:5173', process.env.FRONTEND_URL, process.env.FRONTEND_URL2],
+      origin: process.env.FRONTEND_URL,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
       allowedHeaders: ['Content-Type', 'Authorization'],
     })

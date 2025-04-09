@@ -1,0 +1,17 @@
+{
+  "name": "second-mind",
+  "version": "1.0.0",
+  "main": "main.js",
+  "devDependencies": {
+    "electron": "^35.1.4",
+    "electron-icon-builder": "^2.0.1"
+  },
+  "scripts": {
+    "start": "vite",
+    "server": "node server.js",
+    "electron": "electron main.js",
+    "generate-icons": "electron-icon-builder --input=frontend/public/icon.png --output=build --flatten",
+    "package": "electron-packager . SecondMind --platform=darwin --arch=x64 --icon=build/icon.icns --overwrite",
+    "build-app": "npm run generate-icons && npm run package"
+  }
+}

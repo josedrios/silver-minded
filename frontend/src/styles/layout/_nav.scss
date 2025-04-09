@@ -12,8 +12,10 @@ nav {
         color: $secondary-color;
         transition: color $transition-instant;
 
-        &:hover {
-            color: $primary-color;
+        @media (hover: hover){
+            &:hover {
+                color: $primary-color;
+            }
         }
     }
 }

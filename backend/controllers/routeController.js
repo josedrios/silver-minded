@@ -1,18 +1,10 @@
-const Task = require("../models/tasks");
+const Task = require('../models/task');
 
 exports.createTask = async (req, res) => {
   try {
-    console.log(req.body);
-    const { name, info, tag } = req.body;
-
-    const newTask = new Task({
-      name,
-      info,
-      tag,
-    });
-
+    const { name, info, tag, status, dueAt } = req.body;
+    const newTask = new Task({ name, info, tag, status, dueAt });
     await newTask.save();
-
     return res.status(201).json(newTask);
   } catch (err) {
     console.log(err);
@@ -25,26 +17,15 @@ exports.createTask = async (req, res) => {
 
 exports.editTask = async (req, res) => {
   try {
-    const { name, info, tag } = req.body;
     const { id } = req.params;
-
-    const existingTask = await Task.findById(id);
-    if (!existingTask)
-      return res.status(404).json({ message: "Task not found" });
-
-    const task = await Task.findByIdAndUpdate(
+    const { name, info, tag, dueAt } = req.body;
+    const updated = await Task.findByIdAndUpdate(
       id,
-      {
-        name: name?.trim() === "" ? existingTask.name : name,
-        info: info?.trim() === "" ? existingTask.info : info,
-        tag: tag?.trim() === "" ? existingTask.tag : tag,
-      },
-      {
-        new: true,
-      }
+      { name, info, tag, dueAt },
+      { new: true, runValidators: true }
     );
-
-    return res.status(201).json(task);
+    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    res.status(200).json(updated);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -56,24 +37,19 @@ exports.editTask = async (req, res) => {
 
 exports.statusUpdateTask = async (req, res) => {
   try {
-    const { status } = req.body;
     const { id } = req.params;
-
-    const task = await Task.findByIdAndUpdate(
+    const { status } = req.body;
+    const updated = await Task.findByIdAndUpdate(
       id,
-      {
-        status,
-      },
-      {
-        new: true,
-      }
+      { status },
+      { new: true, runValidators: true }
     );
-
-    return res.status(201).json(task);
+    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    res.status(200).json(updated);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while editing task",
+      message: "Error occurred while updating status of task",
       error: err.message,
     });
   }
@@ -94,13 +70,10 @@ exports.getTasks = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   try {
-    const deleted = await Task.findByIdAndDelete(req.params.id);
-
-    if (!deleted) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-    res.json({ message: "Task deleted" });
-    return;
+    const { id } = req.params;
+    const deleted = await Task.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ message: 'Task not found' });
+    res.json({ message: 'Task deleted' });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -112,14 +85,8 @@ exports.deleteTask = async (req, res) => {
 
 exports.deleteDoneTasks = async (req, res) => {
   try {
-    const doneTasks = await Task.deleteMany({ status: "done" });
-
-    if (!doneTasks) {
-      return res.status(404).json({ message: "Tasks not found" });
-    }
-
-    res.json({ message: "Tasks deleted" });
-    return;
+    const result = await Task.deleteMany({ status: 'done' });
+    res.json({ message: `${result.deletedCount} tasks deleted` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -128,3 +95,4 @@ exports.deleteDoneTasks = async (req, res) => {
     });
   }
 };
+

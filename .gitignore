@@ -134,3 +134,16 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Recently added 
+dist/
+out/
+build/
+public/icon.png
+public/*.png
+public/*.jpg
+public/*.jpeg
+public/*.gif
+public/assets/
+*.log

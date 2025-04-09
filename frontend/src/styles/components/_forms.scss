@@ -27,7 +27,6 @@
 }
 
 #task-tag-editor {
-  width: 110px;
   @include flex(row);
   gap: $spacing-sm;
   min-width: 0px;
