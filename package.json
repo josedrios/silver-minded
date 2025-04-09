@@ -6,7 +6,7 @@
     "start": "vite",
     "server": "node server.js",
     "electron": "electron main.js",
-    "package": "electron-packager . SecondMind --platform=darwin --arch=x64 --icon=icon.icns --overwrite"
+    "package": "electron-packager . SecondMind --platform=darwin --arch=x64 --overwrite"
   },
   "devDependencies": {
     "electron": "^35.1.4",

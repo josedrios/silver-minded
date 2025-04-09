@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/todo" element={<Todo />} />
           <Route path="/" element={<Todo />} />
+          <Route path="*" element={<Todo />} />
         </Routes>
         </main>
       </div>
