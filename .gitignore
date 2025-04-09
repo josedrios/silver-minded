@@ -140,10 +140,13 @@ dist
 dist/
 out/
 build/
-public/icon.png
+SecondMind-darwin-x64/
+frontend/public/icon.png
 public/*.png
 public/*.jpg
 public/*.jpeg
 public/*.gif
 public/assets/
 *.log
+icon.iconset/
+icon.icns
