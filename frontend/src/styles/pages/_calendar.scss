@@ -1,0 +1,45 @@
+#calendar-page-container {
+  @include flex(column);
+  max-width: 900px;
+  margin: auto;
+  width: 100%;
+  gap: $spacing-sm;
+}
+
+#calendar-container {
+  border-radius: $border-radius-sm;
+  background-color: $secondary-background-color;
+  width: 50%;
+  padding: $spacing-md;
+}
+
+#calendar-month-navigation, #calendar-year-navigation {
+  @include flex(row, center, center);
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+
+  #month-navigation-label{
+    font-weight: 600;
+  }
+
+  #year-navigation-label {
+    color: $gray;
+  }
+}
+
+#calendar-days {
+  @include flex(row, space-around, center);
+  margin-bottom: $spacing-sm;
+  gap: $spacing-xs;
+
+  p {
+    color: $gray;
+  }
+}
+
+#calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xs;
+}

@@ -34,6 +34,7 @@ app.whenReady().then(() => {
     width: 600,
     height: height,
     x: width - 600,
+    minWidth: 400,
     y: 0,
     backgroundColor: "rgb(31, 29, 29)",
   });

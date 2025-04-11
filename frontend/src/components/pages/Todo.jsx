@@ -7,10 +7,10 @@ import { RiRobot2Line } from "react-icons/ri";
 import { TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { GoSortAsc, GoAlertFill } from "react-icons/go";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Todo() {
   const [selectedTask, setSelectedTask] = useState(null);
-
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [filters, setFilters] = useState({
@@ -23,6 +23,18 @@ export default function Todo() {
     pending: 0,
     done: 1,
   };
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        console.log('Clicked outside');
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, []);
+  
 
   useEffect(() => {
     const safeTasks = tasks || [];
@@ -88,13 +100,8 @@ export default function Todo() {
             setFilters={setFilters}
             sortType={sortType}
             setSortType={setSortType}
+            killDoneTask={killDoneTask}
           />
-          {/* <div id="todo-dashboard-misc">
-            <p>Other</p>
-            <button id="delete-done-tasks-btn" onClick={() => killDoneTask()}>
-              Done Tasks <FaRegTrashAlt />
-            </button>
-          </div> */}
         </div>
       </div>
       <TaskList
@@ -107,7 +114,7 @@ export default function Todo() {
   );
 }
 
-function TodoFilter({ filters, setFilters, sortType, setSortType }) {
+function TodoFilter({ filters, setFilters, sortType, setSortType, killDoneTask }) {
   return (
     <div id="todo-dashboard-filters">
       <div className="filter-button-container">
@@ -130,6 +137,7 @@ function TodoFilter({ filters, setFilters, sortType, setSortType }) {
           setFilters={setFilters}
           sortType={sortType}
           setSortType={setSortType}
+          killDoneTask={killDoneTask}
         />
       </div>
     </div>
@@ -143,6 +151,7 @@ function TodoFilterSection({
   setFilters,
   sortType,
   setSortType,
+  killDoneTask
 }) {
   const toggleFilter = (type, value) => {
     setFilters((prev) => ({
@@ -218,6 +227,9 @@ function TodoFilterSection({
             title="Ascending Due Date"
           >
             <GoAlertFill /> Priority
+          </button>
+          <button id="delete-done-tasks-btn" onClick={() => killDoneTask()}>
+            Done Tasks <FaRegTrashAlt />
           </button>
         </>
       ) : (

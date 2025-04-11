@@ -4,8 +4,8 @@
   color: black;
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
-  
-  @media (hover: hover){
+
+  @media (hover: hover) {
     &:hover {
       background-color: $secondary-color;
     }
@@ -25,7 +25,7 @@
     transition: fill $transition-instant;
   }
 
-  @media (hover: hover){
+  @media (hover: hover) {
     &:hover {
       border-color: $error-color;
       cursor: pointer;
@@ -50,7 +50,7 @@
     margin-right: $spacing-xs;
   }
 
-  @media (hover: hover){
+  @media (hover: hover) {
     &:hover {
       background-color: color-fade(gray, 0.15);
     }
@@ -61,7 +61,7 @@ $filter-types: (
   dev: $dev-color,
   misc: $misc-color,
   pending: $pending-color,
-  done: $done-color
+  done: $done-color,
 );
 
 @each $type, $color in $filter-types {
@@ -79,7 +79,7 @@ $filter-types: (
       stroke: $color;
     }
 
-    @media (hover: hover){
+    @media (hover: hover) {
       &:hover {
         background-color: color-fade($color, 0.15);
       }
@@ -100,7 +100,7 @@ $filter-types: (
   height: 20px;
   color: $gray;
 
-  @media (hover: hover){
+  @media (hover: hover) {
     &:hover {
       background-color: $gray-darker;
     }
@@ -138,7 +138,7 @@ $tag-btn-types: (
       stroke: $color;
     }
 
-    @media (hover: hover){
+    @media (hover: hover) {
       &:hover {
         border: 1px solid $color;
       }
@@ -151,28 +151,28 @@ $tag-btn-types: (
 }
 
 .filter-button.selected-sort {
-    background-color: $gray-dark;
+  background-color: $gray-dark;
 }
 
 #delete-done-tasks-btn {
   @include flex(row, space-between, center);
   background-color: transparent;
   padding: $spacing-xs $spacing-sm;
-  border: 1px solid $gray;
-  border-radius: $border-radius-xs;
-  color: $done-color;
-  transition: background-color $transition-instant;
+  border-radius: $border-radius-sm;
+  color: $error-color;
+  border: 1px solid transparent;
+  transition: background-color $transition-instant, border $transition-instant;
   text-wrap: nowrap;
-  width: min-content;
 
   svg {
     margin-left: $spacing-sm;
-    fill: $gray;
+    fill: $error-color;
   }
 
-  @media (hover: hover){
+  @media (hover: hover) {
     &:hover {
-      background-color: color-fade($gray, 0.15);
+      border: 1px solid $error-color;
+      background-color: color-fade($error-color, 0.15);
     }
   }
 }
@@ -183,9 +183,45 @@ $tag-btn-types: (
   border: 1px solid $primary-color;
   color: $primary-color;
 
-  @media (hover: hover){
+  @media (hover: hover) {
     &:hover {
       background-color: color-fade($primary-color, 0.15);
     }
   }
+}
+
+.month-navigation-buttons, .year-navigation-buttons {
+  background-color: transparent;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-xs;
+  transition: background-color $transition-instant;
+  @include flex(row, center, center);
+
+  svg {
+    fill: $gray-light;
+    transition: fill $transition-instant;
+  }
+
+  &:hover {
+    background-color: color-fade($gray, 0.5);
+
+    svg {
+      fill: $primary-color;
+    }
+  }
+}
+
+.calendar-date-button {
+  background-color: transparent;
+  @include flex(row, center, center);
+  padding: $spacing-sm 0;
+  color: $done-color;
+
+  &:hover {
+    background-color: red;
+  }
+}
+
+.contains-events {
+  color: $pending-color !important;
 }

@@ -9,12 +9,13 @@ nav {
 
     a {
         font-size: $font-size-md;
-        color: $secondary-color;
+        color: $primary-color;
+
         transition: color $transition-instant;
 
         @media (hover: hover){
             &:hover {
-                color: $primary-color;
+                color: $secondary-color;
             }
         }
     }
