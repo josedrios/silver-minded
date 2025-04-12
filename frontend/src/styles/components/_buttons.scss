@@ -238,3 +238,13 @@ $tag-btn-types: (
 .contains-events {
   color: $pending-color !important;
 }
+
+.calendar-event-button {
+  color: $gray;
+  background-color: transparent;
+  transition: color $transition-instant;
+
+  &:hover {
+    color: $primary-color;
+  }
+}

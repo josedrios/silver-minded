@@ -1,4 +1,5 @@
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
+import { useOverlay } from "../../util/overlayContext";
 
 export default function Calendar() {
   return (
@@ -50,13 +51,15 @@ export default function Calendar() {
 }
 
 function CalendarDetails() {
+  const { showOverlay, setShowOverlay } = useOverlay();
+
   return (
     <div id="calendar-details">
       <div id="calendar-upcoming">
-        <p id="upcoming-header">
+        <div id="upcoming-header">
           <p>UPCOMING</p>
-          <button className="calendar-event-button">Create/Edit</button>
-        </p>
+          <button className="calendar-event-button" onClick={() => setShowOverlay((prev) => !prev)}>Create/Edit</button>
+        </div>
         <div id="upcoming-body">
           <div className="upcoming-day">
             <p className="upcoming-day-label">01</p>
