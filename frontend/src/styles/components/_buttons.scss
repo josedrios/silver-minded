@@ -5,11 +5,23 @@
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
 
-  @media (hover: hover) {
     &:hover {
       background-color: $secondary-color;
     }
-  }
+}
+
+.standard-hollow-btn {
+  border-radius: $border-radius-xs;
+  background-color: transparent;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  padding: $spacing-xs $spacing-sm;
+  transition: background-color $transition-instant, color $transition-instant;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $primary-background-color !important;
+    }
 }
 
 .delete-task-icon {
@@ -99,12 +111,11 @@ $filter-types: (
   width: 20px;
   height: 20px;
   color: $gray;
+  transition: background-color $transition-instant;
 
-  @media (hover: hover) {
     &:hover {
       background-color: $gray-darker;
     }
-  }
 }
 
 .done-status-btn {
@@ -216,9 +227,11 @@ $tag-btn-types: (
   @include flex(row, center, center);
   padding: $spacing-sm 0;
   color: $done-color;
+  border-radius: $border-radius-xs;
+  transition: background-color $transition-instant;
 
   &:hover {
-    background-color: red;
+    background-color: color-fade($gray, 0.15);
   }
 }
 

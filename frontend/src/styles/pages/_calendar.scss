@@ -1,9 +1,9 @@
 #calendar-page-container {
-  @include flex(column);
+  @include flex(row);
   max-width: 900px;
   margin: auto;
   width: 100%;
-  gap: $spacing-sm;
+  gap: $spacing-md;
 }
 
 #calendar-container {
@@ -42,4 +42,58 @@
   grid-template-columns: repeat(7,1fr);
   gap: $spacing-xs;
   margin-bottom: $spacing-xs;
+}
+
+#calendar-details {
+  width: 50%;
+  @include flex(column, initial, center);
+}
+
+#calendar-upcoming {
+  width: 100%;
+  @include flex(column, flex-start, flex-start);
+
+  #upcoming-header {
+    @include flex(row, space-between, flex-end);
+    width: 100%;
+    border-bottom: 1px solid $primary-color;
+    padding: $spacing-sm 0;
+    margin-bottom: $spacing-sm;
+    padding-top: 0 !important;
+  }
+
+  #upcoming-body {
+    width: 100%;
+  }
+
+  .upcoming-day {
+    @include flex(row, space-between);
+
+    .upcoming-events {
+      width: 60%;
+    }
+  }
+}
+
+.event-container {
+  @include flex(row, space-between);
+  margin-bottom: $spacing-sm;
+  border-bottom: 0.5px solid $primary-color;
+  padding-bottom: $spacing-xs;
+
+  .event-label {
+    text-wrap: nowrap;
+  }
+
+  .event-info {
+    width: 80%;
+  }
+}
+
+.calendar-event-button {
+  background-color: transparent;
+
+  &:hover {
+    color: $secondary-color;
+  }
 }

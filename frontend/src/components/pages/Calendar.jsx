@@ -24,7 +24,12 @@ export default function Calendar() {
         </div>
         <div id="calendar-body">
           {Array.from({ length: 31 }).map((_, i) => (
-            <button className={`calendar-date-button ${i % 2 === 0 ? "contains-events" : ""}`} key={i}>
+            <button
+              className={`calendar-date-button ${
+                i % 2 === 0 ? "contains-events" : ""
+              }`}
+              key={i}
+            >
               {i + 1}
             </button>
           ))}
@@ -39,7 +44,40 @@ export default function Calendar() {
           </button>
         </div>
       </div>
-      <div></div>
+      <CalendarDetails />
+    </div>
+  );
+}
+
+function CalendarDetails() {
+  return (
+    <div id="calendar-details">
+      <div id="calendar-upcoming">
+        <p id="upcoming-header">
+          <p>UPCOMING</p>
+          <button className="calendar-event-button">Create/Edit</button>
+        </p>
+        <div id="upcoming-body">
+          <div className="upcoming-day">
+            <p className="upcoming-day-label">01</p>
+
+            <div className="upcoming-events">
+              <CalendarEvent />
+              <CalendarEvent />
+              <CalendarEvent />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CalendarEvent() {
+  return (
+    <div className="event-container">
+      <p className="event-label">01.1 /</p>
+      <p className="event-info">This is an example event</p>
     </div>
   );
 }

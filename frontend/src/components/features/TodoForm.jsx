@@ -63,7 +63,7 @@ export default function TodoForm({
         type="text"
         value={taskForm.info}
         onChange={handleChange}
-        className="todo-info-input standard-input"
+        className="keep-selected-state todo-info-input standard-input"
         placeholder="Enter task ..."
         autoComplete="off"
       />
@@ -71,7 +71,7 @@ export default function TodoForm({
         <div id="task-tag-editor">
           <button
             type="button"
-            className={`ts-hover dev ${taskForm.tag === "dev" ? "selected" : ""}`}
+            className={`keep-selected-state dev ${taskForm.tag === "dev" ? "selected" : ""}`}
             onClick={() => {
               if (taskForm.tag === "dev") {
                 setTaskForm((prev) => ({
@@ -90,7 +90,7 @@ export default function TodoForm({
           </button>
           <button
             type="button"
-            className={`ts-hover misc ${
+            className={`misc keep-selected-state ${
               taskForm.tag && taskForm.tag !== "root" && taskForm.tag !== "dev"
                 ? "selected"
                 : ""
@@ -116,7 +116,7 @@ export default function TodoForm({
         <button
           style={{ display: selectedTask ? "" : "none" }}
           type="button"
-          className="ts-hover delete-task-icon"
+          className="keep-selected-state delete-task-icon"
           onClick={() => {
             if (selectedTask) killTask();
           }}
@@ -124,7 +124,7 @@ export default function TodoForm({
           {" "}
           <FaRegTrashAlt />
         </button>
-        <button type="submit" className="ts-hover todo-form-submit standard-btn">
+        <button type="submit" className="keep-selected-state todo-form-submit standard-btn">
           {selectedTask ? "Edit" : "Create"}
         </button>
       </div>

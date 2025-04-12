@@ -1,7 +1,7 @@
 import { fetchTasks, removeDoneTasks, removeTask } from "../../util/taskUtil";
 import TodoForm from "../features/TodoForm";
 import { TaskList } from "../features/TaskList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
 import { TbCheckbox } from "react-icons/tb";
@@ -23,18 +23,6 @@ export default function Todo() {
     pending: 0,
     done: 1,
   };
-
-  useEffect(() => {
-    const handleClick = (e) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-        console.log('Clicked outside');
-      }
-    };
-
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  }, []);
-  
 
   useEffect(() => {
     const safeTasks = tasks || [];
@@ -85,6 +73,20 @@ export default function Todo() {
     setSelectedTask("");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const clickedTask = e.target.closest(".task-row");
+      const keepSelected = e.target.closest(".keep-selected-state");
+  
+      if (!clickedTask && !keepSelected) {
+        setSelectedTask("");
+      }
+    };
+  
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <div id="todo-container">
       <div id="todo-dashboard">
@@ -114,7 +116,13 @@ export default function Todo() {
   );
 }
 
-function TodoFilter({ filters, setFilters, sortType, setSortType, killDoneTask }) {
+function TodoFilter({
+  filters,
+  setFilters,
+  sortType,
+  setSortType,
+  killDoneTask,
+}) {
   return (
     <div id="todo-dashboard-filters">
       <div className="filter-button-container">
@@ -151,7 +159,7 @@ function TodoFilterSection({
   setFilters,
   sortType,
   setSortType,
-  killDoneTask
+  killDoneTask,
 }) {
   const toggleFilter = (type, value) => {
     setFilters((prev) => ({
@@ -168,7 +176,7 @@ function TodoFilterSection({
       {items.map(({ name, icon: Icon }, index) => (
         <button
           key={index}
-          className={`ts-hover filter-button ${name.toLowerCase()} ${
+          className={` filter-button ${name.toLowerCase()} ${
             filters[type].includes(name.toLowerCase())
               ? "active-filter-btn"
               : ""
@@ -184,7 +192,7 @@ function TodoFilterSection({
       {type == "status" ? (
         <>
           <button
-            className={`ts-hover filter-button ${
+            className={` filter-button ${
               sortType === "prio-desc" ? "selected-sort" : ""
             }`}
             onClick={() => {
@@ -199,7 +207,7 @@ function TodoFilterSection({
             <TbCheckbox /> Status
           </button>
           <button
-            className={`ts-hover filter-button ${
+            className={` filter-button ${
               sortType === "created-asc" ? "selected-sort" : ""
             }`}
             onClick={() => {
@@ -214,7 +222,7 @@ function TodoFilterSection({
             <GoSortAsc /> Time
           </button>
           <button
-            className={`ts-hover filter-button ${
+            className={` filter-button ${
               sortType === "due-asc" ? "selected-sort" : ""
             }`}
             onClick={() => {

@@ -1,13 +1,16 @@
+import { useEffect } from "react";
 import { editTaskStatus } from "../../util/taskUtil";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
 
 export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
+
   const doneTasks = tasks.filter((task) => task.status === "done").length
   const donePercentage = tasks.length
   ? ((doneTasks / tasks.length) * 100).toFixed(0)
   : "0";
-  const pendingTasks = tasks.filter((task) => task.status === "pending").length
+  const pendingTasks = tasks.filter((task) => task.status === "pending").length;
+
 
   return (
     <div id="task-list">
@@ -73,7 +76,7 @@ function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count }) {
       <span className="task-count-number">{count}.</span>
       <span className="task-status non-header">
         <button
-          className={`ts-hover task-status-button ${
+          className={`task-status-button ${
             task.status === "done" ? "done-status-btn" : ""
           }`}
           onClick={(e) => {
