@@ -1,7 +1,10 @@
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import { useOverlay } from "../../util/overlayContext";
+import { useEffect, useState } from "react";
+import Overlay from "../layout/Overlay";
 
 export default function Calendar() {
+  const [calendarOverlay, setCalendarOverlay] = useState(false);
+
   return (
     <div id="calendar-page-container">
       <div id="calendar-container">
@@ -45,20 +48,29 @@ export default function Calendar() {
           </button>
         </div>
       </div>
-      <CalendarDetails />
+      <CalendarDetails setCalendarOverlay={setCalendarOverlay} />
+      <CalendarOverlay
+        calendarOverlay={calendarOverlay}
+        setCalendarOverlay={setCalendarOverlay}
+      />
     </div>
   );
 }
 
-function CalendarDetails() {
-  const { showOverlay, setShowOverlay } = useOverlay();
-
+function CalendarDetails({ setCalendarOverlay, setShowOverlay }) {
   return (
     <div id="calendar-details">
       <div id="calendar-upcoming">
         <div id="upcoming-header">
           <p>UPCOMING</p>
-          <button className="calendar-event-button" onClick={() => setShowOverlay((prev) => !prev)}>Create/Edit</button>
+          <button
+            className="calendar-event-button"
+            onClick={() => {
+              setCalendarOverlay((prev) => !prev);
+            }}
+          >
+            Create/Edit
+          </button>
         </div>
         <div id="upcoming-body">
           <div className="upcoming-day">
@@ -82,5 +94,16 @@ function CalendarEvent() {
       <p className="event-label">01.1 /</p>
       <p className="event-info">This is an example event</p>
     </div>
+  );
+}
+
+function CalendarOverlay({ calendarOverlay, setCalendarOverlay }) {
+  return (
+    <Overlay overlayToggle={calendarOverlay} setOverlayToggle={setCalendarOverlay}>
+      <div className="overlay-page-content">
+        This is suppose to be an overlay
+        <button onClick={() => setCalendarOverlay(false)}>Close</button>
+      </div>
+    </Overlay>
   );
 }
