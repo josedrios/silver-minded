@@ -13,12 +13,13 @@
   padding: $spacing-md;
 }
 
-#calendar-month-navigation, #calendar-year-navigation {
+#calendar-month-navigation,
+#calendar-year-navigation {
   @include flex(row, center, center);
   gap: $spacing-sm;
   margin-bottom: $spacing-sm;
 
-  #month-navigation-label{
+  #month-navigation-label {
     font-weight: 600;
   }
 
@@ -39,7 +40,7 @@
 
 #calendar-body {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: $spacing-xs;
   margin-bottom: $spacing-xs;
 }
@@ -87,5 +88,38 @@
 
   .event-info {
     width: 80%;
+  }
+}
+
+#calendar-overlay {
+  @include flex(column, flex-start);
+  padding: $spacing-md;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius-sm;
+  max-width: 600px;
+  width: 100%;
+
+  #calendar-overlay-form {
+    @include flex(column);
+    gap: $spacing-xs;
+  }
+
+  #calendar-overlay-header {
+    @include flex(row, center);
+    position: relative;
+
+    h5 {
+      font-size: $font-size-md;
+      text-align: center;
+    }
+
+    button {
+     position: absolute;
+     right: 0;
+    }
+  }
+
+  p {
+    font-size: $font-size-md;
   }
 }
