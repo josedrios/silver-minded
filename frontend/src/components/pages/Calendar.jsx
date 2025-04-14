@@ -30,12 +30,17 @@ export default function Calendar() {
   const now = new Date();
   const [timeFrame, setTimeFrame] = useState({
     year: now.getFullYear(),
-    month: monthNames[now.getMonth()]
-  })
+    month: monthNames[now.getMonth()],
+  });
+  const monthIndex = monthNames.indexOf(timeFrame.month);
 
   useEffect(() => {
-    loadEvents(timeFrame.month, timeFrame.year);
+    loadEvents(monthIndex, timeFrame.year);
   }, []);
+
+  useEffect(() => {
+    console.log(selectedEvent);
+  }, [selectedEvent]);
 
   return (
     <div id="calendar-page-container">
@@ -80,7 +85,12 @@ export default function Calendar() {
           </button>
         </div>
       </div>
-      <CalendarDetails setCalendarOverlay={setCalendarOverlay} />
+      <CalendarDetails
+        setCalendarOverlay={setCalendarOverlay}
+        events={events}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+      />
       <CalendarOverlay
         calendarOverlay={calendarOverlay}
         setCalendarOverlay={setCalendarOverlay}
@@ -91,13 +101,25 @@ export default function Calendar() {
         loadEvents={loadEvents}
         timeFrame={timeFrame}
         setTimeFrame={setTimeFrame}
-        monthNames={monthNames}
+        monthIndex={monthIndex}
       />
     </div>
   );
 }
 
-function CalendarDetails({ setCalendarOverlay, setShowOverlay }) {
+function CalendarDetails({
+  setCalendarOverlay,
+  events,
+  selectedEvent,
+  setSelectedEvent,
+}) {
+  const groupedByDay = events.reduce((acc, event) => {
+    const day = new Date(event.dueAt).getDate(); // 1–31
+    if (!acc[day]) acc[day] = [];
+    acc[day].push(event);
+    return acc;
+  }, {});
+
   return (
     <div id="calendar-details">
       <div id="calendar-upcoming">
@@ -113,26 +135,58 @@ function CalendarDetails({ setCalendarOverlay, setShowOverlay }) {
           </button>
         </div>
         <div id="upcoming-body">
-          <div className="upcoming-day">
-            <p className="upcoming-day-label">01</p>
-
-            <div className="upcoming-events">
-              <CalendarEvent />
-              <CalendarEvent />
-              <CalendarEvent />
-            </div>
-          </div>
+          {Object.entries(groupedByDay).map(([day, dayEvents]) => (
+            <UpcomingDay
+              key={day}
+              day={day}
+              events={dayEvents}
+              selectedEvent={selectedEvent}
+              setSelectedEvent={setSelectedEvent}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-function CalendarEvent() {
+function UpcomingDay({ day, events, selectedEvent, setSelectedEvent }) {
   return (
-    <button className="event-container">
-      <p className="event-label">01.1 /</p>
-      <p className="event-info">This is an example event</p>
+    <div className="upcoming-day">
+      <p className="upcoming-day-label">{String(day).padStart(2, "0")}</p>
+
+      <div className="upcoming-events">
+        {events.map((event, idx) => (
+          <CalendarEvent
+            key={idx}
+            event={event}
+            index={idx + 1}
+            day={day}
+            selectedEvent={selectedEvent}
+            setSelectedEvent={setSelectedEvent}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CalendarEvent({ event, index, day, selectedEvent, setSelectedEvent }) {
+  return (
+    <button
+      className={`event-container ${
+        selectedEvent && selectedEvent._id === event._id ? "selected-event" : ""
+      }`}
+      onClick={() => {
+        selectedEvent && selectedEvent._id === event._id
+          ? setSelectedEvent(null)
+          : setSelectedEvent(event);
+      }}
+    >
+      <p className="event-label">
+        {String(day).padStart(2, "0")}.{index} -
+      </p>{" "}
+      <p className="event-info">{event.info}</p>
     </button>
   );
 }

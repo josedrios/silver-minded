@@ -13,10 +13,9 @@ export function CalendarOverlay({
   loadEvents,
   timeFrame,
   setTimeFrame,
-  monthNames,
+  monthIndex,
 }) {
   const now = new Date();
-  const monthIndex = monthNames.indexOf(timeFrame.month);
   const pad = (n) => n.toString().padStart(2, "0");
   const formattedNow = `${timeFrame.year}-${pad(monthIndex + 1)}-${pad(
     now.getDate()
@@ -38,7 +37,7 @@ export function CalendarOverlay({
 
   const submitEvent = async () => {
     await createEvent(eventForm);
-    loadEvents(selectedMonth);
+    loadEvents(monthIndex, timeFrame.year);
     setEventForm({
       info: "",
       reoccurring: "never",
