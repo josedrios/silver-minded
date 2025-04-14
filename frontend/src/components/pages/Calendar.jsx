@@ -1,9 +1,41 @@
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { CalendarOverlay } from "../features/CalendarForm";
+import { fetchEvents } from "../../util/eventUtil";
 
 export default function Calendar() {
   const [calendarOverlay, setCalendarOverlay] = useState(false);
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const loadEvents = async (month, year) => {
+    const data = await fetchEvents(month, year);
+    setEvents(data);
+  };
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const now = new Date();
+  const [timeFrame, setTimeFrame] = useState({
+    year: now.getFullYear(),
+    month: monthNames[now.getMonth()]
+  })
+
+  useEffect(() => {
+    loadEvents(timeFrame.month, timeFrame.year);
+  }, []);
 
   return (
     <div id="calendar-page-container">
@@ -52,6 +84,14 @@ export default function Calendar() {
       <CalendarOverlay
         calendarOverlay={calendarOverlay}
         setCalendarOverlay={setCalendarOverlay}
+        events={events}
+        setEvents={setEvents}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+        loadEvents={loadEvents}
+        timeFrame={timeFrame}
+        setTimeFrame={setTimeFrame}
+        monthNames={monthNames}
       />
     </div>
   );
@@ -90,9 +130,9 @@ function CalendarDetails({ setCalendarOverlay, setShowOverlay }) {
 
 function CalendarEvent() {
   return (
-    <div className="event-container">
+    <button className="event-container">
       <p className="event-label">01.1 /</p>
       <p className="event-info">This is an example event</p>
-    </div>
+    </button>
   );
 }

@@ -8,9 +8,9 @@ const {
 
 const router = express.Router();
 
-router.get("/", getEvents);
+router.get("/:year/:month", getEvents);
 router.post("/", createEvent);
-router.patch("/", editEvent);
-router.delete("/", deleteEvent);
+// router.patch("/", editEvent);
+// router.delete("/", deleteEvent);
 
 module.exports = router;

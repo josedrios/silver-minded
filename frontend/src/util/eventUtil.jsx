@@ -8,7 +8,7 @@ export async function createEvent(event) {
         body: JSON.stringify({
           info: event.info,
           reoccurring: event.reoccurring,
-          timeRange: event.timeRage,
+          dueAt: event.dueAt,
         }),
       }
     );
@@ -46,10 +46,10 @@ export async function editEvent(id, event) {
   }
 }
 
-export async function fetchEvents(month) {
+export async function fetchEvents(month, year) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/event/${month}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/event/${year}/${month}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },

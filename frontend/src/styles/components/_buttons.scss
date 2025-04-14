@@ -248,3 +248,52 @@ $tag-btn-types: (
     color: $primary-color;
   }
 }
+
+.event-container {
+  background-color: transparent;
+  width: 100%;
+  @include flex(row, space-between);
+  border-bottom: 0.5px solid $primary-color;
+  padding: $spacing-sm 0;
+
+  .event-label {
+    text-wrap: nowrap;
+  }
+
+  .event-info {
+    width: 80%;
+  }
+
+  &:hover {
+    background-color: color-fade(black, 0.3);
+  }
+}
+
+.calendar-overlay-close-button {
+  @include flex(row, center, center);
+  border-radius: $border-radius-c;
+  background-color: transparent;
+  font-size: 30px;
+  transition: border $transition-instant;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid $primary-color;
+  }
+}
+
+.reoccurring-option-button {
+  padding: $spacing-sm;
+  background-color: transparent;
+  border-radius: $border-radius-xs;
+  border: 1px solid $primary-color;
+  transition: background-color $transition-instant;
+
+  &:hover {
+    background-color: color-fade($primary-color, 0.15);
+  }
+}
+
+.reoccurring-chosen-option {
+  background-color: color-fade($primary-color, 0.15);
+}
