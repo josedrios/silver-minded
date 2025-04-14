@@ -19,7 +19,9 @@ app.use(express.json());
 // Database
 connectDB();
 
+// Routes
 app.use('/api/task', require('./routes/taskRoutes'));
+app.use('/api/event', require('./routes/eventRoutes'));
 
 // Server
 app.listen(PORT, '0.0.0.0', () => 
