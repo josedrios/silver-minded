@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/:year/:month", getEvents);
 router.post("/", createEvent);
-// router.patch("/", editEvent);
+router.put("/:id", editEvent);
 // router.delete("/", deleteEvent);
 
 module.exports = router;

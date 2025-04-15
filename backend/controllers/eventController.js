@@ -15,7 +15,25 @@ exports.createEvent = async (req, res) => {
   }
 };
 
-exports.editEvent = async (req, res) => {};
+exports.editEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { info, reoccurring, dueAt } = req.body;
+    const updated = await Event.findByIdAndUpdate(
+      id,
+      { info, reoccurring, dueAt },
+      { new: true, runValidators: true }
+    );
+    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    res.status(200).json(updated);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error occurred while editing task",
+      error: err.message,
+    });
+  }
+};
 
 exports.deleteEvent = async (req, res) => {};
 
@@ -31,7 +49,6 @@ exports.getEvents = async (req, res) => {
     const events = await Event.find({
       dueAt: { $gte: start, $lt: end },
     }).sort({ dueAt: 1 });
-    console.log(events);
     res.json(events);
   } catch (err) {
     console.log(err);
