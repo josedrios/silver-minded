@@ -31,6 +31,7 @@
 #calendar-days {
   @include flex(row, space-around, center);
   margin-bottom: $spacing-sm;
+  text-align: center;
   gap: $spacing-xs;
 
   p {
@@ -48,6 +49,12 @@
 #calendar-details {
   width: 50%;
   @include flex(column, initial, center);
+}
+
+#no-upcoming {
+  margin: $spacing-sm 0;
+  font-size: $font-size-sm;
+  color: $gray;
 }
 
 #calendar-upcoming {
@@ -72,6 +79,7 @@
 
     .upcoming-events {
       margin-top: $spacing-xs;
+      margin-bottom: $spacing-xs;
       flex: 1;
     }
   }
@@ -79,7 +87,7 @@
 
 .upcoming-day-label {
   font-size: $font-size-lg;
-  padding-top: $spacing-sm;
+  padding-top: $spacing-xs;
   margin-right: $spacing-md;
 }
 

@@ -31,46 +31,85 @@ export default function Calendar() {
   const now = new Date();
   const [timeFrame, setTimeFrame] = useState({
     year: now.getFullYear(),
-    month: monthNames[now.getMonth()],
+    month: now.getMonth(),
   });
-  const monthIndex = monthNames.indexOf(timeFrame.month);
 
   useEffect(() => {
-    loadEvents(monthIndex, timeFrame.year);
+    console.log(timeFrame);
+  }, [timeFrame]);
+
+  useEffect(() => {
+    loadEvents(timeFrame.month, timeFrame.year);
   }, []);
 
   useEffect(() => {
-    if(selectedEvent) {
+    if (selectedEvent) {
       setCalendarOverlay(true);
-    } 
+    }
   }, [selectedEvent]);
 
   useEffect(() => {
-    if(!calendarOverlay) {
+    if (!calendarOverlay) {
       setSelectedEvent(null);
-    } 
+    }
   }, [calendarOverlay]);
+
+  const incrementMonth = (type) => {
+    setTimeFrame((prev) => {
+      const newMonth =
+        type === "decrease"
+          ? prev.month === 0
+            ? 11
+            : prev.month - 1
+          : prev.month === 11
+          ? 0
+          : prev.month + 1;
+
+      const newYear =
+        type === "decrease"
+          ? prev.month === 0
+            ? prev.year - 1
+            : prev.year
+          : prev.month === 11
+          ? prev.year + 1
+          : prev.year;
+
+      loadEvents(newMonth, newYear);
+
+      return { year: newYear, month: newMonth };
+    });
+  };
 
   return (
     <div id="calendar-page-container">
       <div id="calendar-container">
         <div id="calendar-month-navigation">
-          <button className="month-navigation-buttons">
+          <button
+            className="month-navigation-buttons"
+            onClick={(e) => {
+              incrementMonth("decrease");
+            }}
+          >
             <FaArrowLeftLong />
           </button>
-          <p id="month-navigation-label">APRIL</p>
-          <button className="month-navigation-buttons">
+          <p id="month-navigation-label">{monthNames[timeFrame.month]}</p>
+          <button
+            className="month-navigation-buttons"
+            onClick={(e) => {
+              incrementMonth("increase");
+            }}
+          >
             <FaArrowRightLong />
           </button>
         </div>
         <div id="calendar-days">
-          <p>S</p>
-          <p>M</p>
-          <p>T</p>
-          <p>W</p>
-          <p>T</p>
-          <p>F</p>
-          <p>S</p>
+          <p>Sun</p>
+          <p>Mon</p>
+          <p>Tue</p>
+          <p>Wed</p>
+          <p>Thu</p>
+          <p>Fri</p>
+          <p>Sat</p>
         </div>
         <div id="calendar-body">
           {Array.from({ length: 31 }).map((_, i) => (
@@ -85,11 +124,29 @@ export default function Calendar() {
           ))}
         </div>
         <div id="calendar-year-navigation">
-          <button className="year-navigation-buttons">
+          <button
+            className="year-navigation-buttons"
+            onClick={() =>
+              setTimeFrame((prev) => {
+                const newYear = prev.year - 1;
+                loadEvents(prev.month, newYear);
+                return { ...prev, year: newYear };
+              })
+            }
+          >
             <FaArrowLeftLong />
           </button>
-          <p id="year-navigation-label">2025</p>
-          <button className="year-navigation-buttons">
+          <p id="year-navigation-label">{timeFrame.year}</p>
+          <button
+            className="year-navigation-buttons"
+            onClick={() =>
+              setTimeFrame((prev) => {
+                const newYear = prev.year + 1;
+                loadEvents(prev.month, newYear);
+                return { ...prev, year: newYear };
+              })
+            }
+          >
             <FaArrowRightLong />
           </button>
         </div>
@@ -110,7 +167,6 @@ export default function Calendar() {
         loadEvents={loadEvents}
         timeFrame={timeFrame}
         setTimeFrame={setTimeFrame}
-        monthIndex={monthIndex}
       />
     </div>
   );
@@ -123,7 +179,7 @@ function CalendarDetails({
   setSelectedEvent,
 }) {
   const groupedByDay = events.reduce((acc, event) => {
-    const day = new Date(event.dueAt).getDate(); 
+    const day = new Date(event.dueAt).getDate();
     if (!acc[day]) acc[day] = [];
     acc[day].push(event);
     return acc;
@@ -144,15 +200,19 @@ function CalendarDetails({
           </button>
         </div>
         <div id="upcoming-body">
-          {Object.entries(groupedByDay).map(([day, dayEvents]) => (
-            <UpcomingDay
-              key={day}
-              day={day}
-              events={dayEvents}
-              selectedEvent={selectedEvent}
-              setSelectedEvent={setSelectedEvent}
-            />
-          ))}
+          {Object.entries(groupedByDay).length === 0 ? (
+            <div id="no-upcoming">No upcoming events...</div>
+          ) : (
+            Object.entries(groupedByDay).map(([day, dayEvents]) => (
+              <UpcomingDay
+                key={day}
+                day={day}
+                events={dayEvents}
+                selectedEvent={selectedEvent}
+                setSelectedEvent={setSelectedEvent}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>

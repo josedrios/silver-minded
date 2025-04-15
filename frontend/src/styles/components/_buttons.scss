@@ -229,9 +229,10 @@ $tag-btn-types: (
   color: $done-color;
   border-radius: $border-radius-xs;
   transition: background-color $transition-instant;
+  background-color: color-fade($gray, 0.15);
 
   &:hover {
-    background-color: color-fade($gray, 0.15);
+    background-color: color-fade($gray, 0.3);
   }
 }
 

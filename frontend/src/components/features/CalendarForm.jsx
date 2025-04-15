@@ -14,11 +14,10 @@ export function CalendarOverlay({
   loadEvents,
   timeFrame,
   setTimeFrame,
-  monthIndex,
 }) {
   const now = new Date();
   const pad = (n) => n.toString().padStart(2, "0");
-  const formattedNow = `${timeFrame.year}-${pad(monthIndex + 1)}-${pad(
+  const formattedNow = `${timeFrame.year}-${pad(timeFrame.month + 1)}-${pad(
     now.getDate()
   )}T00:00`;
 
@@ -45,7 +44,7 @@ export function CalendarOverlay({
     } else if (mode === "delete") {
       await deleteEvent(selectedEvent._id);
     }
-    loadEvents(monthIndex, timeFrame.year);
+    loadEvents(timeFrame.month, timeFrame.year);
     setEventForm({
       info: "",
       reoccurring: "never",
