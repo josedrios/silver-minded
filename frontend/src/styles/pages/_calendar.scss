@@ -68,15 +68,19 @@
 
   .upcoming-day {
     @include flex(row, space-between);
+    border-top: 0.5px solid $primary-color;
 
     .upcoming-events {
-      width: 60%;
+      margin-top: $spacing-xs;
+      flex: 1;
     }
   }
 }
 
 .upcoming-day-label {
+  font-size: $font-size-lg;
   padding-top: $spacing-sm;
+  margin-right: $spacing-md;
 }
 
 #calendar-overlay {

@@ -2,6 +2,7 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { CalendarOverlay } from "../features/CalendarForm";
 import { fetchEvents } from "../../util/eventUtil";
+import { IoIosAdd } from "react-icons/io";
 
 export default function Calendar() {
   const [calendarOverlay, setCalendarOverlay] = useState(false);
@@ -39,8 +40,16 @@ export default function Calendar() {
   }, []);
 
   useEffect(() => {
-    console.log(selectedEvent);
+    if(selectedEvent) {
+      setCalendarOverlay(true);
+    } 
   }, [selectedEvent]);
+
+  useEffect(() => {
+    if(!calendarOverlay) {
+      setSelectedEvent(null);
+    } 
+  }, [calendarOverlay]);
 
   return (
     <div id="calendar-page-container">
@@ -131,7 +140,7 @@ function CalendarDetails({
               setCalendarOverlay((prev) => !prev);
             }}
           >
-            Create/Edit
+            <IoIosAdd />
           </button>
         </div>
         <div id="upcoming-body">
@@ -183,10 +192,7 @@ function CalendarEvent({ event, index, day, selectedEvent, setSelectedEvent }) {
           : setSelectedEvent(event);
       }}
     >
-      <p className="event-label">
-        {String(day).padStart(2, "0")}.{index} -
-      </p>{" "}
-      <p className="event-info">{event.info}</p>
+      {event.info}
     </button>
   );
 }

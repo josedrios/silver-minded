@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Overlay from "../layout/Overlay";
-import { createEvent } from "../../util/eventUtil";
+import { createEvent, editEvent } from "../../util/eventUtil";
 import { IoIosClose } from "react-icons/io";
 
 export function CalendarOverlay({
@@ -36,7 +36,11 @@ export function CalendarOverlay({
   };
 
   const submitEvent = async () => {
-    await createEvent(eventForm);
+    if (selectedEvent) {
+      await editEvent(eventForm, selectedEvent._id);
+    } else {
+      await createEvent(eventForm);
+    }
     loadEvents(monthIndex, timeFrame.year);
     setEventForm({
       info: "",
@@ -44,6 +48,30 @@ export function CalendarOverlay({
       dueAt: formattedNow,
     });
   };
+
+  useEffect(() => {
+    console.log(selectedEvent);
+    if (selectedEvent) {
+      const dueDate = new Date(selectedEvent.dueAt);
+      const pad = (n) => n.toString().padStart(2, "0");
+      const formattedDueAt = `${dueDate.getFullYear()}-${pad(
+        dueDate.getMonth() + 1
+      )}-${pad(dueDate.getDate())}T${pad(dueDate.getHours())}:${pad(
+        dueDate.getMinutes()
+      )}`;
+      setEventForm({
+        info: selectedEvent.info,
+        reoccurring: selectedEvent.reoccurring,
+        dueAt: formattedDueAt,
+      });
+    } else {
+      setEventForm({
+        info: "",
+        reoccurring: "never",
+        dueAt: formattedNow,
+      });
+    }
+  }, [selectedEvent]);
 
   const options = ["never", "daily", "weekly", "monthly", "yearly"];
 
@@ -62,7 +90,7 @@ export function CalendarOverlay({
           }}
         >
           <div id="calendar-overlay-header">
-            <h5>Create/Edit Event</h5>
+            <h5>{selectedEvent ? "Edit" : "Create"} Event</h5>
             <button
               className="calendar-overlay-close-button"
               onClick={(e) => {
@@ -111,7 +139,7 @@ export function CalendarOverlay({
             ))}
           </div>
           <button className="standard-btn" type="submit">
-            Create/Edit
+            {selectedEvent ? "Edit" : "Create"}
           </button>
         </form>
       </div>

@@ -240,33 +240,36 @@ $tag-btn-types: (
 }
 
 .calendar-event-button {
-  color: $gray;
   background-color: transparent;
-  transition: color $transition-instant;
+  font-size: 25px;
+  @include flex(row, center, center);
+
+  svg {
+    padding: 0;
+    fill: $gray;
+    transition: fill $transition-instant;
+  }
 
   &:hover {
-    color: $primary-color;
+    svg {
+      fill: $primary-color;
+    }
   }
 }
 
 .event-container {
+  border-radius: $border-radius-xs;
   background-color: transparent;
+  color: $secondary-color;
   width: 100%;
   @include flex(row, space-between);
-  border-bottom: 0.5px solid $primary-color;
-  padding: $spacing-sm 0;
-
-  .event-label {
-    text-wrap: nowrap;
-  }
-
-  .event-info {
-    text-align: left;
-    width: 80%;
-  }
+  padding: $spacing-sm;
+  text-align: left;
+  transition: background-color $transition-instant, color $transition-instant;
 
   &:hover {
     background-color: color-fade(black, 0.3);
+    color: $primary-color;
   }
 }
 

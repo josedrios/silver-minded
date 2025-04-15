@@ -22,17 +22,17 @@ export async function createEvent(event) {
   }
 }
 
-export async function editEvent(id, event) {
+export async function editEvent(event, id) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/event/${id}`,
       {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           info: event.info,
           reoccurring: event.reoccurring,
-          timeRange: event.timeRange,
+          dueAt: event.dueAt
         }),
       }
     );
