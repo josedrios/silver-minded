@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Overlay from "../layout/Overlay";
-import { createEvent, editEvent } from "../../util/eventUtil";
+import { createEvent, deleteEvent, editEvent } from "../../util/eventUtil";
 import { IoIosClose } from "react-icons/io";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export function CalendarOverlay({
   calendarOverlay,
@@ -35,11 +36,14 @@ export function CalendarOverlay({
     }));
   };
 
-  const submitEvent = async () => {
-    if (selectedEvent) {
-      await editEvent(eventForm, selectedEvent._id);
-    } else {
+  const submitEvent = async (mode = "create") => {
+    console.log(mode);
+    if (mode === "create") {
       await createEvent(eventForm);
+    } else if (mode === "edit") {
+      await editEvent(eventForm, selectedEvent._id);
+    } else if (mode === "delete") {
+      await deleteEvent(selectedEvent._id);
     }
     loadEvents(monthIndex, timeFrame.year);
     setEventForm({
@@ -47,10 +51,10 @@ export function CalendarOverlay({
       reoccurring: "never",
       dueAt: formattedNow,
     });
+    setCalendarOverlay(false);
   };
 
   useEffect(() => {
-    console.log(selectedEvent);
     if (selectedEvent) {
       const dueDate = new Date(selectedEvent.dueAt);
       const pad = (n) => n.toString().padStart(2, "0");
@@ -73,6 +77,14 @@ export function CalendarOverlay({
     }
   }, [selectedEvent]);
 
+  const eventRef = useRef();
+
+  useEffect(() => {
+    if (calendarOverlay) {
+      eventRef.current?.focus();
+    }
+  }, [calendarOverlay]);
+
   const options = ["never", "daily", "weekly", "monthly", "yearly"];
 
   return (
@@ -86,7 +98,7 @@ export function CalendarOverlay({
           action=""
           onSubmit={(e) => {
             e.preventDefault();
-            submitEvent();
+            submitEvent(selectedEvent ? "edit" : "create");
           }}
         >
           <div id="calendar-overlay-header">
@@ -101,14 +113,6 @@ export function CalendarOverlay({
               <IoIosClose />
             </button>
           </div>
-          <p>Date</p>
-          <input
-            name="dueAt"
-            className="standard-input"
-            type="datetime-local"
-            value={eventForm.dueAt}
-            onChange={handleChange}
-          />
           <p>Event Name</p>
           <input
             name="info"
@@ -118,6 +122,21 @@ export function CalendarOverlay({
             onChange={handleChange}
             autoComplete="off"
             placeholder="Enter event..."
+            ref={eventRef}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                submitEvent(selectedEvent ? "edit" : "create");
+              }
+            }}
+          />
+          <p>Date</p>
+          <input
+            name="dueAt"
+            className="standard-input"
+            type="datetime-local"
+            value={eventForm.dueAt}
+            onChange={handleChange}
           />
           <p>Reoccurring</p>
           <div id="reoccurring-options-container">
@@ -138,9 +157,29 @@ export function CalendarOverlay({
               </button>
             ))}
           </div>
-          <button className="standard-btn" type="submit">
-            {selectedEvent ? "Edit" : "Create"}
-          </button>
+          <div id="calendar-form-button-section">
+            <button
+              className="standard-btn"
+              id="calendar-submit-button"
+              type="submit"
+            >
+              {selectedEvent ? "Edit" : "Create"}
+            </button>
+            {selectedEvent ? (
+              <button
+                id="calendar-delete-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  submitEvent("delete");
+                  setCalendarOverlay(false);
+                }}
+              >
+                <FaRegTrashAlt />
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
         </form>
       </div>
     </Overlay>

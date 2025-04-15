@@ -123,7 +123,7 @@ function CalendarDetails({
   setSelectedEvent,
 }) {
   const groupedByDay = events.reduce((acc, event) => {
-    const day = new Date(event.dueAt).getDate(); // 1–31
+    const day = new Date(event.dueAt).getDate(); 
     if (!acc[day]) acc[day] = [];
     acc[day].push(event);
     return acc;
@@ -186,7 +186,8 @@ function CalendarEvent({ event, index, day, selectedEvent, setSelectedEvent }) {
       className={`event-container ${
         selectedEvent && selectedEvent._id === event._id ? "selected-event" : ""
       }`}
-      onClick={() => {
+      onClick={(e) => {
+        e.currentTarget.blur();
         selectedEvent && selectedEvent._id === event._id
           ? setSelectedEvent(null)
           : setSelectedEvent(event);

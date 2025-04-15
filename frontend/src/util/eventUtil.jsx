@@ -64,3 +64,22 @@ export async function fetchEvents(month, year) {
     return;
   }
 }
+
+export async function deleteEvent(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/event/${id}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      }
+    );
+
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || "Failed to delete event");
+    return;
+  } catch (err) {
+    console.error("Edit Event Error:", err.message);
+    return;
+  }
+}

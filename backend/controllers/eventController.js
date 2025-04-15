@@ -35,7 +35,20 @@ exports.editEvent = async (req, res) => {
   }
 };
 
-exports.deleteEvent = async (req, res) => {};
+exports.deleteEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await Event.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ message: 'Event not found' });
+    res.json({ message: 'Event deleted' });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error occurred while deleting event",
+      error: err.message,
+    });
+  }
+};
 
 exports.getEvents = async (req, res) => {
   try {
