@@ -89,6 +89,8 @@ exports.deleteTask = async (req, res) => {
     const { id } = req.params;
     const deleted = await Task.findByIdAndDelete(id);
     if (!deleted) return res.status(404).json({ message: "Task not found" });
+
+    await Event.updateMany({ task: deleted._id }, { $set: { task: null } });
     res.json({ message: "Task deleted" });
   } catch (err) {
     console.log(err);
@@ -101,7 +103,11 @@ exports.deleteTask = async (req, res) => {
 
 exports.deleteDoneTasks = async (req, res) => {
   try {
-    const result = await Task.deleteMany({ status: "done" });
+    const doneTasks = await Task.find({ status: "done" });
+    const doneTaskIds = doneTasks.map(task => task._id);
+
+    const result = await Task.deleteMany({ _id: { $in: doneTaskIds } });
+    await Event.updateMany({ task: { $in: doneTaskIds } }, { $set: { task: null } });
     res.json({ message: `${result.deletedCount} tasks deleted` });
   } catch (err) {
     console.log(err);

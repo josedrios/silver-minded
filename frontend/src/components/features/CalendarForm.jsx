@@ -70,6 +70,7 @@ export function CalendarOverlay({
       task: null,
     });
     setCalendarOverlay(false);
+    loadTasks();
   };
 
   useEffect(() => {

@@ -270,9 +270,13 @@ function CalendarDetails({
 }
 
 function UpcomingDay({ day, events, selectedEvent, setSelectedEvent }) {
+  const now = new Date();
+
   return (
     <div className="upcoming-day">
-      <p className="upcoming-day-label">{String(day).padStart(2, "0")}</p>
+      <p className={`upcoming-day-label 
+        ${now.getDate() === parseInt(day) && now.getMonth() === new Date(events[0].dueAt).getMonth() && now.getFullYear() === new Date(events[0].dueAt).getFullYear() ? 'current-day-label' : ''}`}
+      >{String(day).padStart(2, "0")}</p>
 
       <div className="upcoming-events">
         {events.map((event, idx) => (
