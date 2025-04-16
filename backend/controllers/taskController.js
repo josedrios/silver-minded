@@ -1,4 +1,5 @@
-const Task = require('../models/task');
+const Task = require("../models/task");
+const Event = require("../models/event");
 
 exports.createTask = async (req, res) => {
   try {
@@ -24,7 +25,7 @@ exports.editTask = async (req, res) => {
       { name, info, tag, dueAt },
       { new: true, runValidators: true }
     );
-    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    if (!updated) return res.status(404).json({ message: "Task not found" });
     res.status(200).json(updated);
   } catch (err) {
     console.log(err);
@@ -44,7 +45,7 @@ exports.statusUpdateTask = async (req, res) => {
       { status },
       { new: true, runValidators: true }
     );
-    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    if (!updated) return res.status(404).json({ message: "Task not found" });
     res.status(200).json(updated);
   } catch (err) {
     console.log(err);
@@ -58,7 +59,22 @@ exports.statusUpdateTask = async (req, res) => {
 exports.getTasks = async (req, res) => {
   try {
     const tasks = await Task.find().sort({ createdAt: -1 });
-    res.json(tasks);
+
+    const events = await Event.find({ task: { $ne: null } })
+      .select("dueAt task")
+      .populate("task");
+
+      const dueAtMap = {};
+      events.forEach(event => {
+        if (event.task) dueAtMap[event.task._id.toString()] = event.dueAt;
+      });
+  
+      const tasksWithDueAt = tasks.map(task => ({
+        ...task.toObject(),
+        dueAt: dueAtMap[task._id.toString()] || null,
+      }));
+
+    res.json(tasksWithDueAt);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -72,8 +88,8 @@ exports.deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
     const deleted = await Task.findByIdAndDelete(id);
-    if (!deleted) return res.status(404).json({ message: 'Task not found' });
-    res.json({ message: 'Task deleted' });
+    if (!deleted) return res.status(404).json({ message: "Task not found" });
+    res.json({ message: "Task deleted" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -85,7 +101,7 @@ exports.deleteTask = async (req, res) => {
 
 exports.deleteDoneTasks = async (req, res) => {
   try {
-    const result = await Task.deleteMany({ status: 'done' });
+    const result = await Task.deleteMany({ status: "done" });
     res.json({ message: `${result.deletedCount} tasks deleted` });
   } catch (err) {
     console.log(err);
@@ -95,4 +111,3 @@ exports.deleteDoneTasks = async (req, res) => {
     });
   }
 };
-
