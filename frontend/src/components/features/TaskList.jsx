@@ -4,13 +4,11 @@ import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
 
 export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
-
-  const doneTasks = tasks.filter((task) => task.status === "done").length
+  const doneTasks = tasks.filter((task) => task.status === "done").length;
   const donePercentage = tasks.length
-  ? ((doneTasks / tasks.length) * 100).toFixed(0)
-  : "0";
+    ? ((doneTasks / tasks.length) * 100).toFixed(0)
+    : "0";
   const pendingTasks = tasks.filter((task) => task.status === "pending").length;
-
 
   return (
     <div id="task-list">
@@ -18,11 +16,7 @@ export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
         <span className="task-status">
           /task{" "}
           <span id="task-header-count">
-            [
-            {tasks
-              ? doneTasks
-              : "0"}
-            /{tasks ? tasks.length : "0"}]
+            [{tasks ? doneTasks : "0"}/{tasks ? tasks.length : "0"}]
           </span>
         </span>
       </div>
@@ -42,16 +36,12 @@ export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
       )}
       <div id="task-list-footer">
         <p>
-          <span className="task-footer-done-span">{donePercentage}%</span> of tasks complete.
+          <span className="task-footer-done-span">{donePercentage}%</span> of
+          tasks complete.
         </p>
         <p>
-          <span className="task-footer-done-span">
-            {doneTasks}
-          </span>{" "}
-          done ·{" "}
-          <span className="task-footer-pending-span">
-            {pendingTasks}
-          </span>{" "}
+          <span className="task-footer-done-span">{doneTasks}</span> done ·{" "}
+          <span className="task-footer-pending-span">{pendingTasks}</span>{" "}
           pending
         </p>
       </div>
@@ -59,13 +49,26 @@ export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
   );
 }
 
-export function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count, taskLink }) {
+export function TaskRow({
+  task,
+  setSelectedTask,
+  selectedTask,
+  setTasks,
+  count,
+  taskLink,
+}) {
+  const date = new Date(task.dueAt);
+  const formatted = `${date.getMonth() + 1}/${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}/${date.getFullYear().toString().slice(-2)}`;  
+
   return (
     <div
       className={` task-row non-header ${
         selectedTask === task ? "selected-task" : ""
       }`}
-      style={{marginLeft: taskLink ? '0px' : ''}}
+      style={{ marginLeft: taskLink ? "0px" : "" }}
       onClick={() => {
         if (selectedTask === task) {
           setSelectedTask("");
@@ -75,7 +78,10 @@ export function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count, 
       }}
     >
       <span className="task-count-number">{count}.</span>
-      <span className="task-status non-header" style={{display: taskLink ? 'none' : ''}}>
+      <span
+        className="task-status non-header"
+        style={{ display: taskLink ? "none" : "" }}
+      >
         <button
           className={`task-status-button ${
             task.status === "done" ? "done-status-btn" : ""
@@ -107,14 +113,13 @@ export function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count, 
         </button>
       </span>
       <span className="task-info" title={task.info}>
+        {task.dueAt
+          ? <p className="task-due-date">{formatted}</p>
+          : ""}{" "}
         {task.info}{" "}
       </span>
       <span className={`task-tag non-header-tag ${task.tag}`}>
-        {task.tag === "dev" ? (
-          <FaCode />
-        ) : (
-          <RiRobot2Line />
-        )}
+        {task.tag === "dev" ? <FaCode /> : <RiRobot2Line />}
       </span>
     </div>
   );

@@ -55,7 +55,6 @@ export function CalendarOverlay({
   };
 
   const submitEvent = async (mode = "create") => {
-    console.log(mode);
     if (mode === "create") {
       await createEvent(eventForm);
     } else if (mode === "edit") {
@@ -119,10 +118,6 @@ export function CalendarOverlay({
 
   const toggle = () => setOpenTask((prev) => !prev);
 
-  useEffect(() => {
-    console.log(openTask);
-  }, [openTask]);
-
   const [taskLink, setTaskLink] = useState(null);
 
   const loadTasks = async () => {
@@ -135,7 +130,6 @@ export function CalendarOverlay({
   },[])
 
   useEffect(() => {
-    console.log(taskLink);
     if (taskLink) {
       setEventForm((prev) => ({
         ...prev,
