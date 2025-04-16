@@ -14,11 +14,14 @@ export function CalendarOverlay({
   loadEvents,
   timeFrame,
   setTimeFrame,
+  selectedDay,
+  setSelectedDay
 }) {
   const now = new Date();
   const pad = (n) => n.toString().padStart(2, "0");
+  
   const formattedNow = `${timeFrame.year}-${pad(timeFrame.month + 1)}-${pad(
-    now.getDate()
+    selectedDay ? selectedDay : now.getDate()
   )}T00:00`;
 
   const [eventForm, setEventForm] = useState({
@@ -27,108 +30,120 @@ export function CalendarOverlay({
     dueAt: formattedNow,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  useEffect(() => {
+    const updatedDate = `${timeFrame.year}-${pad(timeFrame.month + 1)}-${pad(
+      selectedDay ? selectedDay : now.getDate()
+    )}T00:00`;
+
     setEventForm((prev) => ({
       ...prev,
-      [name]: value,
-    }));
-  };
+      dueAt: updatedDate
+    }))
 
-  const submitEvent = async (mode = "create") => {
-    console.log(mode);
-    if (mode === "create") {
-      await createEvent(eventForm);
-    } else if (mode === "edit") {
-      await editEvent(eventForm, selectedEvent._id);
-    } else if (mode === "delete") {
-      await deleteEvent(selectedEvent._id);
-    }
-    loadEvents(timeFrame.month, timeFrame.year);
+  }, [timeFrame, selectedDay])
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setEventForm((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+const submitEvent = async (mode = "create") => {
+  console.log(mode);
+  if (mode === "create") {
+    await createEvent(eventForm);
+  } else if (mode === "edit") {
+    await editEvent(eventForm, selectedEvent._id);
+  } else if (mode === "delete") {
+    await deleteEvent(selectedEvent._id);
+  }
+  loadEvents(timeFrame.month, timeFrame.year);
+  setEventForm({
+    info: "",
+    reoccurring: "never",
+    dueAt: formattedNow,
+  });
+  setCalendarOverlay(false);
+};
+
+useEffect(() => {
+  if (selectedEvent) {
+    const dueDate = new Date(selectedEvent.dueAt);
+    const pad = (n) => n.toString().padStart(2, "0");
+    const formattedDueAt = `${dueDate.getFullYear()}-${pad(
+      dueDate.getMonth() + 1
+    )}-${pad(dueDate.getDate())}T${pad(dueDate.getHours())}:${pad(
+      dueDate.getMinutes()
+    )}`;
+    setEventForm({
+      info: selectedEvent.info,
+      reoccurring: selectedEvent.reoccurring,
+      dueAt: formattedDueAt,
+    });
+  } else {
     setEventForm({
       info: "",
       reoccurring: "never",
       dueAt: formattedNow,
     });
-    setCalendarOverlay(false);
-  };
+  }
+}, [selectedEvent]);
 
-  useEffect(() => {
-    if (selectedEvent) {
-      const dueDate = new Date(selectedEvent.dueAt);
-      const pad = (n) => n.toString().padStart(2, "0");
-      const formattedDueAt = `${dueDate.getFullYear()}-${pad(
-        dueDate.getMonth() + 1
-      )}-${pad(dueDate.getDate())}T${pad(dueDate.getHours())}:${pad(
-        dueDate.getMinutes()
-      )}`;
-      setEventForm({
-        info: selectedEvent.info,
-        reoccurring: selectedEvent.reoccurring,
-        dueAt: formattedDueAt,
-      });
-    } else {
-      setEventForm({
-        info: "",
-        reoccurring: "never",
-        dueAt: formattedNow,
-      });
-    }
-  }, [selectedEvent]);
+const eventRef = useRef();
 
-  const eventRef = useRef();
+useEffect(() => {
+  if (calendarOverlay) {
+    eventRef.current?.focus();
+  }
+}, [calendarOverlay]);
 
-  useEffect(() => {
-    if (calendarOverlay) {
-      eventRef.current?.focus();
-    }
-  }, [calendarOverlay]);
+const options = ["never", "daily", "weekly", "monthly", "yearly"];
 
-  const options = ["never", "daily", "weekly", "monthly", "yearly"];
-
-  return (
-    <Overlay
-      overlayToggle={calendarOverlay}
-      setOverlayToggle={setCalendarOverlay}
-    >
-      <div id="calendar-overlay" onClick={(e) => e.stopPropagation()}>
-        <form
-          id="calendar-overlay-form"
-          action=""
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitEvent(selectedEvent ? "edit" : "create");
-          }}
-        >
-          <div id="calendar-overlay-header">
-            <h5>{selectedEvent ? "Edit" : "Create"} Event</h5>
-            <button
-              className="calendar-overlay-close-button"
-              onClick={(e) => {
-                e.preventDefault();
-                setCalendarOverlay(false);
-              }}
-            >
-              <IoIosClose />
-            </button>
-          </div>
-          <p>Event Name</p>
-          <input
-            name="info"
-            className="standard-input"
-            type="text"
-            value={eventForm.info}
-            onChange={handleChange}
-            autoComplete="off"
-            placeholder="Enter event..."
-            ref={eventRef}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                submitEvent(selectedEvent ? "edit" : "create");
-              }
+return (
+  <Overlay
+    overlayToggle={calendarOverlay}
+    setOverlayToggle={setCalendarOverlay}
+  >
+    <div id="calendar-overlay" onClick={(e) => e.stopPropagation()}>
+      <form
+        id="calendar-overlay-form"
+        action=""
+        onSubmit={(e) => {
+          e.preventDefault();
+          submitEvent(selectedEvent ? "edit" : "create");
+        }}
+      >
+        <div id="calendar-overlay-header">
+          <h5>{selectedEvent ? "Edit" : "Create"} Event</h5>
+          <button
+            className="calendar-overlay-close-button"
+            onClick={(e) => {
+              e.preventDefault();
+              setCalendarOverlay(false);
             }}
-          />
+          >
+            <IoIosClose />
+          </button>
+        </div>
+        <p>Event Name</p>
+        <input
+          name="info"
+          className="standard-input"
+          type="text"
+          value={eventForm.info}
+          onChange={handleChange}
+          autoComplete="off"
+          placeholder="Enter event..."
+          ref={eventRef}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              submitEvent(selectedEvent ? "edit" : "create");
+            }
+          }}
+        />
           <p>Date</p>
           <input
             name="dueAt"

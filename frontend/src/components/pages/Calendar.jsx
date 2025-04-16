@@ -8,6 +8,7 @@ export default function Calendar() {
   const [calendarOverlay, setCalendarOverlay] = useState(false);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
   const loadEvents = async (month, year) => {
     const data = await fetchEvents(month, year);
     setEvents(data);
@@ -35,10 +36,6 @@ export default function Calendar() {
   });
 
   useEffect(() => {
-    console.log(timeFrame);
-  }, [timeFrame]);
-
-  useEffect(() => {
     loadEvents(timeFrame.month, timeFrame.year);
   }, []);
 
@@ -51,6 +48,7 @@ export default function Calendar() {
   useEffect(() => {
     if (!calendarOverlay) {
       setSelectedEvent(null);
+      setSelectedDay(null);
     }
   }, [calendarOverlay]);
 
@@ -79,6 +77,41 @@ export default function Calendar() {
       return { year: newYear, month: newMonth };
     });
   };
+
+  useEffect(() => {
+    if (selectedDay) {
+      setCalendarOverlay(true);
+    }
+  }, [selectedDay]);
+
+  // Amount of empty, unwanted days shown on calendar view before the first day of the month
+  const nullDays = new Date(timeFrame.year, timeFrame.month, 1).getDay();
+
+  const groupedByDay = events.reduce((acc, event) => {
+    const date = new Date(event.dueAt);
+    const eventMonth = date.getMonth();
+    const eventDay = date.getDate();
+
+    const isCurrentMonth =
+      eventMonth === timeFrame.month && date.getFullYear() === timeFrame.year;
+    const isYearlyRecurring =
+      event.reoccurring === "yearly" && eventMonth === timeFrame.month;
+    const isMonthlyRecurring = event.reoccurring === "monthly";
+
+    const daysInMonth = new Date(
+      timeFrame.year,
+      timeFrame.month + 1,
+      0
+    ).getDate();
+    const targetDay = Math.min(eventDay, daysInMonth);
+
+    if (isCurrentMonth || isYearlyRecurring || isMonthlyRecurring) {
+      if (!acc[targetDay]) acc[targetDay] = [];
+      acc[targetDay].push(event);
+    }
+
+    return acc;
+  }, {});
 
   return (
     <div id="calendar-page-container">
@@ -112,16 +145,35 @@ export default function Calendar() {
           <p>Sat</p>
         </div>
         <div id="calendar-body">
-          {Array.from({ length: 31 }).map((_, i) => (
-            <button
-              className={`calendar-date-button ${
-                i % 2 === 0 ? "contains-events" : ""
-              }`}
-              key={i}
-            >
-              {i + 1}
-            </button>
+          {Array.from({ length: nullDays }).map((_, i) => (
+            <div className={`calendar-date-button null-days`} key={i} />
           ))}
+          {Array.from({ length: 31 }).map((_, i) => {
+            const hasEvents = groupedByDay[i + 1]?.length > 0;
+            const isPast =
+              new Date(timeFrame.year, timeFrame.month, i + 1) <
+              new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+            return (
+              <button
+                className={`calendar-date-button ${
+                  hasEvents ? "contains-events" : ""
+                } ${
+                  timeFrame.month === now.getMonth() && i + 1 === now.getDate()
+                    ? "current-day"
+                    : ""
+                }
+                ${isPast && hasEvents ? "past-day" : ""}
+                `}
+                key={i}
+                onClick={() => {
+                  setSelectedDay(i + 1);
+                }}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
         </div>
         <div id="calendar-year-navigation">
           <button
@@ -156,6 +208,7 @@ export default function Calendar() {
         events={events}
         selectedEvent={selectedEvent}
         setSelectedEvent={setSelectedEvent}
+        groupedByDay={groupedByDay}
       />
       <CalendarOverlay
         calendarOverlay={calendarOverlay}
@@ -167,6 +220,8 @@ export default function Calendar() {
         loadEvents={loadEvents}
         timeFrame={timeFrame}
         setTimeFrame={setTimeFrame}
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
       />
     </div>
   );
@@ -177,14 +232,8 @@ function CalendarDetails({
   events,
   selectedEvent,
   setSelectedEvent,
+  groupedByDay,
 }) {
-  const groupedByDay = events.reduce((acc, event) => {
-    const day = new Date(event.dueAt).getDate();
-    if (!acc[day]) acc[day] = [];
-    acc[day].push(event);
-    return acc;
-  }, {});
-
   return (
     <div id="calendar-details">
       <div id="calendar-upcoming">

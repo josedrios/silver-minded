@@ -10,22 +10,29 @@
   border-radius: $border-radius-sm;
   background-color: $secondary-background-color;
   width: 50%;
-  padding: $spacing-md;
+  padding: $spacing-sm $spacing-md;
 }
 
 #calendar-month-navigation,
 #calendar-year-navigation {
   @include flex(row, center, center);
   gap: $spacing-sm;
-  margin-bottom: $spacing-sm;
+  margin-top: $spacing-xs;
 
   #month-navigation-label {
     font-weight: 600;
+    width: 75px;
+    text-align: center;
   }
 
   #year-navigation-label {
+    text-align: center;
     color: $gray;
   }
+}
+
+#calendar-month-navigation {
+  margin-bottom: $spacing-xs;
 }
 
 #calendar-days {

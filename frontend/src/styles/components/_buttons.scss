@@ -226,7 +226,7 @@ $tag-btn-types: (
   background-color: transparent;
   @include flex(row, center, center);
   padding: $spacing-sm 0;
-  color: $done-color;
+  color: $gray;
   border-radius: $border-radius-xs;
   transition: background-color $transition-instant;
   background-color: color-fade($gray, 0.15);
@@ -236,8 +236,25 @@ $tag-btn-types: (
   }
 }
 
+.null-days {
+  background-color: transparent;
+  color: $gray;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
 .contains-events {
-  color: $pending-color !important;
+  color: $done-color !important;
+}
+
+.current-day {
+  color: $misc-color !important;
+}
+
+.past-day {
+  color: $dev-color !important;
 }
 
 .calendar-event-button {

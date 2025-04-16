@@ -60,7 +60,17 @@ exports.getEvents = async (req, res) => {
     const end = new Date(year, month + 1, 1);
 
     const events = await Event.find({
-      dueAt: { $gte: start, $lt: end },
+      $or: [
+        {
+          dueAt: { $gte: start, $lte: end }
+        },
+        {
+          reoccurring: "yearly",
+          $expr: { $eq: [{ $month: "$dueAt" }, month + 1] }
+        },
+        { reoccurring: 'monthly'}
+      ]
+
     }).sort({ dueAt: 1 });
     res.json(events);
   } catch (err) {
