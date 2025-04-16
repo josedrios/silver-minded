@@ -3,8 +3,9 @@
   max-width: 900px;
   margin: auto;
   width: 100%;
-  gap: $spacing-md;
+  gap: $spacing-lg;
 }
+
 
 #calendar-container {
   border-radius: $border-radius-sm;
@@ -94,6 +95,7 @@
 
 .upcoming-day-label {
   font-size: $font-size-lg;
+  font-weight: 300;
   padding-top: $spacing-xs;
   margin-right: $spacing-md;
 }
@@ -133,12 +135,27 @@
   #reoccurring-options-container {
     @include flex(row);
     padding: $spacing-xs 0;
-    margin-bottom: $spacing-sm;
     flex-wrap: wrap;
     gap: $spacing-md;
+  }
+
+  #task-link-label {
+    @include flex(row, flex-start, flex-end);
+    gap: $spacing-sm;
   }
 }
 
 .selected-event {
   background-color: color-fade(black, 0.3) !important;
+}
+
+@media (max-width: 620px) {
+  #calendar-page-container {
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  #calendar-container, #calendar-details {
+    width: 100%;
+  }
 }

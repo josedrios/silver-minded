@@ -5,9 +5,10 @@ const eventSchema = new mongoose.Schema({
   dueAt: { type: Date, required: true },
   reoccurring: {
     type: String,
-    enum: ["never", "daily", "weekly", "monthly", "yearly"],
+    enum: ["never", "monthly", "yearly"],
     default: null,
   },
+  endAt: { type: Date, default: null},
   task: { type: mongoose.Schema.Types.ObjectId, ref: 'Task', default: null },
   createdAt: { type: Date, default: Date.now },
 });

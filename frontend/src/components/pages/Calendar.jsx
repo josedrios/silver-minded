@@ -1,12 +1,13 @@
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { CalendarOverlay } from "../features/CalendarForm";
 import { fetchEvents } from "../../util/eventUtil";
 import { IoIosAdd } from "react-icons/io";
+import { AppContext } from "../../util/appContext";
 
 export default function Calendar() {
+  const { events, setEvents } = useContext(AppContext);
   const [calendarOverlay, setCalendarOverlay] = useState(false);
-  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const loadEvents = async (month, year) => {

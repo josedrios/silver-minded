@@ -28,6 +28,7 @@ export function CalendarOverlay({
     info: "",
     reoccurring: "never",
     dueAt: formattedNow,
+    task: null
   });
 
   useEffect(() => {
@@ -64,6 +65,7 @@ const submitEvent = async (mode = "create") => {
     info: "",
     reoccurring: "never",
     dueAt: formattedNow,
+    task: null
   });
   setCalendarOverlay(false);
 };
@@ -81,12 +83,14 @@ useEffect(() => {
       info: selectedEvent.info,
       reoccurring: selectedEvent.reoccurring,
       dueAt: formattedDueAt,
+      task: selectedEvent.task
     });
   } else {
     setEventForm({
       info: "",
       reoccurring: "never",
       dueAt: formattedNow,
+      task: null
     });
   }
 }, [selectedEvent]);
@@ -99,7 +103,15 @@ useEffect(() => {
   }
 }, [calendarOverlay]);
 
-const options = ["never", "daily", "weekly", "monthly", "yearly"];
+const options = ["never", "monthly", "yearly"];
+
+const [openTask, setOpenTask] = useState(false);
+
+const toggle = () => setOpenTask(prev => !prev);
+
+useEffect(() => {
+  console.log(openTask);
+}, [openTask]);
 
 return (
   <Overlay
@@ -170,6 +182,15 @@ return (
                 {opt.charAt(0).toUpperCase() + opt.slice(1)}
               </button>
             ))}
+          </div>
+          <div id='task-link-label'>
+            <p>Link Task</p>
+            <div id="task-link-toggle-container" onClick={() => toggle()} className={openTask ? 'color-toggle' : ''}>
+              <div id="task-link-toggler" className={openTask ? 'right-toggle' : 'left-toggle'}/>
+            </div>
+          </div>
+          <div>
+            {/* Loop through tasks and display here */}
           </div>
           <div id="calendar-form-button-section">
             <button

@@ -226,7 +226,7 @@ $tag-btn-types: (
   background-color: transparent;
   @include flex(row, center, center);
   padding: $spacing-sm 0;
-  color: $gray;
+  color: $gray-light;
   border-radius: $border-radius-xs;
   transition: background-color $transition-instant;
   background-color: color-fade($gray, 0.15);
@@ -238,7 +238,6 @@ $tag-btn-types: (
 
 .null-days {
   background-color: transparent;
-  color: $gray;
 
   &:hover {
     background-color: transparent;
@@ -250,7 +249,7 @@ $tag-btn-types: (
 }
 
 .current-day {
-  color: $misc-color !important;
+  color: $primary-color !important;
 }
 
 .past-day {
@@ -318,4 +317,36 @@ $tag-btn-types: (
 
 .reoccurring-chosen-option {
   background-color: color-fade($primary-color, 0.15);
+}
+
+#task-link-toggle-container{
+  height: 20px;
+  width: 35px;
+  border: 1px solid color-fade(black, 0.15);
+  background-color: $gray;
+  border-radius: $border-radius-c;
+  position: relative;
+  transition: background-color, $transition-instant;
+}
+
+#task-link-toggler {
+  position: absolute;
+  @include box(15px);
+  background-color: $primary-color;
+  border-radius: $border-radius-c;
+  top: 2px;
+  left: 2px;
+  transition: transform $transition-instant ease;
+}
+
+.right-toggle {
+  transform: translateX(14px); 
+}
+
+.left-toggle {
+  transform: translateX(0); 
+}
+
+.color-toggle {
+  background-color: color-fade($done-color, 0.8) !important;
 }
