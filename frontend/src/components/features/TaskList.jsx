@@ -59,12 +59,13 @@ export function TaskList({ tasks, selectedTask, setSelectedTask, setTasks }) {
   );
 }
 
-function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count }) {
+export function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count, taskLink }) {
   return (
     <div
       className={` task-row non-header ${
         selectedTask === task ? "selected-task" : ""
       }`}
+      style={{marginLeft: taskLink ? '0px' : ''}}
       onClick={() => {
         if (selectedTask === task) {
           setSelectedTask("");
@@ -74,7 +75,7 @@ function TaskRow({ task, setSelectedTask, selectedTask, setTasks, count }) {
       }}
     >
       <span className="task-count-number">{count}.</span>
-      <span className="task-status non-header">
+      <span className="task-status non-header" style={{display: taskLink ? 'none' : ''}}>
         <button
           className={`task-status-button ${
             task.status === "done" ? "done-status-btn" : ""

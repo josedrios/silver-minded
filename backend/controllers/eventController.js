@@ -2,8 +2,8 @@ const Event = require("../models/event");
 
 exports.createEvent = async (req, res) => {
   try {
-    const { info, reoccurring, dueAt } = req.body;
-    const newEvent = new Event({ info, reoccurring, dueAt });
+    const { info, reoccurring, dueAt, task } = req.body;
+    const newEvent = new Event({ info, reoccurring, dueAt, task });
     await newEvent.save();
     return res.status(201).json(newEvent);
   } catch (err) {
@@ -18,10 +18,10 @@ exports.createEvent = async (req, res) => {
 exports.editEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { info, reoccurring, dueAt } = req.body;
+    const { info, reoccurring, dueAt, task } = req.body;
     const updated = await Event.findByIdAndUpdate(
       id,
-      { info, reoccurring, dueAt },
+      { info, reoccurring, dueAt, task },
       { new: true, runValidators: true }
     );
     if (!updated) return res.status(404).json({ message: 'Task not found' });

@@ -142,6 +142,16 @@
   #task-link-label {
     @include flex(row, flex-start, flex-end);
     gap: $spacing-sm;
+    margin-bottom: $spacing-xs;
+  }
+
+  #task-link-options {
+    border: 1px solid $primary-color;
+    border-radius: $border-radius-xs;
+    margin-bottom: $spacing-sm;
+    height: 120px;
+    overflow: scroll;
+    padding: $spacing-sm;
   }
 }
 

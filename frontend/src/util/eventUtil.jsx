@@ -9,6 +9,7 @@ export async function createEvent(event) {
           info: event.info,
           reoccurring: event.reoccurring,
           dueAt: event.dueAt,
+          task: event.task
         }),
       }
     );
@@ -32,7 +33,8 @@ export async function editEvent(event, id) {
         body: JSON.stringify({
           info: event.info,
           reoccurring: event.reoccurring,
-          dueAt: event.dueAt
+          dueAt: event.dueAt,
+          task: event.task
         }),
       }
     );
