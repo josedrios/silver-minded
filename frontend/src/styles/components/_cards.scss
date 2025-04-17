@@ -13,9 +13,9 @@
     font-size: $font-size-lg;
 
     span {
-        font-size: $font-size-sm;
-        color: $gray-light;
-        margin-right: $spacing-xs;
+      font-size: $font-size-sm;
+      color: $gray-light;
+      margin-right: $spacing-xs;
     }
   }
 
@@ -24,5 +24,48 @@
   }
 }
 
+.transaction-card {
+  @include flex(row);
+  gap: $spacing-sm;
+  min-width: 0;
 
+  .transaction-card-icon {
+    @include flex(row, center, center);
+    @include box(40px);
+    font-size: 28px;
+    border-radius: $border-radius-sm;
+    background-color: color-fade($primary-color, 0.15);
+    flex-shrink: 0;
+  }
 
+  .transaction-card-body {
+    @include flex(column, center);
+    flex: 1;
+    overflow: hidden;
+    width: 100%;
+    min-width: 0;
+
+    .transaction-card-info,
+    .transaction-card-time {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .transaction-card-time {
+        color: $gray-light;
+    }
+  }
+
+  .transaction-card-footer {
+    @include flex(column, center, flex-end);
+    flex-shrink: 0;
+    width: 100px;
+    margin-right: 0;
+    text-align: right;
+
+    .transaction-card-category {
+        color: $gray-light;
+    }
+  }
+}

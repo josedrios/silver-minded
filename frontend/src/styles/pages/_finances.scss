@@ -92,23 +92,24 @@
 }
 
 #finance-transactions-container {
+  width: 100%;
+  min-width: 0;
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: $spacing-md;
-
-  #transactions-form {
-  }
 }
 
 #transactions-list {
-    @include flex(column);
+  @include flex(column);
+  width: 100%;
+  min-width: 0;
 
-    h5 {
-        font-size: $font-size-lg;
-        font-weight: 400;
-    }
+  h5 {
+    font-size: $font-size-lg;
+    font-weight: 400;
+    margin-bottom: $spacing-sm;
+  }
+}
 
-    .transaction-row {
-        
-    }
+#transactions-form {
 }

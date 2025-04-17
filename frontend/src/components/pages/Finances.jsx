@@ -118,24 +118,24 @@ function TransactionsList() {
   return (
     <div id="transactions-list">
       <h5>Transactions</h5>
-      <TransactionRow />
+      <TransactionCard />
     </div>
   );
 }
 
-function TransactionRow({}) {
+function TransactionCard({}) {
   return (
-    <div className="transaction-row">
-      <div className="transaction-row-icon">
+    <div className="transaction-card">
+      <div className="transaction-card-icon">
         <IoGlassesOutline />
       </div>
-      <div>
-        <p className="transaction-row-info">Toothpaste, Toothbrush and floss</p>
-        <p className="transaction-row-time">Jul 20, 6:23 PM</p>
+      <div className="transaction-card-body">
+        <p className="transaction-card-info">Teeth Stuff</p>
+        <p className="transaction-card-time">Jul 20, 6:23 PM</p>
       </div>
-      <div>
-        <p className="transaction-row-amount">$24.50</p>
-        <p className="transaction-row-category">TP</p>
+      <div className="transaction-card-footer">
+        <p className="transaction-card-amount">+$2400.50</p>
+        <p className="transaction-card-category">Subscription</p>
       </div>
     </div>
   );
