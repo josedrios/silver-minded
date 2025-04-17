@@ -210,6 +210,8 @@ export default function Calendar() {
         selectedEvent={selectedEvent}
         setSelectedEvent={setSelectedEvent}
         groupedByDay={groupedByDay}
+        monthNames={monthNames}
+        monthIndex={timeFrame.month}
       />
       <CalendarOverlay
         calendarOverlay={calendarOverlay}
@@ -234,12 +236,14 @@ function CalendarDetails({
   selectedEvent,
   setSelectedEvent,
   groupedByDay,
+  monthNames,
+  monthIndex
 }) {
   return (
     <div id="calendar-details">
       <div id="calendar-upcoming">
         <div id="upcoming-header">
-          <p>UPCOMING</p>
+          <p>UPCOMING {monthNames[monthIndex].toUpperCase()}</p>
           <button
             className="calendar-event-button"
             onClick={() => {

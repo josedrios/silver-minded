@@ -82,7 +82,7 @@
     flex: 1;
 
     .task-due-date {
-      color: magenta;
+      color: $error-color;
       display: inline;
     }
   }

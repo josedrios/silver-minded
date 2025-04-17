@@ -5,7 +5,7 @@ export default function Nav() {
     <nav>
       <Link to="/todo">TODO</Link>
       <Link to="/calendar">CALENDAR</Link>
-      <Link to="/thoughts">THOUGHTS</Link>
+      <Link to="/finances">FINANCES</Link>
       <Link to="/other">OTHER</Link>
     </nav>
   );

@@ -1,0 +1,51 @@
+#finances-container {
+  @include flex(column);
+  max-width: 800px;
+  margin: auto;
+  gap: $spacing-md;
+}
+
+#finance-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $spacing-md;
+}
+
+#finance-stats-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: $spacing-md;
+}
+
+#finance-graph {
+  height: 200px;
+  @include flex(row);
+
+  #finance-graph-x {
+    width: 30px;
+    border: 1px solid gray;
+  }
+
+  #finance-graph-right {
+    flex: 1;
+    @include flex(column);
+
+    #finance-graph-body {
+      flex: 1;
+      background-image: radial-gradient(
+        circle,
+        color-fade($primary-color, 0.5) 1px,
+        transparent 1.5px
+      );
+      background-size: 25px 25px;
+      border-left: 2px solid $gray;
+      border-bottom: 2px solid $gray;
+
+    }
+
+    #finance-graph-y {
+      border: 1px solid gray;
+      height: 30px;
+    }
+  }
+}
