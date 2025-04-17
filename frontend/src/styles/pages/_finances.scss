@@ -24,6 +24,7 @@
   #finance-graph-x {
     width: 30px;
     border: 1px solid gray;
+    padding-bottom: 30px;
   }
 
   #finance-graph-right {
@@ -40,7 +41,6 @@
       background-size: 25px 25px;
       border-left: 2px solid $gray;
       border-bottom: 2px solid $gray;
-
     }
 
     #finance-graph-y {
@@ -48,4 +48,67 @@
       height: 30px;
     }
   }
+}
+
+#finance-budget {
+  #finance-budget-bar {
+    height: 13px;
+    @include flex(row);
+    gap: $spacing-xs;
+    margin-bottom: $spacing-sm;
+
+    .budget-bar {
+      width: 20%;
+      background-color: $primary-color;
+      border-radius: $border-radius-xs;
+    }
+  }
+
+  #finance-budget-legend {
+    @include flex(column);
+
+    .budget-legend-section {
+      @include flex(row, space-between);
+
+      .budget-legend-left {
+        @include flex(row, center, center);
+        gap: $spacing-sm;
+      }
+
+      svg {
+        stroke: $primary-color;
+        fill: $primary-color;
+      }
+    }
+
+    .header-row {
+      margin-bottom: $spacing-xs;
+
+      p {
+        color: $gray-light;
+      }
+    }
+  }
+}
+
+#finance-transactions-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: $spacing-md;
+
+  #transactions-form {
+  }
+}
+
+#transactions-list {
+    @include flex(column);
+
+    h5 {
+        font-size: $font-size-lg;
+        font-weight: 400;
+    }
+
+    .transaction-row {
+        
+    }
 }
