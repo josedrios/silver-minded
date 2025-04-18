@@ -80,7 +80,7 @@
     flex: 1;
   }
 
-  #calendar-delete-button{
+  #calendar-delete-button {
     padding: 0 $spacing-md;
     border-radius: $border-radius-xs;
     background-color: transparent;
@@ -97,9 +97,51 @@
       border: 1px solid $error-color;
 
       svg {
-        fill: $error-color
+        fill: $error-color;
       }
     }
   }
 }
 
+#transaction-form {
+  @include flex(column);
+  gap: $spacing-sm;
+  min-width: 0;
+
+  h6 {
+    text-align: center;
+    font-size: $font-size-md;
+    font-weight: 400;
+  }
+
+  .transaction-form-row {
+    @include flex(row, initial, center);
+    gap: $spacing-sm;
+  }
+
+  #transaction-form-amount, #transaction-form-date {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #category-buttons {
+    @include flex(row);
+    gap: $spacing-sm;
+    width: min-content;
+  }
+
+  #finance-form-payment-type {
+    @include flex(row);
+    position: relative;
+    padding: $spacing-xs $spacing-sm;
+    gap: $spacing-sm;
+    border: 1px solid color-fade($primary-color, 0.5);
+    border-radius: $border-radius-sm;
+    height: 100%;
+    overflow: hidden;
+
+    #finance-form-payment-slider {
+      position: absolute;
+    }
+  }
+}

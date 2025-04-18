@@ -11,9 +11,35 @@
   gap: $spacing-md;
 }
 
+#finance-time-frame {
+  @include flex(row, center);
+  position: relative;
+
+  #finance-increment-frame {
+    @include flex(row);
+    border: 1px solid $primary-color;
+    border-radius: $border-radius-sm;
+    width: min-content;
+    position: absolute;
+    right: 0;
+    overflow: hidden;
+  }
+
+  #finance-current-frame {
+    @include flex(row,center, center);
+    gap: $spacing-sm;
+    height: 28px;
+
+    p {
+      width: 72px;
+      text-align: center;
+    }
+  }
+}
+
 #finance-stats-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1.5fr 1fr;
   gap: $spacing-md;
 }
 

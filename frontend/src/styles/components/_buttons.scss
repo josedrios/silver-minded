@@ -350,3 +350,43 @@ $tag-btn-types: (
 .color-toggle {
   background-color: color-fade($done-color, 0.8) !important;
 }
+
+#finance-increment-frame button{
+  background-color: transparent;
+  padding: $spacing-xs $spacing-sm;
+  transition: background-color $transition-instant;
+
+  &:hover{
+    background-color: color-fade($primary-color, 0.5);
+  }
+}
+
+.finance-time-frame-button {
+  @include flex(row, center, center);
+  border-radius: $border-radius-xs;
+  background-color: $gray-dark;
+  padding: $spacing-xs $spacing-sm;
+  transition: background-color $transition-instant;
+
+  &:hover {
+    background-color: $gray;
+  }
+}
+
+#category-buttons button {
+  @include flex(row, center, center);
+  background-color: transparent;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius-sm;
+  padding: $spacing-sm;
+  aspect-ratio: 1/1;
+}
+
+#finance-form-payment-type button{
+    height: 100%;
+    background-color: transparent;
+}
+
+#finance-form-submit {
+  
+}

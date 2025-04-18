@@ -6,6 +6,7 @@ import {
 import { GoFlame } from "react-icons/go";
 import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 
 export default function Finances() {
   const Icons = {
@@ -32,13 +33,31 @@ export default function Finances() {
           icon={Icons.spent}
         />
       </div>
+      <div id="finance-time-frame">
+        <div id="finance-increment-frame">
+          <button>Y</button>
+          <button>M</button>
+          <button>W</button>
+          <button>A</button>
+        </div>
+        <div id="finance-current-frame">
+          <button className="finance-time-frame-button">
+            <FaArrowLeftLong />
+          </button>
+          <p>September</p>
+          <button className="finance-time-frame-button">
+            <FaArrowRightLong />
+          </button>
+        </div>
+      </div>
       <div id="finance-stats-container">
+        <FinanceGraph />
         <FinanceGraph />
         <FinanceBudget Icons={Icons} />
       </div>
       <div id="finance-transactions-container">
         <TransactionsList Icons={Icons} />
-        <TransactionsForm />
+        <TransactionsForm Icons={Icons} />
       </div>
     </div>
   );
@@ -66,48 +85,46 @@ function FinanceGraph() {
   return (
     <div id="finance-graph">
       <div id="finance-graph-x">
-        <FinanceGraphX value={30}/>
-        <FinanceGraphX value={20}/>
-        <FinanceGraphX value={10}/>
+        <FinanceGraphX value={30} />
+        <FinanceGraphX value={20} />
+        <FinanceGraphX value={10} />
       </div>
       <div id="finance-graph-right">
         <div id="finance-graph-body">
-            <FinanceGraphBar />
-            <FinanceGraphBar />
-            <FinanceGraphBar />
+          <FinanceGraphBar />
+          <FinanceGraphBar />
+          <FinanceGraphBar />
         </div>
         <div id="finance-graph-y">
-            <FinanceGraphY label={'Made'}/>
-            <FinanceGraphY label={'Saved'}/>
-            <FinanceGraphY label={'Spent'}/>
+          <FinanceGraphY label={"Made"} />
+          <FinanceGraphY label={"Saved"} />
+          <FinanceGraphY label={"Spent"} />
         </div>
       </div>
     </div>
   );
 }
 
-function FinanceGraphBar(){
-    return (
-        <div className="finance-graph-bar" />
-    )
+function FinanceGraphBar() {
+  return <div className="finance-graph-bar" />;
 }
 
-function FinanceGraphX({value}) {
-    return(
-        <div className="increment">
-            <p className="increment-title">${value}k</p>
-            <div className="increment-notch"/>
-        </div>
-    )
+function FinanceGraphX({ value }) {
+  return (
+    <div className="increment">
+      <p className="increment-title">${value}k</p>
+      <div className="increment-notch" />
+    </div>
+  );
 }
 
-function FinanceGraphY({label}) {
-    return(
-        <div className="increment">
-            <p className="increment-title">{label}</p>
-            <div className="increment-notch"/>
-        </div>
-    )
+function FinanceGraphY({ label }) {
+  return (
+    <div className="increment">
+      <p className="increment-title">{label}</p>
+      <div className="increment-notch" />
+    </div>
+  );
 }
 
 function FinanceBudget({ Icons }) {
@@ -145,7 +162,9 @@ function BudgetLegend({ title, amount, icon: Icon }) {
         <Icon />
         <p>{title}</p>
       </div>
-      <p className="budget-legend-right">${amount}</p>
+      <p className="budget-legend-right">
+        ${amount} <span></span>
+      </p>
     </div>
   );
 }
@@ -203,6 +222,62 @@ function TransactionCard({ info, time, type, amount, category, Icons }) {
   );
 }
 
-function TransactionsForm() {
-  return <div id="transaction-form">Transactions Form</div>;
+function TransactionsForm({ Icons }) {
+  const Icon1 = Icons.essential;
+  const Icon2 = Icons.subscriptions;
+  const Icon3 = Icons.fun;
+  const Icon4 = Icons.save;
+
+  return (
+    <form action="" id="transaction-form">
+      <h6>Create Transaction</h6>
+      <input
+        type="text"
+        name=""
+        placeholder="Transaction Info"
+        className="standard-input"
+        id="transaction-form-info"
+      />
+      <div className="transaction-form-row">
+        <input
+          type="date"
+          className="standard-input"
+          id="transaction-form-date"
+        />
+        <div id="finance-form-payment-type">
+          <button>Debit</button>
+          <button>Credit</button>
+          <div id="finance-form-payment-slider" />
+        </div>
+      </div>
+      <div className="transaction-form-row">
+        <input
+          type="text"
+          name=""
+          placeholder="$ Amount"
+          className="standard-input"
+          id="transaction-form-amount"
+        />
+        {/* category buttons */}
+        <div id="category-buttons">
+          <button>
+            <Icon1 />
+          </button>
+          <button>
+            <Icon2 />
+          </button>
+          <button>
+            <Icon3 />
+          </button>
+          <button>
+            <Icon4 />
+          </button>
+        </div>
+      </div>
+
+      <button id="finance-form-submit" className="standard-btn">
+        Submit
+      </button>
+    </form>
+  );
 }
