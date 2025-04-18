@@ -3,7 +3,7 @@ import Overlay from "../layout/Overlay";
 import { createEvent, deleteEvent, editEvent } from "../../util/eventUtil";
 import { IoIosClose } from "react-icons/io";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { AppContext } from "../../util/appContext";
+import { AppContext } from "../../util/AppContext";
 import { TaskRow } from "./TaskList";
 import { fetchTasks } from "../../util/taskUtil";
 

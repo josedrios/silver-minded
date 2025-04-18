@@ -3,7 +3,7 @@ import { useEffect, useState,useContext } from "react";
 import { CalendarOverlay } from "../features/CalendarForm";
 import { fetchEvents } from "../../util/eventUtil";
 import { IoIosAdd } from "react-icons/io";
-import { AppContext } from "../../util/appContext";
+import { AppContext } from "../../util/AppContext";
 
 export default function Calendar() {
   const { events, setEvents } = useContext(AppContext);

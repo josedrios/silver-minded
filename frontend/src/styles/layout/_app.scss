@@ -11,6 +11,14 @@
   }
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
 main {
   padding: 0 $spacing-md;
   max-width: $breakpoint-lg;

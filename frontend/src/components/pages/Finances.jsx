@@ -21,6 +21,23 @@ export default function Finances() {
   const [responsiveSize, setResponsiveSize] = useState(
     window.innerWidth <= 660
   );
+  const now = new Date();
+  const formatDate = (date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+
+  const [transactionForm, setTransactionForm] = useState({
+    info: "",
+    paidAt: formatDate(now),
+    type: "debit",
+    amount: "",
+    category: "need",
+  });
+  useEffect(() => {
+    console.log(transactionForm);
+  }, [transactionForm]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 660px)");
@@ -49,7 +66,6 @@ export default function Finances() {
         <div id="finance-increment-frame">
           <button>Y</button>
           <button>M</button>
-          <button>W</button>
           <button>A</button>
         </div>
         <div id="finance-current-frame">
@@ -74,12 +90,20 @@ export default function Finances() {
         style={{ display: responsiveSize ? "" : "none" }}
       >
         <FinanceBudget Icons={Icons} />
-        <TransactionsForm Icons={Icons} />
+        <TransactionsForm
+          Icons={Icons}
+          transactionForm={transactionForm}
+          setTransactionForm={setTransactionForm}
+        />
       </div>
       <div id="finance-transactions-container">
         <TransactionsList Icons={Icons} />
-        <div style={{ display: responsiveSize ? "none" : "", minWidth: 0}}>
-          <TransactionsForm Icons={Icons} />
+        <div style={{ display: responsiveSize ? "none" : "", minWidth: 0 }}>
+          <TransactionsForm
+            Icons={Icons}
+            transactionForm={transactionForm}
+            setTransactionForm={setTransactionForm}
+          />
         </div>
       </div>
     </div>
@@ -240,56 +264,101 @@ function TransactionCard({ info, time, type, amount, category, Icons }) {
   );
 }
 
-function TransactionsForm({ Icons }) {
-  const Icon1 = Icons.need;
-  const Icon2 = Icons.sub;
-  const Icon3 = Icons.fun;
-  const Icon4 = Icons.save;
+function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
+  const categoryIcons = {
+    need: Icons.need,
+    sub: Icons.sub,
+    fun: Icons.fun,
+    save: Icons.save,
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTransactionForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
-    <form action="" id="transaction-form">
+    <form action="" id="transaction-form" onSubmit={(e) => {
+      e.preventDefault();
+    }}>
       <h6>Create Transaction</h6>
       <input
         type="text"
-        name=""
+        name="info"
         placeholder="Info"
         className="standard-input"
         id="transaction-form-info"
+        autoComplete="off"
+        value={transactionForm.info}
+        onChange={handleChange}
       />
       <div className="transaction-form-row">
         <input
           type="date"
           className="standard-input"
           id="transaction-form-date"
+          name="paidAt"
+          autoComplete="off"
+          value={transactionForm.paidAt}
+          onChange={handleChange}
         />
         <div id="finance-form-payment-type">
-          <button>D</button>
-          <button>C</button>
+          <button
+            type="button"
+            className={transactionForm.type === "debit" ? "active" : ""}
+            onClick={(e) =>{
+              e.preventDefault()
+              setTransactionForm((prev) => ({ ...prev, type: 'debit' }))}
+            }
+          >
+            D
+          </button>
+          <button
+            type="button"
+            className={transactionForm.type === "credit" ? "active" : ""}
+            onClick={(e) =>{
+              e.preventDefault()
+              setTransactionForm((prev) => ({ ...prev, type: 'credit' }))}
+            }
+          >
+            C
+          </button>
           <div id="finance-form-payment-slider" />
         </div>
       </div>
       <div className="transaction-form-row">
         <input
           type="text"
-          name=""
-          placeholder="$2000"
+          inputMode="decimal"
+          placeholder="$"
           className="standard-input"
           id="transaction-form-amount"
+          name="amount"
+          value={transactionForm.amount}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (/^\d*\.?\d{0,2}$/.test(val) || val === "") {
+              handleChange(e);
+            }
+          }}
         />
-        {/* category buttons */}
         <div id="category-buttons">
-          <button>
-            <Icon1 />
-          </button>
-          <button>
-            <Icon2 />
-          </button>
-          <button>
-            <Icon3 />
-          </button>
-          <button>
-            <Icon4 />
-          </button>
+          {Object.entries(categoryIcons).map(([key, Icon]) => (
+            <button
+              key={key}
+              type="button"
+              className={transactionForm.category === key ? "active" : ""}
+              onClick={(e) =>{
+                e.preventDefault()
+                setTransactionForm((prev) => ({ ...prev, category: key }))}
+              }
+            >
+              <Icon />
+            </button>
+          ))}
         </div>
       </div>
 
