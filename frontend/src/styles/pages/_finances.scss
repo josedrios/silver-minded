@@ -7,7 +7,7 @@
 
 #finance-cards-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: $spacing-md;
 }
 
@@ -37,11 +37,38 @@
   }
 }
 
+@media (max-width: 450px) {
+  #finance-time-frame {
+    @include flex(row, space-between);
+
+    #finance-increment-frame {
+      position: static;
+      right: auto;
+    }
+  }
+}
+
 #finance-stats-container {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
   gap: $spacing-md;
 }
+
+@media (max-width: 660px) {
+  #finance-stats-container {
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+@media (max-width: 400px) {
+  #finance-stats-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+
 
 #finance-graph {
   height: 200px;
@@ -165,11 +192,26 @@
   gap: $spacing-md;
 }
 
+@media (max-width: 660px) {
+  #finance-transactions-container {
+    grid-template-columns: 1fr;
+  }
+
+  #transactions-form {
+    order: 1
+  }
+
+  #transactions-list {
+    order: 2;
+  }
+}
+
 #transactions-list {
   @include flex(column);
   gap: calc($spacing-sm + $spacing-xs);
   width: 100%;
   min-width: 0;
+  margin-bottom: $spacing-lg;
 
   h5 {
     font-size: $font-size-lg;
@@ -178,5 +220,17 @@
   }
 }
 
-#transactions-form {
+#responsive-budget-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+}
+
+@media (max-width: 545px) {
+  #responsive-budget-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: $spacing-md;
+  }
 }

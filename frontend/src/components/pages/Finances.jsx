@@ -7,16 +7,28 @@ import { GoFlame } from "react-icons/go";
 import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
+import { useState, useEffect } from "react";
 
 export default function Finances() {
   const Icons = {
     save: IoLockClosedOutline,
-    essential: IoCloudyNightOutline,
-    subscriptions: BsArrowRepeat,
+    need: IoCloudyNightOutline,
+    sub: BsArrowRepeat,
     fun: IoExtensionPuzzleOutline,
     made: LuTrendingUp,
     spent: GoFlame,
   };
+  const [responsiveSize, setResponsiveSize] = useState(
+    window.innerWidth <= 660
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 660px)");
+    const handleChange = (e) => setResponsiveSize(e.matches);
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   return (
     <div id="finances-container">
@@ -53,11 +65,22 @@ export default function Finances() {
       <div id="finance-stats-container">
         <FinanceGraph />
         <FinanceGraph />
+        <div style={{ display: responsiveSize ? "none" : "" }}>
+          <FinanceBudget Icons={Icons} />
+        </div>
+      </div>
+      <div
+        id="responsive-budget-form"
+        style={{ display: responsiveSize ? "" : "none" }}
+      >
         <FinanceBudget Icons={Icons} />
+        <TransactionsForm Icons={Icons} />
       </div>
       <div id="finance-transactions-container">
         <TransactionsList Icons={Icons} />
-        <TransactionsForm Icons={Icons} />
+        <div style={{ display: responsiveSize ? "none" : "", minWidth: 0}}>
+          <TransactionsForm Icons={Icons} />
+        </div>
       </div>
     </div>
   );
@@ -66,7 +89,7 @@ export default function Finances() {
 function FinanceCard({ title, amount, icon: Icon }) {
   return (
     <div className="finance-card">
-      <div>
+      <div className="finance-card-body">
         <p className="title">{title}</p>
         <p className="amount">
           <span>$</span>
@@ -74,14 +97,13 @@ function FinanceCard({ title, amount, icon: Icon }) {
         </p>
       </div>
       <div>
-        {" "}
         <Icon />{" "}
       </div>
     </div>
   );
 }
 
-function FinanceGraph() {
+function FinanceGraph({ divClass }) {
   return (
     <div id="finance-graph">
       <div id="finance-graph-x">
@@ -129,7 +151,7 @@ function FinanceGraphY({ label }) {
 
 function FinanceBudget({ Icons }) {
   return (
-    <div id="finance-budget">
+    <div id="finance-budget" className="budget">
       <div id="finance-budget-bar">
         <div className="budget-bar" />
         <div className="budget-bar" />
@@ -143,12 +165,8 @@ function FinanceBudget({ Icons }) {
           <p className="budget-legend-right">Amount</p>
         </div>
         <BudgetLegend title="Save" amount="2,137" icon={Icons.save} />
-        <BudgetLegend title="Essential" amount="201" icon={Icons.essential} />
-        <BudgetLegend
-          title="Subscriptions"
-          amount="26"
-          icon={Icons.subscriptions}
-        />
+        <BudgetLegend title="Need" amount="201" icon={Icons.need} />
+        <BudgetLegend title="Sub" amount="26" icon={Icons.sub} />
         <BudgetLegend title="Fun" amount="187" icon={Icons.fun} />
       </div>
     </div>
@@ -188,13 +206,13 @@ function TransactionsList({ Icons }) {
       <TransactionCard
         info="Chevron"
         amount={42.15}
-        category="essential"
+        category="need"
         Icons={Icons}
       />
       <TransactionCard
         info="Amazon Prime"
         amount={16.99}
-        category="subscriptions"
+        category="sub"
         Icons={Icons}
       />
     </div>
@@ -223,8 +241,8 @@ function TransactionCard({ info, time, type, amount, category, Icons }) {
 }
 
 function TransactionsForm({ Icons }) {
-  const Icon1 = Icons.essential;
-  const Icon2 = Icons.subscriptions;
+  const Icon1 = Icons.need;
+  const Icon2 = Icons.sub;
   const Icon3 = Icons.fun;
   const Icon4 = Icons.save;
 
@@ -234,7 +252,7 @@ function TransactionsForm({ Icons }) {
       <input
         type="text"
         name=""
-        placeholder="Transaction Info"
+        placeholder="Info"
         className="standard-input"
         id="transaction-form-info"
       />
@@ -245,8 +263,8 @@ function TransactionsForm({ Icons }) {
           id="transaction-form-date"
         />
         <div id="finance-form-payment-type">
-          <button>Debit</button>
-          <button>Credit</button>
+          <button>D</button>
+          <button>C</button>
           <div id="finance-form-payment-slider" />
         </div>
       </div>
@@ -254,7 +272,7 @@ function TransactionsForm({ Icons }) {
         <input
           type="text"
           name=""
-          placeholder="$ Amount"
+          placeholder="$2000"
           className="standard-input"
           id="transaction-form-amount"
         />

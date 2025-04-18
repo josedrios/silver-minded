@@ -107,6 +107,9 @@
   @include flex(column);
   gap: $spacing-sm;
   min-width: 0;
+  border: 1px solid $primary-color;
+  border-radius: $border-radius-sm;
+  padding: $spacing-md;
 
   h6 {
     text-align: center;
