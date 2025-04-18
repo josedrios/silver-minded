@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { editTaskStatus } from "../../util/taskUtil";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";

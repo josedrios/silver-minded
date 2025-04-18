@@ -13,7 +13,7 @@
 
 #finance-stats-container {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 2fr;
   gap: $spacing-md;
 }
 
@@ -22,9 +22,24 @@
   @include flex(row);
 
   #finance-graph-x {
-    width: 30px;
-    border: 1px solid gray;
+    width: 40px;
     padding-bottom: 30px;
+    @include flex(column, space-around);
+
+    .increment {
+      height: 40px;
+      @include flex(column, space-between, center);
+      transform: rotate(-90deg);
+
+      .increment-title {
+        transform: rotate(90deg);
+      }
+
+      .increment-notch {
+        border: 1px solid $primary-color;
+        height: 10px;
+      }
+    }
   }
 
   #finance-graph-right {
@@ -35,24 +50,49 @@
       flex: 1;
       background-image: radial-gradient(
         circle,
-        color-fade($primary-color, 0.5) 1px,
+        color-fade($primary-color, 0.3) 1px,
         transparent 1.5px
       );
       background-size: 25px 25px;
-      border-left: 2px solid $gray;
-      border-bottom: 2px solid $gray;
+      border: 1px solid $primary-color;
+      border-radius: $border-radius-sm;
+      background-color: $secondary-background-color;
+      @include flex(row, space-around, flex-end);
+
+      .finance-graph-bar {
+        background-color: color-fade($dev-color, 0.9);
+        border-radius: $spacing-xs $spacing-xs 0px 0px;
+        width: 12%;
+        min-width: 17px;
+        height: 50%;
+      }
     }
 
     #finance-graph-y {
-      border: 1px solid gray;
       height: 30px;
+      @include flex(row, space-around);
+
+      .increment {
+        @include flex(column, space-between, center);
+        .increment-notch {
+          order: 1;
+          border: 1px solid $primary-color;
+          height: 10px;
+        }
+
+        .increment-title {
+          order: 2;
+          width: 40px;
+          text-align: center;
+        }
+      }
     }
   }
 }
 
 #finance-budget {
   #finance-budget-bar {
-    height: 13px;
+    height: 9px;
     @include flex(row);
     gap: $spacing-xs;
     margin-bottom: $spacing-sm;
@@ -95,12 +135,13 @@
   width: 100%;
   min-width: 0;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 3fr 2fr;
   gap: $spacing-md;
 }
 
 #transactions-list {
   @include flex(column);
+  gap: calc($spacing-sm + $spacing-xs);
   width: 100%;
   min-width: 0;
 

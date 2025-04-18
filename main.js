@@ -8,7 +8,7 @@ let backend;
 function waitForBackend(callback) {
   const check = () => {
     http.get("http://localhost:4000", () => {
-      console.log("✅ Backend is ready");
+      console.log("Backend is ready");
       callback();
     }).on("error", () => {
       setTimeout(check, 300);

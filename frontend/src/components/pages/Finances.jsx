@@ -1,9 +1,8 @@
 import {
-  IoGlassesOutline,
   IoLockClosedOutline,
   IoExtensionPuzzleOutline,
+  IoCloudyNightOutline,
 } from "react-icons/io5";
-import { MdOutlinePropaneTank } from "react-icons/md";
 import { GoFlame } from "react-icons/go";
 import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
@@ -11,9 +10,8 @@ import { BsArrowRepeat } from "react-icons/bs";
 export default function Finances() {
   const Icons = {
     save: IoLockClosedOutline,
-    tp: IoGlassesOutline,
-    gas: MdOutlinePropaneTank,
-    subs: BsArrowRepeat,
+    essential: IoCloudyNightOutline,
+    subscriptions: BsArrowRepeat,
     fun: IoExtensionPuzzleOutline,
     made: LuTrendingUp,
     spent: GoFlame,
@@ -39,7 +37,7 @@ export default function Finances() {
         <FinanceBudget Icons={Icons} />
       </div>
       <div id="finance-transactions-container">
-        <TransactionsList />
+        <TransactionsList Icons={Icons} />
         <TransactionsForm />
       </div>
     </div>
@@ -67,13 +65,49 @@ function FinanceCard({ title, amount, icon: Icon }) {
 function FinanceGraph() {
   return (
     <div id="finance-graph">
-      <div id="finance-graph-x"></div>
+      <div id="finance-graph-x">
+        <FinanceGraphX value={30}/>
+        <FinanceGraphX value={20}/>
+        <FinanceGraphX value={10}/>
+      </div>
       <div id="finance-graph-right">
-        <div id="finance-graph-body"></div>
-        <div id="finance-graph-y"></div>
+        <div id="finance-graph-body">
+            <FinanceGraphBar />
+            <FinanceGraphBar />
+            <FinanceGraphBar />
+        </div>
+        <div id="finance-graph-y">
+            <FinanceGraphY label={'Made'}/>
+            <FinanceGraphY label={'Saved'}/>
+            <FinanceGraphY label={'Spent'}/>
+        </div>
       </div>
     </div>
   );
+}
+
+function FinanceGraphBar(){
+    return (
+        <div className="finance-graph-bar" />
+    )
+}
+
+function FinanceGraphX({value}) {
+    return(
+        <div className="increment">
+            <p className="increment-title">${value}k</p>
+            <div className="increment-notch"/>
+        </div>
+    )
+}
+
+function FinanceGraphY({label}) {
+    return(
+        <div className="increment">
+            <p className="increment-title">{label}</p>
+            <div className="increment-notch"/>
+        </div>
+    )
 }
 
 function FinanceBudget({ Icons }) {
@@ -92,12 +126,14 @@ function FinanceBudget({ Icons }) {
           <p className="budget-legend-right">Amount</p>
         </div>
         <BudgetLegend title="Save" amount="2,137" icon={Icons.save} />
-        <BudgetLegend title="TP" amount="201" icon={Icons.tp} />
-        <BudgetLegend title="Gas" amount="41" icon={Icons.gas} />
-        <BudgetLegend title="Subs" amount="26" icon={Icons.subs} />
+        <BudgetLegend title="Essential" amount="201" icon={Icons.essential} />
+        <BudgetLegend
+          title="Subscriptions"
+          amount="26"
+          icon={Icons.subscriptions}
+        />
         <BudgetLegend title="Fun" amount="187" icon={Icons.fun} />
       </div>
-      {/* list of budget */}
     </div>
   );
 }
@@ -114,28 +150,54 @@ function BudgetLegend({ title, amount, icon: Icon }) {
   );
 }
 
-function TransactionsList() {
+function TransactionsList({ Icons }) {
   return (
     <div id="transactions-list">
       <h5>Transactions</h5>
-      <TransactionCard />
+      <TransactionCard
+        info="Warfare Movie Ticket"
+        amount={16.59}
+        category="fun"
+        Icons={Icons}
+      />
+      <TransactionCard
+        info="Paycheck"
+        amount={321.42}
+        category="save"
+        Icons={Icons}
+      />
+      <TransactionCard
+        info="Chevron"
+        amount={42.15}
+        category="essential"
+        Icons={Icons}
+      />
+      <TransactionCard
+        info="Amazon Prime"
+        amount={16.99}
+        category="subscriptions"
+        Icons={Icons}
+      />
     </div>
   );
 }
 
-function TransactionCard({}) {
+function TransactionCard({ info, time, type, amount, category, Icons }) {
+  const Icon = Icons[category];
   return (
     <div className="transaction-card">
       <div className="transaction-card-icon">
-        <IoGlassesOutline />
+        <Icon />
       </div>
       <div className="transaction-card-body">
-        <p className="transaction-card-info">Teeth Stuff</p>
+        <p className="transaction-card-info">{info}</p>
         <p className="transaction-card-time">Jul 20, 6:23 PM</p>
       </div>
       <div className="transaction-card-footer">
-        <p className="transaction-card-amount">+$2400.50</p>
-        <p className="transaction-card-category">Subscription</p>
+        <p className="transaction-card-amount">+${amount}</p>
+        <p className="transaction-card-category">
+          {category.charAt(0).toUpperCase() + category.slice(1)}
+        </p>
       </div>
     </div>
   );

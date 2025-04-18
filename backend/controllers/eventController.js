@@ -54,7 +54,6 @@ exports.getEvents = async (req, res) => {
   try {
     const year = parseInt(req.params.year);
     const month = parseInt(req.params.month);
-    console.log(year, month);
 
     const start = new Date(year, month, 1);
     const end = new Date(year, month + 1, 1);
