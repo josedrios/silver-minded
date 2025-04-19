@@ -48,7 +48,7 @@ exports.getTransactions = async (req, res) => {
     const { year, month } = req.params;
     let transactions;
 
-    if (month !== -1) {
+    if (month !== "-1") {
       const m = Number(month); 
 
       const start = new Date(year, m, 1);
@@ -56,14 +56,14 @@ exports.getTransactions = async (req, res) => {
 
       transactions = await Transaction.find({
         paidAt: { $gte: start, $lt: end },
-      }).sort({ paidAt: 1 });
+      }).sort({ paidAt: -1 });
     } else {
       const start = new Date(year, 0, 1);
       const end = new Date(Number(year) + 1, 0, 1);
 
       transactions = await Transaction.find({
         paidAt: { $gte: start, $lt: end },
-      }).sort({ paidAt: 1 });
+      }).sort({ paidAt: -1 });
     }
     console.log('='.repeat(20));
     console.log(transactions)

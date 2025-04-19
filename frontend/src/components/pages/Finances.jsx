@@ -8,7 +8,10 @@ import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useState, useEffect, useContext } from "react";
-import { createTransaction, fetchTransactions } from "../../util/transactionUtil";
+import {
+  createTransaction,
+  fetchTransactions,
+} from "../../util/transactionUtil";
 import { AppContext } from "../../util/AppContext";
 
 export default function Finances() {
@@ -30,7 +33,9 @@ export default function Finances() {
     `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
       "0"
-    )}-${String(date.getDate()).padStart(2, "0")}`;
+    )}-${String(date.getDate()).padStart(2, "0")}T${String(
+      date.getHours()
+    ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 
   const [transactionForm, setTransactionForm] = useState({
     info: "",
@@ -52,18 +57,25 @@ export default function Finances() {
   }, []);
 
   const loadTransactions = async (financeTimeFrame) => {
-    const data = await fetchTransactions(financeTimeFrame.year, financeTimeFrame.month);
+    const data = await fetchTransactions(
+      financeTimeFrame.year,
+      financeTimeFrame.month
+    );
     setTransactions(data);
-  }
+  };
 
   const [financeTimeFrame, setFinanceTimeFrame] = useState({
     year: now.getFullYear(),
-    month: now.getMonth()
+    month: now.getMonth(),
   });
 
   useEffect(() => {
-    loadTransactions(financeTimeFrame)
+    loadTransactions(financeTimeFrame);
   }, []);
+
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
 
   return (
     <div id="finances-container">
@@ -115,12 +127,14 @@ export default function Finances() {
         />
       </div>
       <div id="finance-transactions-container">
-        <TransactionsList Icons={Icons} />
+        <TransactionsList Icons={Icons} transactions={transactions} />
         <div style={{ display: responsiveSize ? "none" : "", minWidth: 0 }}>
           <TransactionsForm
             Icons={Icons}
             transactionForm={transactionForm}
             setTransactionForm={setTransactionForm}
+            loadTransactions={loadTransactions}
+            financeTimeFrame={financeTimeFrame}
           />
         </div>
       </div>
@@ -229,34 +243,19 @@ function BudgetLegend({ title, amount, icon: Icon }) {
   );
 }
 
-function TransactionsList({ Icons }) {
+function TransactionsList({ Icons, transactions }) {
   return (
     <div id="transactions-list">
       <h5>Transactions</h5>
-      <TransactionCard
-        info="Warfare Movie Ticket"
-        amount={16.59}
-        category="fun"
-        Icons={Icons}
-      />
-      <TransactionCard
-        info="Paycheck"
-        amount={321.42}
-        category="save"
-        Icons={Icons}
-      />
-      <TransactionCard
-        info="Chevron"
-        amount={42.15}
-        category="need"
-        Icons={Icons}
-      />
-      <TransactionCard
-        info="Amazon Prime"
-        amount={16.99}
-        category="sub"
-        Icons={Icons}
-      />
+      {transactions.map((tran, key) => (
+        <TransactionCard
+          info={tran.info}
+          amount={tran.amount}
+          category={tran.category}
+          Icons={Icons}
+          key={key}
+        />
+      ))}
     </div>
   );
 }
@@ -282,13 +281,21 @@ function TransactionCard({ info, time, type, amount, category, Icons }) {
   );
 }
 
-function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
+function TransactionsForm({
+  Icons,
+  transactionForm,
+  setTransactionForm,
+  loadTransactions,
+  financeTimeFrame,
+}) {
   const now = new Date();
   const formatDate = (date) =>
     `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
       "0"
-    )}-${String(date.getDate()).padStart(2, "0")}`;
+    )}-${String(date.getDate()).padStart(2, "0")}T${String(
+      date.getHours()
+    ).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 
   const categoryIcons = {
     need: Icons.need,
@@ -309,9 +316,9 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
     <form
       action=""
       id="transaction-form"
-      onSubmit={(e) => {
+      onSubmit={async(e) => {
         e.preventDefault();
-        createTransaction(transactionForm);
+        await createTransaction(transactionForm);
         setTransactionForm({
           info: "",
           paidAt: formatDate(now),
@@ -319,6 +326,7 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
           amount: "",
           category: "need",
         });
+        loadTransactions(financeTimeFrame);
       }}
     >
       <h6>Create Transaction</h6>
@@ -334,7 +342,7 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
       />
       <div className="transaction-form-row">
         <input
-          type="date"
+          type="datetime-local"
           className="standard-input"
           id="transaction-form-date"
           name="paidAt"
