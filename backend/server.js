@@ -22,7 +22,7 @@ connectDB();
 // Routes
 app.use('/api/task', require('./routes/taskRoutes'));
 app.use('/api/event', require('./routes/eventRoutes'));
-app.use('api/transaction', require('./routes/transactionRoutes'));
+app.use('/api/transaction', require('./routes/transactionRoutes'));
 
 // Server
 app.listen(PORT, '0.0.0.0', () => 

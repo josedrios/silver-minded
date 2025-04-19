@@ -7,9 +7,13 @@ import { GoFlame } from "react-icons/go";
 import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { createTransaction, fetchTransactions } from "../../util/transactionUtil";
+import { AppContext } from "../../util/AppContext";
 
 export default function Finances() {
+  const { transactions, setTransactions } = useContext(AppContext);
+
   const Icons = {
     save: IoLockClosedOutline,
     need: IoCloudyNightOutline,
@@ -45,6 +49,20 @@ export default function Finances() {
     mediaQuery.addEventListener("change", handleChange);
 
     return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  const loadTransactions = async (financeTimeFrame) => {
+    const data = await fetchTransactions(financeTimeFrame.year, financeTimeFrame.month);
+    setTransactions(data);
+  }
+
+  const [financeTimeFrame, setFinanceTimeFrame] = useState({
+    year: now.getFullYear(),
+    month: now.getMonth()
+  });
+
+  useEffect(() => {
+    loadTransactions(financeTimeFrame)
   }, []);
 
   return (
@@ -265,6 +283,13 @@ function TransactionCard({ info, time, type, amount, category, Icons }) {
 }
 
 function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
+  const now = new Date();
+  const formatDate = (date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+
   const categoryIcons = {
     need: Icons.need,
     sub: Icons.sub,
@@ -281,9 +306,21 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
   };
 
   return (
-    <form action="" id="transaction-form" onSubmit={(e) => {
-      e.preventDefault();
-    }}>
+    <form
+      action=""
+      id="transaction-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        createTransaction(transactionForm);
+        setTransactionForm({
+          info: "",
+          paidAt: formatDate(now),
+          type: "debit",
+          amount: "",
+          category: "need",
+        });
+      }}
+    >
       <h6>Create Transaction</h6>
       <input
         type="text"
@@ -309,20 +346,20 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
           <button
             type="button"
             className={transactionForm.type === "debit" ? "active" : ""}
-            onClick={(e) =>{
-              e.preventDefault()
-              setTransactionForm((prev) => ({ ...prev, type: 'debit' }))}
-            }
+            onClick={(e) => {
+              e.preventDefault();
+              setTransactionForm((prev) => ({ ...prev, type: "debit" }));
+            }}
           >
             D
           </button>
           <button
             type="button"
             className={transactionForm.type === "credit" ? "active" : ""}
-            onClick={(e) =>{
-              e.preventDefault()
-              setTransactionForm((prev) => ({ ...prev, type: 'credit' }))}
-            }
+            onClick={(e) => {
+              e.preventDefault();
+              setTransactionForm((prev) => ({ ...prev, type: "credit" }));
+            }}
           >
             C
           </button>
@@ -350,11 +387,13 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
             <button
               key={key}
               type="button"
-              className={transactionForm.category === key ? "active" : ""}
-              onClick={(e) =>{
-                e.preventDefault()
-                setTransactionForm((prev) => ({ ...prev, category: key }))}
-              }
+              className={`finance-form-category-button ${key} ${
+                transactionForm.category === key ? "active" : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault();
+                setTransactionForm((prev) => ({ ...prev, category: key }));
+              }}
             >
               <Icon />
             </button>
@@ -362,7 +401,7 @@ function TransactionsForm({ Icons, transactionForm, setTransactionForm }) {
         </div>
       </div>
 
-      <button id="finance-form-submit" className="standard-btn">
+      <button id="finance-form-submit" className="standard-btn" type="submit">
         Submit
       </button>
     </form>

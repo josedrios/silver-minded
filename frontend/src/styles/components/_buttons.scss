@@ -5,9 +5,9 @@
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
 
-    &:hover {
-      background-color: $secondary-color;
-    }
+  &:hover {
+    background-color: $secondary-color;
+  }
 }
 
 .standard-hollow-btn {
@@ -18,10 +18,10 @@
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant, color $transition-instant;
 
-    &:hover {
-      background-color: $primary-color;
-      color: $primary-background-color !important;
-    }
+  &:hover {
+    background-color: $primary-color;
+    color: $primary-background-color !important;
+  }
 }
 
 .delete-task-icon {
@@ -113,9 +113,9 @@ $filter-types: (
   color: $gray;
   transition: background-color $transition-instant;
 
-    &:hover {
-      background-color: $gray-darker;
-    }
+  &:hover {
+    background-color: $gray-darker;
+  }
 }
 
 .done-status-btn {
@@ -201,7 +201,8 @@ $tag-btn-types: (
   }
 }
 
-.month-navigation-buttons, .year-navigation-buttons {
+.month-navigation-buttons,
+.year-navigation-buttons {
   background-color: transparent;
   padding: $spacing-xs $spacing-sm;
   border-radius: $border-radius-xs;
@@ -319,7 +320,7 @@ $tag-btn-types: (
   background-color: color-fade($primary-color, 0.15);
 }
 
-#task-link-toggle-container{
+#task-link-toggle-container {
   height: 20px;
   width: 35px;
   border: 1px solid color-fade(black, 0.15);
@@ -340,23 +341,23 @@ $tag-btn-types: (
 }
 
 .right-toggle {
-  transform: translateX(14px); 
+  transform: translateX(14px);
 }
 
 .left-toggle {
-  transform: translateX(0); 
+  transform: translateX(0);
 }
 
 .color-toggle {
   background-color: color-fade($done-color, 0.8) !important;
 }
 
-#finance-increment-frame button{
+#finance-increment-frame button {
   background-color: transparent;
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
 
-  &:hover{
+  &:hover {
     background-color: color-fade($primary-color, 0.5);
   }
 }
@@ -373,18 +374,52 @@ $tag-btn-types: (
   }
 }
 
-#category-buttons button {
-  @include flex(row, center, center);
-  background-color: transparent;
-  border: 1px solid $primary-color;
-  border-radius: $border-radius-sm;
-  padding: $spacing-sm;
-  aspect-ratio: 1/1;
+$filter-types: (
+  need: $dev-color,
+  fun: $misc-color,
+  sub: $pending-color,
+  save: $done-color,
+);
+
+@each $type, $color in $filter-types {
+  .finance-form-category-button.#{$type} {
+    @include flex(row, center, center);
+    border-radius: $border-radius-sm;
+    padding: $spacing-sm;
+    aspect-ratio: 1/1;
+    border: 1px solid $color;
+    background-color: transparent;
+    transition: background-color $transition-instant;
+
+    span {
+      color: $color;
+    }
+
+    svg {
+      color: $color;
+      fill: $color;
+      stroke: $color;
+    }
+
+    &:hover {
+      background-color: color-fade($color, 0.15);
+    }
+  }
+
+  .finance-form-category-button.#{$type}.active {
+    background-color: color-fade($color, 0.15);
+  }
 }
 
-#finance-form-payment-type button{
-    height: 100%;
-    background-color: transparent;
+#finance-form-payment-type button {
+  height: 100%;
+  background-color: transparent;
+  color: $gray-light;
+  transition: color $transition-instant;
+}
+
+#finance-form-payment-type button.active {
+  color: $primary-color;
 }
 
 #finance-form-submit {

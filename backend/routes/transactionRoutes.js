@@ -8,9 +8,9 @@ const {
 
 const router = express.Router();
 
-router.get("/:year/:month", getTransactions);
 router.post("/", createTransaction);
 router.put("/:id", editTransaction);
 router.delete("/:id", deleteTransaction);
+router.get("/:year/:month", getTransactions);
 
 module.exports = router;
