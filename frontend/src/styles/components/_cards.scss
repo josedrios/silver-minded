@@ -69,3 +69,21 @@
     }
   }
 }
+
+$filter-types: (
+  need: $dev-color,
+  fun: $misc-color,
+  sub: $pending-color,
+  save: $done-color,
+);
+
+@each $type, $color in $filter-types {
+  .transaction-card-icon.#{$type} {
+    background-color: color-fade($color, 0.15);
+    
+    svg {
+      fill: $color;
+      stroke: $color;
+    }
+  }
+}

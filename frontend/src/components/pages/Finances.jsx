@@ -7,7 +7,7 @@ import { GoFlame } from "react-icons/go";
 import { LuTrendingUp } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import {
   createTransaction,
   fetchTransactions,
@@ -25,6 +25,7 @@ export default function Finances() {
     made: LuTrendingUp,
     spent: GoFlame,
   };
+
   const [responsiveSize, setResponsiveSize] = useState(
     window.innerWidth <= 660
   );
@@ -47,6 +48,14 @@ export default function Finances() {
   useEffect(() => {
     console.log(transactionForm);
   }, [transactionForm]);
+
+  const totals = useMemo(() => {
+    return transactions.reduce((acc, tran) => {
+      const { category, amount } = tran;
+      acc[category] = (acc[category] || 0) + amount;
+      return acc;
+    }, {});
+  }, [transactions]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 660px)");
@@ -76,6 +85,23 @@ export default function Finances() {
   useEffect(() => {
     console.log(transactions);
   }, [transactions]);
+
+  const percent = useMemo(() => {
+    const income = totals.save || 0;
+    const expenses = (totals.need || 0) + (totals.sub || 0) + (totals.fun || 0);
+    const leftover = income - expenses;
+    const total = income > expenses ? income : expenses;
+
+    if (total === 0) return { need: 0, sub: 0, fun: 0, save: 0 };
+
+    return {
+      need: ((totals.need || 0) / total) * 100,
+      sub: ((totals.sub || 0) / total) * 100,
+      fun: ((totals.fun || 0) / total) * 100,
+      save: leftover > 0 ? (leftover / total) * 100 : 0,
+      leftover: leftover > 0 ? leftover : 0
+    };
+  }, [totals]);
 
   return (
     <div id="finances-container">
@@ -112,18 +138,20 @@ export default function Finances() {
         <FinanceGraph />
         <FinanceGraph />
         <div style={{ display: responsiveSize ? "none" : "" }}>
-          <FinanceBudget Icons={Icons} />
+          <FinanceBudget Icons={Icons} totals={totals} percent={percent} />
         </div>
       </div>
       <div
         id="responsive-budget-form"
         style={{ display: responsiveSize ? "" : "none" }}
       >
-        <FinanceBudget Icons={Icons} />
+        <FinanceBudget Icons={Icons} totals={totals} percent={percent} />
         <TransactionsForm
           Icons={Icons}
           transactionForm={transactionForm}
           setTransactionForm={setTransactionForm}
+          loadTransactions={loadTransactions}
+          financeTimeFrame={financeTimeFrame}
         />
       </div>
       <div id="finance-transactions-container">
@@ -205,25 +233,49 @@ function FinanceGraphY({ label }) {
   );
 }
 
-function FinanceBudget({ Icons }) {
+function FinanceBudget({ Icons, totals, percent }) {
   return (
     <div id="finance-budget" className="budget">
+      <h6>Budget</h6>
       <div id="finance-budget-bar">
-        <div className="budget-bar" />
-        <div className="budget-bar" />
-        <div className="budget-bar" />
-        <div className="budget-bar" />
-        <div className="budget-bar" />
+        <div
+          className="budget-bar save"
+          style={{
+            display: percent.save === 0 ? "none" : "",
+            width: percent.save + "%",
+          }}
+        />
+        <div
+          className="budget-bar need"
+          style={{
+            display: percent.need === 0 ? "none" : "",
+            width: percent.need + "%",
+          }}
+        />
+        <div
+          className="budget-bar sub"
+          style={{
+            display: percent.sub === 0 ? "none" : "",
+            width: percent.sub + "%",
+          }}
+        />
+        <div
+          className="budget-bar fun"
+          style={{
+            display: percent.fun === 0 ? "none" : "",
+            width: percent.fun + "%",
+          }}
+        />
       </div>
       <div id="finance-budget-legend">
         <div className="budget-legend-section header-row">
           <p>Legend</p>
           <p className="budget-legend-right">Amount</p>
         </div>
-        <BudgetLegend title="Save" amount="2,137" icon={Icons.save} />
-        <BudgetLegend title="Need" amount="201" icon={Icons.need} />
-        <BudgetLegend title="Sub" amount="26" icon={Icons.sub} />
-        <BudgetLegend title="Fun" amount="187" icon={Icons.fun} />
+        <BudgetLegend title="Save" amount={percent.leftover} icon={Icons.save} />
+        <BudgetLegend title="Need" amount={totals.need} icon={Icons.need} />
+        <BudgetLegend title="Sub" amount={totals.sub} icon={Icons.sub} />
+        <BudgetLegend title="Fun" amount={totals.fun} icon={Icons.fun} />
       </div>
     </div>
   );
@@ -232,13 +284,11 @@ function FinanceBudget({ Icons }) {
 function BudgetLegend({ title, amount, icon: Icon }) {
   return (
     <div className="budget-legend-section">
-      <div className="budget-legend-left">
+      <div className={`budget-legend-left ${title.toLowerCase()}`}>
         <Icon />
         <p>{title}</p>
       </div>
-      <p className="budget-legend-right">
-        ${amount} <span></span>
-      </p>
+      <p className="budget-legend-right">${Number(amount).toLocaleString()}</p>
     </div>
   );
 }
@@ -248,33 +298,41 @@ function TransactionsList({ Icons, transactions }) {
     <div id="transactions-list">
       <h5>Transactions</h5>
       {transactions.map((tran, key) => (
-        <TransactionCard
-          info={tran.info}
-          amount={tran.amount}
-          category={tran.category}
-          Icons={Icons}
-          key={key}
-        />
+        <TransactionCard transaction={tran} Icons={Icons} key={key} />
       ))}
     </div>
   );
 }
 
-function TransactionCard({ info, time, type, amount, category, Icons }) {
-  const Icon = Icons[category];
+function TransactionCard({ transaction, Icons }) {
+  const Icon = Icons[transaction.category];
   return (
     <div className="transaction-card">
-      <div className="transaction-card-icon">
+      <div className={`transaction-card-icon ${transaction.category}`}>
         <Icon />
       </div>
       <div className="transaction-card-body">
-        <p className="transaction-card-info">{info}</p>
-        <p className="transaction-card-time">Jul 20, 6:23 PM</p>
+        <p className="transaction-card-info">{transaction.info}</p>
+        <p className="transaction-card-time">
+          {new Date(transaction.paidAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}{" "}
+          {new Date(transaction.paidAt).toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+          })}
+        </p>
       </div>
       <div className="transaction-card-footer">
-        <p className="transaction-card-amount">+${amount}</p>
+        <p className="transaction-card-amount">
+          {transaction.category === "save" ? "+" : ""}$
+          {Number(transaction.amount).toLocaleString()}
+        </p>
         <p className="transaction-card-category">
-          {category.charAt(0).toUpperCase() + category.slice(1)}
+          {transaction.category.charAt(0).toUpperCase() +
+            transaction.category.slice(1)}
         </p>
       </div>
     </div>
@@ -316,7 +374,7 @@ function TransactionsForm({
     <form
       action=""
       id="transaction-form"
-      onSubmit={async(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
         await createTransaction(transactionForm);
         setTransactionForm({
@@ -329,7 +387,7 @@ function TransactionsForm({
         loadTransactions(financeTimeFrame);
       }}
     >
-      <h6>Create Transaction</h6>
+      <h6>Transaction Form</h6>
       <input
         type="text"
         name="info"

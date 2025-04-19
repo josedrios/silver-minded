@@ -144,6 +144,17 @@
 }
 
 #finance-budget {
+  border: 1px solid $primary-color;
+  padding: $spacing-md;
+  border-radius: $border-radius-sm;
+
+  h6 {
+    text-align: center;
+    font-size: $font-size-md;
+    font-weight: 400;
+    margin-bottom: $spacing-sm;
+  }
+
   #finance-budget-bar {
     height: 9px;
     @include flex(row);
@@ -151,8 +162,7 @@
     margin-bottom: $spacing-sm;
 
     .budget-bar {
-      width: 20%;
-      background-color: $primary-color;
+      min-width: 9px;
       border-radius: $border-radius-xs;
     }
   }
@@ -167,11 +177,6 @@
         @include flex(row, center, center);
         gap: $spacing-sm;
       }
-
-      svg {
-        stroke: $primary-color;
-        fill: $primary-color;
-      }
     }
 
     .header-row {
@@ -180,6 +185,28 @@
       p {
         color: $gray-light;
       }
+    }
+  }
+}
+
+$filter-types: (
+  need: $dev-color,
+  fun: $misc-color,
+  sub: $pending-color,
+  save: $done-color,
+);
+
+@each $type, $color in $filter-types {
+  .budget-bar.#{$type} {
+    background-color: $color;
+  }
+}
+
+@each $type, $color in $filter-types {
+  .budget-legend-left.#{$type} {
+    svg {
+      fill: $color;
+      stroke: $color;
     }
   }
 }
