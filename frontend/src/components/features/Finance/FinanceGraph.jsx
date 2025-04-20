@@ -1,17 +1,17 @@
 export default function FinanceGraph({ data }) {
-    const highestValue = Math.max(...data.map((d) => Number(d.value)));   
-    const increments = [0.75, 0.5, 0.25].map((p) => (highestValue * p).toFixed(0));
-    console.log(increments); 
-    
-  
+  const highestValue = Math.max(...data.map((d) => Number(d.value)));
+  const increments = [0.75, 0.5, 0.25].map((p) =>
+    (highestValue * p).toFixed(0)
+  );
+
   return (
     <div id="finance-graph">
       <div id="finance-graph-x">
         <>
-        {increments.map((val, key) => {
-          return <FinanceGraphX key={key} value={val} />;
-        })}
-        <FinanceGraphX hide={true}/>
+          {increments.map((val, key) => {
+            return <FinanceGraphX key={key} value={val} />;
+          })}
+          <FinanceGraphX hide={true} />
         </>
       </div>
       <div id="finance-graph-right">
@@ -20,12 +20,13 @@ export default function FinanceGraph({ data }) {
             <FinanceGraphBar
               key={key}
               height={(curr.value / highestValue) * 100}
+              classLabel={curr.title}
             />
           ))}
         </div>
         <div id="finance-graph-y">
           {data.map((curr, key) => (
-            <FinanceGraphY key={key} label={curr.title} />
+            <FinanceGraphY key={key} label={curr.title}/>
           ))}
         </div>
       </div>
@@ -33,17 +34,14 @@ export default function FinanceGraph({ data }) {
   );
 }
 
-function FinanceGraphBar({ height }) {
-  return <div className="finance-graph-bar" style={{ height: height + "%" }} />;
+function FinanceGraphBar({ height, classLabel }) {
+  return <div className={`finance-graph-bar ${classLabel}`} style={{ height: height + "%" }} />;
 }
 
 function FinanceGraphX({ value, hide }) {
-    if (hide){
-        return (
-            <div className="increment">
-    </div>
-        )
-    }
+  if (hide) {
+    return <div className="increment"></div>;
+  }
   return (
     <div className="increment">
       <p className="increment-title">${value}</p>
@@ -55,7 +53,7 @@ function FinanceGraphX({ value, hide }) {
 function FinanceGraphY({ label }) {
   return (
     <div className="increment">
-      <p className="increment-title">{label}</p>
+      <p className="increment-title">{label ? label : "-"}</p>
       <div className="increment-notch" />
     </div>
   );

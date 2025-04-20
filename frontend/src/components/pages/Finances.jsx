@@ -74,19 +74,19 @@ export default function Finances() {
       financeTimeFrame.year,
       financeTimeFrame.month
     );
-    setFinanceOveralls(stats)
+    setFinanceOveralls(stats);
     setTransactions(data);
   };
 
   const [financeTimeFrame, setFinanceTimeFrame] = useState({
     year: now.getFullYear(),
     month: now.getMonth(),
+    increment: "months",
   });
 
   useEffect(() => {
     loadTransactions(financeTimeFrame);
-  }, []);
-
+  }, [financeTimeFrame]);
 
   const percent = useMemo(() => {
     const income = totals.save || 0;
@@ -101,34 +101,68 @@ export default function Finances() {
       sub: ((totals.sub || 0) / total) * 100,
       fun: ((totals.fun || 0) / total) * 100,
       save: leftover > 0 ? (leftover / total) * 100 : 0,
-      leftover: leftover > 0 ? leftover : 0
+      leftover: leftover > 0 ? leftover : 0,
     };
   }, [totals]);
 
   const budgetGraphData = useMemo(() => {
     return [
-      { title: 'save', value: percent.leftover || 0},
-      { title: 'need', value: totals.need || 0},
-      { title: 'fun', value: totals.fun || 0},
-      { title: 'sub', value: totals.sub || 0},
-    ]
-  })
+      { title: "save", value: percent.leftover || 0 },
+      { title: "need", value: totals.need || 0 },
+      { title: "fun", value: totals.fun || 0 },
+      { title: "sub", value: totals.sub || 0 },
+    ];
+  });
 
   const overallsGraphData = useMemo(() => {
     return [
-      { title: 'made', value: financeOveralls.totalMade},
-      { title: 'saved', value: (Math.max(0, (financeOveralls.totalMade - financeOveralls.totalSpent))).toFixed(2) },
-      { title: 'spent', value: financeOveralls.totalSpent},
-    ]
-  })
+      { title: "made", value: financeOveralls.totalMade },
+      {
+        title: "saved",
+        value: Math.max(
+          0,
+          financeOveralls.totalMade - financeOveralls.totalSpent
+        ).toFixed(2),
+      },
+      { title: "spent", value: financeOveralls.totalSpent },
+    ];
+  });
+
+  useEffect(()=> {
+    if (financeTimeFrame.increment === "all") {
+      setFinanceTimeFrame((prev) => ({
+        ...prev,
+        year: "-1",
+        month: "-1",
+      }));
+    } else if (financeTimeFrame.increment === "years") {
+      setFinanceTimeFrame((prev) => ({
+        ...prev,
+        year: now.getFullYear(),
+        month: "-1",
+      }));
+    } else {
+      setFinanceTimeFrame((prev) => ({
+        ...prev,
+        year: now.getFullYear(),
+        month: now.getMonth(),
+      }));
+    }
+  }, [financeTimeFrame.increment]);
 
   return (
     <div id="finances-container">
       <div id="finance-cards-container">
-        <FinanceCard title={"Total Made"} amount={financeOveralls.totalMade} icon={Icons.made} />
+        <FinanceCard
+          title={"Total Made"}
+          amount={financeOveralls.totalMade}
+          icon={Icons.made}
+        />
         <FinanceCard
           title={"Total Saved"}
-          amount={(financeOveralls.totalMade - financeOveralls.totalSpent).toFixed(2)}
+          amount={(
+            financeOveralls.totalMade - financeOveralls.totalSpent
+          ).toFixed(2)}
           icon={Icons.save}
         />
         <FinanceCard
@@ -139,23 +173,63 @@ export default function Finances() {
       </div>
       <div id="finance-time-frame">
         <div id="finance-increment-frame">
-          <button>Y</button>
-          <button>M</button>
-          <button>A</button>
+          <button
+            onClick={() =>
+              setFinanceTimeFrame((prev) => ({
+                ...prev,
+                increment: "years",
+              }))
+            }
+            className={financeTimeFrame.increment === "years" ? "active" : ""}
+          >
+            Y
+          </button>
+          <button
+            onClick={() =>
+              setFinanceTimeFrame((prev) => ({
+                ...prev,
+                increment: "months",
+              }))
+            }
+            className={financeTimeFrame.increment === "months" ? "active" : ""}
+          >
+            M
+          </button>
+          <button
+            onClick={() =>
+              setFinanceTimeFrame((prev) => ({
+                ...prev,
+                increment: "all",
+              }))
+            }
+            className={financeTimeFrame.increment === "all" ? "active" : ""}
+          >
+            A
+          </button>
         </div>
         <div id="finance-current-frame">
-          <button className="finance-time-frame-button">
+          <button
+            className="finance-time-frame-button"
+            style={{
+              display: financeTimeFrame.increment === "all" ? "none" : "",
+            }}
+          >
             <FaArrowLeftLong />
           </button>
           <p>September</p>
-          <button className="finance-time-frame-button">
+          <button
+            className="finance-time-frame-button"
+            style={{
+              display: financeTimeFrame.increment === "all" ? "none" : "",
+            }}
+          >
             <FaArrowRightLong />
           </button>
         </div>
       </div>
       <div id="finance-stats-container">
-        <FinanceGraph data={overallsGraphData}/>
-        <FinanceGraph data={budgetGraphData}/>
+        <FinanceGraph data={overallsGraphData} />
+        <FinanceGraph data={budgetGraphData} />
         <div style={{ display: responsiveSize ? "none" : "" }}>
           <FinanceBudget Icons={Icons} totals={totals} percent={percent} />
         </div>

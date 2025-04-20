@@ -57,7 +57,9 @@ exports.getTransactions = async (req, res) => {
       transactions = await Transaction.find({
         paidAt: { $gte: start, $lt: end },
       }).sort({ paidAt: -1 });
-    } else {
+    } else if (month === "-1" && year === "-1")  {
+      transactions = await Transaction.find().sort({ paidAt: -1 });
+    }else {
       const start = new Date(year, 0, 1);
       const end = new Date(Number(year) + 1, 0, 1);
 
@@ -65,7 +67,7 @@ exports.getTransactions = async (req, res) => {
         paidAt: { $gte: start, $lt: end },
       }).sort({ paidAt: -1 });
     }
-    // console.log(transactions)
+    console.log(transactions);
     res.json(transactions);
   } catch (err) {
     console.log(err);
@@ -99,7 +101,6 @@ exports.getFinanceOveralls = async (req, res) => {
     ]);
 
     const data = result[0] || { totalMade: 0, totalSpent: 0 };
-    console.log(data)
     return res.status(200).json({
       totalMade: Number(data.totalMade).toFixed(2),
       totalSpent: Number(data.totalSpent).toFixed(2),

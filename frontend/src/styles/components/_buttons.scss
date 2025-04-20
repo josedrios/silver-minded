@@ -362,6 +362,10 @@ $tag-btn-types: (
   }
 }
 
+#finance-increment-frame button.active {
+  background-color: color-fade($primary-color, 0.5);
+}
+
 .finance-time-frame-button {
   @include flex(row, center, center);
   border-radius: $border-radius-xs;

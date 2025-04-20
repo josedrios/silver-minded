@@ -61,7 +61,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
   #finance-stats-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
@@ -124,7 +124,6 @@
       padding-top: $spacing-sm;
 
       .finance-graph-bar {
-        background-color: color-fade($dev-color, 0.9);
         border-radius: $spacing-xs $spacing-xs 0px 0px;
         width: 12%;
         min-width: 17px;
@@ -153,6 +152,22 @@
     }
   }
 }
+
+$budget-types: (
+  need: $dev-color,
+  fun: $misc-color,
+  sub: $pending-color,
+  save: $done-color,
+  made: $pending-color,
+  spent: $error-color,
+  saved: $done-color,
+);
+
+  @each $type, $color in $budget-types {
+    .finance-graph-bar.#{$type} {
+      background-color: $color;
+    }
+  }
 
 #finance-budget {
   border: 1px solid $primary-color;
