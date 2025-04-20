@@ -26,7 +26,7 @@
   }
 
   #finance-current-frame {
-    @include flex(row,center, center);
+    @include flex(row, center, center);
     gap: $spacing-sm;
     height: 28px;
 
@@ -68,29 +68,39 @@
   }
 }
 
-
-
 #finance-graph {
   height: 200px;
   @include flex(row);
 
   #finance-graph-x {
-    width: 40px;
+    padding-top: $spacing-sm;
+    @include flex(column);
+    position: relative;
     padding-bottom: 30px;
-    @include flex(column, space-around);
 
     .increment {
-      height: 40px;
-      @include flex(column, space-between, center);
-      transform: rotate(-90deg);
+      position: relative;
+      height: 100%;
+      width: 50px;
+      @include flex(row, space-between, center);
+      gap: $spacing-xs;
+      // transform: rotate(-90deg);
 
       .increment-title {
-        transform: rotate(90deg);
+        // transform: rotate(90deg);
+        font-size: $font-size-sm;
       }
 
       .increment-notch {
+        transform: rotate(90deg);
         border: 1px solid $primary-color;
+        margin-right: 4px;
         height: 10px;
+      }
+
+      .increment-title, .increment-notch {
+        position: relative;
+        top: 23px;
       }
     }
   }
@@ -111,6 +121,7 @@
       border-radius: $border-radius-sm;
       background-color: $secondary-background-color;
       @include flex(row, space-around, flex-end);
+      padding-top: $spacing-sm;
 
       .finance-graph-bar {
         background-color: color-fade($dev-color, 0.9);
@@ -225,7 +236,7 @@ $filter-types: (
   }
 
   #transactions-form {
-    order: 1
+    order: 1;
   }
 
   #transactions-list {

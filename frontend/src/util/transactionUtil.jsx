@@ -68,6 +68,25 @@ export async function createTransaction(transaction) {
       return;
     }
   }
+
+  export async function fetchFinanceOveralls() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/transaction/stats`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "Failed to fetch transactions");
+      return data;
+    } catch (err) {
+      console.error("Fetch Transactions Error:", err.message);
+      return;
+    }
+  }
   
   export async function deleteTransactions(id) {
     try {

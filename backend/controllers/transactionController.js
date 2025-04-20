@@ -65,9 +65,7 @@ exports.getTransactions = async (req, res) => {
         paidAt: { $gte: start, $lt: end },
       }).sort({ paidAt: -1 });
     }
-    console.log('='.repeat(20));
-    console.log(transactions)
-    console.log('='.repeat(20));
+    // console.log(transactions)
     res.json(transactions);
   } catch (err) {
     console.log(err);
@@ -77,3 +75,41 @@ exports.getTransactions = async (req, res) => {
     });
   }
 };
+
+exports.getFinanceOveralls = async (req, res) => {
+  try {
+    const result = await Transaction.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalMade: {
+            $sum: { $cond: [{ $eq: ["$category", "save"] }, "$amount", 0] }
+          },
+          totalSpent: {
+            $sum: {
+              $cond: [
+                { $in: ["$category", ["need", "fun", "sub"]] },
+                "$amount",
+                0
+              ]
+            }
+          }
+        }
+      }
+    ]);
+
+    const data = result[0] || { totalMade: 0, totalSpent: 0 };
+    console.log(data)
+    return res.status(200).json({
+      totalMade: Number(data.totalMade).toFixed(2),
+      totalSpent: Number(data.totalSpent).toFixed(2),
+    })
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error occurred while getting overall finance stats",
+      error: err.message,
+    });
+  }
+};
+

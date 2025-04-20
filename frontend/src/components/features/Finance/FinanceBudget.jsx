@@ -53,7 +53,7 @@ export default function FinanceBudget({ Icons, totals, percent }) {
           <Icon />
           <p>{title}</p>
         </div>
-        <p className="budget-legend-right">${Number(amount).toLocaleString()}</p>
+        <p className="budget-legend-right">${ amount ? Number(amount).toLocaleString() : 0}</p>
       </div>
     );
   }

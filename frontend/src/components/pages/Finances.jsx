@@ -9,6 +9,7 @@ import { BsArrowRepeat } from "react-icons/bs";
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useState, useEffect, useContext, useMemo } from "react";
 import {
+  fetchFinanceOveralls,
   fetchTransactions,
 } from "../../util/transactionUtil";
 import { AppContext } from "../../util/AppContext";
@@ -48,9 +49,6 @@ export default function Finances() {
     amount: "",
     category: "need",
   });
-  useEffect(() => {
-    console.log(transactionForm);
-  }, [transactionForm]);
 
   const totals = useMemo(() => {
     return transactions.reduce((acc, tran) => {
@@ -68,11 +66,15 @@ export default function Finances() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
+  const [financeOveralls, setFinanceOveralls] = useState([]);
+
   const loadTransactions = async (financeTimeFrame) => {
+    const stats = await fetchFinanceOveralls();
     const data = await fetchTransactions(
       financeTimeFrame.year,
       financeTimeFrame.month
     );
+    setFinanceOveralls(stats)
     setTransactions(data);
   };
 
@@ -85,9 +87,6 @@ export default function Finances() {
     loadTransactions(financeTimeFrame);
   }, []);
 
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
 
   const percent = useMemo(() => {
     const income = totals.save || 0;
@@ -106,18 +105,35 @@ export default function Finances() {
     };
   }, [totals]);
 
+  const budgetGraphData = useMemo(() => {
+    return [
+      { title: 'save', value: percent.leftover || 0},
+      { title: 'need', value: totals.need || 0},
+      { title: 'fun', value: totals.fun || 0},
+      { title: 'sub', value: totals.sub || 0},
+    ]
+  })
+
+  const overallsGraphData = useMemo(() => {
+    return [
+      { title: 'made', value: financeOveralls.totalMade},
+      { title: 'saved', value: (Math.max(0, (financeOveralls.totalMade - financeOveralls.totalSpent))).toFixed(2) },
+      { title: 'spent', value: financeOveralls.totalSpent},
+    ]
+  })
+
   return (
     <div id="finances-container">
       <div id="finance-cards-container">
-        <FinanceCard title={"Total Made"} amount={"41,064"} icon={Icons.made} />
+        <FinanceCard title={"Total Made"} amount={financeOveralls.totalMade} icon={Icons.made} />
         <FinanceCard
           title={"Total Saved"}
-          amount={"20,137"}
+          amount={(financeOveralls.totalMade - financeOveralls.totalSpent).toFixed(2)}
           icon={Icons.save}
         />
         <FinanceCard
           title={"Total Spent"}
-          amount={"6,563"}
+          amount={financeOveralls.totalSpent}
           icon={Icons.spent}
         />
       </div>
@@ -138,8 +154,8 @@ export default function Finances() {
         </div>
       </div>
       <div id="finance-stats-container">
-        <FinanceGraph />
-        <FinanceGraph />
+        <FinanceGraph data={overallsGraphData}/>
+        <FinanceGraph data={budgetGraphData}/>
         <div style={{ display: responsiveSize ? "none" : "" }}>
           <FinanceBudget Icons={Icons} totals={totals} percent={percent} />
         </div>
