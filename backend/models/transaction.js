@@ -9,7 +9,7 @@ const transactionSchema = new mongoose.Schema({
     default: "need",
     required: true,
   },
-  card: { 
+  type: { 
     type: String, 
     enum: ["debit", "credit"],
     default: "debit"

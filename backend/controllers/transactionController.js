@@ -10,6 +10,7 @@ exports.createTransaction = async (req, res) => {
       amount,
       category,
     });
+    console.log(type)
     await newTransaction.save();
     return res.status(201).json(newTransaction);
   } catch (err) {

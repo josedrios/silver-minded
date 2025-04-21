@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 export default function Nav() {
   return (
     <nav>
-      <Link to="/todo">TODO</Link>
-      <Link to="/calendar">CALENDAR</Link>
-      <Link to="/finances">FINANCES</Link>
-      <Link to="/other">OTHER</Link>
+      <Link to="/todo">DASH</Link>
+      <Link to="/other">MIND</Link>
+      <Link to="/other">BODY</Link>
+      <Link to="/calendar">TIME</Link>
+      <Link to="/finances">BANK</Link>
     </nav>
   );
 }

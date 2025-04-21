@@ -3,10 +3,8 @@ import {
   IoExtensionPuzzleOutline,
   IoCloudyNightOutline,
 } from "react-icons/io5";
-import { GoFlame } from "react-icons/go";
-import { LuTrendingUp } from "react-icons/lu";
+import { LuTrendingUp, LuFlame } from "react-icons/lu";
 import { BsArrowRepeat } from "react-icons/bs";
-import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import { useState, useEffect, useContext, useMemo } from "react";
 import {
   fetchFinanceOveralls,
@@ -17,6 +15,7 @@ import FinanceGraph from "../features/Finance/FinanceGraph";
 import FinanceBudget from "../features/Finance/FinanceBudget";
 import TransactionsList from "../features/Finance/TransactionList";
 import TransactionsForm from "../features/Finance/TransactionForm";
+import FinanceTimeFrame from "../features/Finance/FinanceTimeFrame";
 
 export default function Finances() {
   const { transactions, setTransactions } = useContext(AppContext);
@@ -27,7 +26,7 @@ export default function Finances() {
     sub: BsArrowRepeat,
     fun: IoExtensionPuzzleOutline,
     made: LuTrendingUp,
-    spent: GoFlame,
+    spent: LuFlame,
   };
 
   const [responsiveSize, setResponsiveSize] = useState(
@@ -87,6 +86,10 @@ export default function Finances() {
   useEffect(() => {
     loadTransactions(financeTimeFrame);
   }, [financeTimeFrame]);
+
+  useEffect(() => {
+    console.log(transactionForm);
+  }, [transactionForm]);
 
   const percent = useMemo(() => {
     const income = totals.save || 0;
@@ -157,6 +160,7 @@ export default function Finances() {
           title={"Total Made"}
           amount={financeOveralls.totalMade}
           icon={Icons.made}
+          classLabel={'made'}
         />
         <FinanceCard
           title={"Total Saved"}
@@ -164,69 +168,16 @@ export default function Finances() {
             financeOveralls.totalMade - financeOveralls.totalSpent
           ).toFixed(2)}
           icon={Icons.save}
+          classLabel={'saved'}
         />
         <FinanceCard
           title={"Total Spent"}
           amount={financeOveralls.totalSpent}
           icon={Icons.spent}
+          classLabel={'spent'}
         />
       </div>
-      <div id="finance-time-frame">
-        <div id="finance-increment-frame">
-          <button
-            onClick={() =>
-              setFinanceTimeFrame((prev) => ({
-                ...prev,
-                increment: "years",
-              }))
-            }
-            className={financeTimeFrame.increment === "years" ? "active" : ""}
-          >
-            Y
-          </button>
-          <button
-            onClick={() =>
-              setFinanceTimeFrame((prev) => ({
-                ...prev,
-                increment: "months",
-              }))
-            }
-            className={financeTimeFrame.increment === "months" ? "active" : ""}
-          >
-            M
-          </button>
-          <button
-            onClick={() =>
-              setFinanceTimeFrame((prev) => ({
-                ...prev,
-                increment: "all",
-              }))
-            }
-            className={financeTimeFrame.increment === "all" ? "active" : ""}
-          >
-            A
-          </button>
-        </div>
-        <div id="finance-current-frame">
-          <button
-            className="finance-time-frame-button"
-            style={{
-              display: financeTimeFrame.increment === "all" ? "none" : "",
-            }}
-          >
-            <FaArrowLeftLong />
-          </button>
-          <p>September</p>
-          <button
-            className="finance-time-frame-button"
-            style={{
-              display: financeTimeFrame.increment === "all" ? "none" : "",
-            }}
-          >
-            <FaArrowRightLong />
-          </button>
-        </div>
-      </div>
+      <FinanceTimeFrame financeTimeFrame={financeTimeFrame} setFinanceTimeFrame={setFinanceTimeFrame}/>
       <div id="finance-stats-container">
         <FinanceGraph data={overallsGraphData} />
         <FinanceGraph data={budgetGraphData} />
@@ -263,9 +214,9 @@ export default function Finances() {
   );
 }
 
-function FinanceCard({ title, amount, icon: Icon }) {
+function FinanceCard({ title, amount, icon: Icon, classLabel }) {
   return (
-    <div className="finance-card">
+    <div className={`finance-card ${classLabel}`}>
       <div className="finance-card-body">
         <p className="title">{title}</p>
         <p className="amount">

@@ -4,6 +4,7 @@ export default function FinanceGraph({ data }) {
     (highestValue * p).toFixed(0)
   );
 
+
   return (
     <div id="finance-graph">
       <div id="finance-graph-x">
@@ -16,13 +17,17 @@ export default function FinanceGraph({ data }) {
       </div>
       <div id="finance-graph-right">
         <div id="finance-graph-body">
-          {data.map((curr, key) => (
-            <FinanceGraphBar
-              key={key}
-              height={(curr.value / highestValue) * 100}
-              classLabel={curr.title}
-            />
-          ))}
+          {highestValue !== 0 ? (
+            data.map((curr, key) => (
+              <FinanceGraphBar
+                key={key}
+                height={(curr.value / highestValue) * 100}
+                classLabel={curr.title}
+              />
+            ))
+          ) : (
+            ''
+          )}
         </div>
         <div id="finance-graph-y">
           {data.map((curr, key) => (

@@ -1,3 +1,17 @@
+$budget-types: (
+  made: $pending-color,
+  spent: $error-color,
+  saved: $done-color,
+);
+
+@each $type, $color in $budget-types {
+  .finance-card.#{$type} {
+    svg {
+      stroke: $color;
+    }
+  }
+}
+
 .finance-card {
   border: 1px solid $primary-color;
   padding: $spacing-sm;

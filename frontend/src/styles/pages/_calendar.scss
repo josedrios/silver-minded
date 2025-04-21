@@ -13,6 +13,8 @@
   width: 50%;
   height: min-content;
   padding: $spacing-sm $spacing-md;
+  max-width: 440px;
+  margin: auto
 }
 
 #calendar-month-navigation,
@@ -160,7 +162,7 @@
   background-color: color-fade(black, 0.3) !important;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 700px) {
   #calendar-page-container {
     flex-direction: column;
     gap: $spacing-md;
