@@ -3,6 +3,7 @@ import Calendar from "./components/pages/Calendar";
 import Todo from "./components/pages/Todo";
 import Finances from "./components/pages/Finances";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Mind from "./components/pages/Mind";
 
 function App() {  
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/todo" element={<Todo />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/finances" element={<Finances />} />
+          <Route path="/mind" element={<Mind />} />
           <Route path="*" element={<Todo />} />
         </Routes>
         </main>

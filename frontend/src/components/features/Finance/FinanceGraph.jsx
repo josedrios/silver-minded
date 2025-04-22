@@ -4,6 +4,7 @@ export default function FinanceGraph({ data }) {
     (highestValue * p).toFixed(0)
   );
 
+  console.log(data)
 
   return (
     <div id="finance-graph">

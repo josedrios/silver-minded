@@ -27,7 +27,7 @@ export default function TransactionsList({ Icons, transactions }) {
             {new Date(transaction.paidAt).toLocaleTimeString("en-US", {
               hour: "numeric",
               minute: "2-digit",
-            })} - {transaction.card === 'debit' ? 'D' : 'C'}
+            })} - {transaction.type === 'debit' ? 'D' : 'C'}
           </p>
         </div>
         <div className="transaction-card-footer">

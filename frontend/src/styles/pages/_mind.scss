@@ -1,0 +1,38 @@
+#mind-container {
+    @include flex(column);
+    max-width: 800px;
+    margin: auto;
+    width: 100%;
+    gap: $spacing-sm;
+}
+
+#mind-header-container {
+    @include flex(row, center, center);
+    gap: $spacing-sm;
+    margin-bottom: $spacing-xs;
+}
+
+#mind-search-container {
+    @include flex(row, initial, center);
+    gap: $spacing-sm;
+    border-radius: $border-radius-sm;
+    background-color: $secondary-background-color;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid $secondary-color;
+    padding: 0 $spacing-sm;
+    padding-right: 0;
+
+    >* {
+        height: 32px;
+    }
+
+    div {
+        @include flex(row, center, center);
+        font-size: 18px;
+    }
+}
+
+#tree-list {
+}

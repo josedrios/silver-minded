@@ -426,6 +426,38 @@ $filter-types: (
   color: $primary-color;
 }
 
-#finance-form-submit {
-  
+#mind-search-container {
+  button {
+    @include flex(row, center, center);
+      width: 30px;
+      background-color: transparent;
+      font-size: 18px;
+
+      &:hover {
+        background-color: $primary-background-color;
+      }
+  }
+}
+
+#mind-filter-sorts {
+  @include flex(row);
+  gap: $spacing-sm;
+  margin: 0 auto;
+
+  .filter-sort-btn {
+    padding: $spacing-xs;
+    background-color: transparent;
+    border: 1px solid $secondary-color;
+    border-radius: $border-radius-sm;
+  }
+}
+
+#create-tree-btn {
+  aspect-ratio: 1/1;
+  height: 34px;
+  border-radius: $border-radius-sm;
+  background-color: transparent;
+  border: 1px solid $secondary-color;
+  @include flex(row, center, center);
+  font-size: 19px; 
 }

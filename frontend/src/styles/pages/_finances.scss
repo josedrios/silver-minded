@@ -130,6 +130,7 @@
         border-radius: $spacing-xs $spacing-xs 0px 0px;
         width: 12%;
         min-width: 17px;
+        max-width: 18px;
         height: 50%;
       }
     }
@@ -173,8 +174,8 @@ $budget-types: (
 }
 
 #finance-budget {
-  border: 1px solid $primary-color;
   padding: $spacing-md;
+  background-color: $secondary-background-color;
   border-radius: $border-radius-sm;
 
   h6 {

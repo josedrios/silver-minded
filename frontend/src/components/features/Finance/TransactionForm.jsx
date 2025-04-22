@@ -48,7 +48,6 @@ export default function TransactionsForm({
           loadTransactions(financeTimeFrame);
         }}
       >
-        <h6>Transaction Form</h6>
         <input
           type="text"
           name="info"

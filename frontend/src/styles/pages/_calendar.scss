@@ -14,7 +14,6 @@
   height: min-content;
   padding: $spacing-sm $spacing-md;
   max-width: 440px;
-  margin: auto
 }
 
 #calendar-month-navigation,
@@ -170,6 +169,7 @@
 
   #calendar-container, #calendar-details {
     width: 100%;
+    margin: 0 auto;
   }
 }
 

@@ -1,3 +1,8 @@
+input {
+  outline: none;
+  font-family: "IBM Plex Mono";
+}
+
 .standard-input {
   background-color: $gray-dark;
   padding: $spacing-xs $spacing-sm;
@@ -107,9 +112,9 @@
   @include flex(column);
   gap: $spacing-sm;
   min-width: 0;
-  border: 1px solid $primary-color;
   border-radius: $border-radius-sm;
   padding: $spacing-md;
+  background-color: $secondary-background-color;
 
   h6 {
     text-align: center;
@@ -122,7 +127,8 @@
     gap: $spacing-sm;
   }
 
-  #transaction-form-amount, #transaction-form-date {
+  #transaction-form-amount,
+  #transaction-form-date {
     flex: 1;
     min-width: 0;
   }
@@ -145,6 +151,19 @@
 
     #finance-form-payment-slider {
       position: absolute;
+    }
+  }
+}
+
+#mind-search-container {
+  input {
+    flex: 1;
+    background-color: transparent;
+    color: $secondary-color;
+    transition: color $transition-fast;
+
+    &:focus {
+      color: $primary-color;
     }
   }
 }

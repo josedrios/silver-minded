@@ -115,21 +115,23 @@ export default function Finances() {
       { title: "fun", value: totals.fun || 0 },
       { title: "sub", value: totals.sub || 0 },
     ];
-  });
+  },[totals]);
 
   const overallsGraphData = useMemo(() => {
+    const save = totals.save || 0;
+    const fun = totals.fun || 0;
+    const need = totals.need || 0;
+    const sub = totals.sub || 0;
+  
     return [
-      { title: "made", value: financeOveralls.totalMade },
+      { title: "made", value: save },
       {
         title: "saved",
-        value: Math.max(
-          0,
-          financeOveralls.totalMade - financeOveralls.totalSpent
-        ).toFixed(2),
+        value: Math.max(0, save - fun - need - sub).toFixed(2),
       },
-      { title: "spent", value: financeOveralls.totalSpent },
+      { title: "spent", value: fun + need + sub },
     ];
-  });
+  }, [totals]);
 
   useEffect(()=> {
     if (financeTimeFrame.increment === "all") {
