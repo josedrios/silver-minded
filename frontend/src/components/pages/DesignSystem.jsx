@@ -11,7 +11,7 @@ export default function DesignSystem() {
         <h4>Heading 4</h4>
         <h5>Heading 5</h5>
         <h6>Heading 6</h6>
-        <p>Body text is I, I am here as body text</p> 
+        <p>Body</p>
       </DesignComponent>
       <DesignComponent title={"Color"}>
         <DesignColor color={"primary-color"} />
@@ -56,7 +56,7 @@ export default function DesignSystem() {
         </div>
       </DesignComponent>
 
-      <DesignComponent>
+      <DesignComponent title={"Buttons"}>
         <div className="example-title-container">
           <button className="primary-btn">Primary</button>
           <p>Default</p>
@@ -96,12 +96,44 @@ export default function DesignSystem() {
           <p>Disabled</p>
         </div>
 
-          <SquareButton icon={IoIosAdd} fontSize={24}/>
-          <SquareButton icon={IoMdTennisball} fontSize={18}/>
-          <SquareButton icon={FaTableTennisPaddleBall} fontSize={16}/>
+        <SquareButton icon={IoIosAdd} fontSize={24} color={"primary-color"} />
+        <SquareButton
+          icon={IoMdTennisball}
+          fontSize={18}
+          color={"error-color"}
+        />
+        <SquareButton
+          icon={FaTableTennisPaddleBall}
+          fontSize={16}
+          color={"accent-color"}
+        />
       </DesignComponent>
       <DesignComponent title={"Text Fields"}>
-        <input type="text" className="primary-input"/>
+        <TextField
+          label={"Label"}
+          beforeText={"Before"}
+          beforeIcon={IoIosAdd}
+          beforeIconFontSize={21}
+          placeHolder={"Placeholder"}
+          color={"primary-color"}
+          afterIcon={IoIosAdd}
+          afterIconFontSize={21}
+        />
+        <TextField
+          beforeIcon={IoIosAdd}
+          beforeIconFontSize={21}
+          placeHolder={"Placeholder"}
+          color={"primary-color"}
+        />
+        <TextField
+          placeHolder={"Placeholder"}
+          color={"error-color"}
+        />
+      </DesignComponent>
+      <DesignComponent title={"Links/Tabs"}>
+      <a href="" className="nav-link">Nav Link</a>
+        <a href="">Regular Link</a>
+        <button className="tab-label">Tab</button>
       </DesignComponent>
     </div>
   );
@@ -125,10 +157,37 @@ function DesignColor({ color }) {
   );
 }
 
-function SquareButton({icon: Icon, fontSize}) {
+function SquareButton({ icon: Icon, fontSize, color }) {
   return (
-    <button className="primary-square-btn">
-      <Icon style={{fontSize: fontSize}}/>
+    <button className={`square-btn ${color}`}>
+      <Icon style={{ fontSize: fontSize }} />
     </button>
-  )
+  );
+}
+
+function TextField({
+  beforeIcon: BeforeIcon,
+  beforeIconFontSize,
+  afterIcon: AfterIcon,
+  afterIconFontSize,
+  beforeText,
+  label,
+  placeHolder,
+  color,
+}) {
+  return (
+    <div className={`text-field ${color}`}>
+      <label htmlFor="">{label}</label>
+      <div className="text-field-input">
+        {BeforeIcon ? (
+          <BeforeIcon style={{ fontSize: beforeIconFontSize }} />
+        ) : (
+          ""
+        )}
+        {beforeText ? <p className="before-text">{beforeText}</p> : ""}
+        <input type="text" placeholder={placeHolder} />
+        {AfterIcon ? <AfterIcon style={{ fontSize: afterIconFontSize }} /> : ""}
+      </div>
+    </div>
+  );
 }

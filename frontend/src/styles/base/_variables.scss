@@ -12,7 +12,7 @@ $accent-disabled-color:       rgb(213, 192, 86,0.5);
 
 // --- Text Colors ---
 $text-color:                  rgb(218, 213, 192);
-$text-hover-color:            darken($text-color, 12%);
+$text-hover-color:            darken($text-color, 25%);
 $text-disabled-color:         rgb(183, 179, 167, 0.5);
 
 // --- Background Colors ---
@@ -78,7 +78,6 @@ $transition-instant:            0.15s;
 $transition-fast:               0.25s;
 $transition-base:               0.5s;
 $transition-slow:               0.7s;
-
 $transition-ease:               ease-in-out;
 
 // ==========================

@@ -110,40 +110,119 @@ $spacing-increments: (
 }
 
 .error-btn {
-    width: min-content;
-    padding: $spacing-xs $spacing-sm;
-    background-color: transparent;
-    border: 1px solid $error-color;
-    color: $error-color;
-    font-weight: 500;
-  
-    &.hover {
-      border: 1px solid $error-hover-color;
-      color: $error-hover-color;
-    }
-  
-    &.disabled {
-      border: 1px solid $error-disabled-color;
-      color: $error-disabled-color;
-    }
+  width: min-content;
+  padding: $spacing-xs $spacing-sm;
+  background-color: transparent;
+  border: 1px solid $error-color;
+  color: $error-color;
+  font-weight: 500;
+
+  &.hover {
+    border: 1px solid $error-hover-color;
+    color: $error-hover-color;
   }
 
-.primary-square-btn {
-    @include flex(row, center, center);
-    height: 30px;
-    width: 30px;
-    background-color: transparent;
-    border: 1px solid $primary-color;
-    
-    svg {
-        fill: $primary-color;
-    }
+  &.disabled {
+    border: 1px solid $error-disabled-color;
+    color: $error-disabled-color;
+  }
 }
 
-.primary-input {
-    outline: none;
-    border: 1px solid $primary-color;
+.square-btn {
+  @include flex(row, center, center);
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+
+  @each $name, $color in $theme-colors {
+    &.#{$name} {
+      border: 1px solid $color;
+
+      svg {
+        fill: $color;
+      }
+    }
+  }
+}
+
+.text-field {
+  @include flex(column);
+  gap: $spacing-xs;
+
+  input {
     background-color: transparent;
-    padding: $spacing-xs;
-    height: 30px;
+    height: 100%;
+    flex: 1;
+    font-size: $font-size-sm;
+    margin: 0 2px;
+  }
+
+  label {
+    font-size: $font-size-sm;
+  }
+
+  @each $name, $color in $theme-colors {
+    &.#{$name} {
+      .text-field-input {
+        padding: 0 $spacing-xs;
+        height: 30px;
+        @include flex(row, initial, center);
+        border: 1px solid $color;
+
+        .before-text {
+          color: $color;
+          margin-right: $spacing-xs;
+          font-size: $font-size-sm;
+        }
+      }
+
+      svg {
+        height: 100%;
+        fill: $color;
+      }
+    }
+  }
+}
+
+.nav-link {
+  position: relative;
+  font-size: $font-size-lg;
+  color: $text-color;
+  width: min-content;
+  text-wrap: nowrap;
+
+  &::before {
+    content: "";
+    @include box(7px);
+    position: absolute;
+    left: -15px;
+    top: calc(50% - 3.5px);
+    background-color: $primary-color;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity $transition-base, color $transition-fast;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &:hover {
+    color: $text-hover-color;
+  }
+}
+
+.tab-label {
+    background-color: transparent;
+    border-bottom: 3px solid $border-color;
+    padding: $spacing-xs $spacing-md;
+    width: min-content;
+    text-wrap: nowrap;
+    color: $text-hover-color;
+    transition: color $transition-fast, border-color $transition-fast;
+
+    &:hover {
+        color: $text-color;
+        border-color: $primary-color;
+    }
 }

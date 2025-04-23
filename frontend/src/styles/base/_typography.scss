@@ -13,7 +13,6 @@ $font-size-sm: 14px;
 $font-size-md: 16px;
 $font-size-lg: 20px;
 
-
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-bold: 600;
@@ -68,16 +67,20 @@ h5 {
 p {
   font-size: $font-size-sm;
   line-height: $line-height-base;
-  font-weight: 400;
 }
 
 a {
-  color: $text-color;
-  font-size: $font-size-lg;
+  color: $primary-color;
+  font-size: $font-size-sm;
 }
 
 button {
+  font-size: $font-size-sm;
   font-family: $primary-font;
+}
+
+input {
+  font-size: $font-size-sm;
 }
 
 // ==========================
