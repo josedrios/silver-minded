@@ -8,7 +8,7 @@ import { TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { GoSortAsc, GoAlertFill } from "react-icons/go";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { AppContext } from "../../util/appContext";
+import { AppContext } from "../../util/AppContext";
 
 export default function Todo() {
   const { tasks, setTasks } = useContext(AppContext);
@@ -89,7 +89,7 @@ export default function Todo() {
   }, []);
 
   return (
-    <div id="todo-container">
+    <div id="todo-container" className="main-container">
       <div id="todo-dashboard">
         <TodoForm
           selectedTask={selectedTask}

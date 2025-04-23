@@ -115,7 +115,7 @@ export default function Calendar() {
   }, {});
 
   return (
-    <div id="calendar-page-container">
+    <div id="calendar-page-container" className="main-container">
       <div id="calendar-container">
         <div id="calendar-month-navigation">
           <button

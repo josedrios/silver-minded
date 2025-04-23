@@ -1,26 +1,26 @@
 .standard-btn {
   border-radius: $border-radius-xs;
-  background-color: $primary-color;
+  background-color: $text-color;
   color: black;
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: $secondary-color;
+    background-color: $text-color;
   }
 }
 
 .standard-hollow-btn {
   border-radius: $border-radius-xs;
   background-color: transparent;
-  border: 1px solid $primary-color;
-  color: $primary-color;
+  border: 1px solid $text-color;
+  color: $text-color;
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant, color $transition-instant;
 
   &:hover {
-    background-color: $primary-color;
-    color: $primary-background-color !important;
+    background-color: $text-color;
+    color: $background-color !important;
   }
 }
 
@@ -110,11 +110,11 @@ $filter-types: (
   border-radius: $border-radius-xs;
   width: 20px;
   height: 20px;
-  color: $gray;
+  color: gray;
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: $gray-darker;
+    background-color: gray;
   }
 }
 
@@ -162,7 +162,7 @@ $tag-btn-types: (
 }
 
 .filter-button.selected-sort {
-  background-color: $gray-dark;
+  background-color: gray;
 }
 
 #delete-done-tasks-btn {
@@ -191,12 +191,12 @@ $tag-btn-types: (
 .todo-form-submit {
   flex: 1;
   background-color: transparent;
-  border: 1px solid $primary-color;
-  color: $primary-color;
+  border: 1px solid $text-color;
+  color: $text-color;
 
   @media (hover: hover) {
     &:hover {
-      background-color: color-fade($primary-color, 0.15);
+      background-color: color-fade($text-color, 0.15);
     }
   }
 }
@@ -210,15 +210,15 @@ $tag-btn-types: (
   @include flex(row, center, center);
 
   svg {
-    fill: $gray-light;
+    fill: gray;
     transition: fill $transition-instant;
   }
 
   &:hover {
-    background-color: color-fade($gray, 0.5);
+    background-color: color-fade(gray, 0.5);
 
     svg {
-      fill: $primary-color;
+      fill: $text-color;
     }
   }
 }
@@ -227,13 +227,13 @@ $tag-btn-types: (
   background-color: transparent;
   @include flex(row, center, center);
   padding: $spacing-sm 0;
-  color: $gray-light;
+  color: gray;
   border-radius: $border-radius-xs;
   transition: background-color $transition-instant;
-  background-color: color-fade($gray, 0.15);
+  background-color: color-fade(gray, 0.15);
 
   &:hover {
-    background-color: color-fade($gray, 0.3);
+    background-color: color-fade(gray, 0.3);
   }
 }
 
@@ -264,13 +264,13 @@ $tag-btn-types: (
 
   svg {
     padding: 0;
-    fill: $gray;
+    fill: gray;
     transition: fill $transition-instant;
   }
 
   &:hover {
     svg {
-      fill: $primary-color;
+      fill: $text-color;
     }
   }
 }
@@ -278,7 +278,7 @@ $tag-btn-types: (
 .event-container {
   border-radius: $border-radius-xs;
   background-color: transparent;
-  color: $secondary-color;
+  color: $text-color;
   width: 100%;
   @include flex(row, space-between);
   padding: $spacing-sm;
@@ -287,7 +287,7 @@ $tag-btn-types: (
 
   &:hover {
     background-color: color-fade(black, 0.3);
-    color: $primary-color;
+    color: $text-color;
   }
 }
 
@@ -300,7 +300,7 @@ $tag-btn-types: (
   border: 1px solid transparent;
 
   &:hover {
-    border: 1px solid $primary-color;
+    border: 1px solid $text-color;
   }
 }
 
@@ -308,23 +308,23 @@ $tag-btn-types: (
   padding: $spacing-sm;
   background-color: transparent;
   border-radius: $border-radius-xs;
-  border: 1px solid $primary-color;
+  border: 1px solid $text-color;
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: color-fade($primary-color, 0.15);
+    background-color: color-fade($text-color, 0.15);
   }
 }
 
 .reoccurring-chosen-option {
-  background-color: color-fade($primary-color, 0.15);
+  background-color: color-fade($text-color, 0.15);
 }
 
 #task-link-toggle-container {
   height: 20px;
   width: 35px;
   border: 1px solid color-fade(black, 0.15);
-  background-color: $gray;
+  background-color: gray;
   border-radius: $border-radius-c;
   position: relative;
   transition: background-color, $transition-instant;
@@ -333,7 +333,7 @@ $tag-btn-types: (
 #task-link-toggler {
   position: absolute;
   @include box(15px);
-  background-color: $primary-color;
+  background-color: $text-color;
   border-radius: $border-radius-c;
   top: 2px;
   left: 2px;
@@ -358,23 +358,23 @@ $tag-btn-types: (
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: color-fade($primary-color, 0.5);
+    background-color: color-fade($text-color, 0.5);
   }
 }
 
 #finance-increment-frame button.active {
-  background-color: color-fade($primary-color, 0.5);
+  background-color: color-fade($text-color, 0.5);
 }
 
 .finance-time-frame-button {
   @include flex(row, center, center);
   border-radius: $border-radius-xs;
-  background-color: $gray-dark;
+  background-color: gray;
   padding: $spacing-xs $spacing-sm;
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: $gray;
+    background-color: gray;
   }
 }
 
@@ -418,12 +418,12 @@ $filter-types: (
 #finance-form-payment-type button {
   height: 100%;
   background-color: transparent;
-  color: $gray-light;
+  color: gray;
   transition: color $transition-instant;
 }
 
 #finance-form-payment-type button.active {
-  color: $primary-color;
+  color: $text-color;
 }
 
 #mind-search-container {
@@ -434,7 +434,7 @@ $filter-types: (
       font-size: 18px;
 
       &:hover {
-        background-color: $primary-background-color;
+        background-color: $background-color;
       }
   }
 }
@@ -447,7 +447,7 @@ $filter-types: (
   .filter-sort-btn {
     padding: $spacing-xs;
     background-color: transparent;
-    border: 1px solid $secondary-color;
+    border: 1px solid $text-color;
     border-radius: $border-radius-sm;
   }
 }
@@ -457,7 +457,7 @@ $filter-types: (
   height: 34px;
   border-radius: $border-radius-sm;
   background-color: transparent;
-  border: 1px solid $secondary-color;
+  border: 1px solid $text-color;
   @include flex(row, center, center);
   font-size: 19px; 
 }

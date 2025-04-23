@@ -13,13 +13,13 @@ $budget-types: (
 }
 
 .finance-card {
-  border: 1px solid $primary-color;
+  border: 1px solid $text-color;
   padding: $spacing-sm;
   border-radius: $border-radius-xs;
   @include flex(row, space-between);
 
   p {
-    color: $primary-color;
+    color: $text-color;
   }
 
   .amount {
@@ -28,7 +28,7 @@ $budget-types: (
 
     span {
       font-size: $font-size-sm;
-      color: $gray-light;
+      color: gray;
       margin-right: $spacing-xs;
     }
   }
@@ -48,7 +48,7 @@ $budget-types: (
     @include box(40px);
     font-size: 23px;
     border-radius: $border-radius-sm;
-    background-color: color-fade($primary-color, 0.15);
+    background-color: color-fade($text-color, 0.15);
     flex-shrink: 0;
   }
 
@@ -67,7 +67,7 @@ $budget-types: (
     }
 
     .transaction-card-time {
-        color: $gray-light;
+        color: gray;
     }
   }
 
@@ -79,7 +79,7 @@ $budget-types: (
     text-align: right;
 
     .transaction-card-category {
-        color: $gray-light;
+        color: gray;
     }
   }
 }

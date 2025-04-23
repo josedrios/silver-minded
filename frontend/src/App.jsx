@@ -10,6 +10,7 @@ function App() {
   return (
     <Router>
       <div id="app-wrapper">
+        <div id="background-noise" />
         <Nav />
         <main>
         <Routes>

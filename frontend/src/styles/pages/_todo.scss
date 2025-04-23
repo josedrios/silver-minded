@@ -1,13 +1,7 @@
 #todo-container {
-  @include flex(column);
-  max-width: 800px;
-  margin: auto;
-  width: 100%;
-  gap: $spacing-sm;
 }
 
 #todo-dashboard {
-  padding: $spacing-sm;
   @include flex(column);
   gap: $spacing-md;
   width: 100%;
@@ -28,8 +22,8 @@
 
   span {
     padding-bottom: $spacing-xs;
-    border-bottom: 1px solid $gray-dark;
-    color: $gray-lighter;
+    border-bottom: 1px solid gray;
+    color: gray;
     font-size: $font-size-sm;
   }
 
@@ -42,11 +36,11 @@
 }
 
 #task-header-count {
-  color: $gray !important;
+  color: gray !important;
 }
 
 #no-tasks-list {
-  color: $gray-light;
+  color: gray;
   margin-left: $spacing-md;
 }
 
@@ -59,7 +53,7 @@
 
   .task-count-number {
     width: 23px;
-    color: $gray;
+    color: gray;
   }
 
   span {
@@ -75,7 +69,7 @@
 
   .task-info {
     display: inline-block;
-    color: $gray-lighter;
+    color: gray;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -108,7 +102,7 @@
   @media (hover: hover){
     &:hover {
       cursor: pointer;
-      background-color: color-fade($gray, 0.5);
+      background-color: color-fade(gray, 0.5);
     }
   }
 }
@@ -119,7 +113,7 @@
 
   p {
     font-size: $font-size-sm;
-    color: $gray;
+    color: gray;
 
     .task-footer-done-span {
       color: $done-color;
@@ -132,7 +126,7 @@
 }
 
 .selected-task {
-  background-color: color-fade($gray, 0.2) !important;
+  background-color: color-fade(gray, 0.2) !important;
 }
 
 .filter-button-container, .sort-buttons-container {

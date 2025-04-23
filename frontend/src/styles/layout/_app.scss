@@ -11,6 +11,21 @@
   }
 }
 
+#background-noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/noise.webp");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.25;
+  z-index: $z-background-noise;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -20,7 +35,7 @@ body::before {
 }
 
 main {
-  padding: 0 $spacing-md;
+  padding: $spacing-md $spacing-md $spacing-lg $spacing-md;
   max-width: $breakpoint-lg;
   margin: 0 auto;
   width: 100vw;
@@ -56,4 +71,16 @@ main {
   position: absolute;
   justify-content: center;
   align-items: center;
+}
+
+.main-container {
+  @include flex(column);
+  max-width: 900px;
+  margin: auto;
+  padding: $spacing-md;
+  width: 100%;
+  border: 1px solid $secondary-text-color;
+  background-color: $container-color;
+  gap: $spacing-md;
+  box-shadow: 0px 0px 50px 50px $background-color;
 }

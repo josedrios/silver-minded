@@ -1,8 +1,9 @@
 nav {
-    max-width: 600px;
+    max-width: 900px;
     margin: auto;
     padding: $spacing-sm;
     margin: $spacing-md auto;
+    margin-bottom: 0 !important;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -10,13 +11,13 @@ nav {
     a {
         font-size: $font-size-md;
         font-weight: 400;
-        color: $primary-color;
+        color: $text-color;
 
         transition: color $transition-instant;
 
         @media (hover: hover){
             &:hover {
-                color: $secondary-color;
+                color: $text-color;
             }
         }
     }

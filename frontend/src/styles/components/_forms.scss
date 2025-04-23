@@ -4,9 +4,9 @@ input {
 }
 
 .standard-input {
-  background-color: $gray-dark;
+  background-color: gray;
   padding: $spacing-xs $spacing-sm;
-  color: $secondary-color;
+  color: $text-color;
   outline: none;
   font-family: "IBM Plex Mono";
   transition: color $transition-instant;
@@ -14,7 +14,7 @@ input {
   height: 32px;
 
   &:focus {
-    color: $primary-color;
+    color: $text-color;
   }
 }
 
@@ -71,7 +71,7 @@ input {
 }
 
 #calendar-overlay {
-  background-color: color-fade($primary-color, 0.1);
+  background-color: color-fade($text-color, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: $border-radius-sm;
@@ -114,7 +114,7 @@ input {
   min-width: 0;
   border-radius: $border-radius-sm;
   padding: $spacing-md;
-  background-color: $secondary-background-color;
+  background-color: $container-color;
 
   h6 {
     text-align: center;
@@ -144,7 +144,7 @@ input {
     position: relative;
     padding: $spacing-xs $spacing-sm;
     gap: $spacing-sm;
-    border: 1px solid color-fade($primary-color, 0.5);
+    border: 1px solid color-fade($text-color, 0.5);
     border-radius: $border-radius-sm;
     height: 100%;
     overflow: hidden;
@@ -159,11 +159,11 @@ input {
   input {
     flex: 1;
     background-color: transparent;
-    color: $secondary-color;
+    color: $text-color;
     transition: color $transition-fast;
 
     &:focus {
-      color: $primary-color;
+      color: $text-color;
     }
   }
 }

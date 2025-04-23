@@ -1,8 +1,5 @@
 #finances-container {
   @include flex(column);
-  max-width: 800px;
-  margin: auto;
-  gap: $spacing-md;
 }
 
 #finance-cards-container {
@@ -17,7 +14,7 @@
 
   #finance-increment-frame {
     @include flex(row);
-    border: 1px solid $primary-color;
+    border: 1px solid $text-color;
     border-radius: $border-radius-sm;
     width: min-content;
     position: absolute;
@@ -95,7 +92,7 @@
 
       .increment-notch {
         transform: rotate(90deg);
-        border: 1px solid $primary-color;
+        border: 1px solid $text-color;
         margin-right: 4px;
         height: 10px;
       }
@@ -116,13 +113,13 @@
       flex: 1;
       background-image: radial-gradient(
         circle,
-        color-fade($primary-color, 0.3) 1px,
+        color-fade($text-color, 0.3) 1px,
         transparent 1.5px
       );
       background-size: 25px 25px;
-      border: 1px solid $primary-color;
+      border: 1px solid $text-color;
       border-radius: $border-radius-sm;
-      background-color: $secondary-background-color;
+      background-color: $container-color;
       @include flex(row, space-around, flex-end);
       padding-top: $spacing-sm;
 
@@ -143,7 +140,7 @@
         @include flex(column, space-between, center);
         .increment-notch {
           order: 1;
-          border: 1px solid $primary-color;
+          border: 1px solid $text-color;
           height: 10px;
         }
 
@@ -175,7 +172,7 @@ $budget-types: (
 
 #finance-budget {
   padding: $spacing-md;
-  background-color: $secondary-background-color;
+  background-color: $container-color;
   border-radius: $border-radius-sm;
 
   h6 {
@@ -213,7 +210,7 @@ $budget-types: (
       margin-bottom: $spacing-xs;
 
       p {
-        color: $gray-light;
+        color: gray;
       }
     }
   }
