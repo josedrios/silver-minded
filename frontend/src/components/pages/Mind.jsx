@@ -4,7 +4,7 @@ import { IoIosAdd } from "react-icons/io";
 
 export default function Mind() {
   return (
-    <div id="mind-container" className="main-container">
+    <div id="mind-container" className="main-child">
       <MindSearch />
       <FilterSorts />
       <TreeList />

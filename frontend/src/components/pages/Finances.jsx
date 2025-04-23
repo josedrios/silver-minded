@@ -156,7 +156,7 @@ export default function Finances() {
   }, [financeTimeFrame.increment]);
 
   return (
-    <div id="finances-container" className="main-container">
+    <div id="finances-container" className="main-child">
       <div id="finance-cards-container">
         <FinanceCard
           title={"Total Made"}

@@ -1,0 +1,149 @@
+.design-component {
+  @include flex(column);
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  max-width: 250px;
+
+  .design-component-header {
+    padding-bottom: $spacing-xs;
+    border-bottom: 1px solid $text-color;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.example-title-container {
+  @include flex(row, initial, center);
+  gap: $spacing-sm;
+}
+
+$theme-colors: (
+  primary-color: $primary-color,
+  primary-hover-color: $primary-hover-color,
+  primary-disabled-color: $primary-disabled-color,
+  accent-color: $accent-color,
+  accent-hover-color: $accent-hover-color,
+  accent-disabled-color: $accent-disabled-color,
+  text-color: $text-color,
+  text-hover-color: $text-hover-color,
+  text-disabled-color: $text-disabled-color,
+  background-color: $background-color,
+  container-color: $container-color,
+  element-color: $element-color,
+  border-color: $border-color,
+  success-color: $success-color,
+  warning-color: $warning-color,
+  error-color: $error-color,
+  error-hover-color: $error-hover-color,
+  error-disabled-color: $error-disabled-color,
+);
+
+.design-color {
+  @include flex(row, initial, center);
+  gap: $spacing-sm;
+
+  .color-block {
+    @include box(40px);
+    border: 1px solid white;
+  }
+
+  @each $name, $color in $theme-colors {
+    .#{$name} {
+      background-color: $color;
+    }
+  }
+}
+
+$spacing-increments: (
+  xs: $spacing-xs,
+  sm: $spacing-sm,
+  md: $spacing-md,
+  lg: $spacing-lg,
+  xl: $spacing-xl,
+);
+
+.spacing-ex {
+  border: 1px solid white;
+}
+
+@each $name, $space in $spacing-increments {
+  .#{$name} {
+    @include box($space);
+  }
+}
+
+.primary-btn {
+  width: min-content;
+  padding: $spacing-xs $spacing-sm;
+  background-color: transparent;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  font-weight: 500;
+
+  &.hover {
+    border: 1px solid $primary-hover-color;
+    color: $primary-hover-color;
+  }
+
+  &.disabled {
+    border: 1px solid $primary-disabled-color;
+    color: $primary-disabled-color;
+  }
+}
+
+.accent-btn {
+  width: min-content;
+  padding: $spacing-xs $spacing-sm;
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  color: $accent-color;
+  font-weight: 500;
+
+  &.hover {
+    border: 1px solid $accent-hover-color;
+    color: $accent-hover-color;
+  }
+
+  &.disabled {
+    border: 1px solid $accent-disabled-color;
+    color: $accent-disabled-color;
+  }
+}
+
+.error-btn {
+    width: min-content;
+    padding: $spacing-xs $spacing-sm;
+    background-color: transparent;
+    border: 1px solid $error-color;
+    color: $error-color;
+    font-weight: 500;
+  
+    &.hover {
+      border: 1px solid $error-hover-color;
+      color: $error-hover-color;
+    }
+  
+    &.disabled {
+      border: 1px solid $error-disabled-color;
+      color: $error-disabled-color;
+    }
+  }
+
+.primary-square-btn {
+    @include flex(row, center, center);
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    
+    svg {
+        fill: $primary-color;
+    }
+}
+
+.primary-input {
+    outline: none;
+    border: 1px solid $primary-color;
+    background-color: transparent;
+    padding: $spacing-xs;
+    height: 30px;
+}

@@ -1,36 +1,56 @@
 // ==========================
 // Colors
 // ==========================
-// --- Accent Colors --- 
-$primary-color:               rgb(246, 127, 67);
-$secondary-color:               rgba(246, 127, 67, 0.35);
-$text-color:                  rgb(248, 240, 211);
-$secondary-text-color:                  rgb(193, 187, 164);
+// --- Main Colors --- 
+$primary-color:               rgb(0, 255, 163);
+$primary-hover-color:         darken($primary-color, 17.5%);
+$primary-disabled-color:      rgb(50, 172, 127, 0.5);
+
+$accent-color:                rgb(255, 229, 102);
+$accent-hover-color:          rgb(200, 174, 41);
+$accent-disabled-color:       rgb(213, 192, 86,0.5);
+
+// --- Text Colors ---
+$text-color:                  rgb(218, 213, 192);
+$text-hover-color:            darken($text-color, 12%);
+$text-disabled-color:         rgb(183, 179, 167, 0.5);
 
 // --- Background Colors ---
-$background-color:      rgb(21, 19, 19) !default;
-$container-color:      rgb(35, 33, 33) !default;
+$background-color:            rgb(36, 34, 34) !default;
+$container-color:             rgb(23, 28, 28) !default;
+$element-color:               rgb(47, 52, 52) !default;
 
-// --- NICHE Colors --- 
-$success-color: rgb(45, 226, 117);
-$error-color: rgb(209, 56, 56);
-$warning-color: rgb(228, 153, 48);
+// --- Border Colors ---
+$border-color:                rgba(77, 73, 73, 0.75) !default;
 
-$done-color: $success-color;
-$pending-color: rgb(64, 112, 233);
+// --- Status Colors ---
+$success-color:               $primary-color;
+$success-hover-color:         $primary-hover-color;
+$success-disabled-color:      $primary-disabled-color;
 
-$dev-color:rgb(224, 166, 19);
-$misc-color:rgb(226, 113, 217);
+$warning-color:               $accent-color;
+$warning-hover-color:         $accent-hover-color;
+$warning-disabled-color:      $accent-disabled-color;
+
+$error-color:                 rgb(216, 120, 120);
+$error-hover-color:           rgb(201, 81, 81);
+$error-disabled-color:        rgba(214, 119, 119, 0.5);
+
+// --- REMOVE THESE COLORS --- 
+$done-color:                    $success-color;
+$pending-color:               rgb(64, 112, 233);
+$dev-color:                   rgb(224, 166, 19);
+$misc-color:                  rgb(226, 113, 217);
 
 // ==========================
 // Spacings
 // ==========================
 // --- Spacing units ---
-$spacing-xs:                    0.25rem;
-$spacing-sm:                    0.5rem;
-$spacing-md:                    1rem;
-$spacing-lg:                    2rem;
-$spacing-xl:                    3rem;
+$spacing-xs:                    0.3125rem;
+$spacing-sm:                    0.625rem;
+$spacing-md:                    0.9375rem;
+$spacing-lg:                    1.5625rem;
+$spacing-xl:                    2.5rem;
 
 // --- Breakpoints ---
 $breakpoint-xs:                 480px;

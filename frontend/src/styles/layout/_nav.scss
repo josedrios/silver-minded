@@ -13,11 +13,11 @@ nav {
         font-weight: 400;
         color: $text-color;
 
-        transition: color $transition-instant;
+        transition: color $transition-fast;
 
         @media (hover: hover){
             &:hover {
-                color: $text-color;
+                color: $primary-color;
             }
         }
     }

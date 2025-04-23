@@ -9,11 +9,11 @@ $primary-font: "IBM Plex Mono", sans-serif;
 // ==========================
 // Font Measurements
 // ==========================
-$font-size-sm: 13px;
-$font-size-md: 15px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
 $font-size-lg: 20px;
 
-$font-weight-extra-light: 100;
+
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-bold: 600;
@@ -38,6 +38,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-weight: $font-weight-normal;
   font-family: $primary-font;
   line-height: $line-height-heading;
 }
@@ -67,12 +68,12 @@ h5 {
 p {
   font-size: $font-size-sm;
   line-height: $line-height-base;
+  font-weight: 400;
 }
 
 a {
   color: $text-color;
   font-size: $font-size-lg;
-  font-weight: $font-weight-light;
 }
 
 button {

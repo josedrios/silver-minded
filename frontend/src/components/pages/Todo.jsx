@@ -89,7 +89,7 @@ export default function Todo() {
   }, []);
 
   return (
-    <div id="todo-container" className="main-container">
+    <div id="todo-container" className="main-child">
       <div id="todo-dashboard">
         <TodoForm
           selectedTask={selectedTask}
