@@ -161,23 +161,35 @@ $spacing-increments: (
     font-size: $font-size-sm;
   }
 
+  .text-input-field {
+    border-radius: $border-radius-xs;
+    padding: $spacing-sm;
+    @include flex(row, initial, center);
+    border: 1px solid $border-color;
+    transition: border-color $transition-instant;
+
+    .before-text {
+      margin-right: $spacing-xs;
+      font-size: $font-size-sm;
+      transition: color $transition-instant;
+    }
+  }
+
+  svg {
+    height: 100%;
+  }
+
   @each $name, $color in $theme-colors {
     &.#{$name} {
-      .text-field-input {
-        padding: 0 $spacing-xs;
-        height: 30px;
-        @include flex(row, initial, center);
+      .text-input-field.focused {
         border: 1px solid $color;
 
         .before-text {
           color: $color;
-          margin-right: $spacing-xs;
-          font-size: $font-size-sm;
         }
       }
 
       svg {
-        height: 100%;
         fill: $color;
       }
     }

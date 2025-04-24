@@ -1,5 +1,6 @@
 import { IoIosAdd, IoMdTennisball } from "react-icons/io";
 import { FaTableTennisPaddleBall } from "react-icons/fa6";
+import { useState, useEffect } from "react";
 
 export default function DesignSystem() {
   return (
@@ -111,7 +112,11 @@ export default function DesignSystem() {
       <DesignComponent title={"Text Fields"}>
         <TextField
           label={"Label"}
-          beforeText={"Before"}
+          beforeText={"CREATE/"}
+          placeHolder={"IDEA"}
+          color={"primary-color"}
+        />
+        <TextField
           beforeIcon={IoIosAdd}
           beforeIconFontSize={21}
           placeHolder={"Placeholder"}
@@ -120,18 +125,11 @@ export default function DesignSystem() {
           afterIconFontSize={21}
         />
         <TextField
-          beforeIcon={IoIosAdd}
-          beforeIconFontSize={21}
-          placeHolder={"Placeholder"}
-          color={"primary-color"}
-        />
-        <TextField
           placeHolder={"Placeholder"}
           color={"error-color"}
         />
       </DesignComponent>
       <DesignComponent title={"Links/Tabs"}>
-      <a href="" className="nav-link">Nav Link</a>
         <a href="">Regular Link</a>
         <button className="tab-label">Tab</button>
       </DesignComponent>
@@ -175,17 +173,24 @@ function TextField({
   placeHolder,
   color,
 }) {
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
     <div className={`text-field ${color}`}>
       <label htmlFor="">{label}</label>
-      <div className="text-field-input">
+      <div className={`text-input-field ${isFocused ? 'focused' : ''}`}>
         {BeforeIcon ? (
           <BeforeIcon style={{ fontSize: beforeIconFontSize }} />
         ) : (
           ""
         )}
         {beforeText ? <p className="before-text">{beforeText}</p> : ""}
-        <input type="text" placeholder={placeHolder} />
+        <input
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          type="text"
+          placeholder={placeHolder}
+        />
         {AfterIcon ? <AfterIcon style={{ fontSize: afterIconFontSize }} /> : ""}
       </div>
     </div>

@@ -1,7 +1,10 @@
 nav {
     max-width: 900px;
-    margin: auto;
+    outline: 1px solid $border-color;
+    background-color: $container-color;
+    box-shadow: 0px 0px 30px 20px $background-color;
     padding: $spacing-sm;
+    margin: auto;
     margin: $spacing-md auto;
     margin-bottom: 0 !important;
     display: flex;
@@ -9,16 +12,34 @@ nav {
     justify-content: space-around;
 
     a {
-        font-size: $font-size-md;
-        font-weight: 400;
+        position: relative;
+        font-size: $font-size-sm;
         color: $text-color;
-
-        transition: color $transition-fast;
-
-        @media (hover: hover){
-            &:hover {
-                color: $primary-color;
-            }
+        width: min-content;
+        text-wrap: nowrap;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $border-radius-xs;
+        background-color: transparent;
+        transition: background-color $transition-base;
+      
+        &::before {
+          content: "";
+          @include box(6px);
+          position: absolute;
+          left: -12px;
+          top: calc(50% - 3px);
+          background-color: $primary-color;
+          border-radius: 50%;
+          opacity: 0;
+          transition: opacity $transition-base;
         }
-    }
+      
+        &:hover::before {
+          opacity: 1;
+        }
+      
+        &:hover {
+            background-color: $element-color;
+        }
+      }
 }
