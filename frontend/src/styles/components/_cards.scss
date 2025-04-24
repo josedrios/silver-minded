@@ -1,7 +1,7 @@
 $budget-types: (
   made: $pending-color,
   spent: $error-color,
-  saved: $done-color,
+  // saved: $done-color,
 );
 
 @each $type, $color in $budget-types {
@@ -48,7 +48,6 @@ $budget-types: (
     @include box(40px);
     font-size: 23px;
     border-radius: $border-radius-sm;
-    background-color: color-fade($text-color, 0.15);
     flex-shrink: 0;
   }
 
@@ -88,12 +87,11 @@ $filter-types: (
   need: $dev-color,
   fun: $misc-color,
   sub: $pending-color,
-  save: $done-color,
+  // save: $done-color,
 );
 
 @each $type, $color in $filter-types {
   .transaction-card-icon.#{$type} {
-    background-color: color-fade($color, 0.15);
     
     svg {
       fill: $color;

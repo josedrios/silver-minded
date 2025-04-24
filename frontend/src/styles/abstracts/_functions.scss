@@ -1,3 +1,7 @@
-@function color-fade($color, $opacity) {
-    @return rgba($color, $opacity);
+@function color($color, $state, $type: null) {
+  @if $type == null {
+    @return map-get($color, $state);
+  } @else {
+    @return map-get(map-get($color, $state), $type);
+  }
 }

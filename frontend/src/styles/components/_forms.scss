@@ -71,7 +71,6 @@ input {
 }
 
 #calendar-overlay {
-  background-color: color-fade($text-color, 0.1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: $border-radius-sm;
@@ -89,12 +88,10 @@ input {
     padding: 0 $spacing-md;
     border-radius: $border-radius-xs;
     background-color: transparent;
-    border: 1px solid color-fade($error-color, 0.65);
     @include flex(row, center, center);
     transition: border $transition-instant;
 
     svg {
-      fill: color-fade($error-color, 0.65);
       transition: fill $transition-instant;
     }
 
@@ -144,7 +141,6 @@ input {
     position: relative;
     padding: $spacing-xs $spacing-sm;
     gap: $spacing-sm;
-    border: 1px solid color-fade($text-color, 0.5);
     border-radius: $border-radius-sm;
     height: 100%;
     overflow: hidden;

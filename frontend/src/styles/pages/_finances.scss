@@ -113,7 +113,6 @@
       flex: 1;
       background-image: radial-gradient(
         circle,
-        color-fade($text-color, 0.3) 1px,
         transparent 1.5px
       );
       background-size: 25px 25px;
@@ -158,10 +157,10 @@ $budget-types: (
   need: $dev-color,
   fun: $misc-color,
   sub: $pending-color,
-  save: $done-color,
+  // save: $done-color,
   made: $pending-color,
   spent: $error-color,
-  saved: $done-color,
+  // saved: $done-color,
 );
 
 @each $type, $color in $budget-types {
@@ -220,7 +219,7 @@ $filter-types: (
   need: $dev-color,
   fun: $misc-color,
   sub: $pending-color,
-  save: $done-color,
+  // save: $done-color,
 );
 
 @each $type, $color in $filter-types {

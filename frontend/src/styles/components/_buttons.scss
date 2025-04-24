@@ -27,7 +27,6 @@
 .delete-task-icon {
   @include flex(row, center, center);
   background-color: transparent;
-  border: 1px solid color-fade($error-color, 0.5);
   padding: $spacing-sm;
   border-radius: $border-radius-sm;
   transition: border-color $transition-instant;
@@ -64,7 +63,6 @@
 
   @media (hover: hover) {
     &:hover {
-      background-color: color-fade(gray, 0.15);
     }
   }
 }
@@ -73,7 +71,7 @@ $filter-types: (
   dev: $dev-color,
   misc: $misc-color,
   pending: $pending-color,
-  done: $done-color,
+  // done: $done-color,
 );
 
 @each $type, $color in $filter-types {
@@ -93,13 +91,11 @@ $filter-types: (
 
     @media (hover: hover) {
       &:hover {
-        background-color: color-fade($color, 0.15);
       }
     }
   }
 
   .filter-button.#{$type}.active-filter-btn {
-    background-color: color-fade($color, 0.15);
   }
 }
 
@@ -120,7 +116,7 @@ $filter-types: (
 
 .done-status-btn {
   svg {
-    fill: $done-color;
+    // fill: $done-color;
   }
 }
 
@@ -140,7 +136,6 @@ $tag-btn-types: (
 
 @each $type, $color in $tag-btn-types {
   #task-tag-editor button.#{$type} {
-    border: 1px solid color-fade($color, 0.4);
     @include flex(initial, center, center);
     transition: border $transition-instant;
 
@@ -183,7 +178,6 @@ $tag-btn-types: (
   @media (hover: hover) {
     &:hover {
       border: 1px solid $error-color;
-      background-color: color-fade($error-color, 0.15);
     }
   }
 }
@@ -196,7 +190,6 @@ $tag-btn-types: (
 
   @media (hover: hover) {
     &:hover {
-      background-color: color-fade($text-color, 0.15);
     }
   }
 }
@@ -215,7 +208,6 @@ $tag-btn-types: (
   }
 
   &:hover {
-    background-color: color-fade(gray, 0.5);
 
     svg {
       fill: $text-color;
@@ -230,10 +222,8 @@ $tag-btn-types: (
   color: gray;
   border-radius: $border-radius-xs;
   transition: background-color $transition-instant;
-  background-color: color-fade(gray, 0.15);
 
   &:hover {
-    background-color: color-fade(gray, 0.3);
   }
 }
 
@@ -246,7 +236,7 @@ $tag-btn-types: (
 }
 
 .contains-events {
-  color: $done-color !important;
+  // color: $done-color !important;
 }
 
 .current-day {
@@ -286,7 +276,6 @@ $tag-btn-types: (
   transition: background-color $transition-instant, color $transition-instant;
 
   &:hover {
-    background-color: color-fade(black, 0.3);
     color: $text-color;
   }
 }
@@ -312,18 +301,15 @@ $tag-btn-types: (
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: color-fade($text-color, 0.15);
   }
 }
 
 .reoccurring-chosen-option {
-  background-color: color-fade($text-color, 0.15);
 }
 
 #task-link-toggle-container {
   height: 20px;
   width: 35px;
-  border: 1px solid color-fade(black, 0.15);
   background-color: gray;
   border-radius: $border-radius-c;
   position: relative;
@@ -349,7 +335,6 @@ $tag-btn-types: (
 }
 
 .color-toggle {
-  background-color: color-fade($done-color, 0.8) !important;
 }
 
 #finance-increment-frame button {
@@ -358,12 +343,10 @@ $tag-btn-types: (
   transition: background-color $transition-instant;
 
   &:hover {
-    background-color: color-fade($text-color, 0.5);
   }
 }
 
 #finance-increment-frame button.active {
-  background-color: color-fade($text-color, 0.5);
 }
 
 .finance-time-frame-button {
@@ -382,7 +365,7 @@ $filter-types: (
   need: $dev-color,
   fun: $misc-color,
   sub: $pending-color,
-  save: $done-color,
+  // save: $done-color,
 );
 
 @each $type, $color in $filter-types {
@@ -406,12 +389,10 @@ $filter-types: (
     }
 
     &:hover {
-      background-color: color-fade($color, 0.15);
     }
   }
 
   .finance-form-category-button.#{$type}.active {
-    background-color: color-fade($color, 0.15);
   }
 }
 
