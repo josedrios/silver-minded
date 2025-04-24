@@ -7,7 +7,6 @@
   .design-component-header {
     padding-bottom: $spacing-xs;
     border-bottom: 1px solid $text-color;
-    margin-bottom: $spacing-sm;
   }
 }
 
@@ -52,15 +51,8 @@ $spacing-increments: (
   }
 }
 
-.test {
-  border-radius: $border-radius-xs;
-  padding: $spacing-xs $spacing-sm;
-
-  &:hover {
-  }
+.raw-icons {
+  @include flex(row, initial, center);
+  gap: $spacing-sm;
 }
 
-.test2 {
-  border-radius: $border-radius-xs;
-  padding: $spacing-xs $spacing-sm;
-}

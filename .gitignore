@@ -150,3 +150,5 @@ public/assets/
 *.log
 icon.iconset/
 icon.icns
+
+.prettierrc

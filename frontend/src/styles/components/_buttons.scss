@@ -1,3 +1,59 @@
+.btn {
+  width: min-content;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-xs;
+  font-weight: 400;
+  transition: all $transition-instant ease;
+
+  &.primary {
+    color: var(--primary-color);
+    background-color: var(--primary-200);
+    border: 1px solid rgba(var(--primary-300-rgb), 0.25);
+    
+    &:hover {
+      background-color: var(--primary-300);
+      border: 1px solid rgba(var(--primary-400-rgb), 0.25);
+    }
+  }
+
+  &.accent {
+    color: var(--accent-color);
+    background-color: var(--accent-200);
+    border: 1px solid rgba(var(--accent-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--accent-300);
+      border: 1px solid rgba(var(--accent-400-rgb), 0.25);
+    }
+  }
+
+  &.error {
+    color: var(--error-color);
+    background-color: var(--error-200);
+    border: 1px solid rgba(var(--error-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--error-300);
+      border: 1px solid rgba(var(--error-400-rgb), 0.25);
+    }
+  }
+
+  &.gray {
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--gray-800);
+
+    &:hover {
+      background-color: var(--gray-700);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
 .standard-btn {
   border-radius: $border-radius-xs;
   background-color: $text-color;

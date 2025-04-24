@@ -10,105 +10,100 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 
+  /* Primary Colors */
   --primary-color: rgb(0, 255, 163);
-
-  --primary-100-rgb: 204, 255, 229;
-  --primary-100: rgb(var(--primary-100-rgb));
-  
-  --primary-200-rgb: 153, 255, 213;
-  --primary-200: rgb(var(--primary-200-rgb));
-  
-  --primary-300-rgb: 102, 255, 188;
-  --primary-300: rgb(var(--primary-300-rgb));
-  
-  --primary-400-rgb: 51, 255, 176;
-  --primary-400: rgb(var(--primary-400-rgb));
-  
-  --primary-500-rgb: 0, 255, 163; /* base */
-  --primary-500: rgb(var(--primary-500-rgb));
-  
-  --primary-600-rgb: 0, 204, 130;
-  --primary-600: rgb(var(--primary-600-rgb));
-  
-  --primary-700-rgb: 0, 153, 98;
-  --primary-700: rgb(var(--primary-700-rgb));
-  
-  --primary-800-rgb: 0, 102, 65;
+  --primary-800-rgb: 0, 255, 163;
   --primary-800: rgb(var(--primary-800-rgb));
-  
-  --primary-900-rgb: 0, 51, 32; 
-  --primary-900: rgb(var(--primary-900-rgb));
-  
+  --primary-700-rgb: 0, 210, 134;
+  --primary-700: rgb(var(--primary-700-rgb));
+  --primary-600-rgb: 0, 165, 105;
+  --primary-600: rgb(var(--primary-600-rgb));
+  --primary-500-rgb: 0, 120, 77;
+  --primary-500: rgb(var(--primary-500-rgb));
+  --primary-400-rgb: 0, 85, 54;
+  --primary-400: rgb(var(--primary-400-rgb));
+  --primary-300-rgb: 0, 50, 32;
+  --primary-300: rgb(var(--primary-300-rgb));
+  --primary-200-rgb: 0, 30, 19;
+  --primary-200: rgb(var(--primary-200-rgb));
+  --primary-100-rgb: 0, 15, 17;
+  --primary-100: rgb(var(--primary-100-rgb));
+
+  /* Accent Colors */
   --accent-color: rgb(255, 229, 102);
-  
-  --accent-100-rgb: 255, 250, 204;
-  --accent-100: rgb(var(--accent-100-rgb));
-  
-  --accent-200-rgb: 255, 243, 153;
-  --accent-200: rgb(var(--accent-200-rgb));
-  
-  --accent-300-rgb: 255, 236, 128;
-  --accent-300: rgb(var(--accent-300-rgb));
-  
-  --accent-400-rgb: 255, 232, 115;
-  --accent-400: rgb(var(--accent-400-rgb));
-  
-  --accent-500-rgb: 255, 229, 102;
-  --accent-500: rgb(var(--accent-500-rgb));
-  
-  --accent-600-rgb: 204, 183, 82;
-  --accent-600: rgb(var(--accent-600-rgb));
-  
-  --accent-700-rgb: 153, 137, 61;
-  --accent-700: rgb(var(--accent-700-rgb));
-  
-  --accent-800-rgb: 102, 92, 41;
+  --accent-800-rgb: 255, 229, 102;
   --accent-800: rgb(var(--accent-800-rgb));
-  
-  --accent-900-rgb: 51, 46, 20; 
-  --accent-900: rgb(var(--accent-900-rgb));
-  
+  --accent-700-rgb: 220, 197, 88;
+  --accent-700: rgb(var(--accent-700-rgb));
+  --accent-600-rgb: 185, 166, 74;
+  --accent-600: rgb(var(--accent-600-rgb));
+  --accent-500-rgb: 150, 134, 60;
+  --accent-500: rgb(var(--accent-500-rgb));
+  --accent-400-rgb: 115, 103, 46;
+  --accent-400: rgb(var(--accent-400-rgb));
+  --accent-300-rgb: 80, 72, 32;
+  --accent-300: rgb(var(--accent-300-rgb));
+  --accent-200-rgb: 50, 45, 20;
+  --accent-200: rgb(var(--accent-200-rgb));
+  --accent-100-rgb: 30, 27, 12;
+  --accent-100: rgb(var(--accent-100-rgb));
+
+  /* Text Colors */
   --text-color: rgb(218, 213, 192);
-  
-  --text-100-rgb: 244, 243, 234;
-  --text-100: rgb(var(--text-100-rgb));
-  
-  --text-200-rgb: 232, 229, 214;
-  --text-200: rgb(var(--text-200-rgb));
-  
-  --text-300-rgb: 224, 220, 203;
-  --text-300: rgb(var(--text-300-rgb));
-  
-  --text-400-rgb: 221, 217, 197;
-  --text-400: rgb(var(--text-400-rgb));
-  
-  --text-500-rgb: 218, 213, 192;
-  --text-500: rgb(var(--text-500-rgb));
-  
-  --text-600-rgb: 174, 170, 153;
-  --text-600: rgb(var(--text-600-rgb));
-  
-  --text-700-rgb: 130, 127, 115;
-  --text-700: rgb(var(--text-700-rgb));
-  
-  --text-800-rgb: 87, 85, 76;
+  --text-800-rgb: 218, 213, 192;
   --text-800: rgb(var(--text-800-rgb));
-  
-  --text-900-rgb: 45, 44, 38; 
-  --text-900: rgb(var(--text-900-rgb));
-  
-  --border-color: rgba(77, 73, 73, 0.75);
-  
-  --border-100: rgba(77, 73, 73, 0.1);
-  --border-200: rgba(77, 73, 73, 0.25);
-  --border-300: rgba(77, 73, 73, 0.5);
-  --border-400: rgba(77, 73, 73, 0.65);
-  --border-500: rgba(77, 73, 73, 0.75);
-  --border-600: rgba(77, 73, 73, 0.85);
-  --border-700: rgba(77, 73, 73, 0.9);
-  --border-800: rgba(77, 73, 73, 1);
-  --border-900: rgba(77, 73, 73, 1);
-  
+  --text-700-rgb: 180, 176, 158;
+  --text-700: rgb(var(--text-700-rgb));
+  --text-600-rgb: 140, 137, 123;
+  --text-600: rgb(var(--text-600-rgb));
+  --text-500-rgb: 100, 98, 88;
+  --text-500: rgb(var(--text-500-rgb));
+  --text-400-rgb: 70, 69, 62;
+  --text-400: rgb(var(--text-400-rgb));
+  --text-300-rgb: 45, 44, 40;
+  --text-300: rgb(var(--text-300-rgb));
+  --text-200-rgb: 25, 25, 23;
+  --text-200: rgb(var(--text-200-rgb));
+  --text-100-rgb: 10, 10, 9;
+  --text-100: rgb(var(--text-100-rgb));
+
+  /* Error Colors */
+  --error-color: rgb(235, 95, 95);
+  --error-800-rgb: 235, 95, 95;
+  --error-800: rgb(var(--error-800-rgb));
+  --error-700-rgb: 210, 80, 80;
+  --error-700: rgb(var(--error-700-rgb));
+  --error-600-rgb: 185, 65, 65;
+  --error-600: rgb(var(--error-600-rgb));
+  --error-500-rgb: 160, 50, 50;
+  --error-500: rgb(var(--error-500-rgb));
+  --error-400-rgb: 135, 35, 35;
+  --error-400: rgb(var(--error-400-rgb));
+  --error-300-rgb: 110, 20, 20;
+  --error-300: rgb(var(--error-300-rgb));
+  --error-200-rgb: 85, 10, 10;
+  --error-200: rgb(var(--error-200-rgb));
+  --error-100-rgb: 60, 5, 5;
+  --error-100: rgb(var(--error-100-rgb));
+
+  /* Gray Colors */
+  --gray-color: rgba(77, 73, 73, 0.75);
+  --gray-800-rgb: 77, 73, 73;
+  --gray-800: rgba(var(--gray-800-rgb), 0.75);
+  --gray-700-rgb: 60, 57, 57;
+  --gray-700: rgba(var(--gray-700-rgb), 0.75);
+  --gray-600-rgb: 45, 43, 43;
+  --gray-600: rgba(var(--gray-600-rgb), 0.75);
+  --gray-500-rgb: 30, 29, 29;
+  --gray-500: rgba(var(--gray-500-rgb), 0.75);
+  --gray-400-rgb: 20, 19, 19;
+  --gray-400: rgba(var(--gray-400-rgb), 0.75);
+  --gray-300-rgb: 12, 12, 12;
+  --gray-300: rgba(var(--gray-300-rgb), 0.75);
+  --gray-200-rgb: 6, 6, 6;
+  --gray-200: rgba(var(--gray-200-rgb), 0.75);
+  --gray-100-rgb: 2, 2, 2;
+  --gray-100: rgba(var(--gray-100-rgb), 0.75);
 
   --background-color: rgb(36, 34, 34);
   --container-color: rgb(23, 28, 28);

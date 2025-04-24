@@ -20,7 +20,7 @@ $text-disabled-color:           rgb(183, 179, 167, 0.5);
 
 // --- Background Colors ---
 $background-color:              rgb(36, 34, 34) !default;
-$container-color:               rgb(23, 28, 28) !default;
+$container-color:               var(--primary-100);
 $element-color:                 rgb(47, 52, 52) !default;
 
 // --- Border Colors ---
@@ -35,7 +35,7 @@ $warning-color:               $accent-color;
 $warning-hover-color:         $accent-hover-color;
 $warning-disabled-color:      $accent-disabled-color;
 
-$error-color:                 rgb(216, 120, 120);
+$error-color:                 rgb(235, 95, 95);
 $error-hover-color:           rgb(201, 81, 81);
 $error-disabled-color:        rgba(214, 119, 119, 0.5);
 
