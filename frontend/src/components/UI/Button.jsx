@@ -7,10 +7,11 @@ const Button = ({
   variant = 'primary',
   disabled = false,
   className = '',
+  squared = false
 }) => {
   return (
     <button
-      className={`btn ${variant} ${disabled ? 'disabled' : ''} ${className}`}
+      className={`btn ${variant} ${disabled ? 'disabled' : ''} ${squared ? 'squared' : ''} ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

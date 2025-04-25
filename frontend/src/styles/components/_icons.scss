@@ -39,6 +39,22 @@
             }
         }
       }
+
+      &.error {
+        background-color: var(--error-200);
+
+        &.fill {
+            svg {
+                fill: var(--error-color);
+            }
+        }
+
+        &.stroke {
+            svg {
+                stroke: var(--error-color);
+            }
+        }
+      }
     
       &.border {
         background-color: var(--gray-600);
@@ -55,10 +71,19 @@
             }
         }
       }
-}
 
-.small-icon {
-    width: 32px;
-    height: 32px;
-    
+      &.sm {
+        width: 30px;
+        height: 30px;
+      }
+
+      &.md {
+        width: 36px;
+        height: 36px;
+      }
+
+      &.lg {
+        width: 48px;
+        height: 48px;
+      }
 }

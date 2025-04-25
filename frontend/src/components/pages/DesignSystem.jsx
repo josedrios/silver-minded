@@ -5,31 +5,21 @@ import {
   PlusIcon,
   BrainCircuitIcon,
   TrashIcon,
-  CalendarIcon
 } from '../UI/Icons';
 
 export default function DesignSystem() {
   return (
     <div>
       <DesignComponent title={'Icons'}>
-        <p>Raw Icons</p>
-        <div className="raw-icons">
-          <PlusIcon />
-          <BrainIcon />
-          <BrainCircuitIcon />
-          <TrashIcon />
-          <CalendarIcon />
-        </div>
-        <p>Displayed Icons</p>{' '}
-        <Icon variant="primary" type="fill">
-          <PlusIcon />
-        </Icon>
-        <Icon variant="accent" type="stroke">
-          <BrainCircuitIcon />
-        </Icon>
-        <Icon variant="border" type="stroke">
-          <BrainIcon />
-        </Icon>
+        <DesignIcons />
+      </DesignComponent>
+      <DesignComponent title={'Buttons'}>
+        <Button variant="primary">PRIMARY</Button>
+        <Button variant="primary"><PlusIcon />CREATE</Button>
+        <Button variant="accent"><BrainCircuitIcon />NETWORK</Button>
+        <Button variant="gray"><BrainIcon />MIND</Button>
+        <Button variant="error"><TrashIcon />DELETE</Button>
+        <Button variant="error" squared={true}><TrashIcon /></Button>
       </DesignComponent>
       <DesignComponent title={'Color'}>
         <DesignColor color={'primary'} />
@@ -59,14 +49,6 @@ export default function DesignSystem() {
           <div className="spacing-ex xl"></div>
           <p>xl</p>
         </div>
-      </DesignComponent>
-      <DesignComponent title={'Buttons'}>
-        <Button variant="primary" >
-          PRIMARY
-        </Button>
-        <Button variant="accent">ACCENT</Button>
-        <Button variant="gray">GRAY</Button>
-        <Button variant="error">ERROR</Button>
       </DesignComponent>
       <DesignComponent title={'Typography'}>
         <h1>Heading 1</h1>
@@ -100,11 +82,70 @@ function DesignColor({ color }) {
             className="color-block"
             key={i}
             style={{
-              backgroundColor: `var(--${color}-${(i + 1) * 100})`
+              backgroundColor: `var(--${color}-${(i + 1) * 100})`,
             }}
           />
         ))}
       </div>
     </div>
+  );
+}
+
+function DesignIcons() {
+  return (
+    <>
+      <p>Raw Icons</p>
+      <div className="raw-icons">
+        <PlusIcon />
+        <BrainIcon />
+        <BrainCircuitIcon />
+        <TrashIcon />
+      </div>
+      <p>Displayed Icons</p>{' '}
+      <div className="raw-icons">
+        <Icon variant="primary" size="lg">
+          <PlusIcon size="lg" />
+        </Icon>
+        <Icon variant="primary"  size="md">
+          <PlusIcon size="md" />
+        </Icon>
+        <Icon variant="primary">
+          <PlusIcon />
+        </Icon>
+      </div>
+      <div className="raw-icons">
+        <Icon variant="accent" type="stroke" size="lg">
+          <BrainCircuitIcon size="lg" />
+        </Icon>
+        <Icon variant="accent" type="stroke" size="md">
+          <BrainCircuitIcon size="md" />
+        </Icon>
+        <Icon variant="accent" type="stroke">
+          <BrainCircuitIcon />
+        </Icon>
+      </div>
+      <div className="raw-icons">
+        <Icon variant="error" size="lg">
+          <TrashIcon size="lg" />
+        </Icon>
+        <Icon variant="error" size="md">
+          <TrashIcon size="md" />
+        </Icon>
+        <Icon variant="error">
+          <TrashIcon />
+        </Icon>
+      </div>
+      <div className="raw-icons">
+        <Icon variant="border" type="stroke" size="lg">
+          <BrainIcon size="lg" />
+        </Icon>
+        <Icon variant="border" type="stroke" size="md">
+          <BrainIcon size="md" />
+        </Icon>
+        <Icon variant="border" type="stroke">
+          <BrainIcon />
+        </Icon>
+      </div>
+    </>
   );
 }
