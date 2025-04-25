@@ -1,6 +1,6 @@
-import { fetchTasks, removeDoneTasks, removeTask } from "../../util/taskUtil";
-import TodoForm from "../features/TodoForm";
-import { TaskList } from "../features/TaskList";
+import { fetchTasks, removeDoneTasks, removeTask } from "../util/taskUtil";
+import TodoForm from "../components/features/TodoForm";
+import { TaskList } from "../components/features/TaskList";
 import { useState, useEffect,useContext } from "react";
 import { FaCode, FaCheck } from "react-icons/fa6";
 import { RiRobot2Line } from "react-icons/ri";
@@ -8,7 +8,7 @@ import { TbCheckbox } from "react-icons/tb";
 import { IoIosTimer } from "react-icons/io";
 import { GoSortAsc, GoAlertFill } from "react-icons/go";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { AppContext } from "../../util/AppContext";
+import { AppContext } from "../util/AppContext";
 
 export default function Todo() {
   const { tasks, setTasks } = useContext(AppContext);

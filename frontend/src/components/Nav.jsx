@@ -4,10 +4,10 @@ export default function Nav() {
   return (
     <nav>
       <Link to="/designsystem">DESIGN</Link>
-      <Link to="/todo">DASH</Link>
+      <Link to="/dash">DASH</Link>
       <Link to="/mind">MIND</Link>
-      <Link to="/calendar">TIME</Link>
-      <Link to="/finances">BANK</Link>
+      <Link to="/time">TIME</Link>
+      <Link to="/bank">BANK</Link>
     </nav>
   );
 }

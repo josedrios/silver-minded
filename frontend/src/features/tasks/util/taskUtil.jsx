@@ -3,7 +3,7 @@ export async function createTask(task) {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/task/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ info: task.info, tag: task.tag }),
+      body: JSON.stringify({ info: task.info }),
     });
 
     const data = await response.json();
@@ -20,7 +20,7 @@ export async function editTask(id, task) {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/task/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ info: task.info, tag: task.tag }),
+      body: JSON.stringify({ info: task.info, status: task.status }),
     });
 
     const data = await response.json();
@@ -28,23 +28,6 @@ export async function editTask(id, task) {
     return;
   } catch (err) {
     console.error("Edit Task Error:", err.message);
-    return;
-  }
-}
-
-export async function editTaskStatus(id, status) {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/task/status/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Failed to update task status");
-    return;
-  } catch (err) {
-    console.error("Update Status Error:", err.message);
     return;
   }
 }

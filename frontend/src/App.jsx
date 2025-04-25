@@ -1,11 +1,10 @@
-import Nav from "./components/layout/Nav";
-import Calendar from "./components/pages/Calendar";
-import Todo from "./components/pages/Todo";
-import Finances from "./components/pages/Finances";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Mind from "./components/pages/Mind";
-import DesignSystem from "./components/pages/DesignSystem";
-
+import Nav from "./components/Nav";
+import Time from "./pages/Time";
+import Bank from "./pages/Bank";
+import Mind from "./pages/Mind";
+import Dash from "./pages/Dash";
+import DesignSystem from "./pages/DesignSystem";
 
 function App() {
   return (
@@ -14,12 +13,12 @@ function App() {
         <Nav />
         <main>
           <Routes>
-            <Route path="/todo" element={<Todo />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/finances" element={<Finances />} />
+            <Route path="/dash" element={<Dash />} />
+            <Route path="/time" element={<Time />} />
+            <Route path="/bank" element={<Bank />} />
             <Route path="/mind" element={<Mind />} />
             <Route path="/designsystem" element={<DesignSystem />} />
-            <Route path="*" element={<Todo />} />
+            <Route path="*" element={<Dash />} />
           </Routes>
         </main>
       </div>
