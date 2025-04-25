@@ -1,25 +1,75 @@
-import Button from '../UI/Button';
+import Button from '../UI/Buttons';
 import {
   Icon,
   BrainIcon,
   PlusIcon,
   BrainCircuitIcon,
   TrashIcon,
+  SearchIcon,
 } from '../UI/Icons';
+import { SlashLoader, DotLoader } from '../UI/Loader';
+import TextField from '../UI/TextFields';
 
 export default function DesignSystem() {
   return (
-    <div>
+    <div id="design-component-grid">
+      <DesignComponent title={'Loader'}>
+        <SlashLoader />
+        <DotLoader />
+      </DesignComponent>
       <DesignComponent title={'Icons'}>
         <DesignIcons />
       </DesignComponent>
+      <DesignComponent title={'Text Fields'}>
+        <TextField
+          variant="primary"
+          label={'Primary'}
+          placeholder="IDEA"
+          beforeText={'CREATE/'}
+        />
+        <TextField
+          variant="accent"
+          label={'Accent'}
+          placeholder="Create a Network"
+          beforeIcon={BrainCircuitIcon}
+        />
+        <TextField
+          variant="error"
+          label={'Error'}
+          placeholder="Type 'delete'"
+          beforeIcon={TrashIcon}
+        />
+        <TextField
+          variant="gray"
+          label={'Gray'}
+          placeholder="Search something..."
+          afterIcon={SearchIcon}
+        />
+      </DesignComponent>
       <DesignComponent title={'Buttons'}>
         <Button variant="primary">PRIMARY</Button>
-        <Button variant="primary"><PlusIcon />CREATE</Button>
-        <Button variant="accent"><BrainCircuitIcon />NETWORK</Button>
-        <Button variant="gray"><BrainIcon />MIND</Button>
-        <Button variant="error"><TrashIcon />DELETE</Button>
-        <Button variant="error" squared={true}><TrashIcon /></Button>
+        <Button variant="primary">
+          <PlusIcon />
+          CREATE
+        </Button>
+        <Button variant="primary" squared={true}>
+          <PlusIcon />
+        </Button>
+        <Button variant="accent">
+          <BrainCircuitIcon />
+          NETWORK
+        </Button>
+        <Button variant="gray">
+          <BrainIcon />
+          MIND
+        </Button>
+        <Button variant="error">
+          <TrashIcon />
+          DELETE
+        </Button>
+        <Button variant="error" squared={true}>
+          <TrashIcon />
+        </Button>
       </DesignComponent>
       <DesignComponent title={'Color'}>
         <DesignColor color={'primary'} />
@@ -106,7 +156,7 @@ function DesignIcons() {
         <Icon variant="primary" size="lg">
           <PlusIcon size="lg" />
         </Icon>
-        <Icon variant="primary"  size="md">
+        <Icon variant="primary" size="md">
           <PlusIcon size="md" />
         </Icon>
         <Icon variant="primary">

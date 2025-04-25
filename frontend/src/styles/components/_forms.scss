@@ -1,6 +1,82 @@
 input {
   outline: none;
-  font-family: "IBM Plex Mono";
+  font-family: 'IBM Plex Mono';
+  font-size: $font-size-sm;
+}
+
+.text-field {
+  @include flex(column, flex-start);
+  gap: $spacing-xs;
+  border-radius: $border-radius-xs;
+  font-weight: 400;
+
+  .input-section {
+    @include flex(row, flex-start, center);
+    border-radius: $border-radius-xs;
+    border: 1px solid transparent;
+    gap: $spacing-xs;
+    height: 30px;
+    font-size: $font-size-sm;
+    padding: 0 $spacing-xs;
+    background-color: var(--gray-200);
+    transition: border-color $transition-instant;
+
+    input {
+      flex: 1;
+      height: 100%;
+      background-color: transparent;
+    }
+
+    &.primary {
+      border: 1px solid var(--primary-500);
+
+      svg {
+        stroke: var(--primary-color);
+      }
+    }
+
+    &.accent {
+      border: 1px solid var(--accent-500);
+
+      svg {
+        stroke: var(--accent-color);
+      }
+    }
+
+    &.error {
+      border: 1px solid var(--error-500);
+
+      svg {
+        stroke: var(--error-color);
+      }
+    }
+
+    &.gray {
+      border: 1px solid var(--gray-800);
+
+      svg {
+        stroke: var(--text-color);
+      }
+    }
+
+    &.focused {
+      &.primary {
+        border: 1px solid var(--primary-700);
+      }
+  
+      &.accent {
+        border: 1px solid var(--accent-700);
+      }
+  
+      &.error {
+        border: 1px solid var(--error-700);
+      }
+  
+      &.gray {
+        border: 1px solid var(--primary-700);
+      }
+    }
+  }
 }
 
 .standard-input {
@@ -8,7 +84,7 @@ input {
   padding: $spacing-xs $spacing-sm;
   color: $text-color;
   outline: none;
-  font-family: "IBM Plex Mono";
+  font-family: 'IBM Plex Mono';
   transition: color $transition-instant;
   border-radius: $border-radius-xs;
   height: 32px;

@@ -1,8 +1,13 @@
+#design-component-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-sm;
+}
+
 .design-component {
   @include flex(column);
   gap: $spacing-sm;
   margin-bottom: $spacing-md;
-  max-width: 250px;
 
   .design-component-header {
     padding-bottom: $spacing-xs;

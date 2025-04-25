@@ -23,7 +23,7 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
-  variant: PropTypes.oneOf(['primary', 'accent', 'gray']),
+  variant: PropTypes.oneOf(['primary', 'accent', 'gray', 'error']),
   disabled: PropTypes.bool,
   className: PropTypes.string,
 };
