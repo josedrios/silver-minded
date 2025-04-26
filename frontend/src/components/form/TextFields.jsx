@@ -1,45 +1,53 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 
-const TextField = ({
-  label,
-  value,
-  onChange,
-  placeholder = '',
-  type = 'text',
-  variant = 'primary',
-  disabled = false,
-  className = '',
-  name = '',
-  beforeText,
-  beforeIcon: BeforeIcon,
-  afterIcon: AfterIcon,
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
+const TextField = forwardRef(
+  (
+    {
+      label,
+      value,
+      onChange,
+      placeholder = '',
+      type = 'text',
+      variant = 'primary',
+      disabled = false,
+      className = '',
+      name = '',
+      beforeText,
+      beforeIcon: BeforeIcon,
+      afterIcon: AfterIcon,
+    },
+    ref
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
 
-  return (
-    <div className={`text-field ${className}`}>
-      {label && <label htmlFor={name || undefined}>{label}</label>}
-      <div className={`input-section ${variant} ${isFocused ? 'focused' : ''}`}>
-        {BeforeIcon && <BeforeIcon />}
-        {beforeText && beforeText}
-        <input
-          id={name || undefined}
-          name={name}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          className="input"
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-        />
-        {AfterIcon && <AfterIcon />}
+    return (
+      <div className={`text-field ${className}`}>
+        {label && <label htmlFor={name || undefined}>{label}</label>}
+        <div
+          className={`input-section ${variant} ${isFocused ? 'focused' : ''}`}
+        >
+          {BeforeIcon && <BeforeIcon />}
+          {beforeText && beforeText}
+          <input
+            id={name || undefined}
+            name={name}
+            type={type}
+            value={value}
+            onChange={onChange}
+            placeholder={placeholder}
+            disabled={disabled}
+            className="input"
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            ref={ref}
+          />
+          {AfterIcon && <AfterIcon />}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 TextField.propTypes = {
   label: PropTypes.string,

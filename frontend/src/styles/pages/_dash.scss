@@ -11,30 +11,51 @@
 
 .task-list {
   width: 100%;
+
   .task-list-header {
     @include flex(row, space-between, center);
 
     p {
-      font-weight: 600;
+      font-weight: $font-weight-bold;
       border-bottom: 1px solid var(--gray-800);
     }
   }
-}
 
-.task-item {
-  @include flex(row, left, center);
-  height: 30px;
-  gap: $spacing-xs;
+  .task-item {
+    @include flex(row, left, center);
+    height: 30px;
+    gap: $spacing-xs;
+    background-color: transparent;
+    width: 100%;
+    border: 1px solid transparent;
 
-  .tree-character {
-    color: var(--accent-800);
-    font-size: 20px;
-    margin-right: $spacing-xs;
+    .tree-character {
+      color: var(--accent-800);
+      font-size: 20px;
+      margin-right: $spacing-xs;
+    }
+
+    .info {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:hover {
+      background-color: var(--primary-300);
+      border: 1px solid var(--primary-400);
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: var(--primary-400);
+      border: 1px solid var(--primary-500);
+    }
   }
 
-  .info {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  .task-list-footer {
+    .done-percentage {
+      color: var(--primary-800);
+    }
   }
 }

@@ -20,10 +20,14 @@ exports.editTask = async (req, res) => {
   try {
     const { id } = req.params;
     const { info, status} = req.body;
-    // make it so only what is received is updated
+
+    const updateData = {};
+    if (info !== undefined) updateData.info = info;
+    if (status !== undefined) updateData.status = status;
+
     const updated = await Task.findByIdAndUpdate(
       id,
-      { info, status },
+      { $set: updateData },
       { new: true, runValidators: true }
     );
     if (!updated) return res.status(404).json({ message: "Task not found" });

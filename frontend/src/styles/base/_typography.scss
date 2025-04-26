@@ -9,13 +9,14 @@ $primary-font: "IBM Plex Mono", monospace;
 // ==========================
 // Font Measurements
 // ==========================
+$font-size-xs: 11px;
 $font-size-sm: 13px;
 $font-size-md: 16px;
 $font-size-lg: 20px;
 
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-bold: 600;
+$font-weight-light: 400;
+$font-weight-normal: 500;
+$font-weight-bold: 700;
 
 $line-height-base: 1.5;
 $line-height-heading: 1.2;
@@ -25,7 +26,7 @@ $line-height-heading: 1.2;
 // ==========================
 body {
   font-family: $primary-font;
-  font-weight: 400;
+  font-weight: $font-weight-normal;
   font-size: $font-size-md;
   line-height: $line-height-base;
   color: $text-color;
@@ -71,19 +72,22 @@ div {
 p {
   font-size: $font-size-sm;
   line-height: $line-height-base;
+  font-weight: $font-weight-normal;
 }
 
 a {
-  // color: $primary-color;
+  font-weight: $font-weight-normal;
   font-size: $font-size-sm;
 }
 
 button {
+  font-weight: $font-weight-normal;
   font-size: $font-size-sm;
   font-family: $primary-font;
 }
 
 input {
+  font-weight: $font-weight-normal;
   font-size: $font-size-sm;
 }
 

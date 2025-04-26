@@ -15,12 +15,21 @@ export async function createTask(task) {
   }
 }
 
-export async function editTask(id, task) {
+export async function editTask(id, info = null, status = null) {
   try {
+    const requestBody = {};
+
+    if(info !== null) {
+      requestBody.info = info;
+    }
+    if(status !== null) {
+      requestBody.status = status;
+    }
+
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/task/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ info: task.info, status: task.status }),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await response.json();

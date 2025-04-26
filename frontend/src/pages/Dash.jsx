@@ -1,12 +1,15 @@
 import { AppContext } from '../context/AppContext';
 import { TaskForm, TaskList } from '../features/tasks';
-import { useContext, useEffect } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { fetchTasks } from '../features/tasks/services/taskService';
 
 export default function Dash() {
   const { tasks, setTasks } = useContext(AppContext);
+  const [selectedTask, setSelectedTask] = useState('');
+  const taskInputRef = useRef(null);
 
-    const loadTasks = async () => {
+
+  const loadTasks = async () => {
     const data = await fetchTasks();
     setTasks(data);
     console.log('FETCHED TASKS: ', data);
@@ -19,8 +22,20 @@ export default function Dash() {
   return (
     <div id="dash-container">
       <div className="task-section">
-        <TaskForm loadTasks={loadTasks}/>
-        <TaskList loadTasks={loadTasks} tasks={tasks} />
+        <TaskForm
+          tasks={tasks}
+          loadTasks={loadTasks}
+          selectedTask={selectedTask}
+          setSelectedTask={setSelectedTask}
+          taskInputRef={taskInputRef}
+        />
+        <TaskList
+          tasks={tasks}
+          setTasks={setTasks}
+          selectedTask={selectedTask}
+          setSelectedTask={setSelectedTask}
+          taskInputRef={taskInputRef}
+        />
       </div>
     </div>
   );

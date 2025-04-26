@@ -87,23 +87,25 @@
 
 // DASH RELATED
 // DASH TASK LIST RELATED
-.task-item {
-  .status {
-    background-color: transparent;
-
-    &.done {
-      color: var(--primary-800);
-
-      &:hover {
-        color: var(--primary-600);
+.task-list {
+  .task-item {
+    .status {
+      background-color: transparent;
+  
+      &.done {
+        color: var(--primary-800);
+  
+        &:hover {
+          color: var(--primary-600);
+        }
       }
-    }
-
-    &.pending {
-      color: var(--error-800);
-
-      &:hover {
-        color: var(--error-600);
+  
+      &.pending {
+        color: var(--error-800);
+  
+        &:hover {
+          color: var(--error-600);
+        }
       }
     }
   }
