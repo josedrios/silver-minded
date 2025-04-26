@@ -20,7 +20,7 @@ export default function Dash() {
     <div id="dash-container">
       <div className="task-section">
         <TaskForm loadTasks={loadTasks}/>
-        <TaskList tasks={tasks} />
+        <TaskList loadTasks={loadTasks} tasks={tasks} />
       </div>
     </div>
   );
