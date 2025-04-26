@@ -2,9 +2,9 @@ import { useState } from 'react';
 import TextField from '../../../components/form/TextFields';
 import Button from '../../../components/UI/Buttons';
 import { PlusIcon } from '../../../components/UI/Icons';
-import { createTask } from '../util/taskUtil';
+import { createTask } from '../services/taskService';
 
-export default function TaskForm() {
+export default function TaskForm({ loadTasks }) {
   const [taskInfo, setTaskInfo] = useState('');
 
   const handleSubmit = async (e) => {
@@ -12,6 +12,7 @@ export default function TaskForm() {
     console.log('tested');
     await createTask(taskInfo);
     setTaskInfo('');
+    loadTasks();
   };
 
   return (

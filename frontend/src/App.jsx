@@ -14,8 +14,8 @@ function App() {
         <main>
           <Routes>
             <Route path="/dash" element={<Dash />} />
-            <Route path="/time" element={<Time />} />
             <Route path="/bank" element={<Bank />} />
+            <Route path="/time" element={<Time />} />
             <Route path="/mind" element={<Mind />} />
             <Route path="/designsystem" element={<DesignSystem />} />
             <Route path="*" element={<Dash />} />

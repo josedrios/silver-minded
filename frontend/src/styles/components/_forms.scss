@@ -9,8 +9,11 @@ input {
   gap: $spacing-xs;
   border-radius: $border-radius-xs;
   font-weight: 400;
+  min-width: 0;
+  width: 100%;
 
   .input-section {
+    width: 100%;
     min-width: 0;
     @include flex(row, flex-start, center);
     border-radius: $border-radius-xs;
@@ -86,8 +89,8 @@ input {
 .task-form {
   @include flex(row);
   gap: $spacing-sm;
+  width: 100%;
   max-width: 400px;
-  margin: auto;
 
   .text-field {
     flex: 1;
