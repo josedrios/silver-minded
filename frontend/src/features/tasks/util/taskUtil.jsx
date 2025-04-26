@@ -3,7 +3,7 @@ export async function createTask(task) {
     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/task/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ info: task.info }),
+      body: JSON.stringify({ info: task }),
     });
 
     const data = await response.json();

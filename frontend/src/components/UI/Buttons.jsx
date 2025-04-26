@@ -5,13 +5,17 @@ const Button = ({
   children,
   onClick,
   variant = 'primary',
+  type = 'button',
   disabled = false,
   className = '',
-  squared = false
+  squared = false,
 }) => {
   return (
     <button
-      className={`btn ${variant} ${disabled ? 'disabled' : ''} ${squared ? 'squared' : ''} ${className}`}
+      type={type}
+      className={`btn ${variant} ${disabled ? 'disabled' : ''} ${
+        squared ? 'squared' : ''
+      } ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
@@ -21,6 +25,7 @@ const Button = ({
 };
 
 Button.propTypes = {
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
   variant: PropTypes.oneOf(['primary', 'accent', 'gray', 'error']),

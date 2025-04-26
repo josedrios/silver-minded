@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const TextField = ({
   label,
@@ -16,9 +16,6 @@ const TextField = ({
   afterIcon: AfterIcon,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  useEffect(() => {
-    console.log('Focus state changed:', isFocused);
-  }, [isFocused]);
 
   return (
     <div className={`text-field ${className}`}>

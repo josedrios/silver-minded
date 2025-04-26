@@ -11,6 +11,7 @@ input {
   font-weight: 400;
 
   .input-section {
+    min-width: 0;
     @include flex(row, flex-start, center);
     border-radius: $border-radius-xs;
     border: 1px solid transparent;
@@ -22,6 +23,7 @@ input {
     transition: border-color $transition-instant;
 
     input {
+      min-width: 0;
       flex: 1;
       height: 100%;
       background-color: transparent;

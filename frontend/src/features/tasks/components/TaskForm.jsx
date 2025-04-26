@@ -1,20 +1,30 @@
-import TextField from "../../../components/form/TextFields";
-import Button from "../../../components/UI/Buttons";
-import { TrashIcon, PlusIcon, PenIcon } from "../../../components/UI/Icons";
+import { useState } from 'react';
+import TextField from '../../../components/form/TextFields';
+import Button from '../../../components/UI/Buttons';
+import { PlusIcon } from '../../../components/UI/Icons';
+import { createTask } from '../util/taskUtil';
 
 export default function TaskForm() {
-    return (
-        <form className="task-form">
-            <TextField 
-                beforeText="CREATE/"
-                placeholder="TASK"
-            />
-            <Button squared={true}>
-                <PlusIcon />
-            </Button>
-            <Button squared={true} variant="error">
-                <TrashIcon />
-            </Button>
-        </form>
-    )
+  const [taskInfo, setTaskInfo] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('tested');
+    await createTask(taskInfo);
+    setTaskInfo('');
+  };
+
+  return (
+    <form className="task-form" onSubmit={handleSubmit}>
+      <TextField
+        beforeText="CREATE/"
+        placeholder="TASK"
+        value={taskInfo}
+        onChange={(e) => setTaskInfo(e.target.value)}
+      />
+      <Button squared={true} type="submit">
+        <PlusIcon />
+      </Button>
+    </form>
+  );
 }

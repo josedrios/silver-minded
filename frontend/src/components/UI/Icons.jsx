@@ -1,4 +1,4 @@
-import { LuBrainCircuit, LuPlus, LuBrain, LuTrash, LuSearch, LuPen } from 'react-icons/lu';
+import { LuBrainCircuit, LuPlus, LuBrain, LuTrash, LuSearch, LuPen, LuListFilter } from 'react-icons/lu';
 
 // EACH ICON USES DIFFERENT SIZES
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
@@ -25,6 +25,10 @@ export const SearchIcon = ({ size = 'sm', className = '' }) => (
 
 export const PenIcon = ({ size = 'sm', className = '' }) => (
   <LuPen size={lucideSizes[size]} className={className} />
+);
+
+export const FilterIcon = ({ size = 'sm', className = '' }) => (
+  <LuListFilter size={lucideSizes[size]} className={className} />
 );
 
 export const Icon = ({
