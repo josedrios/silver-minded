@@ -1,7 +1,14 @@
-import Button from '../../../components/UI/Buttons';
-import { FilterIcon } from '../../../components/UI/Icons';
+import {
+  FilterIcon,
+  PauseIcon,
+  CheckmarkIcon,
+  HourglassIcon,
+  DangerIcon,
+} from '../../../components/UI/Icons';
 import { motion, AnimatePresence } from 'motion/react';
 import { editTask } from '../services/taskService';
+import { useEffect, useState } from 'react';
+import IconDropdown from '../../../components/ui/Dropdowns';
 
 const list = {
   hidden: { opacity: 0 },
@@ -24,6 +31,8 @@ export default function TaskList({
   selectedTask,
   setSelectedTask,
   taskInputRef,
+  listChanges,
+  setListChanges
 }) {
   const doneCount = tasks.filter((task) => task.status === 'done').length;
   const pendingCount = tasks.filter((task) => task.status === 'pending').length;
@@ -43,13 +52,27 @@ export default function TaskList({
     await editTask(task._id, null, task.status === 'done' ? 'pending' : 'done');
   };
 
+  const handleDropdownChange = (newValue) => {
+    setListChanges(newValue);
+  };
+
   return (
     <div className="task-list">
       <div className="task-list-header">
         <p>/TASKS</p>
-        <Button squared={true} variant="gray">
-          <FilterIcon />
-        </Button>
+        <IconDropdown
+          icons={[
+            FilterIcon,
+            PauseIcon,
+            CheckmarkIcon,
+            HourglassIcon,
+            DangerIcon,
+          ]}
+          options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
+          value={listChanges}
+          variant={'primary'}
+          onChange={handleDropdownChange}
+        />
       </div>
       <AnimatePresence>
         <motion.ol
@@ -70,9 +93,9 @@ export default function TaskList({
                 taskInputRef={taskInputRef}
               />
             ))
-          ) : <span className="no-task-message">
-            NO TASKS
-        </span>}
+          ) : (
+            <span className="no-task-message">NO TASKS</span>
+          )}
         </motion.ol>
       </AnimatePresence>
       <div className="task-list-footer" variants={item}>

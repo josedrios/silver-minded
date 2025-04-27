@@ -31,14 +31,60 @@ export default function DesignSystem() {
         <DotLoader />
       </DesignComponent>
       <DesignComponent title={'Dropdowns'}>
-        <IconDropdown
-          icons={[FilterIcon, PauseIcon, CheckmarkIcon, HourglassIcon, DangerIcon]}
-          options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
-          value={selectedOption}
-          variant={'primary'}
-          onChange={handleSelectChange}
-        />
-        Text below the dropdown
+        <div id='dropdown-ds-container'>
+          <IconDropdown
+            icons={[
+              FilterIcon,
+              PauseIcon,
+              CheckmarkIcon,
+              HourglassIcon,
+              DangerIcon,
+            ]}
+            options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
+            value={selectedOption}
+            variant={'primary'}
+            onChange={handleSelectChange}
+          />
+          <IconDropdown
+            icons={[
+              FilterIcon,
+              PauseIcon,
+              CheckmarkIcon,
+              HourglassIcon,
+              DangerIcon,
+            ]}
+            options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
+            value={selectedOption}
+            variant={'accent'}
+            onChange={handleSelectChange}
+          />
+          <IconDropdown
+            icons={[
+              FilterIcon,
+              PauseIcon,
+              CheckmarkIcon,
+              HourglassIcon,
+              DangerIcon,
+            ]}
+            options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
+            value={selectedOption}
+            variant={'error'}
+            onChange={handleSelectChange}
+          />
+          <IconDropdown
+            icons={[
+              FilterIcon,
+              PauseIcon,
+              CheckmarkIcon,
+              HourglassIcon,
+              DangerIcon,
+            ]}
+            options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
+            value={selectedOption}
+            variant={'gray'}
+            onChange={handleSelectChange}
+          />
+        </div>
       </DesignComponent>
       <DesignComponent title={'Icons'}>
         <DesignIcons />

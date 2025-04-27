@@ -61,3 +61,7 @@ $spacing-increments: (
   gap: $spacing-sm;
 }
 
+#dropdown-ds-container {
+  @include flex(row);
+  gap: $spacing-xs;
+}
