@@ -32,7 +32,7 @@ export default function TaskList({
   setSelectedTask,
   taskInputRef,
   listChanges,
-  setListChanges
+  setListChanges,
 }) {
   const doneCount = tasks.filter((task) => task.status === 'done').length;
   const pendingCount = tasks.filter((task) => task.status === 'pending').length;
@@ -56,6 +56,21 @@ export default function TaskList({
     setListChanges(newValue);
   };
 
+  const handleDocumentClick = (e) => {
+    if (!e.target.closest('.selected-task-safe')) {
+      setSelectedTask('');
+    }
+  };
+
+  document.addEventListener('click', handleDocumentClick);
+
+  useEffect(() => {
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, []);
+
+
   return (
     <div className="task-list">
       <div className="task-list-header">
@@ -70,7 +85,7 @@ export default function TaskList({
           ]}
           options={['pendingTasks', 'doneTasks', 'oldest', 'status']}
           value={listChanges}
-          variant={'primary'}
+          variant={'gray'}
           onChange={handleDropdownChange}
         />
       </div>
@@ -79,7 +94,7 @@ export default function TaskList({
           initial="hidden"
           animate="visible"
           variants={list}
-          className="task-list-body"
+          className="task-list-body selected-task-safe"
         >
           {tasks.length !== 0 ? (
             tasks.map((task, i) => (
@@ -117,8 +132,8 @@ function TaskItem({
   taskInputRef,
 }) {
   return (
-    <motion.li
-      className={`task-item ${selectedTask === task._id ? 'selected' : ''}`}
+    <motion.li layout
+      className={`task-item selected-task-safe ${selectedTask === task._id ? 'selected' : ''}`}
       variants={item}
       exit={{ opacity: 0, y: 20 }}
       onClick={() => {

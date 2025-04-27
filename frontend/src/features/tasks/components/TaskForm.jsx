@@ -44,7 +44,7 @@ export default function TaskForm({
   };
 
   return (
-    <form className="task-form" onSubmit={handleSubmit}>
+    <form className="task-form selected-task-safe" onSubmit={handleSubmit}>
       <TextField
         beforeText={selectedTask ? 'EDIT/' : 'CREATE/'}
         placeholder="TASK"

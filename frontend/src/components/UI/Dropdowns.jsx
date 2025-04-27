@@ -13,7 +13,7 @@ const list = {
 
 const item = {
   hidden: { opacity: 0, y: -15 },
-  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.2 } },
+  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.1 } },
 };
 
 const IconDropdown = ({ icons, options, value, onChange, variant }) => {
