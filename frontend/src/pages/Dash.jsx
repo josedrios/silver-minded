@@ -12,7 +12,6 @@ export default function Dash() {
   const loadTasks = async () => {
     const data = await fetchTasks();
     setTasks(data);
-    console.log('FETCHED TASKS: ', data);
   };
 
   useEffect(() => {

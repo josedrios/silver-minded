@@ -1,6 +1,18 @@
-import { LuBrainCircuit, LuPlus, LuBrain, LuTrash, LuSearch, LuPen, LuListFilter } from 'react-icons/lu';
+import {
+  LuBrainCircuit,
+  LuPlus,
+  LuBrain,
+  LuTrash,
+  LuSearch,
+  LuPen,
+  LuListFilter,
+  LuCheck,
+  LuPause,
+  LuHourglass,
+  LuTriangleAlert,
+} from 'react-icons/lu';
 
-// EACH ICON USES DIFFERENT SIZES
+// EACH ICON SET USES DIFFERENT SIZES
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
 
 export const PlusIcon = ({ size = 'sm', className = '' }) => (
@@ -29,6 +41,22 @@ export const PenIcon = ({ size = 'sm', className = '' }) => (
 
 export const FilterIcon = ({ size = 'sm', className = '' }) => (
   <LuListFilter size={lucideSizes[size]} className={className} />
+);
+
+export const CheckmarkIcon = ({ size = 'sm', className = '' }) => (
+  <LuCheck size={lucideSizes[size]} className={className} />
+);
+
+export const PauseIcon = ({ size = 'sm', className = '' }) => (
+  <LuPause size={lucideSizes[size]} className={className} />
+);
+
+export const HourglassIcon = ({ size = 'sm', className = '' }) => (
+  <LuHourglass size={lucideSizes[size]} className={className} />
+);
+
+export const DangerIcon = ({ size = 'sm', className = '' }) => (
+  <LuTriangleAlert size={lucideSizes[size]} className={className} />
 );
 
 export const Icon = ({

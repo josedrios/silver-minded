@@ -8,14 +8,14 @@ const list = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
+      staggerChildren: 0.03,
     },
   },
 };
 
 const item = {
   hidden: { opacity: 0, y: -15 },
-  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.15 } },
+  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.1 } },
 };
 
 export default function TaskList({
@@ -58,23 +58,29 @@ export default function TaskList({
           variants={list}
           className="task-list-body"
         >
-          {tasks.map((task, i) => (
-            <TaskItem
-              task={task}
-              key={task._id}
-              isLast={i === tasks.length - 1}
-              updateStatus={updateStatus}
-              selectedTask={selectedTask}
-              setSelectedTask={setSelectedTask}
-              taskInputRef={taskInputRef}
-            />
-          ))}
-          <motion.div className="task-list-footer" variants={item}>
-            <span className="done-percentage">{completePercentage}%</span> of
-            tasks complete
-          </motion.div>
+          {tasks.length !== 0 ? (
+            tasks.map((task, i) => (
+              <TaskItem
+                task={task}
+                key={task._id}
+                isLast={i === tasks.length - 1}
+                updateStatus={updateStatus}
+                selectedTask={selectedTask}
+                setSelectedTask={setSelectedTask}
+                taskInputRef={taskInputRef}
+              />
+            ))
+          ) : <span className="no-task-message">
+            NO TASKS
+        </span>}
         </motion.ol>
       </AnimatePresence>
+      <div className="task-list-footer" variants={item}>
+        <span className="done-percentage">
+          {!isNaN(completePercentage) ? completePercentage : '0'}%
+        </span>{' '}
+        of tasks complete
+      </div>
     </div>
   );
 }
@@ -111,7 +117,7 @@ function TaskItem({
           updateStatus(task);
         }}
       >
-        [{task.status === 'done' ? 'DONE' : 'WAIT'}]
+        [{task.status === 'done' ? 'DONE' : 'HOLD'}]
       </button>
       <span className="info">{task.info}</span>
     </motion.li>

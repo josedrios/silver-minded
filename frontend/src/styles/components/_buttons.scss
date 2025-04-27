@@ -101,10 +101,10 @@
       }
   
       &.pending {
-        color: var(--error-800);
+        color: var(--text-600);
   
         &:hover {
-          color: var(--error-600);
+          color: var(--text-500);
         }
       }
     }

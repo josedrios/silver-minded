@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import TextField from '../../../components/form/TextFields';
 import Button from '../../../components/UI/Buttons';
-import { PlusIcon } from '../../../components/UI/Icons';
-import { createTask, editTask } from '../services/taskService';
+import { PenIcon, PlusIcon, TrashIcon } from '../../../components/UI/Icons';
+import { createTask, editTask, removeTask } from '../services/taskService';
 
 export default function TaskForm({
   tasks,
   loadTasks,
   selectedTask,
   setSelectedTask,
-  taskInputRef
+  taskInputRef,
 }) {
   const [taskInfo, setTaskInfo] = useState('');
 
@@ -36,6 +36,13 @@ export default function TaskForm({
     loadTasks();
   };
 
+  const handleDelete = async (id) => {
+    await removeTask(id);
+    setSelectedTask('');
+    setTaskInfo('');
+    loadTasks();
+  };
+
   return (
     <form className="task-form" onSubmit={handleSubmit}>
       <TextField
@@ -44,9 +51,22 @@ export default function TaskForm({
         value={taskInfo}
         onChange={(e) => setTaskInfo(e.target.value)}
         ref={taskInputRef}
+        variant="gray"
       />
+      {selectedTask !== '' ? (
+        <Button
+          onClick={() => handleDelete(selectedTask)}
+          variant="error"
+          squared={true}
+          type="button"
+        >
+          <TrashIcon />
+        </Button>
+      ) : (
+        ''
+      )}
       <Button squared={true} type="submit">
-        <PlusIcon />
+        {selectedTask === '' ? <PlusIcon /> : <PenIcon />}
       </Button>
     </form>
   );

@@ -1,0 +1,166 @@
+.simple-select {
+  width: 30px;
+  height: 30px;
+  border-radius: $border-radius-xs;
+}
+
+.select-wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border-radius: $border-radius-xs;
+}
+
+.select-box {
+  height: 30px;
+  @include flex(row, center, center);
+  cursor: pointer;
+  border-radius: $border-radius-xs;
+
+  &.primary {
+    background-color: var(--primary-200);
+    border: 1px solid rgba(var(--primary-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--primary-300);
+      border: 1px solid rgba(var(--primary-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--primary-color);
+    }
+  }
+
+  &.accent {
+    color: var(--accent-color);
+    background-color: var(--accent-200);
+    border: 1px solid rgba(var(--accent-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--accent-300);
+      border: 1px solid rgba(var(--accent-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--accent-color);
+    }
+  }
+
+  &.error {
+    color: var(--error-color);
+    background-color: var(--error-200);
+    border: 1px solid rgba(var(--error-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--error-300);
+      border: 1px solid rgba(var(--error-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--error-color);
+    }
+  }
+
+  &.gray {
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--gray-800);
+
+    &:hover {
+      background-color: var(--gray-700);
+    }
+
+    svg {
+      stroke: var(--text-color);
+    }
+  }
+
+  svg {
+    @include flex(row, center, center);
+  }
+}
+
+.options-list {
+  border-radius: $border-radius-xs;
+  width: 30px;
+  position: absolute;
+  top: calc(30px + $spacing-xs);
+  list-style: none;
+  overflow-y: auto;
+}
+
+.option {
+  height: 30px;
+  @include flex(row, center, center);
+  cursor: pointer;
+
+  &.primary {
+    background-color: var(--primary-200);
+
+    &:hover {
+      background-color: var(--primary-300);
+      border: 1px solid rgba(var(--primary-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--primary-color);
+    }
+  }
+
+  &.accent {
+    background-color: var(--accent-200);
+
+    &:hover {
+      background-color: var(--accent-300);
+      border: 1px solid rgba(var(--accent-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--accent-color);
+    }
+  }
+
+  &.error {
+    background-color: var(--error-200);
+
+    &:hover {
+      background-color: var(--error-300);
+      border: 1px solid rgba(var(--error-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--error-color);
+    }
+  }
+
+  &.gray {
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--gray-700);
+    }
+
+    svg {
+      stroke: var(--text-color);
+    }
+  }
+}
+
+.option:hover {
+  &.primary {
+    background-color: var(--primary-300);
+  }
+
+  &.accent {
+    background-color: var(--accent-200);
+    border: 1px solid rgba(var(--accent-300-rgb), 0.25);
+  }
+
+  &.error {
+    background-color: var(--error-200);
+  }
+
+  &.gray {
+    background-color: transparent;
+  }
+}

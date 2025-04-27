@@ -54,8 +54,13 @@
   }
 
   .task-list-footer {
+    margin-top: $spacing-md;
     .done-percentage {
       color: var(--primary-800);
     }
   }
+}
+
+.no-task-message {
+    color: var(--text-600);
 }
