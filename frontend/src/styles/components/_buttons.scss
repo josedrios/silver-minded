@@ -91,22 +91,47 @@
   .task-item {
     .status {
       background-color: transparent;
-  
+
       &.done {
         color: var(--primary-800);
-  
+
         &:hover {
           color: var(--primary-600);
         }
       }
-  
+
       &.pending {
         color: var(--text-600);
-  
+
         &:hover {
           color: var(--text-500);
         }
       }
     }
+  }
+}
+
+// CALENDAR RELATED
+// CALENDAR VIEW RELATED
+.calendar-days {
+  .calendar-day {
+    padding: $spacing-sm 0;
+    text-align: center;
+    border-radius: $border-radius-xs;
+
+    &.null {
+      color: var(--text-400);
+      &:hover {
+        background-color: transparent;
+        border-color: transparent;
+        cursor: default;
+      }
+    }
+
+    &.today {
+      color: var(--error-800);
+    }
+
+    @include clickableContainer;
   }
 }

@@ -2,48 +2,8 @@
 // Colors
 // ==========================
 // --- Main Colors --- 
-// $primary-color:                 rgb(0, 255, 163);
-$primary-hover-color:           rgba(0, 255, 162, 0.672);
-$primary-disabled-color:        rgba(50, 172, 127, 0.401);
 
-$primary-color-background:      rgba(0, 255, 162, 0.279);
-$primary-color-hover-background:rgba(0, 255, 162, 0.239);
 
-$accent-color:                  rgb(255, 229, 102);
-$accent-hover-color:            rgb(200, 174, 41);
-$accent-disabled-color:         rgb(213, 192, 86,0.5);
-
-// --- Text Colors ---
-$text-color:                    rgb(218, 213, 192);
-$text-hover-color:                darken($text-color, 25%);
-$text-disabled-color:           rgb(183, 179, 167, 0.5);
-
-// --- Background Colors ---
-$background-color:              rgb(36, 34, 34) !default;
-$container-color:               var(--primary-100);
-$element-color:                 rgb(47, 52, 52) !default;
-
-// --- Border Colors ---
-$border-color:                  rgba(77, 73, 73, 0.75) !default;
-
-// --- Status Colors ---
-// $success-color:               $primary-color;
-$success-hover-color:         $primary-hover-color;
-$success-disabled-color:      $primary-disabled-color;
-
-$warning-color:               $accent-color;
-$warning-hover-color:         $accent-hover-color;
-$warning-disabled-color:      $accent-disabled-color;
-
-$error-color:                 rgb(235, 95, 95);
-$error-hover-color:           rgb(201, 81, 81);
-$error-disabled-color:        rgba(214, 119, 119, 0.5);
-
-// --- REMOVE THESE COLORS --- 
-// $done-color:                    $success-color;
-$pending-color:               rgb(64, 112, 233);
-$dev-color:                   rgb(224, 166, 19);
-$misc-color:                  rgb(226, 113, 217);
 
 // ==========================
 // Spacings
@@ -77,7 +37,7 @@ $border-radius-c:               10000px;
 // ==========================
 // Transition Speeds
 // ==========================
-$transition-instant:            0.15s;
+$transition-instant:            0.1s;
 $transition-fast:               0.175s;
 $transition-base:               0.2s;
 $transition-slow:               0.325s;

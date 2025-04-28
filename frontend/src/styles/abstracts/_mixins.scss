@@ -25,3 +25,23 @@
         letter-spacing: #{$letter-spacing / $font-size}em;
     }
 }
+
+@mixin clickableContainer {
+    border: 1px solid transparent;
+    transition: background-color $transition-instant, border-color $transition-instant;
+
+    &:hover {
+        background-color: var(--primary-300);
+        border: 1px solid var(--primary-400);
+        cursor: pointer;
+    }
+
+    &.selected {
+        background-color: var(--primary-400);
+        border: 1px solid var(--primary-500);
+      }
+}  
+
+@mixin selectContainer {
+
+}

@@ -7,7 +7,7 @@ import {
 } from '../../../components/UI/Icons';
 import { motion, AnimatePresence } from 'motion/react';
 import { editTask } from '../services/taskService';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import IconDropdown from '../../../components/ui/Dropdowns';
 
 const list = {

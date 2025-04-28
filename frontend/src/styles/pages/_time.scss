@@ -1,0 +1,55 @@
+#time-container {
+    @include flex(column);
+    gap: $spacing-md;
+}
+
+.calendar-view-container {
+  @include flex(column);
+  gap: $spacing-sm;
+  border-radius: $border-radius-sm;
+  background-color: var(--gray-600);
+  padding: $spacing-sm;
+  width: 100%;
+  max-width: 450px;
+  min-width: 300px;
+  margin: auto;
+}
+
+.calendar-view-header {
+  @include flex(row, space-between, center);
+
+  .calendar-view-header-btns {
+    @include flex(row);
+    gap: $spacing-sm;
+  }
+}
+
+.calendar-view-body {
+  border-radius: $border-radius-xs;
+  overflow: hidden;
+
+  .calendar-week-header {
+    padding: 3px 0;
+    background-color: var(--gray-500);
+    @include flex(row, space-around);
+
+    div {
+        color: var(--text-500);
+    }
+  }
+
+  .calendar-days {
+    display: grid;
+    background-color: var(--gray-400);
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+.calendar-list-container {
+    width: 100%;
+    border: 1px solid var(--text-800);
+}
+
+.calendar-list-container {
+    
+}
