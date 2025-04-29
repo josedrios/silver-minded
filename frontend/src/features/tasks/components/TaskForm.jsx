@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import TextField from '../../../components/form/TextFields';
-import Button from '../../../components/UI/Buttons';
-import { PenIcon, PlusIcon, TrashIcon } from '../../../components/UI/Icons';
 import { createTask, editTask, removeTask } from '../services/taskService';
+import {
+  TextField,
+  Button,
+  PlusIcon,
+  TrashIcon,
+} from '../../../components';
 
 export default function TaskForm({
   tasks,

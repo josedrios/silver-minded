@@ -1,5 +1,9 @@
-import Button from '../../../components/ui/Buttons';
-import { ArrowLeftIcon, ArrowRightIcon } from '../../../components/ui/Icons';
+import {
+  Button,
+  Dropdown,
+  ArrowLeftIcon,
+  ArrowRightIcon
+} from '../../../components';
 import {
   day,
   month,
@@ -7,8 +11,7 @@ import {
   getDaysInMonth,
   getFirstDay,
 } from '../util/dateUtil';
-import WeekHeader from './WeekHeader';
-import { Dropdown } from '../../../components/ui/Dropdowns';
+import { WeekHeader } from './CalendarReusables';
 import { useState } from 'react';
 
 export default function CalendarList() {
@@ -20,7 +23,10 @@ export default function CalendarList() {
 
   return (
     <div className="calendar-list-container">
-      <CalendarListHeader listRange={listRange} handleSelectChange={handleSelectChange}/>
+      <CalendarListHeader
+        listRange={listRange}
+        handleSelectChange={handleSelectChange}
+      />
       <WeekHeader />
       <WeekDisplay />
     </div>

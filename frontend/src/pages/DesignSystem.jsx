@@ -1,10 +1,9 @@
-import TextField from '../components/form/TextFields';
-import Button from '../components/UI/Buttons';
 import {
+  TextField,
+  Button,
   BrainCircuitIcon,
   BrainIcon,
   FilterIcon,
-  Icon,
   PlusIcon,
   SearchIcon,
   TrashIcon,
@@ -12,9 +11,12 @@ import {
   CheckmarkIcon,
   HourglassIcon,
   DangerIcon,
-} from '../components/UI/Icons';
-import { DotLoader, SlashLoader } from '../components/ui/Loaders';
-import { Dropdown, IconDropdown } from '../components/ui/Dropdowns';
+  Icon,
+  DotLoader,
+  SlashLoader,
+  Dropdown,
+  IconDropdown
+} from '../components';
 import { useState } from 'react';
 
 export default function DesignSystem() {

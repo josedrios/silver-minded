@@ -1,5 +1,8 @@
-import Button from '../../../components/ui/Buttons';
-import { ArrowLeftIcon, ArrowRightIcon } from '../../../components/ui/Icons';
+import {
+  Button,
+  ArrowLeftIcon,
+  ArrowRightIcon
+} from '../../../components';
 import {
   day,
   month,
@@ -7,7 +10,7 @@ import {
   getDaysInMonth,
   getFirstDay,
 } from '../util/dateUtil';
-import WeekHeader from './WeekHeader';
+import { WeekHeader } from './CalendarReusables';
 
 export default function CalendarView() {
   return (

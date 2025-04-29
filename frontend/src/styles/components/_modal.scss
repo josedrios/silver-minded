@@ -1,0 +1,18 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(var(--gray-100-rgb), 0.5);
+    @include flex(row, center, center);
+    z-index: $z-overlay;
+}
+
+.modal {
+    background-color: var(--gray-600);
+    border-radius: $border-radius-xs;
+    max-width: 500px;
+    padding: $spacing-sm;
+    z-index: $z-modal;
+}

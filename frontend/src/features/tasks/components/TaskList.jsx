@@ -1,14 +1,15 @@
 import {
+  IconDropdown,
   FilterIcon,
   PauseIcon,
   CheckmarkIcon,
   HourglassIcon,
   DangerIcon,
-} from '../../../components/UI/Icons';
+  
+} from '../../../components';
 import { motion, AnimatePresence } from 'motion/react';
 import { editTask } from '../services/taskService';
 import { useEffect } from 'react';
-import { IconDropdown } from '../../../components/ui/Dropdowns';
 
 const list = {
   hidden: { opacity: 0 },
