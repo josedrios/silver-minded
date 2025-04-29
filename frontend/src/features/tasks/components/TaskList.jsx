@@ -8,7 +8,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { editTask } from '../services/taskService';
 import { useEffect } from 'react';
-import IconDropdown from '../../../components/ui/Dropdowns';
+import { IconDropdown } from '../../../components/ui/Dropdowns';
 
 const list = {
   hidden: { opacity: 0 },
@@ -69,7 +69,6 @@ export default function TaskList({
       document.removeEventListener('click', handleDocumentClick);
     };
   }, []);
-
 
   return (
     <div className="task-list">
@@ -132,8 +131,11 @@ function TaskItem({
   taskInputRef,
 }) {
   return (
-    <motion.li layout
-      className={`task-item selected-task-safe ${selectedTask === task._id ? 'selected' : ''}`}
+    <motion.li
+      layout
+      className={`task-item selected-task-safe ${
+        selectedTask === task._id ? 'selected' : ''
+      }`}
       variants={item}
       exit={{ opacity: 0, y: 20 }}
       onClick={() => {

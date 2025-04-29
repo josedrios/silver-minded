@@ -16,7 +16,7 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.1 } },
 };
 
-const IconDropdown = ({ icons, options, value, onChange, variant }) => {
+export const IconDropdown = ({ icons, options, value, onChange, variant }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (selectedValue) => {
@@ -32,17 +32,17 @@ const IconDropdown = ({ icons, options, value, onChange, variant }) => {
   };
 
   return (
-    <div className={`simple-select ${variant}`}>
+    <div className={`simple-select square ${variant}`}>
       <div className="select-wrapper">
         <div
-          className={`select-box ${variant}`}
+          className={`select-box square ${variant}`}
           onClick={() => setIsOpen(!isOpen)}
         >
           {getSelectedIcon(value)}{' '}
         </div>
         {isOpen && (
           <motion.ul
-            className="options-list"
+            className="options-list square"
             initial="hidden"
             animate="visible"
             variants={list}
@@ -51,7 +51,7 @@ const IconDropdown = ({ icons, options, value, onChange, variant }) => {
             <motion.li
               variants={item}
               key="default"
-              className={`option ${variant}`}
+              className={`option ${variant} square`}
               onClick={() => handleSelect('')}
             >
               {React.createElement(icons[0])}
@@ -60,7 +60,7 @@ const IconDropdown = ({ icons, options, value, onChange, variant }) => {
               <motion.li
                 variants={item}
                 key={option}
-                className={`option ${variant}`}
+                className={`option ${variant} square`}
                 onClick={() => handleSelect(option)}
               >
                 {React.createElement(icons[index + 1])}
@@ -73,4 +73,44 @@ const IconDropdown = ({ icons, options, value, onChange, variant }) => {
   );
 };
 
-export default IconDropdown;
+export const Dropdown = ({options, value, onChange, variant}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSelect = (selectedValue) => {
+    onChange(selectedValue);
+    setIsOpen(false);
+  };
+
+  return (
+    <div className={`simple-select ${variant}`}>
+      <div className="select-wrapper">
+        <div
+          className={`select-box ${variant}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {value}
+        </div>
+        {isOpen && (
+          <motion.ul
+            className="options-list"
+            initial="hidden"
+            animate="visible"
+            variants={list}
+            exit="hidden"
+          >
+            {options.map((option) => (
+              <motion.li
+                variants={item}
+                key={option}
+                className={`option ${variant}`}
+                onClick={() => handleSelect(option)}
+              >
+                {option}
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </div>
+    </div>
+  );
+};

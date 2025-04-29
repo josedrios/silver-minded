@@ -4,10 +4,10 @@ import {
   day,
   month,
   year,
-  weekHeaders,
   getDaysInMonth,
   getFirstDay,
 } from '../util/dateUtil';
+import WeekHeader from './WeekHeader';
 
 export default function CalendarView() {
   return (
@@ -24,11 +24,7 @@ export default function CalendarView() {
         </div>
       </header>
       <div className="calendar-view-body">
-        <div className="calendar-week-header">
-          {weekHeaders.map((day, i) => (
-            <div key={i}>{day.toUpperCase()}</div>
-          ))}
-        </div>
+        <WeekHeader />
         <div className="calendar-days">
           {Array.from({ length: getFirstDay(year, month) }).map((_, i) => (
             <div className="calendar-day null" key={i}>

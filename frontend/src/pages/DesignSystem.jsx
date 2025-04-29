@@ -14,11 +14,11 @@ import {
   DangerIcon,
 } from '../components/UI/Icons';
 import { DotLoader, SlashLoader } from '../components/ui/Loaders';
-import IconDropdown from '../components/ui/Dropdowns';
+import { Dropdown, IconDropdown } from '../components/ui/Dropdowns';
 import { useState } from 'react';
 
 export default function DesignSystem() {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState('test1');
 
   const handleSelectChange = (newValue) => {
     setSelectedOption(newValue);
@@ -31,7 +31,13 @@ export default function DesignSystem() {
         <DotLoader />
       </DesignComponent>
       <DesignComponent title={'Dropdowns'}>
-        <div id='dropdown-ds-container'>
+        <div id="dropdown-ds-container">
+          <Dropdown
+            options={['Month', 'Week', 'Day']}
+            value={selectedOption}
+            variant={'primary'}
+            onChange={handleSelectChange}
+          />
           <IconDropdown
             icons={[
               FilterIcon,

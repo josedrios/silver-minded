@@ -1,5 +1,4 @@
 .simple-select {
-  width: 30px;
   height: 30px;
   border-radius: $border-radius-xs;
 }
@@ -12,6 +11,7 @@
 }
 
 .select-box {
+  padding: 0 $spacing-sm;
   height: 30px;
   @include flex(row, center, center);
   cursor: pointer;
@@ -82,7 +82,6 @@
 
 .options-list {
   border-radius: $border-radius-xs;
-  width: 30px;
   position: absolute;
   top: calc(30px + $spacing-xs);
   list-style: none;
@@ -93,6 +92,8 @@
   height: 30px;
   @include flex(row, center, center);
   cursor: pointer;
+  padding: 0 $spacing-sm;
+  border: 1px solid transparent;
 
   &.primary {
     background-color: var(--primary-200);
@@ -163,4 +164,21 @@
     background-color: var(--gray-700);
   }
 }
+// SQUARE DROPDOWN
 
+.simple-select.square {
+  width: 30px;
+}
+
+.select-box.square {
+  padding: 0 0;
+}
+
+.options-list.square {
+  width: 30px;
+}
+
+.option.square {
+  height: 30px;
+  padding: 0 0;
+}
