@@ -1,12 +1,20 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
 
-export const SlideToggle = ({ toggleState, setToggleState, variant }) => {
+export const SlideToggle = ({
+  toggleState,
+  setToggleState,
+  variant,
+  label,
+}) => {
   return (
-    <div
-      className="slide-toggle"
-      onClick={() => setToggleState((prev) => !prev)}
-    >
-      <div className={toggleState ? `on ${variant}` : ''} />
+    <div className="slide-toggle-container">
+      {label && <label htmlFor={undefined}>{label}</label>}
+      <div
+        className="slide-toggle"
+        onClick={() => setToggleState((prev) => !prev)}
+      >
+        <div className={toggleState ? `on ${variant}` : ''} />
+      </div>
     </div>
   );
 };
@@ -16,6 +24,7 @@ export const SlideToggleText = ({
   setToggleState,
   options,
   variant,
+  label
 }) => {
   const pRefs = useRef({});
   const [pWidths, setPWidths] = useState({});
@@ -41,7 +50,9 @@ export const SlideToggleText = ({
   }, [toggleState, options, pWidths]);
 
   return (
-    <div className="slide-toggle-text">
+    <div className='slide-toggle-text-container'>
+      {label && <label htmlFor={undefined}>{label}</label>}
+      <div className="slide-toggle-text">
       {options.map((word) => (
         <p
           key={word}
@@ -59,6 +70,7 @@ export const SlideToggleText = ({
         }}
         className={variant}
       />
+    </div>
     </div>
   );
 };

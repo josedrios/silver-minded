@@ -10,9 +10,11 @@
 }
 
 .modal {
+    margin: $spacing-md;
     background-color: var(--gray-600);
     border-radius: $border-radius-xs;
+    width: 100%;
     max-width: 500px;
-    padding: $spacing-sm;
+    padding: $spacing-md;
     z-index: $z-modal;
 }

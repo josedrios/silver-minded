@@ -49,6 +49,7 @@ export default function DesignSystem() {
           toggleState={testToggle}
           setToggleState={setTestToggle}
           variant={'primary'}
+          label={'Label'}
         />
         <SlideToggle
           toggleState={testToggle}

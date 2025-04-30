@@ -1,3 +1,8 @@
+.row-select-container {
+  @include flex(column);
+  gap: $spacing-xs;
+}
+
 .row-select {
   @include flex(row, initial, center);
   border: 1px solid var(--gray-800);

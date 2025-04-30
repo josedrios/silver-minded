@@ -3,6 +3,7 @@ export const RowSelect = ({
   setSelectState,
   options,
   variant,
+  label
 }) => {
   const handleClick = (option) => {
     if (selectState.includes(option)) {
@@ -13,7 +14,9 @@ export const RowSelect = ({
   };
 
   return (
-    <div className="row-select">
+    <div className="row-select-container">
+      {label && <label htmlFor={undefined}>{label}</label>}
+      <div className="row-select">
       {options.map((option) => (
         <p
           onClick={() => handleClick(option)}
@@ -24,6 +27,7 @@ export const RowSelect = ({
           {option}
         </p>
       ))}
+    </div>
     </div>
   );
 };

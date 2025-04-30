@@ -1,3 +1,8 @@
+.slide-toggle-container {
+  @include flex(column);
+  gap: $spacing-xs;
+}
+
 .slide-toggle {
   height: 25px;
   width: 40px;
@@ -51,6 +56,11 @@
       }
     }
   }
+}
+
+.slide-toggle-text-container {
+  @include flex(column);
+  gap: $spacing-xs;
 }
 
 .slide-toggle-text {

@@ -98,3 +98,30 @@ input {
     flex: 1;
   }
 }
+
+// EVENT RELATED
+
+.event-form {
+  @include flex(column);
+  gap: $spacing-sm;
+
+  h5 {
+    text-align: center;
+    background-color: var(--gray-500);
+    padding: $spacing-xs;
+    border-radius: $border-radius-xs;
+  }
+
+  .time-row {
+    @include flex(row, initial, center);
+    gap: $spacing-xs;
+
+    .text-field {
+      width: 28px;
+    }
+  }
+
+  .event-form-submit {
+    margin: auto;
+  }
+}

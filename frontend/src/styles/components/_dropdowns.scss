@@ -1,6 +1,7 @@
 .simple-select {
   height: 30px;
   border-radius: $border-radius-xs;
+  width: fit-content;
 }
 
 .select-wrapper {
@@ -86,6 +87,7 @@
   top: calc(30px + $spacing-xs);
   list-style: none;
   overflow-y: auto;
+  z-index: 2;
 }
 
 .option {
