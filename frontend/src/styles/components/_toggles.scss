@@ -1,0 +1,78 @@
+.slide-toggle {
+  height: 25px;
+  width: 40px;
+  border-radius: $border-radius-xs;
+  border: 1px solid var(--gray-800);
+  position: relative;
+
+  div {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    width: calc((100% - 8px) / 2);
+    border-radius: 2px;
+    background-color: var(--text-800);
+    transition: background-color $transition-instant, left 0.2s;
+
+    &.on {
+      left: calc(100% - 4px - ((100% - 8px) / 2));
+    }
+
+    &:hover {
+      background-color: var(--text-600);
+    }
+
+    &.primary {
+      background-color: var(--primary-800);
+
+      &:hover {
+        background-color: var(--primary-600);
+      }
+    }
+
+    &.accent {
+      background-color: var(--accent-800);
+
+      &:hover {
+        background-color: var(--accent-600);
+      }
+    }
+
+    &.error {
+      background-color: var(--error-800);
+
+      &:hover {
+        background-color: var(--error-600);
+      }
+    }
+  }
+}
+
+.slide-toggle-text {
+  border-radius: $border-radius-xs;
+  height: 30px;
+  width: fit-content;
+  padding: 2px 4px;
+  border: 1px solid var(--gray-800);
+  @include flex(row, space-between, center);
+  gap: $spacing-sm;
+  position: relative;
+  cursor: pointer;
+
+  p {
+    white-space: nowrap;
+    padding: 0px 4px;
+    z-index: 1;
+  }
+
+  div {
+    transition: left $transition-instant;
+    border-radius: 2px;
+    position: absolute;
+    height: calc(30px - 2 * $spacing-xs);
+    top: 4px;
+    width: 10px;
+    background-color: rgba(255, 0, 0, 0.468);
+  }
+}

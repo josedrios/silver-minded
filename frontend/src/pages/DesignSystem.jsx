@@ -15,7 +15,9 @@ import {
   DotLoader,
   SlashLoader,
   Dropdown,
-  IconDropdown
+  IconDropdown,
+  SlideToggle,
+  SlideToggleText,
 } from '../components';
 import { useState } from 'react';
 
@@ -26,8 +28,35 @@ export default function DesignSystem() {
     setSelectedOption(newValue);
   };
 
+  const [testToggle, setTestToggle] = useState(false);
+
+  const [testToggleText, setToggleText] = useState('year');
+
   return (
     <div id="design-component-grid">
+      <DesignComponent title={'Toggles'}>
+        <SlideToggle
+          toggleState={testToggle}
+          setToggleState={setTestToggle}
+          variant={'primary'}
+        />
+        <SlideToggle
+          toggleState={testToggle}
+          setToggleState={setTestToggle}
+          variant={'accent'}
+        />
+        <SlideToggle
+          toggleState={testToggle}
+          setToggleState={setTestToggle}
+          variant={'error'}
+        />
+        <SlideToggleText
+          toggleState={testToggleText}
+          setToggleState={setToggleText}
+          options={['year', 'month', 'week']}
+          variant={'primary'}
+        />
+      </DesignComponent>
       <DesignComponent title={'Loader'}>
         <SlashLoader />
         <DotLoader />

@@ -14,6 +14,10 @@ export default function Time() {
     day: '',
   });
   const [eventModal, setEventModal] = useState(false);
+  const [createEventForm, setCreateEventForm] = useState({
+    info: '',
+    
+  })
 
   return (
     <div id="time-container">
