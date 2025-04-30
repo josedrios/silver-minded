@@ -25,3 +25,5 @@ export {
 export { SlashLoader, DotLoader } from './ui/Loaders';
 
 export { SlideToggle, SlideToggleText } from './ui/Toggles'
+
+export { RowSelect } from './ui/Selects'

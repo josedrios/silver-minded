@@ -5,6 +5,10 @@
   border: 1px solid var(--gray-800);
   position: relative;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   div {
     position: absolute;
     top: 4px;
@@ -64,6 +68,16 @@
     white-space: nowrap;
     padding: 0px 4px;
     z-index: 1;
+    color: var(--text-600);
+    transition: color $transition-instant;
+
+    &.current{
+      color: var(--text-800);
+    }
+    
+    &:hover {
+      color: var(--text-800);
+    }
   }
 
   div {
@@ -73,6 +87,19 @@
     height: calc(30px - 2 * $spacing-xs);
     top: 4px;
     width: 10px;
-    background-color: rgba(255, 0, 0, 0.468);
+
+    // VARIANTS
+    &.primary {
+      background-color: rgba(var(--primary-400-rgb), 0.7);
+    }
+
+    &.accent {
+      background-color: rgba(var(--accent-400-rgb), 0.7);
+    }
+
+    &.error {
+      background-color: rgba(var(--error-400-rgb), 0.7);
+    }
   }
 }
+

@@ -37,7 +37,7 @@ export const SlideToggleText = ({
       (sum, key) => sum + (pWidths[key] || 0),
       0
     );
-    return 5 + totalWidth + prevOptions.length * 10;
+    return 4 + totalWidth + prevOptions.length * 9.5;
   }, [toggleState, options, pWidths]);
 
   return (
@@ -47,6 +47,7 @@ export const SlideToggleText = ({
           key={word}
           ref={(el) => (pRefs.current[word] = el)}
           onClick={() => setToggleState(word)}
+          className={word === toggleState ? 'current' : ''}
         >
           {word.toUpperCase()}
         </p>
@@ -56,6 +57,7 @@ export const SlideToggleText = ({
           left: `${leftOffset}px`,
           width: `${pWidths[toggleState]}px`,
         }}
+        className={variant}
       />
     </div>
   );

@@ -1,0 +1,40 @@
+.row-select {
+  @include flex(row, initial, center);
+  border: 1px solid var(--gray-800);
+  border-radius: $border-radius-xs;
+  width: fit-content;
+  gap: $spacing-xs;
+  padding: 0 $spacing-xs;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  p {
+    color: var(--text-600);
+    padding: 0 $spacing-xs;
+    border-radius: $border-radius-xs;
+    transition: color $transition-instant, background-color $transition-instant;
+
+    &.active {
+      color: var(--text-800);
+
+      &.primary {
+        background-color: rgba(var(--primary-400-rgb), 0.7);
+      }
+
+      &.accent {
+        background-color: rgba(var(--accent-400-rgb), 0.7);
+      }
+
+      &.error {
+        background-color: rgba(var(--error-400-rgb), 0.7);
+      }
+    }
+
+    &:hover {
+      color: var(--text-800);
+    }
+  }
+}

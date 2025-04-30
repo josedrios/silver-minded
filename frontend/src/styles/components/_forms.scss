@@ -30,6 +30,8 @@ input {
       flex: 1;
       height: 100%;
       background-color: transparent;
+
+      transition: border-color $transition-instant;
     }
 
     &.primary {

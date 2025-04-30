@@ -18,6 +18,7 @@ import {
   IconDropdown,
   SlideToggle,
   SlideToggleText,
+  RowSelect,
 } from '../components';
 import { useState } from 'react';
 
@@ -29,11 +30,20 @@ export default function DesignSystem() {
   };
 
   const [testToggle, setTestToggle] = useState(false);
-
   const [testToggleText, setToggleText] = useState('year');
+
+  const [rowSelect, setRowSelect] = useState([]);
 
   return (
     <div id="design-component-grid">
+      <DesignComponent title={'Selects'}>
+        <RowSelect
+          selectState={rowSelect}
+          setSelectState={setRowSelect}
+          options={['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']}
+          variant={'primary'}
+        />
+      </DesignComponent>
       <DesignComponent title={'Toggles'}>
         <SlideToggle
           toggleState={testToggle}
@@ -48,6 +58,18 @@ export default function DesignSystem() {
         <SlideToggle
           toggleState={testToggle}
           setToggleState={setTestToggle}
+          variant={'error'}
+        />
+        <SlideToggleText
+          toggleState={testToggleText}
+          setToggleState={setToggleText}
+          options={['year', 'month', 'week']}
+          variant={'accent'}
+        />
+        <SlideToggleText
+          toggleState={testToggleText}
+          setToggleState={setToggleText}
+          options={['year', 'month', 'week']}
           variant={'error'}
         />
         <SlideToggleText
