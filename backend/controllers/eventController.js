@@ -1,9 +1,12 @@
 const Event = require("../models/event");
 
 exports.createEvent = async (req, res) => {
+  console.log('CHECKPOINT: eventController.jsx');
   try {
-    const { info, reoccurring, dueAt, task } = req.body;
-    const newEvent = new Event({ info, reoccurring, dueAt, task });
+    const { event } = req.body;
+    console.log(event);
+    const newEvent = new Event({ info: event.info,
+       date: event.date, time: event.time, reoccurring: event.reoccurring});
     await newEvent.save();
     return res.status(201).json(newEvent);
   } catch (err) {

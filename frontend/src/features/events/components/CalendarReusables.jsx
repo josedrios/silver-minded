@@ -7,6 +7,7 @@ import {
   Button,
 } from '../../../components';
 import { formattedToday, weekHeaders } from '../util/dateUtil';
+import { eventFormValidation } from '../util/eventFormUtil';
 
 export function WeekHeader() {
   return (
@@ -32,14 +33,14 @@ export function CreateEvent() {
       frequency: 'year',
       frame: 'allday',
       days: [],
-      start: formattedToday,
+      start: '',
       end: '',
     },
   });
 
   useEffect(() => {
     console.log(eventForm);
-  }, [eventForm])
+  }, [eventForm]);
 
   const handleEventInfo = (newValue) => {
     setEventForm((prev) => ({
@@ -137,13 +138,20 @@ export function CreateEvent() {
       ...prev,
       reoccurring: {
         ...prev.reoccurring,
-        start: newValue,
+        end: newValue,
       },
     }));
   };
 
   return (
-    <form className="event-form" action="">
+    <form
+      className="event-form"
+      action=""
+      onSubmit={(e) => {
+        e.preventDefault();
+        eventFormValidation(eventForm, setEventForm);
+      }}
+    >
       <h5>Create Event Form</h5>
       <TextField
         label={'Info'}

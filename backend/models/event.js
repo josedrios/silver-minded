@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema({
   info: { type: String, required: true },
-  date: { type: Date },
+  date: { type: Date, default: null },
 
   time: {
     type: {
@@ -23,6 +23,7 @@ const eventSchema = new mongoose.Schema({
     },
     default: null,
   },
+
   createdAt: { type: Date, default: Date.now },
 });
 
