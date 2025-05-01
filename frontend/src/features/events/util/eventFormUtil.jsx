@@ -1,7 +1,8 @@
 import { createEvent } from '../services/eventService';
 import { formatDate, today } from './dateUtil';
 
-export const eventFormValidation = async (form, setForm) => {
+export const eventFormValidation = async (form, setForm, events, setEvents) => {
+
   let updatedForm = { ...form };
 
   if (form.type === 'allday') {
@@ -54,7 +55,20 @@ export const eventFormValidation = async (form, setForm) => {
     }
   }
 
-  await createEvent(updatedForm);
+  const newEvent = await createEvent(updatedForm);
+
+  console.log(`NEW EVENT: ${newEvent}`);
+
+  setEvents((prev) => {
+    const updatedEvents = prev?.view?.events || []; // Default to an empty array if undefined
+    return {
+      ...prev,
+      view: {
+        ...prev.view,
+        events: [...updatedEvents, newEvent], // Add the new event to the events array
+      },
+    };
+  });
 
   setForm({
     info: '',

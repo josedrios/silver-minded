@@ -31,10 +31,10 @@ export default function Time() {
 
   return (
     <div id="time-container">
-      <CalendarView events={events.view.events}/>
-      <CalendarList />
+      <CalendarView events={events.view.events} viewDate={events.view.frame.start}/>
+      {/* <CalendarList /> */}
       <Modal isOpen={eventModal} onClose={() => setEventModal(false)}>
-        <CreateEvent />
+        <CreateEvent events={events} setEvents={setEvents}/>
       </Modal>
       <button onClick={() => setEventModal(true)}>open</button>
     </div>

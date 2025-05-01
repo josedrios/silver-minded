@@ -28,7 +28,7 @@ export default function CalendarList() {
         handleSelectChange={handleSelectChange}
       />
       <WeekHeader />
-      <MonthDisplay />
+      <WeekDisplay />
     </div>
   );
 }

@@ -19,7 +19,7 @@ export function WeekHeader() {
   );
 }
 
-export function CreateEvent() {
+export function CreateEvent({events, setEvents}) {
   const [eventForm, setEventForm] = useState({
     info: '',
     type: 'allday',
@@ -149,7 +149,7 @@ export function CreateEvent() {
       action=""
       onSubmit={(e) => {
         e.preventDefault();
-        eventFormValidation(eventForm, setEventForm);
+        eventFormValidation(eventForm, setEventForm, events, setEvents);
       }}
     >
       <h5>Create Event Form</h5>

@@ -11,7 +11,7 @@ export async function createEvent(event) {
 
     const data = await response.json();
     if (!response.ok) throw new Error(data.message || 'Failed to create event');
-    return;
+    return data;
   } catch (err) {
     console.error('Create Event Error:', err.message);
     return;

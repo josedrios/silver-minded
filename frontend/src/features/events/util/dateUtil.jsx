@@ -26,6 +26,13 @@ export const formatDate = (date = new Date()) => {
   return date.toISOString().split('T')[0];
 };
 
+export function formatMonthYear(dateStr) {
+  const date = new Date(dateStr);
+  return `${date.toLocaleString('default', {
+    month: 'long',
+  })} ${date.getFullYear()}`;
+}
+
 export const getMonthName = (monthNumber) => {
   return monthNames[monthNumber];
 };
