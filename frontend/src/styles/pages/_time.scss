@@ -47,6 +47,21 @@
     background-color: var(--gray-400);
     grid-template-columns: repeat(7, 1fr);
   }
+
+  .dot-container {
+    width: 100%;
+    margin: auto;
+    max-width: 30px;
+    height: 10px;
+    bottom: 3px;
+    @include flex(row, space-around, center);
+
+    .event-dot {
+      @include box(4px);
+      border-radius: $border-radius-c;
+      background-color: var(--accent-800);
+    }
+  }
 }
 
 .calendar-list-container {

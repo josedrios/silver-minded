@@ -1,8 +1,4 @@
-import {
-  Button,
-  ArrowLeftIcon,
-  ArrowRightIcon
-} from '../../../components';
+import { Button, ArrowLeftIcon, ArrowRightIcon } from '../../../components';
 import {
   day,
   month,
@@ -12,7 +8,7 @@ import {
 } from '../util/dateUtil';
 import { WeekHeader } from './CalendarReusables';
 
-export default function CalendarView() {
+export default function CalendarView({ events }) {
   return (
     <div className="calendar-view-container">
       <header className="calendar-view-header">
@@ -34,14 +30,28 @@ export default function CalendarView() {
               -
             </div>
           ))}
-          {Array.from({ length: getDaysInMonth(year, month) }).map((_, i) => (
-            <div
-              className={`calendar-day ${day === i + 1 ? 'today' : i + 1}`}
-              key={i}
-            >
-              {i + 1}
-            </div>
-          ))}
+          {Array.from({ length: getDaysInMonth(year, month) }).map((_, i) => {
+            const currentDay = i + 1;
+            const currentEvents = events.filter(
+              (event) => new Date(event.date).getDate() === currentDay
+            )
+
+            return (
+              <div
+                className={`calendar-day ${
+                  currentDay === new Date().getDate() ? 'today' : ''
+                }`} 
+                key={i}
+              >
+                {currentDay}
+                <div className='dot-container'>
+                {currentEvents.slice(0,3).map((_, index) => (
+                  <div key={index} className='event-dot'/>
+                ))}
+                </div>
+              </div>
+            );
+          })}
           {Array.from({
             length: 35 - getDaysInMonth(year, month) - getFirstDay(year, month),
           }).map((_, i) => (

@@ -22,15 +22,8 @@ export const day = today.getDate();
 export const month = today.getMonth();
 export const year = today.getFullYear();
 
-export const formatDate = (date) => {
-  const parsedDate = new Date(date);
-  
-  if (isNaN(parsedDate)) {
-    console.error('Invalid Date:', date);
-    return '';  // Returning an empty string for invalid dates
-  }
-
-  return parsedDate.toISOString().split('T')[0];  // Format to YYYY-MM-DD
+export const formatDate = (date = new Date()) => {
+  return date.toISOString().split('T')[0];
 };
 
 export const getMonthName = (monthNumber) => {
@@ -64,7 +57,7 @@ export const getMonthRange = (year, month) => {
   const end = new Date(year, month + 1, 0);
   return {
     start: start.toISOString().split('T')[0],
-    end: end.toISOString().split('T')[0]
+    end: end.toISOString().split('T')[0],
   };
 };
 

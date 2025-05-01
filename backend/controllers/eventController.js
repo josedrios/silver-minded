@@ -59,14 +59,8 @@ exports.deleteEvent = async (req, res) => {
 
 exports.getEvents = async (req, res) => {
   try {
-    const start = parseInt(req.params.start);
-    const end = parseInt(req.params.end);
-
-    if (isNaN(start) || isNaN(end)) {
-      return res.status(400).json({
-        message: 'Invalid start or end date',
-      });
-    }
+    const start = (req.params.start);
+    const end = (req.params.end);
 
     console.log(start, end);
 

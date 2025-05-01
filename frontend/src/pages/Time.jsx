@@ -4,7 +4,6 @@ import {
   CalendarView,
   CalendarList,
   fetchEvents,
-  formatDate,
 } from '../features/events';
 import { CreateEvent } from '../features/events';
 import { Modal } from '../components';
@@ -14,23 +13,25 @@ export default function Time() {
   const [eventModal, setEventModal] = useState(false);
 
   useEffect(() => {
-    const { start, end } = events.view.frame;
-    
-    if (start && end) {
-      const formattedStart = formatDate(start);
-      const formattedEnd = formatDate(end);
+    const fetchAndUpdateEvents = async () => {
+      const { start, end } = events.view.frame;
+      const fetchedEvents = await fetchEvents(start, end);
   
-      if (formattedStart && formattedEnd) {
-        fetchEvents(formattedStart, formattedEnd);
-      }
-    } else {
-      console.error('Invalid start or end date in events view frame.');
-    }
-  }, [events.view.frame.start, events.view.frame.end]); 
+      setEvents((prev) => ({
+        ...prev,
+        view: {
+          ...prev.view,
+          events: fetchedEvents, 
+        },
+      }));
+    };
+  
+    fetchAndUpdateEvents();
+  }, [events.view.frame.start, events.view.frame.end]);
 
   return (
     <div id="time-container">
-      <CalendarView />
+      <CalendarView events={events.view.events}/>
       <CalendarList />
       <Modal isOpen={eventModal} onClose={() => setEventModal(false)}>
         <CreateEvent />

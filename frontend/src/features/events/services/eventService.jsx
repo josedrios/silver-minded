@@ -20,10 +20,6 @@ export async function createEvent(event) {
 
 export async function fetchEvents(start, end) {
   try {
-    if (!start || !end) {
-      throw new Error('Invalid start or end date');
-    }
-
     const response = await fetch(
       `${
         import.meta.env.VITE_BACKEND_URL
