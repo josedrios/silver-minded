@@ -8,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.get("/:year/:month", getEvents);
+router.get("/:start/:end", getEvents);
 router.post("/", createEvent);
 router.put("/:id", editEvent);
 router.delete("/:id", deleteEvent);

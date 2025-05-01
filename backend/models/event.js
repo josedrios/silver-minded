@@ -15,7 +15,7 @@ const eventSchema = new mongoose.Schema({
 
   reoccurring: {
     type: {
-      frequency: { type: String, enum: ['weekly', 'monthly', 'year'] },
+      frequency: { type: String, enum: ['week', 'month', 'year'] },
       frame: { type: String, enum: ['allday', 'instance'] },
       days: [String],
       start: { type: Date, default: null },

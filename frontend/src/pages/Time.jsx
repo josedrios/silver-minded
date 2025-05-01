@@ -1,23 +1,32 @@
-import { useState } from 'react';
-import { CalendarView, CalendarList } from '../features/events';
-import { CreateEvent } from '../features/events/components/CalendarReusables';
+import { useState, useContext, useEffect } from 'react';
+import { AppContext } from '../context/AppContext';
 import {
-  Modal
-} from '../components'
+  CalendarView,
+  CalendarList,
+  fetchEvents,
+  formatDate,
+} from '../features/events';
+import { CreateEvent } from '../features/events';
+import { Modal } from '../components';
 
 export default function Time() {
-  const [calendarRange, setCalendarRange] = useState({
-    increment: 'week',
-    year: '',
-    month: '',
-    week: '',
-    day: '',
-  });
+  const { events, setEvents } = useContext(AppContext);
   const [eventModal, setEventModal] = useState(false);
-  const [createEventForm, setCreateEventForm] = useState({
-    info: '',
+
+  useEffect(() => {
+    const { start, end } = events.view.frame;
     
-  })
+    if (start && end) {
+      const formattedStart = formatDate(start);
+      const formattedEnd = formatDate(end);
+  
+      if (formattedStart && formattedEnd) {
+        fetchEvents(formattedStart, formattedEnd);
+      }
+    } else {
+      console.error('Invalid start or end date in events view frame.');
+    }
+  }, [events.view.frame.start, events.view.frame.end]); 
 
   return (
     <div id="time-container">

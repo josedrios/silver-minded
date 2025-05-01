@@ -6,7 +6,7 @@ import {
   RowSelect,
   Button,
 } from '../../../components';
-import { formattedToday, weekHeaders } from '../util/dateUtil';
+import { today, formatDate, weekHeaders } from '../util/dateUtil';
 import { eventFormValidation } from '../util/eventFormUtil';
 
 export function WeekHeader() {
@@ -23,7 +23,7 @@ export function CreateEvent() {
   const [eventForm, setEventForm] = useState({
     info: '',
     type: 'allday',
-    date: formattedToday,
+    date: formatDate(today),
     time: {
       hour: '12',
       minute: '00',

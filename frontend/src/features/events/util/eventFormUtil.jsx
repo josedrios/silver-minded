@@ -1,73 +1,65 @@
 import { createEvent } from '../services/eventService';
-import { formattedToday } from './dateUtil';
+import { formatDate, today } from './dateUtil';
 
 export const eventFormValidation = async (form, setForm) => {
+  let updatedForm = { ...form };
+
   if (form.type === 'allday') {
-    setForm((prev) => ({
-      ...prev,
-      time: null,
-      reoccurring: null,
-    }));
-  } else if (form.type === 'instance') {
-    setForm((prev) => ({
-      ...prev,
-      reoccurring: null,
-    }));
+    updatedForm.time = {
+      hour: null,
+      minute: null,
+      period: null,
+    };
+  } 
+  
+  if (form.type === 'instance' || form.type === 'allday') {
+    updatedForm.reoccurring = {
+      frequency: null,
+      frame: null,
+      days: null,
+      start: null,
+      end: null,
+    };
   } else if (form.type === 'reoccurring') {
-    if (form.start === '') {
-      setForm((prev) => ({
-        ...prev,
-        reoccurring: {
-          ...prev.reoccurring,
-          start: null,
-        },
-      }));
+    if (form.reoccurring.start === '') {
+      updatedForm.reoccurring = {
+        ...updatedForm.reoccurring,
+        start: null,
+      };
     }
-    if (form.end === '') {
-      setForm((prev) => ({
-        ...prev,
-        reoccurring: {
-          ...prev.reoccurring,
-          end: null,
-        },
-      }));
+    if (form.reoccurring.end === '') {
+      updatedForm.reoccurring = {
+        ...updatedForm.reoccurring,
+        end: null,
+      };
     }
-    if (form.frequency !== 'week') {
-      setForm((prev) => ({
-        ...prev,
-        reoccurring: {
-          ...prev.reoccurring,
-          days: null,
-        },
-      }));
+    if (form.reoccurring.frequency !== 'week') {
+      updatedForm.reoccurring = {
+        ...updatedForm.reoccurring,
+        days: null,
+      };
     }
-    if (form.frequency === 'week') {
-      setForm((prev) => ({
-        ...prev,
-        reoccurring: {
-          ...prev.reoccurring,
-          date: null,
-        },
-      }));
+    if (form.reoccurring.frequency === 'week') {
+      updatedForm.reoccurring = {
+        ...updatedForm.reoccurring,
+        date: null,
+      };
     }
-    if (form.frame !== 'instance') {
-      setForm((prev) => ({
-        ...prev,
-        reoccurring: {
-          ...prev.reoccurring,
-          time: null,
-        },
-      }));
+    if (form.reoccurring.frame === 'allday') {
+      updatedForm.time = {
+        hour: null,
+        minute: null,
+        period: null,
+      };
     }
   }
 
-  console.log('CHECKPOINT: eventFormUtil.jsx');
-  await createEvent(form);
+  await createEvent(updatedForm);
 
   setForm({
     info: '',
     type: 'allday',
-    date: formattedToday,
+    date: formatDate(today),
     time: {
       hour: '12',
       minute: '00',

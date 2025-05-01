@@ -1,18 +1,22 @@
-const Event = require("../models/event");
+const Event = require('../models/event');
 
 exports.createEvent = async (req, res) => {
-  console.log('CHECKPOINT: eventController.jsx');
   try {
     const { event } = req.body;
     console.log(event);
-    const newEvent = new Event({ info: event.info,
-       date: event.date, time: event.time, reoccurring: event.reoccurring});
+    const newEvent = new Event({
+      info: event.info,
+      date: event.date,
+      time: event.time,
+      reoccurring: event.reoccurring,
+    });
+    console.log(newEvent);
     await newEvent.save();
     return res.status(201).json(newEvent);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while creating new event",
+      message: 'Error occurred while creating new event',
       error: err.message,
     });
   }
@@ -32,7 +36,7 @@ exports.editEvent = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while editing task",
+      message: 'Error occurred while editing task',
       error: err.message,
     });
   }
@@ -47,7 +51,7 @@ exports.deleteEvent = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while deleting event",
+      message: 'Error occurred while deleting event',
       error: err.message,
     });
   }
@@ -55,30 +59,56 @@ exports.deleteEvent = async (req, res) => {
 
 exports.getEvents = async (req, res) => {
   try {
-    const year = parseInt(req.params.year);
-    const month = parseInt(req.params.month);
+    const start = parseInt(req.params.start);
+    const end = parseInt(req.params.end);
 
-    const start = new Date(year, month, 1);
-    const end = new Date(year, month + 1, 1);
+    if (isNaN(start) || isNaN(end)) {
+      return res.status(400).json({
+        message: 'Invalid start or end date',
+      });
+    }
+
+    console.log(start, end);
 
     const events = await Event.find({
       $or: [
+        // Events with a specific 'date' that falls within start and end
         {
-          dueAt: { $gte: start, $lte: end }
+          date: {
+            $gte: start, // Events with a date greater than or equal to 'start'
+            $lte: end, // Events with a date less than or equal to 'end'
+          },
         },
+        // Recurring yearly events that are in the given range
         {
-          reoccurring: "yearly",
-          $expr: { $eq: [{ $month: "$dueAt" }, month + 1] }
+          'reoccurring.frequency': 'yearly',
+          'reoccurring.start': {
+            $lte: end, // The recurring event's start should be less than or equal to 'end'
+          },
+          'reoccurring.end': {
+            $gte: start, // The recurring event's end should be greater than or equal to 'start'
+          },
         },
-        { reoccurring: 'monthly'}
-      ]
+        // Recurring monthly events that are in the given range
+        {
+          'reoccurring.frequency': 'monthly',
+          'reoccurring.start': {
+            $lte: end,
+          },
+          'reoccurring.end': {
+            $gte: start,
+          },
+        },
+      ],
+    }).sort({ date: 1 });
 
-    }).sort({ dueAt: 1 });
+    console.log(events);
+
     res.json(events);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while getting events",
+      message: 'Error occurred while getting events',
       error: err.message,
     });
   }
