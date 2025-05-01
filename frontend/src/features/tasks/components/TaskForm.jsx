@@ -5,6 +5,7 @@ import {
   Button,
   PlusIcon,
   TrashIcon,
+  PenIcon
 } from '../../../components';
 
 export default function TaskForm({

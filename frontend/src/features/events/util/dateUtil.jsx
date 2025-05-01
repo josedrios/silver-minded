@@ -16,6 +16,8 @@ export const monthNames = [
 export const weekHeaders = ['s', 'm', 't', 'w', 't', 'f', 's'];
 
 export const today = new Date();
+export const formattedToday = new Date().toISOString().split('T')[0];
+
 export const time = today.getTime();
 export const day = today.getDate();
 export const month = today.getMonth();

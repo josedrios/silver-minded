@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   TextField,
   SlideToggleText,
   Dropdown,
   RowSelect,
-  Button
+  Button,
 } from '../../../components';
-import { weekHeaders } from '../util/dateUtil';
+import { formattedToday, weekHeaders } from '../util/dateUtil';
 
 export function WeekHeader() {
   return (
@@ -22,7 +22,7 @@ export function CreateEvent() {
   const [eventForm, setEventForm] = useState({
     info: '',
     type: 'allday',
-    date: '',
+    date: formattedToday,
     time: {
       hour: '12',
       minute: '00',
@@ -32,13 +32,26 @@ export function CreateEvent() {
       frequency: 'year',
       frame: 'allday',
       days: [],
+      start: formattedToday,
+      end: '',
     },
   });
+
+  useEffect(() => {
+    console.log(eventForm);
+  }, [eventForm])
 
   const handleEventInfo = (newValue) => {
     setEventForm((prev) => ({
       ...prev,
       info: newValue,
+    }));
+  };
+
+  const handleEventDate = (newValue) => {
+    setEventForm((prev) => ({
+      ...prev,
+      date: newValue,
     }));
   };
 
@@ -109,6 +122,26 @@ export function CreateEvent() {
     }));
   };
 
+  const handleReoccurringStart = (newValue) => {
+    setEventForm((prev) => ({
+      ...prev,
+      reoccurring: {
+        ...prev.reoccurring,
+        start: newValue,
+      },
+    }));
+  };
+
+  const handleReoccurringEnd = (newValue) => {
+    setEventForm((prev) => ({
+      ...prev,
+      reoccurring: {
+        ...prev.reoccurring,
+        start: newValue,
+      },
+    }));
+  };
+
   return (
     <form className="event-form" action="">
       <h5>Create Event Form</h5>
@@ -125,50 +158,113 @@ export function CreateEvent() {
         options={['allday', 'instance', 'reoccurring']}
         variant={'primary'}
       />
-      <SlideToggleText
-        label={'Frequency'}
-        toggleState={eventForm.reoccurring.frequency}
-        setToggleState={handleEventFrequency}
-        options={['year', 'month', 'week']}
-        variant={'primary'}
-      />
-      <SlideToggleText
-        label={'Frame'}
-        toggleState={eventForm.reoccurring.frame}
-        setToggleState={handleEventFrame}
-        options={['allday', 'instance']}
-        variant={'primary'}
-      />
-      <RowSelect
-        label="Weekdays"
-        selectState={eventForm.reoccurring.days}
-        setSelectState={handleEventDays}
-        options={['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']}
-        variant={'primary'}
-      />
-      <TextField label="Date" type="date" />
-      <label htmlFor="">Time</label>
-      <div className="time-row">
+      {eventForm.type === 'reoccurring' ? (
+        <>
+          <SlideToggleText
+            label={'Frequency'}
+            toggleState={eventForm.reoccurring.frequency}
+            setToggleState={handleEventFrequency}
+            options={['year', 'month', 'week']}
+            variant={'primary'}
+          />
+          <SlideToggleText
+            label={'Frame'}
+            toggleState={eventForm.reoccurring.frame}
+            setToggleState={handleEventFrame}
+            options={['allday', 'instance']}
+            variant={'primary'}
+          />
+          {eventForm.reoccurring.frequency === 'week' ? (
+            <RowSelect
+              label="Weekdays"
+              selectState={eventForm.reoccurring.days}
+              setSelectState={handleEventDays}
+              options={['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']}
+              variant={'primary'}
+            />
+          ) : (
+            ''
+          )}
+        </>
+      ) : (
+        ''
+      )}
+      {eventForm.type !== 'reoccurring' ||
+      eventForm.reoccurring.frequency !== 'week' ? (
         <TextField
-          value={eventForm.time.hour}
-          onChange={(e) => handleEventHour(e.target.value)}
-          variant={'primary'}
+          label="Date"
+          type="date"
+          value={eventForm.date}
+          onChange={(e) => handleEventDate(e.target.value)}
         />
-        <p>:</p>
-         <TextField
-          value={eventForm.time.minute}
-          onChange={(e) => handleEventMinute(e.target.value)}
-          variant={'primary'}
-        />
-        <Dropdown 
-          options={['AM', 'PM']}
-          value={eventForm.time.period}
-          onChange={handleEventPeriod}
-          variant={'gray'}
-        />
-      </div>
-      <Button className='event-form-submit'>
-        Create
+      ) : (
+        ''
+      )}
+      {eventForm.type === 'instance' ||
+      (eventForm.type === 'reoccurring' &&
+        eventForm.reoccurring.frame === 'instance') ? (
+        <>
+          <label htmlFor="">Time</label>
+          <div className="time-row">
+            <TextField
+              type="number"
+              value={eventForm.time.hour}
+              onChange={(e) => {
+                const num = Number(e.target.value);
+                if (num >= 0 && num <= 12) {
+                  handleEventHour(String(num).padStart(2, '0'));
+                } else if (e.target.value === '') {
+                  handleEventHour('');
+                }
+              }}
+              variant={'primary'}
+            />
+            <p>:</p>
+            <TextField
+              type="number"
+              value={eventForm.time.minute}
+              onChange={(e) => {
+                const num = Number(e.target.value);
+                if (num >= 0 && num <= 59) {
+                  handleEventMinute(String(num).padStart(2, '0'));
+                } else if (e.target.value === '') {
+                  handleEventMinute('');
+                }
+              }}
+              variant={'primary'}
+            />
+            <Dropdown
+              options={['AM', 'PM']}
+              value={eventForm.time.period}
+              onChange={handleEventPeriod}
+              variant={'gray'}
+            />
+          </div>
+        </>
+      ) : (
+        ''
+      )}
+
+      {eventForm.type === 'reoccurring' ? (
+        <>
+          <TextField
+            label="Start"
+            type="date"
+            value={eventForm.reoccurring.start}
+            onChange={(e) => handleReoccurringStart(e.target.value)}
+          />
+          <TextField
+            label="End"
+            type="date"
+            value={eventForm.reoccurring.end}
+            onChange={(e) => handleReoccurringEnd(e.target.value)}
+          />
+        </>
+      ) : (
+        ''
+      )}
+      <Button className="event-form-submit" type="submit">
+        CREATE
       </Button>
     </form>
   );
