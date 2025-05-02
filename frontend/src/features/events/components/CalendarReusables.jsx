@@ -6,8 +6,8 @@ import {
   RowSelect,
   Button,
 } from '../../../components';
-import { today, formatDate, weekHeaders } from '../util/dateUtil';
 import { eventFormValidation } from '../util/eventFormUtil';
+import { today, formatDate, weekHeaders } from '../util/dateUtil';
 
 export function WeekHeader() {
   return (

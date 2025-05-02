@@ -1,3 +1,5 @@
+import { convertToUTC, getStartEndDates } from "..";
+
 export async function createEvent(event) {
   try {
     const response = await fetch(
@@ -18,12 +20,17 @@ export async function createEvent(event) {
   }
 }
 
-export async function fetchEvents(start, end) {
+export async function fetchEvents(year, month) {
   try {
+    const {start, end} = getStartEndDates(year, month);
+
+    const startUTC = convertToUTC(start);
+    const endUTC = convertToUTC(end);
+
     const response = await fetch(
       `${
         import.meta.env.VITE_BACKEND_URL
-      }/api/event/${start}/${end}`,
+      }/api/event/${startUTC}/${endUTC}`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },

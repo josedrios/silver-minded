@@ -1,5 +1,4 @@
 import { createEvent } from '../services/eventService';
-import { formatDate, today } from './dateUtil';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
 
@@ -57,23 +56,10 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
 
   const newEvent = await createEvent(updatedForm);
 
-  console.log(`NEW EVENT: ${newEvent}`);
-
-  setEvents((prev) => {
-    const updatedEvents = prev?.view?.events || []; // Default to an empty array if undefined
-    return {
-      ...prev,
-      view: {
-        ...prev.view,
-        events: [...updatedEvents, newEvent], // Add the new event to the events array
-      },
-    };
-  });
-
   setForm({
     info: '',
     type: 'allday',
-    date: formatDate(today),
+    date: "",
     time: {
       hour: '12',
       minute: '00',

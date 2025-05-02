@@ -1,71 +1,68 @@
-export const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const weekHeaders = ['s', 'm', 't', 'w', 't', 'f', 's'];
-
 export const today = new Date();
 
-export const time = today.getTime();
-export const day = today.getDate();
-export const month = today.getMonth();
-export const year = today.getFullYear();
-
 export const formatDate = (date = new Date()) => {
-  return date.toISOString().split('T')[0];
+  return dayjs(date).format('YYYY-MM-DD');
 };
 
-export function formatMonthYear(dateStr) {
-  const date = new Date(dateStr);
-  return `${date.toLocaleString('default', {
-    month: 'long',
-  })} ${date.getFullYear()}`;
-}
-
-export const getMonthName = (monthNumber) => {
-  return monthNames[monthNumber];
-};
-
-export const getFirstDay = (year, month) => {
-  return new Date(year, month, 1).getDay();
+export const beforeEmptyDays = (year, month) => {
+  const days = new Date(year, month, 1).getDay();
+  return days;
 };
 
 export const getDaysInMonth = (year, month) => {
-  return new Date(year, month + 1, 0).getDate();
+  const date = new Date(year, month + 1, 0);
+  return date.getDate();
 };
 
-export const getWeeksInMonth = (year, month) => {
-  const firstDay = new Date(year, month, 1);
-  const lastDay = new Date(year, month + 1, 0);
-
-  const used = firstDay.getDay() + lastDay.getDate();
-
-  return Math.ceil(used / 7);
+export const getMonthName = (monthIndex) => {
+  return dayjs().month(monthIndex).format('MMMM');
 };
 
-export const getCurrentWeekOfMonth = (date = new Date()) => {
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  return Math.ceil((date.getDate() + firstDay.getDay()) / 7);
+export const changeMonth = (setFrame, type = true) => {
+  setFrame((prev) => {
+    const newMonth = type
+      ? prev.month === 11
+        ? 0
+        : prev.month + 1
+      : prev.month === 0
+      ? 11
+      : prev.month - 1;
+    const newYear =
+      prev.month === 11 && type
+        ? prev.year + 1
+        : prev.month === 0 && !type
+        ? prev.year - 1
+        : prev.year;
+
+    return { ...prev, month: newMonth, year: newYear };
+  });
 };
 
-export const getMonthRange = (year, month) => {
-  const start = new Date(year, month, 1);
-  const end = new Date(year, month + 1, 0);
+export const getStartEndDates = (year, month) => {
+  const start = dayjs(
+    `${year}-${(month + 1).toString().padStart(2, '0')}-01`
+  ).startOf('month');
+  const end = start.endOf('month');
+
   return {
-    start: start.toISOString().split('T')[0],
-    end: end.toISOString().split('T')[0],
+    start: start.toISOString(),
+    end: end.toISOString(),
   };
 };
 
-export const getWeekRange = (year, month, week) => {};
+export const convertToUTC = (date) => {
+  return dayjs(date).utc().toISOString();
+};
+
+export const convertToLocal = (date) => {
+  return dayjs.utc(date).local();
+};
+

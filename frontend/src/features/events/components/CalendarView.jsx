@@ -1,17 +1,33 @@
 import { Button, ArrowLeftIcon, ArrowRightIcon } from '../../../components';
-import { formatMonthYear, month, year, getDaysInMonth, getFirstDay } from '../util/dateUtil';
+import {
+  getMonthName,
+  beforeEmptyDays,
+  getDaysInMonth,
+  changeMonth,
+  today,
+} from '../util/dateUtil';
 import { WeekHeader } from './CalendarReusables';
 
-export default function CalendarView({ events, viewDate }) {
+export default function CalendarView({ events, setEvents }) {
   return (
     <div className="calendar-view-container">
       <header className="calendar-view-header">
-        <p>{formatMonthYear(viewDate).toUpperCase()}</p>
+        <p>
+          {getMonthName(events.month)} {events.year}
+        </p>
         <div className="calendar-view-header-btns">
-          <Button variant="gray" squared={true}>
+          <Button
+            variant="gray"
+            squared={true}
+            onClick={() => changeMonth(setEvents, false)}
+          >
             <ArrowLeftIcon />
           </Button>
-          <Button variant="gray" squared={true}>
+          <Button
+            variant="gray"
+            squared={true}
+            onClick={() => changeMonth(setEvents, true)}
+          >
             <ArrowRightIcon />
           </Button>
         </div>
@@ -19,42 +35,44 @@ export default function CalendarView({ events, viewDate }) {
       <div className="calendar-view-body">
         <WeekHeader />
         <div className="calendar-days">
-          {Array.from({ length: getFirstDay(year, month) }).map((_, i) => (
-            <div className="calendar-day null" key={i}>
-              -
-            </div>
+          {/* DAYS BEFORE FIRST REAL DAY IN MONTH */}
+          {Array.from({
+            length: beforeEmptyDays(events.year, events.month),
+          }).map((_, i) => (
+            <div className="calendar-day null" key={i} />
           ))}
-          {Array.from({ length: getDaysInMonth(year, month) }).map((_, i) => {
+
+          {/* PRINT ALL THE DAYS IN THE MONTH */}
+          {Array.from({
+            length: getDaysInMonth(events.year, events.month),
+          }).map((_, i) => {
             const currentDay = i + 1;
-            const currentEvents = events.filter((event) => {
-              const eventDate = new Date(event.date);
-              const eventDay = eventDate.getUTCDate();
-              return eventDay === currentDay;
-            });
+            // const currentEvents = events.view.events.filter((event) => {
+            //   const eventDate = new Date(event.date);
+            //   const eventDay = eventDate.getDate();
+            //   return eventDay === currentDay;
+            // });
 
             return (
               <div
                 className={`calendar-day ${
-                  currentDay === new Date().getDate() ? 'today' : ''
+                  currentDay === today.getDate() &&
+                  events.month === today.getMonth() && 
+                  events.year === today.getFullYear()
+                    ? 'today'
+                    : ''
                 }`}
                 key={i}
               >
                 {currentDay}
                 <div className="dot-container">
-                  {currentEvents.slice(0, 3).map((_, index) => (
+                  {/* {currentEvents.slice(0, 3).map((_, index) => (
                     <div key={index} className="event-dot" />
-                  ))}
+                  ))} */}
                 </div>
               </div>
             );
           })}
-          {Array.from({
-            length: 35 - getDaysInMonth(year, month) - getFirstDay(year, month),
-          }).map((_, i) => (
-            <div className="calendar-day null" key={i}>
-              -
-            </div>
-          ))}
         </div>
       </div>
     </div>

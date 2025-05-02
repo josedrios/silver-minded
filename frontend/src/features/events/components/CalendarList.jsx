@@ -4,13 +4,6 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon
 } from '../../../components';
-import {
-  day,
-  month,
-  year,
-  getDaysInMonth,
-  getFirstDay,
-} from '../util/dateUtil';
 import { WeekHeader } from './CalendarReusables';
 import { useState } from 'react';
 
@@ -36,7 +29,7 @@ export default function CalendarList() {
 function CalendarListHeader({ listRange, handleSelectChange }) {
   return (
     <div className="calendar-list-header">
-      <p>April 2025</p>
+      <p>DATE</p>
       <div>
         <Dropdown
           options={['Month', 'Week', 'Day']}
@@ -58,7 +51,7 @@ function CalendarListHeader({ listRange, handleSelectChange }) {
 function MonthDisplay() {
   return (
     <div className="month-display">
-      {Array.from({ length: getFirstDay(year, month) }).map((_, i) => (
+      {/* {Array.from({ length: getFirstDay(year, month) }).map((_, i) => (
         <div className="calendar-day null" key={i} />
       ))}
       {Array.from({ length: getDaysInMonth(year, month) }).map((_, i) => (
@@ -73,7 +66,7 @@ function MonthDisplay() {
         length: 35 - getDaysInMonth(year, month) - getFirstDay(year, month),
       }).map((_, i) => (
         <div className="calendar-day null" key={i} />
-      ))}
+      ))} */}
     </div>
   );
 }
@@ -81,14 +74,14 @@ function MonthDisplay() {
 function WeekDisplay() {
   return (
     <div className="week-display">
-      {Array.from({ length: 7 }).map((_, i) => (
+      {/* {Array.from({ length: 7 }).map((_, i) => (
         <button
           className={`calendar-day ${day === i + 1 ? 'today' : i + 1}`}
           key={i}
         >
           {i + 1}
         </button>
-      ))}
+      ))} */}
     </div>
   );
 }
