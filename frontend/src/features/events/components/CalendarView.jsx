@@ -7,6 +7,7 @@ import {
   today,
 } from '../util/dateUtil';
 import { WeekHeader } from './CalendarReusables';
+import dayjs from 'dayjs';
 
 export default function CalendarView({ events, setEvents }) {
   return (
@@ -52,6 +53,10 @@ export default function CalendarView({ events, setEvents }) {
             //   const eventDay = eventDate.getDate();
             //   return eventDay === currentDay;
             // });
+            const currentEvents = events.events.filter((event) => {
+              const eventDate = dayjs(event.date).date();
+              return eventDate === currentDay;
+            })
 
             return (
               <div
@@ -66,9 +71,9 @@ export default function CalendarView({ events, setEvents }) {
               >
                 {currentDay}
                 <div className="dot-container">
-                  {/* {currentEvents.slice(0, 3).map((_, index) => (
+                  {currentEvents.slice(0, 3).map((_, index) => (
                     <div key={index} className="event-dot" />
-                  ))} */}
+                  ))}
                 </div>
               </div>
             );

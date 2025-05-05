@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   TextField,
   SlideToggleText,
-  Dropdown,
   RowSelect,
   Button,
 } from '../../../components';
@@ -25,9 +24,8 @@ export function CreateEvent({events, setEvents}) {
     type: 'allday',
     date: formatDate(today),
     time: {
-      hour: '12',
+      hour: '08',
       minute: '00',
-      period: 'AM',
     },
     reoccurring: {
       frequency: 'year',
@@ -79,16 +77,6 @@ export function CreateEvent({events, setEvents}) {
       time: {
         ...prev.time,
         minute: newValue,
-      },
-    }));
-  };
-
-  const handleEventPeriod = (newValue) => {
-    setEventForm((prev) => ({
-      ...prev,
-      time: {
-        ...prev.time,
-        period: newValue,
       },
     }));
   };
@@ -219,7 +207,7 @@ export function CreateEvent({events, setEvents}) {
               value={eventForm.time.hour}
               onChange={(e) => {
                 const num = Number(e.target.value);
-                if (num >= 0 && num <= 12) {
+                if (num >= 0 && num <= 23) {
                   handleEventHour(String(num).padStart(2, '0'));
                 } else if (e.target.value === '') {
                   handleEventHour('');
@@ -240,12 +228,6 @@ export function CreateEvent({events, setEvents}) {
                 }
               }}
               variant={'primary'}
-            />
-            <Dropdown
-              options={['AM', 'PM']}
-              value={eventForm.time.period}
-              onChange={handleEventPeriod}
-              variant={'gray'}
             />
           </div>
         </>

@@ -1,5 +1,7 @@
 import { createEvent } from '../services/eventService';
 import { convertToUTC, formatDate, today } from '../index';
+import { eventToLocal } from './dateUtil';
+import dayjs from 'dayjs';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
   let updatedForm = { ...form };
@@ -8,7 +10,6 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
     updatedForm.time = {
       hour: null,
       minute: null,
-      period: null,
     };
   }
 
@@ -48,7 +49,6 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
       updatedForm.time = {
         hour: null,
         minute: null,
-        period: null,
       };
     }
   }
@@ -71,19 +71,29 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
     };
   }
 
-  console.log('FORM DATE:', form.date);
-  console.log('UP FORM DATE:', updatedForm.date);
-
   const newEvent = await createEvent(updatedForm);
+  eventToLocal(newEvent);
+
+
+  if(dayjs(newEvent.date).month() === events.month) {
+
+    setEvents((prev) => {
+    const updatedEvents = prev?.events || [];
+
+    return {
+      ...prev,
+      events: [...updatedEvents, newEvent]
+    }
+  });
+  }
 
   setForm({
     info: '',
     type: 'allday',
     date: formatDate(today),
     time: {
-      hour: '12',
+      hour: '08',
       minute: '00',
-      period: 'AM',
     },
     reoccurring: {
       frequency: 'year',

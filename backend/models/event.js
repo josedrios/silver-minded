@@ -6,9 +6,8 @@ const eventSchema = new mongoose.Schema({
 
   time: {
     type: {
-      hour: String,
-      minute: String,
-      period: { type: String, enum: ['AM', 'PM'] },
+      hour: Number,
+      minute: Number,
     },
     default: null,
   },

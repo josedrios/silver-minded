@@ -63,6 +63,18 @@ export const convertToUTC = (date) => {
 };
 
 export const convertToLocal = (date) => {
-  return dayjs.utc(date).local();
+  return dayjs.utc(date).local().format();
 };
 
+export const eventToLocal = (event) => {
+  event.createdAt = convertToLocal(event.createdAt);
+  if (event.date !== null) {
+    event.date = convertToLocal(event.date);
+  }
+  if (event.reoccurring.start !== null) {
+    event.reoccurring.start = convertToLocal(event.reoccurring.start);
+  }
+  if (event.reoccurring.end !== null) {
+    event.reoccurring.end = convertToLocal(event.reoccurring.end);
+  }
+};

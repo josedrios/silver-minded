@@ -13,7 +13,7 @@ export default function AppProvider({ children }) {
 
   useEffect(() => {
     console.log(events);
-  }, [events]);
+  }, [events.events]);
 
   return (
     <AppContext.Provider
