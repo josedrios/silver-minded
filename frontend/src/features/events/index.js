@@ -3,6 +3,7 @@ export { default as CalendarList } from './components/CalendarList';
 
 export {
   weekHeaders,
+  formatDate,
   today,
   beforeEmptyDays,
   getDaysInMonth,

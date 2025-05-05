@@ -1,7 +1,7 @@
 import { createEvent } from '../services/eventService';
+import { convertToUTC, formatDate, today } from '../index';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
-
   let updatedForm = { ...form };
 
   if (form.type === 'allday') {
@@ -10,8 +10,8 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
       minute: null,
       period: null,
     };
-  } 
-  
+  }
+
   if (form.type === 'instance' || form.type === 'allday') {
     updatedForm.reoccurring = {
       frequency: null,
@@ -40,8 +40,7 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
       };
     }
     if (form.reoccurring.frequency === 'week') {
-      updatedForm.reoccurring = {
-        ...updatedForm.reoccurring,
+      updatedForm.date = {
         date: null,
       };
     }
@@ -54,12 +53,33 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
     }
   }
 
+  if (updatedForm.date !== null) {
+    updatedForm.date = convertToUTC(new Date(updatedForm.date + 'T00:00:00'))
+  }
+
+  if (updatedForm.reoccurring.start !== null) {
+    updatedForm.reoccurring = {
+      ...updatedForm.reoccurring,
+      start: convertToUTC(new Date(form.reoccurring.start + 'T00:00:00')),
+    };
+  }
+
+  if (updatedForm.reoccurring.start !== null) {
+    updatedForm.reoccurring = {
+      ...updatedForm.reoccurring,
+      end: convertToUTC(new Date(form.reoccurring.start + 'T23:59:59.999')),
+    };
+  }
+
+  console.log('FORM DATE:', form.date);
+  console.log('UP FORM DATE:', updatedForm.date);
+
   const newEvent = await createEvent(updatedForm);
 
   setForm({
     info: '',
     type: 'allday',
-    date: "",
+    date: formatDate(today),
     time: {
       hour: '12',
       minute: '00',

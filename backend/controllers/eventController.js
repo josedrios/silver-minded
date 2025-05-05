@@ -3,7 +3,9 @@ const Event = require('../models/event');
 exports.createEvent = async (req, res) => {
   try {
     const { event } = req.body;
+    console.log('TESTING:')
     console.log(event);
+
     const newEvent = new Event({
       info: event.info,
       date: event.date,
@@ -59,41 +61,15 @@ exports.deleteEvent = async (req, res) => {
 
 exports.getEvents = async (req, res) => {
   try {
-    const start = (req.params.start);
-    const end = (req.params.end);
+    const { start, end} = req.params;
 
     console.log(start, end);
 
     const events = await Event.find({
-      $or: [
-        // Events with a specific 'date' that falls within start and end
-        {
-          date: {
-            $gte: start, // Events with a date greater than or equal to 'start'
-            $lte: end, // Events with a date less than or equal to 'end'
-          },
-        },
-        // Recurring yearly events that are in the given range
-        {
-          'reoccurring.frequency': 'yearly',
-          'reoccurring.start': {
-            $lte: end, // The recurring event's start should be less than or equal to 'end'
-          },
-          'reoccurring.end': {
-            $gte: start, // The recurring event's end should be greater than or equal to 'start'
-          },
-        },
-        // Recurring monthly events that are in the given range
-        {
-          'reoccurring.frequency': 'monthly',
-          'reoccurring.start': {
-            $lte: end,
-          },
-          'reoccurring.end': {
-            $gte: start,
-          },
-        },
-      ],
+      date: {
+        $gte: start,
+        $lte: end,
+      },
     }).sort({ date: 1 });
 
     console.log(events);

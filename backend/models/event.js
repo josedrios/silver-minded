@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema({
-  info: { type: String, required: true },
+  info: { type: String },
   date: { type: Date, default: null },
 
   time: {
@@ -12,7 +12,6 @@ const eventSchema = new mongoose.Schema({
     },
     default: null,
   },
-
   reoccurring: {
     type: {
       frequency: { type: String, enum: ['week', 'month', 'year'] },
