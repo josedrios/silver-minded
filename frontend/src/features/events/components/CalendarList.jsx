@@ -1,26 +1,58 @@
 import dayjs from 'dayjs';
+import { getMonthName } from '../util/dateUtil';
 
 export default function CalendarList({ events }) {
+  const currentYear = events.year;
+  const currentMonth = events.month;
   return (
     <div className="calendar-list-container">
-      <h5 className="list-header">Upcoming Events:</h5>
+      <h4 className="list-header">Upcoming Events:</h4>
       <div className="calendar-list-body">
         {events.events.length !== 0 ? (
           events.events.map((event, i) => (
-            <button className="calendar-list-item" key={i}>
-              <div className="item-header">
-                {dayjs(event.date).date()}-{event.info}
-              </div>
-              <div className="item-footer">
-                <p>{event.time.hour !== null ? `${event.time.hour}` : ''}</p>
-                <p>{event.reoccurring.frequency !== null ? 'REOC' : 'ONCE'}</p>
-              </div>
-            </button>
+            <EventCard event={event} year={currentYear} month={currentMonth} key={i} />
           ))
         ) : (
           <p>No events</p>
         )}
       </div>
     </div>
+  );
+}
+
+function EventCard({ event, year, month }) {
+  return (
+    <button className="calendar-list-item">
+      <p className="event-header">{event.info}</p>
+      {event.date !== null ? (
+        <p className="event-sub">
+          <span className="branch">
+            {event.reoccurring.frequency === null && event.time.hour === null ? '└─' : '├─'}
+          </span>{' '}
+          {dayjs(event.date).date()} {getMonthName(month).toUpperCase()}{' '}
+          {year}
+        </p>
+      ) : (
+        ''
+      )}
+      {event.time.hour !== null ? (
+        <p className="event-sub">
+          <span className="branch">
+            {event.reoccurring.frequency === null ? '└─' : '├─'}
+          </span>{' '}
+          {event.time.hour}:{event.time.minute}
+        </p>
+      ) : (
+        ''
+      )}
+      {event.reoccurring.frequency !== null ? (
+        <p className="event-sub">
+          <span className="branch">└─</span>{' '}
+          {event.reoccurring.frequency.toUpperCase()}LY
+        </p>
+      ) : (
+        ''
+      )}
+    </button>
   );
 }

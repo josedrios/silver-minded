@@ -15,21 +15,25 @@
       right: 0;
       bottom: calc(-#{$spacing-sm / 2} - 2px);
       height: 1px;
-      background-color: rgba(var(--gray-600-rgb), 0.5);
+      background-color: var(--gray-600);
     }
+
     &:last-child::after {
       content: none;
     }
 
-    .item-header {
-      text-overflow: ellipsis;
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
+    .event-header {
+        font-size: $font-size-md;
     }
 
-    .item-footer {
-      @include flex(row, space-between);
+    .event-sub {
+        color: var(--text-600);
+
+        .branch {
+            font-weight: $font-weight-bold;
+            font-size: $font-size-md;
+            color: var(--accent-600);
+        }
     }
   }
 }
