@@ -21,7 +21,6 @@ const eventSchema = new mongoose.Schema({
     },
     default: null,
   },
-
   createdAt: { type: Date, default: Date.now },
 });
 

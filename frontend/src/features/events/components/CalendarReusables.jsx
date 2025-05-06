@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   TextField,
   SlideToggleText,
@@ -6,7 +6,7 @@ import {
   Button,
 } from '../../../components';
 import { eventFormValidation } from '../util/eventFormUtil';
-import { today, formatDate, weekHeaders } from '../util/dateUtil';
+import { weekHeaders } from '../util/dateUtil';
 
 export function WeekHeader() {
   return (
@@ -18,23 +18,7 @@ export function WeekHeader() {
   );
 }
 
-export function CreateEvent({events, setEvents}) {
-  const [eventForm, setEventForm] = useState({
-    info: '',
-    type: 'allday',
-    date: formatDate(today),
-    time: {
-      hour: '08',
-      minute: '00',
-    },
-    reoccurring: {
-      frequency: 'year',
-      frame: 'allday',
-      days: [],
-      start: '',
-      end: '',
-    },
-  });
+export function CreateEvent({events, setEvents, eventForm, setEventForm}) {
 
   useEffect(() => {
     console.log(eventForm);

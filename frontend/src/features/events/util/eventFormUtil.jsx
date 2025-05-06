@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
   let updatedForm = { ...form };
+  console.log(updatedForm)
+  console.log(form)
 
   if (form.type === 'allday') {
     updatedForm.time = {
@@ -41,9 +43,7 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
       };
     }
     if (form.reoccurring.frequency === 'week') {
-      updatedForm.date = {
-        date: null,
-      };
+      updatedForm.date = null;
     }
     if (form.reoccurring.frame === 'allday') {
       updatedForm.time = {
@@ -54,7 +54,7 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
   }
 
   if (updatedForm.date !== null) {
-    updatedForm.date = convertToUTC(new Date(updatedForm.date + 'T00:00:00'))
+    updatedForm.date = convertToUTC(new Date(form.date + 'T00:00:00'))
   }
 
   if (updatedForm.reoccurring.start !== null) {
@@ -64,10 +64,10 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
     };
   }
 
-  if (updatedForm.reoccurring.start !== null) {
+  if (updatedForm.reoccurring.end !== null) {
     updatedForm.reoccurring = {
       ...updatedForm.reoccurring,
-      end: convertToUTC(new Date(form.reoccurring.start + 'T23:59:59.999')),
+      end: convertToUTC(new Date(form.reoccurring.end + 'T23:59:59.999')),
     };
   }
 
@@ -90,7 +90,7 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
   setForm({
     info: '',
     type: 'allday',
-    date: formatDate(today),
+    date: form.date,
     time: {
       hour: '08',
       minute: '00',

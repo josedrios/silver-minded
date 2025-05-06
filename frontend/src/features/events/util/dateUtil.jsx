@@ -46,6 +46,10 @@ export const changeMonth = (setFrame, type = true) => {
   });
 };
 
+export const getCalendarDay = (year, month, day) => {
+  return formatDate(dayjs(new Date(year, month, day)).format('YYYY-MM-DD'));
+}
+
 export const getStartEndDates = (year, month) => {
   const start = dayjs(
     `${year}-${(month + 1).toString().padStart(2, '0')}-01`
@@ -59,6 +63,7 @@ export const getStartEndDates = (year, month) => {
 };
 
 export const convertToUTC = (date) => {
+  console.log(date)
   return dayjs(date).utc().toISOString();
 };
 

@@ -115,6 +115,8 @@
 // CALENDAR VIEW RELATED
 .calendar-days {
   .calendar-day {
+    border: 1px solid transparent;
+    background-color: transparent;
     padding: $spacing-xs 0;
     text-align: center;
     border-radius: $border-radius-xs;
@@ -137,34 +139,21 @@
 }
 
 // CALENDAR LIST RELATED
-.calendar-list-header {
-  padding: $spacing-sm;
-  @include flex(row, space-between, center);
+.calendar-list-item {
+  text-align: left;
+  background-color: transparent;
+  padding: $spacing-xs;
+  border: 1px solid var(--gray-500);
+  @include clickableContainer;
 
-  p {
-    color: var(--primary-800);
+  .item-header {
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
-  div {
-    @include flex(row, flex-end, center);
-    gap: $spacing-sm;
-  }
-}
-
-.month-display, .week-display {
-  .calendar-day {
-    padding: $spacing-xs;
-    @include flex(column, flex-start, flex-start);
-    background-color: transparent;
-    border: 1px solid var(--gray-700);
-    min-height: 150px;
-
-    &.today {
-      color: var(--error-800);
-    }
-
-    &.null {
-      color: var(--text-400);
-    }
+  .item-footer {
+    @include flex(row, space-between);
   }
 }

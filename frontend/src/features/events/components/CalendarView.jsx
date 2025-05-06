@@ -5,11 +5,12 @@ import {
   getDaysInMonth,
   changeMonth,
   today,
+  getCalendarDay,
 } from '../util/dateUtil';
 import { WeekHeader } from './CalendarReusables';
 import dayjs from 'dayjs';
 
-export default function CalendarView({ events, setEvents }) {
+export default function CalendarView({ events, setEvents, setEventModal, setEventForm }) {
   return (
     <div className="calendar-view-container">
       <header className="calendar-view-header">
@@ -42,24 +43,18 @@ export default function CalendarView({ events, setEvents }) {
           }).map((_, i) => (
             <div className="calendar-day null" key={i} />
           ))}
-
           {/* PRINT ALL THE DAYS IN THE MONTH */}
           {Array.from({
             length: getDaysInMonth(events.year, events.month),
           }).map((_, i) => {
             const currentDay = i + 1;
-            // const currentEvents = events.view.events.filter((event) => {
-            //   const eventDate = new Date(event.date);
-            //   const eventDay = eventDate.getDate();
-            //   return eventDay === currentDay;
-            // });
             const currentEvents = events.events.filter((event) => {
               const eventDate = dayjs(event.date).date();
               return eventDate === currentDay;
             })
 
             return (
-              <div
+              <button
                 className={`calendar-day ${
                   currentDay === today.getDate() &&
                   events.month === today.getMonth() && 
@@ -67,6 +62,13 @@ export default function CalendarView({ events, setEvents }) {
                     ? 'today'
                     : ''
                 }`}
+                onClick={() => {
+                  setEventForm((prev) => ({
+                    ...prev,
+                    date: getCalendarDay(events.year, events.month, currentDay)
+                  }))
+                  setEventModal(true);
+                }}
                 key={i}
               >
                 {currentDay}
@@ -75,7 +77,7 @@ export default function CalendarView({ events, setEvents }) {
                     <div key={index} className="event-dot" />
                   ))}
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>

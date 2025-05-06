@@ -3,7 +3,7 @@ const Event = require('../models/event');
 exports.createEvent = async (req, res) => {
   try {
     const { event } = req.body;
-    console.log('TESTING:')
+    console.log('TESTING:');
     console.log(event);
 
     const newEvent = new Event({
@@ -61,15 +61,47 @@ exports.deleteEvent = async (req, res) => {
 
 exports.getEvents = async (req, res) => {
   try {
-    const { start, end} = req.params;
+    const { start, end } = req.params;
 
     console.log(start, end);
 
     const events = await Event.find({
-      date: {
-        $gte: start,
-        $lte: end,
-      },
+      $or: [
+        // 1. Events with date in range
+        {
+          $and: [
+            { date: { $gte: start, $lte: end } },
+            {
+              $or: [
+                {
+                  $and: [
+                    { 'reoccurring.start': { $lt: end } },
+                    { 'reoccurring.end': { $gt: start } },
+                  ],
+                },
+                {
+                  $and: [
+                    { 'reoccurring.start': null },
+                    { 'reoccurring.end': null },
+                  ],
+                },
+                { reoccurring: null },
+              ],
+            },
+          ],
+        },
+        // 2. Reoccurring events happen within given frame
+        {
+          $and: [
+            { 'reoccurring.start': { $gt: end } },
+            { 'reoccurring.end': { $lt: start } },
+          ],
+        },
+        // 3. Both reoccurring.start and reoccurring.end are null
+        {
+          $and: [{ 'reoccurring.start': null }, { 'reoccurring.end': null }],
+        },
+      ],
     }).sort({ date: 1 });
 
     console.log(events);
