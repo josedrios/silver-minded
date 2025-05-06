@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 export default function CalendarList({ events }) {
   return (
     <div className="calendar-list-container">
-      <p className="list-header">UPCOMING EVENTS:</p>
+      <h5 className="list-header">Upcoming Events:</h5>
       <div className="calendar-list-body">
         {events.events.length !== 0 ? (
           events.events.map((event, i) => (

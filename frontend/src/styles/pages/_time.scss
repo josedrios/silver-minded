@@ -1,36 +1,35 @@
 #time-container {
-  @include flex(column);
+  margin-top: $spacing-md;
+  @include flex(column, initial, center);
+  width: 100%;
   gap: $spacing-md;
 }
 
 .calendar-view-container {
   @include flex(column);
   gap: $spacing-sm;
-  border-radius: $border-radius-xs;
-  background-color: var(--gray-400);
+  border-radius: $border-radius-sm;
+  border: 1px solid rgba(var(--gray-600-rgb), 0.65);
+  background-color: rgb(23, 29, 30);
   padding: $spacing-sm;
-  width: 100%;
+  width: calc(100% - 2*$spacing-md);
   max-width: 450px;
   min-width: 300px;
-  margin: auto;
+  margin-left: $spacing-md;
+  margin-right: $spacing-md;
 }
 
 .calendar-view-header {
   @include flex(row, space-between, center);
 
-  p {
+  h6 {
     color: var(--primary-800);
-  }
-
-  .calendar-view-header-btns {
-    @include flex(row);
-    gap: $spacing-sm;
+    font-size: 15px;
   }
 }
 
 .calendar-week-header {
   padding: 3px 0;
-  background-color: var(--gray-500);
   @include flex(row, space-around);
 
   div {
@@ -39,12 +38,11 @@
 }
 
 .calendar-view-body {
-  border-radius: $border-radius-xs;
   overflow: hidden;
 
   .calendar-days {
     display: grid;
-    background-color: var(--gray-400);
+    border-radius: $border-radius-sm;
     grid-template-columns: repeat(7, 1fr);
   }
 
@@ -66,21 +64,17 @@
 
 .calendar-list-container {
   width: 100%;
-  background-color: var(--gray-600);
-  border-radius: $border-radius-xs;
-  overflow: hidden;
-  padding: $spacing-sm;
 
   .list-header {
-    color: var(--primary-800);
-    margin-bottom: $spacing-xs;
+    padding: $spacing-sm $spacing-md;
+    color: var(--text-800);
+    border-bottom: 1px solid var(--gray-700);
   }
 
   .calendar-list-body {
-    background-color: var(--gray-400);
+    padding: $spacing-sm $spacing-md;
     border-radius: $border-radius-xs;
-    padding: $spacing-xs;
     @include flex(column, flex-start);
-    gap: $spacing-xs;
+    gap: $spacing-sm;
   }
 }

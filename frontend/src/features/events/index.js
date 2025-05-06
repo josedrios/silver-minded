@@ -11,8 +11,13 @@ export {
   getStartEndDates,
   convertToUTC,
   convertToLocal,
+  changeMonth,
+  getCalendarDay,
+  eventToLocal,
 } from './util/dateUtil';
 
-export { CreateEvent } from './components/CalendarReusables';
+export { eventFormValidation } from './util/eventFormUtil';
+
+export { CreateEvent } from './components/CalendarForm';
 
 export { fetchEvents } from './services/eventService';

@@ -63,7 +63,6 @@ export const getStartEndDates = (year, month) => {
 };
 
 export const convertToUTC = (date) => {
-  console.log(date)
   return dayjs(date).utc().toISOString();
 };
 

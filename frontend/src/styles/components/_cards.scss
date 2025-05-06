@@ -1,1 +1,35 @@
+// CALENDAR LIST RELATED
+.calendar-list-body {
+  .calendar-list-item {
+    position: relative;
+    text-align: left;
+    background-color: transparent;
+    padding: $spacing-xs;
+    @include clickableContainer;
+    border: 1px solid transparent;
 
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(-#{$spacing-sm / 2} - 2px);
+      height: 1px;
+      background-color: rgba(var(--gray-600-rgb), 0.5);
+    }
+    &:last-child::after {
+      content: none;
+    }
+
+    .item-header {
+      text-overflow: ellipsis;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .item-footer {
+      @include flex(row, space-between);
+    }
+  }
+}

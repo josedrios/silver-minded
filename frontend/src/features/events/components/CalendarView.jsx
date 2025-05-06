@@ -1,4 +1,4 @@
-import { Button, ArrowLeftIcon, ArrowRightIcon } from '../../../components';
+import { Button, ChevronLeft, ChevronRight } from '../../../components';
 import {
   getMonthName,
   beforeEmptyDays,
@@ -6,33 +6,38 @@ import {
   changeMonth,
   today,
   getCalendarDay,
-} from '../util/dateUtil';
-import { WeekHeader } from './CalendarReusables';
+  weekHeaders,
+} from '../';
 import dayjs from 'dayjs';
 
-export default function CalendarView({ events, setEvents, setEventModal, setEventForm }) {
+export default function CalendarView({
+  events,
+  setEvents,
+  setEventModal,
+  setEventForm,
+}) {
   return (
     <div className="calendar-view-container">
       <header className="calendar-view-header">
-        <p>
-          {getMonthName(events.month)} {events.year}
-        </p>
-        <div className="calendar-view-header-btns">
           <Button
             variant="gray"
             squared={true}
             onClick={() => changeMonth(setEvents, false)}
+            className='borderless'
           >
-            <ArrowLeftIcon />
+            <ChevronLeft />
           </Button>
+          <h6>
+          {getMonthName(events.month).toUpperCase()} {events.year}
+        </h6>
           <Button
             variant="gray"
             squared={true}
             onClick={() => changeMonth(setEvents, true)}
+            className='borderless'
           >
-            <ArrowRightIcon />
+            <ChevronRight />
           </Button>
-        </div>
       </header>
       <div className="calendar-view-body">
         <WeekHeader />
@@ -51,13 +56,13 @@ export default function CalendarView({ events, setEvents, setEventModal, setEven
             const currentEvents = events.events.filter((event) => {
               const eventDate = dayjs(event.date).date();
               return eventDate === currentDay;
-            })
+            });
 
             return (
               <button
                 className={`calendar-day ${
                   currentDay === today.getDate() &&
-                  events.month === today.getMonth() && 
+                  events.month === today.getMonth() &&
                   events.year === today.getFullYear()
                     ? 'today'
                     : ''
@@ -65,8 +70,8 @@ export default function CalendarView({ events, setEvents, setEventModal, setEven
                 onClick={() => {
                   setEventForm((prev) => ({
                     ...prev,
-                    date: getCalendarDay(events.year, events.month, currentDay)
-                  }))
+                    date: getCalendarDay(events.year, events.month, currentDay),
+                  }));
                   setEventModal(true);
                 }}
                 key={i}
@@ -82,6 +87,16 @@ export default function CalendarView({ events, setEvents, setEventModal, setEven
           })}
         </div>
       </div>
+    </div>
+  );
+}
+
+export function WeekHeader() {
+  return (
+    <div className="calendar-week-header">
+      {weekHeaders.map((day, i) => (
+        <div key={i}>{day.toUpperCase()}</div>
+      ))}
     </div>
   );
 }

@@ -19,7 +19,9 @@ export {
   ArrowLeftIcon,
   ArrowRightIcon,
   DangerIcon,
-  Icon
+  Icon,
+  ChevronLeft,
+  ChevronRight
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';

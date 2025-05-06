@@ -11,7 +11,9 @@ import {
   LuHourglass,
   LuTriangleAlert,
   LuArrowLeft,
-  LuArrowRight
+  LuArrowRight,
+  LuChevronLeft,
+  LuChevronRight,
 } from 'react-icons/lu';
 
 // EACH ICON SET USES DIFFERENT SIZES
@@ -67,6 +69,14 @@ export const ArrowRightIcon = ({ size = 'sm', className = '' }) => (
 
 export const ArrowLeftIcon = ({ size = 'sm', className = '' }) => (
   <LuArrowLeft size={lucideSizes[size]} className={className} />
+);
+
+export const ChevronLeft = ({ size = 'sm', className = '' }) => (
+  <LuChevronLeft size={lucideSizes[size]} className={className} />
+);
+
+export const ChevronRight = ({ size = 'sm', className = '' }) => (
+  <LuChevronRight size={lucideSizes[size]} className={className} />
 );
 
 export const Icon = ({

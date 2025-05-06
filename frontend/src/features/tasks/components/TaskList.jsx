@@ -8,8 +8,8 @@ import {
   
 } from '../../../components';
 import { motion, AnimatePresence } from 'motion/react';
-import { editTask } from '../services/taskService';
 import { useEffect } from 'react';
+import { editTask } from '../';
 
 const list = {
   hidden: { opacity: 0 },

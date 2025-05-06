@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { createTask, editTask, removeTask } from '../services/taskService';
+import { createTask, editTask, removeTask } from '../';
 import {
   TextField,
   Button,
   PlusIcon,
   TrashIcon,
-  PenIcon
+  PenIcon,
 } from '../../../components';
 
 export default function TaskForm({

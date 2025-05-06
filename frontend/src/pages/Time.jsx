@@ -21,8 +21,6 @@ export default function Time() {
         eventToLocal(event);
       });
 
-      console.log(fetchedEvents);
-
       setEvents((prev) => ({
         ...prev,
         events: fetchedEvents,

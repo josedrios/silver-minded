@@ -113,6 +113,12 @@
 
 // CALENDAR RELATED
 // CALENDAR VIEW RELATED
+.calendar-view-header {
+  .borderless {
+    border: 1px solid transparent;
+  }
+}
+
 .calendar-days {
   .calendar-day {
     border: 1px solid transparent;
@@ -135,25 +141,5 @@
     }
 
     @include clickableContainer;
-  }
-}
-
-// CALENDAR LIST RELATED
-.calendar-list-item {
-  text-align: left;
-  background-color: transparent;
-  padding: $spacing-xs;
-  border: 1px solid var(--gray-500);
-  @include clickableContainer;
-
-  .item-header {
-    text-overflow: ellipsis;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  .item-footer {
-    @include flex(row, space-between);
   }
 }

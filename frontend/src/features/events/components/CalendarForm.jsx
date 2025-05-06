@@ -5,25 +5,9 @@ import {
   RowSelect,
   Button,
 } from '../../../components';
-import { eventFormValidation } from '../util/eventFormUtil';
-import { weekHeaders } from '../util/dateUtil';
+import { eventFormValidation } from '../';
 
-export function WeekHeader() {
-  return (
-    <div className="calendar-week-header">
-      {weekHeaders.map((day, i) => (
-        <div key={i}>{day.toUpperCase()}</div>
-      ))}
-    </div>
-  );
-}
-
-export function CreateEvent({events, setEvents, eventForm, setEventForm}) {
-
-  useEffect(() => {
-    console.log(eventForm);
-  }, [eventForm]);
-
+export function CreateEvent({ events, setEvents, eventForm, setEventForm }) {
   const handleEventInfo = (newValue) => {
     setEventForm((prev) => ({
       ...prev,
@@ -124,7 +108,7 @@ export function CreateEvent({events, setEvents, eventForm, setEventForm}) {
         eventFormValidation(eventForm, setEventForm, events, setEvents);
       }}
     >
-      <h5>Create Event Form</h5>
+      <h5>Create Event</h5>
       <TextField
         label={'Info'}
         placeholder={'Enter event info...'}

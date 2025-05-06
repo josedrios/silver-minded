@@ -1,4 +1,4 @@
-import { convertToUTC, getStartEndDates } from "..";
+import { convertToUTC, getStartEndDates } from "../";
 
 export async function createEvent(event) {
   try {

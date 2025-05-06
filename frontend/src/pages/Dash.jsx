@@ -1,7 +1,6 @@
 import { AppContext } from '../context/AppContext';
-import { TaskForm, TaskList } from '../features/tasks';
+import { fetchTasks, TaskForm, TaskList } from '../features/tasks';
 import { useState, useRef, useContext, useEffect } from 'react';
-import { fetchTasks } from '../features/tasks/services/taskService';
 
 export default function Dash() {
   const { tasks, setTasks } = useContext(AppContext);

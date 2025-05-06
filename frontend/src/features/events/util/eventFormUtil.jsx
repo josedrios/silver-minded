@@ -1,6 +1,5 @@
 import { createEvent } from '../services/eventService';
-import { convertToUTC, formatDate, today } from '../index';
-import { eventToLocal } from './dateUtil';
+import { convertToUTC, eventToLocal } from '../';
 import dayjs from 'dayjs';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
