@@ -63,43 +63,58 @@ exports.getEvents = async (req, res) => {
   try {
     const { start, end } = req.params;
 
-    console.log(start, end);
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const currentMonth = startDate.getUTCMonth() + 1;
+
+    console.log(startDate, endDate, currentMonth);
 
     const events = await Event.find({
       $or: [
-        // 1. Events with date in range
         {
           $and: [
-            { date: { $gte: start, $lte: end } },
+            { date: { $gte: startDate, $lte: endDate } },
+            { 'reoccurring.frequency': null },
+          ],
+        },
+        {
+          $and: [
+            { 'reoccurring.frequency': { $in: ['month', 'week'] } },
             {
               $or: [
-                {
-                  $and: [
-                    { 'reoccurring.start': { $lt: end } },
-                    { 'reoccurring.end': { $gt: start } },
-                  ],
-                },
-                {
-                  $and: [
-                    { 'reoccurring.start': null },
-                    { 'reoccurring.end': null },
-                  ],
-                },
-                { reoccurring: null },
+                { 'reoccurring.start': { $lt: endDate } },
+                { 'reoccurring.start': null },
+              ],
+            },
+            {
+              $or: [
+                { 'reoccurring.end': { $gt: startDate } },
+                { 'reoccurring.end': null },
               ],
             },
           ],
         },
-        // 2. Reoccurring events happen within given frame
         {
           $and: [
-            { 'reoccurring.start': { $gt: end } },
-            { 'reoccurring.end': { $lt: start } },
+            { 'reoccurring.frequency': 'year' },
+            {
+              $expr: {
+                $eq: [{ $month: '$date' }, currentMonth],
+              },
+            },
+            {
+              $or: [
+                { 'reoccurring.start': { $lt: endDate } },
+                { 'reoccurring.start': null },
+              ],
+            },
+            {
+              $or: [
+                { 'reoccurring.end': { $gt: startDate } },
+                { 'reoccurring.end': null },
+              ],
+            },
           ],
-        },
-        // 3. Both reoccurring.start and reoccurring.end are null
-        {
-          $and: [{ 'reoccurring.start': null }, { 'reoccurring.end': null }],
         },
       ],
     }).sort({ date: 1 });

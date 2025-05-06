@@ -5,8 +5,6 @@ import dayjs from 'dayjs';
 
 export const eventFormValidation = async (form, setForm, events, setEvents) => {
   let updatedForm = { ...form };
-  console.log(updatedForm)
-  console.log(form)
 
   if (form.type === 'allday') {
     updatedForm.time = {
