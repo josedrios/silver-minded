@@ -13,11 +13,15 @@ export {
   convertToLocal,
   changeMonth,
   getCalendarDay,
-  eventToLocal,
 } from './util/dateUtil';
 
-export { eventFormValidation, selectedToForm } from './util/eventFormUtil';
+export { eventFormValidation, selectedToForm, eventToLocal, fetchAndUpdateEvents } from './util/eventUtil';
 
 export { CreateEvent } from './components/CalendarForm';
 
-export { fetchEvents, createEvent, editEvent } from './services/eventService';
+export {
+  fetchEvents,
+  createEvent,
+  editEvent,
+  deleteEvent,
+} from './services/eventService';

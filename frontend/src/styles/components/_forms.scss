@@ -70,15 +70,15 @@ input {
       &.primary {
         border: 1px solid var(--primary-700);
       }
-  
+
       &.accent {
         border: 1px solid var(--accent-700);
       }
-  
+
       &.error {
         border: 1px solid var(--error-700);
       }
-  
+
       &.gray {
         border: 1px solid var(--primary-700);
       }
@@ -119,7 +119,8 @@ input {
     }
   }
 
-  .event-form-submit {
-    margin: auto;
+  .event-form-footer {
+    @include flex(row, center);
+    gap: $spacing-sm;
   }
 }

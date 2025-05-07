@@ -2,13 +2,12 @@ import { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import {
   CalendarView,
-  fetchEvents,
   CalendarList,
-  eventToLocal,
   formatDate,
   today,
   CreateEvent,
   selectedToForm,
+  fetchAndUpdateEvents
 } from '../features/events';
 import { Modal } from '../components';
 
@@ -22,20 +21,7 @@ export default function Time() {
   }, [selectedEvent]);
 
   useEffect(() => {
-    const fetchAndUpdateEvents = async () => {
-      const fetchedEvents = await fetchEvents(events.year, events.month);
-
-      fetchedEvents.forEach((event) => {
-        eventToLocal(event);
-      });
-
-      setEvents((prev) => ({
-        ...prev,
-        events: fetchedEvents,
-      }));
-    };
-
-    fetchAndUpdateEvents();
+    fetchAndUpdateEvents(events, setEvents);
   }, [events.month, events.year]);
 
   const [eventForm, setEventForm] = useState({
@@ -104,7 +90,7 @@ export default function Time() {
           eventForm={eventForm}
           setEventForm={setEventForm}
           selectedEvent={selectedEvent}
-          setSelectedEvent={setSelectedEvent}
+          setEventModal={setEventModal}
         />
       </Modal>
     </div>

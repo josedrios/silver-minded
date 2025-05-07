@@ -1,11 +1,25 @@
 import {
   convertToUTC,
-  eventToLocal,
   formatDate,
   createEvent,
   editEvent,
-} from '../';
+  convertToLocal,
+  fetchEvents
+} from '..';
 import dayjs from 'dayjs';
+
+export const eventToLocal = (event) => {
+  event.createdAt = convertToLocal(event.createdAt);
+  if (event.date !== null) {
+    event.date = convertToLocal(event.date);
+  }
+  if (event.reoccurring.start !== null) {
+    event.reoccurring.start = convertToLocal(event.reoccurring.start);
+  }
+  if (event.reoccurring.end !== null) {
+    event.reoccurring.end = convertToLocal(event.reoccurring.end);
+  }
+};
 
 export const eventFormValidation = async (
   form,
@@ -81,7 +95,6 @@ export const eventFormValidation = async (
 
   let newEvent;
 
-  console.log(selectedEvent);
   if (selectedEvent === '') {
     newEvent = await createEvent(updatedForm);
   } else {
@@ -119,6 +132,8 @@ export const eventFormValidation = async (
     },
   });
 
+  fetchAndUpdateEvents(events, setEvents)
+
   return;
 };
 
@@ -134,11 +149,28 @@ export const selectedToForm = (event) => {
     date: event.date !== null ? formatDate(event.date) : null,
     time: event.time,
     reoccurring: {
-      frequency: event.reoccurring.frequency,
-      frame: event.reoccurring.frame,
-      days: event.reoccurring.days,
+      frequency:
+        event.reoccurring.frequency !== null
+          ? event.reoccurring.frequency
+          : 'year',
+      frame:
+        event.reoccurring.frame !== null ? event.reoccurring.frame : 'allday',
+      days: event.reoccurring.days !== null ? event.reoccurring.days : [],
       start: formatDate(event.reoccurring.start),
       end: formatDate(event.reoccurring.end),
     },
   };
+};
+
+export const fetchAndUpdateEvents = async (events, setEvents) => {
+  const fetchedEvents = await fetchEvents(events.year, events.month);
+
+  fetchedEvents.forEach((event) => {
+    eventToLocal(event);
+  });
+
+  setEvents((prev) => ({
+    ...prev,
+    events: fetchedEvents,
+  }));
 };

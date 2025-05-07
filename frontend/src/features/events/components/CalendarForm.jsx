@@ -3,10 +3,18 @@ import {
   SlideToggleText,
   RowSelect,
   Button,
+  TrashIcon,
 } from '../../../components';
-import { eventFormValidation } from '../';
+import { deleteEvent, eventFormValidation, fetchAndUpdateEvents } from '../';
 
-export function CreateEvent({ events, setEvents, eventForm, setEventForm, selectedEvent, setSelectedEvent }) {
+export function CreateEvent({
+  events,
+  setEvents,
+  eventForm,
+  setEventForm,
+  selectedEvent,
+  setEventModal,
+}) {
   const handleEventInfo = (newValue) => {
     setEventForm((prev) => ({
       ...prev,
@@ -104,10 +112,16 @@ export function CreateEvent({ events, setEvents, eventForm, setEventForm, select
       action=""
       onSubmit={(e) => {
         e.preventDefault();
-        eventFormValidation(eventForm, setEventForm, events, setEvents, selectedEvent);
+        eventFormValidation(
+          eventForm,
+          setEventForm,
+          events,
+          setEvents,
+          selectedEvent
+        );
       }}
     >
-      <h5>Create Event</h5>
+      <h5>{selectedEvent ? 'Edit' : 'Create'} Event</h5>
       <TextField
         label={'Info'}
         placeholder={'Enter event info...'}
@@ -220,10 +234,26 @@ export function CreateEvent({ events, setEvents, eventForm, setEventForm, select
       ) : (
         ''
       )}
-      <Button className="event-form-submit" type="submit">
-        {selectedEvent === '' ? 'Create' : 'Edit'}
-      </Button>
-      {/* add delete button here */}
+      <div className="event-form-footer">
+        <Button className="event-form-submit" type="submit">
+          {selectedEvent === '' ? 'Create' : 'Edit'}
+        </Button>
+        {selectedEvent !== '' ? (
+          <Button
+            squared={true}
+            variant="error"
+            onClick={async() => {
+              await deleteEvent(selectedEvent._id);
+              fetchAndUpdateEvents(events, setEvents);
+              setEventModal(false);
+            }}
+          >
+            <TrashIcon />
+          </Button>
+        ) : (
+          ''
+        )}
+      </div>
     </form>
   );
 }
