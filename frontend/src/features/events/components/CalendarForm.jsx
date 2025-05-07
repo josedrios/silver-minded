@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   TextField,
   SlideToggleText,
@@ -7,7 +6,7 @@ import {
 } from '../../../components';
 import { eventFormValidation } from '../';
 
-export function CreateEvent({ events, setEvents, eventForm, setEventForm }) {
+export function CreateEvent({ events, setEvents, eventForm, setEventForm, selectedEvent, setSelectedEvent }) {
   const handleEventInfo = (newValue) => {
     setEventForm((prev) => ({
       ...prev,
@@ -105,7 +104,7 @@ export function CreateEvent({ events, setEvents, eventForm, setEventForm }) {
       action=""
       onSubmit={(e) => {
         e.preventDefault();
-        eventFormValidation(eventForm, setEventForm, events, setEvents);
+        eventFormValidation(eventForm, setEventForm, events, setEvents, selectedEvent);
       }}
     >
       <h5>Create Event</h5>
@@ -222,8 +221,9 @@ export function CreateEvent({ events, setEvents, eventForm, setEventForm }) {
         ''
       )}
       <Button className="event-form-submit" type="submit">
-        CREATE
+        {selectedEvent === '' ? 'Create' : 'Edit'}
       </Button>
+      {/* add delete button here */}
     </form>
   );
 }

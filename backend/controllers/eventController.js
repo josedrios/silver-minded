@@ -27,18 +27,20 @@ exports.createEvent = async (req, res) => {
 exports.editEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const { info, reoccurring, dueAt, task } = req.body;
+    const { event } = req.body;
+
     const updated = await Event.findByIdAndUpdate(
       id,
-      { info, reoccurring, dueAt, task },
+      { info: event.info, date: event.date, time: event.time, reoccurring: event.reoccurring },
       { new: true, runValidators: true }
     );
-    if (!updated) return res.status(404).json({ message: 'Task not found' });
+    
+    if (!updated) return res.status(404).json({ message: 'Event not found' });
     res.status(200).json(updated);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: 'Error occurred while editing task',
+      message: 'Error occurred while editing event',
       error: err.message,
     });
   }

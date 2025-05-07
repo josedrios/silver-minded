@@ -1,8 +1,19 @@
-import { createEvent } from '../services/eventService';
-import { convertToUTC, eventToLocal } from '../';
+import {
+  convertToUTC,
+  eventToLocal,
+  formatDate,
+  createEvent,
+  editEvent,
+} from '../';
 import dayjs from 'dayjs';
 
-export const eventFormValidation = async (form, setForm, events, setEvents) => {
+export const eventFormValidation = async (
+  form,
+  setForm,
+  events,
+  setEvents,
+  selectedEvent
+) => {
   let updatedForm = { ...form };
 
   if (form.type === 'allday') {
@@ -51,7 +62,7 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
   }
 
   if (updatedForm.date !== null) {
-    updatedForm.date = convertToUTC(new Date(form.date + 'T00:00:00'))
+    updatedForm.date = convertToUTC(new Date(form.date + 'T00:00:00'));
   }
 
   if (updatedForm.reoccurring.start !== null) {
@@ -68,20 +79,27 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
     };
   }
 
-  const newEvent = await createEvent(updatedForm);
+  let newEvent;
+
+  console.log(selectedEvent);
+  if (selectedEvent === '') {
+    newEvent = await createEvent(updatedForm);
+  } else {
+    newEvent = await editEvent(updatedForm, selectedEvent._id);
+  }
+
+  // Converting the returned event (from createEvent or editEvent) to have local dates
   eventToLocal(newEvent);
 
-
-  if(dayjs(newEvent.date).month() === events.month) {
-
+  if (dayjs(newEvent.date).month() === events.month) {
     setEvents((prev) => {
-    const updatedEvents = prev?.events || [];
+      const updatedEvents = prev?.events || [];
 
-    return {
-      ...prev,
-      events: [...updatedEvents, newEvent]
-    }
-  });
+      return {
+        ...prev,
+        events: [...updatedEvents, newEvent],
+      };
+    });
   }
 
   setForm({
@@ -102,4 +120,25 @@ export const eventFormValidation = async (form, setForm, events, setEvents) => {
   });
 
   return;
+};
+
+export const selectedToForm = (event) => {
+  return {
+    info: event.info,
+    type:
+      event.reoccurring.frequency !== null
+        ? 'reoccurring'
+        : event.time.hour !== null
+        ? 'instance'
+        : 'allday',
+    date: event.date !== null ? formatDate(event.date) : null,
+    time: event.time,
+    reoccurring: {
+      frequency: event.reoccurring.frequency,
+      frame: event.reoccurring.frame,
+      days: event.reoccurring.days,
+      start: formatDate(event.reoccurring.start),
+      end: formatDate(event.reoccurring.end),
+    },
+  };
 };

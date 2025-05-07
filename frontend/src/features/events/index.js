@@ -16,8 +16,8 @@ export {
   eventToLocal,
 } from './util/dateUtil';
 
-export { eventFormValidation } from './util/eventFormUtil';
+export { eventFormValidation, selectedToForm } from './util/eventFormUtil';
 
 export { CreateEvent } from './components/CalendarForm';
 
-export { fetchEvents } from './services/eventService';
+export { fetchEvents, createEvent, editEvent } from './services/eventService';

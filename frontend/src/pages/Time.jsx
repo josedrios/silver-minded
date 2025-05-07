@@ -1,17 +1,25 @@
 import { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
-import { CalendarView, fetchEvents, CalendarList } from '../features/events';
-import { CreateEvent } from '../features/events';
-import { Modal } from '../components';
 import {
+  CalendarView,
+  fetchEvents,
+  CalendarList,
   eventToLocal,
   formatDate,
   today,
-} from '../features/events/util/dateUtil';
+  CreateEvent,
+  selectedToForm,
+} from '../features/events';
+import { Modal } from '../components';
 
 export default function Time() {
   const { events, setEvents } = useContext(AppContext);
   const [eventModal, setEventModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState('');
+
+  useEffect(() => {
+    console.log(selectedEvent);
+  }, [selectedEvent]);
 
   useEffect(() => {
     const fetchAndUpdateEvents = async () => {
@@ -47,6 +55,35 @@ export default function Time() {
     },
   });
 
+  useEffect(() => {
+    if (selectedEvent !== '') {
+      setEventForm(selectedToForm(selectedEvent));
+      setEventModal(true);
+    }
+  }, [selectedEvent]);
+
+  useEffect(() => {
+    if (!eventModal) {
+      setSelectedEvent('');
+      setEventForm({
+        info: '',
+        type: 'allday',
+        date: formatDate(today),
+        time: {
+          hour: '08',
+          minute: '00',
+        },
+        reoccurring: {
+          frequency: 'year',
+          frame: 'allday',
+          days: [],
+          start: '',
+          end: '',
+        },
+      });
+    }
+  }, [eventModal]);
+
   return (
     <div id="time-container">
       <CalendarView
@@ -55,13 +92,19 @@ export default function Time() {
         setEventModal={setEventModal}
         setEventForm={setEventForm}
       />
-      <CalendarList events={events} />
+      <CalendarList
+        events={events}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+      />
       <Modal isOpen={eventModal} onClose={() => setEventModal(false)}>
         <CreateEvent
           events={events}
           setEvents={setEvents}
           eventForm={eventForm}
           setEventForm={setEventForm}
+          selectedEvent={selectedEvent}
+          setSelectedEvent={setSelectedEvent}
         />
       </Modal>
     </div>

@@ -5,10 +5,12 @@ const eventSchema = new mongoose.Schema({
   date: { type: Date, default: null },
 
   time: {
+    // turn this to a subdocument
     type: {
       hour: Number,
       minute: Number,
     },
+    // add id false
     default: null,
   },
   reoccurring: {
@@ -19,6 +21,8 @@ const eventSchema = new mongoose.Schema({
       start: { type: Date, default: null },
       end: { type: Date, default: null },
     },
+    // turn this to a subdocument
+    // add id false
     default: null,
   },
   createdAt: { type: Date, default: Date.now },

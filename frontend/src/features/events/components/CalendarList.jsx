@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
 import { getMonthName } from '../util/dateUtil';
 
-export default function CalendarList({ events }) {
+export default function CalendarList({
+  events,
+  selectedEvent,
+  setSelectedEvent,
+}) {
   const currentYear = events.year;
   const currentMonth = events.month;
   return (
@@ -10,7 +14,14 @@ export default function CalendarList({ events }) {
       <div className="calendar-list-body">
         {events.events.length !== 0 ? (
           events.events.map((event, i) => (
-            <EventCard event={event} year={currentYear} month={currentMonth} key={i} />
+            <EventCard
+              event={event}
+              year={currentYear}
+              month={currentMonth}
+              key={i}
+              selectedEvent={selectedEvent}
+              setSelectedEvent={setSelectedEvent}
+            />
           ))
         ) : (
           <p>No events</p>
@@ -20,17 +31,29 @@ export default function CalendarList({ events }) {
   );
 }
 
-function EventCard({ event, year, month }) {
+function EventCard({ event, year, month, selectedEvent, setSelectedEvent }) {
   return (
-    <button className="calendar-list-item">
+    <button
+      className={`calendar-list-item ${
+        selectedEvent._id === event._id ? 'selected' : ''
+      }`}
+      onClick={() => {
+        if (selectedEvent._id === event._id) {
+          setSelectedEvent('');
+        } else {
+          setSelectedEvent(event);
+        }
+      }}
+    >
       <p className="event-header">{event.info}</p>
       {event.date !== null ? (
         <p className="event-sub">
           <span className="branch">
-            {event.reoccurring.frequency === null && event.time.hour === null ? '└─' : '├─'}
+            {event.reoccurring.frequency === null && event.time.hour === null
+              ? '└─'
+              : '├─'}
           </span>{' '}
-          {dayjs(event.date).date()} {getMonthName(month).toUpperCase()}{' '}
-          {year}
+          {dayjs(event.date).date()} {getMonthName(month).toUpperCase()} {year}
         </p>
       ) : (
         ''
