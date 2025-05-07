@@ -5,8 +5,96 @@
 .bank-time-frame {
     margin: $spacing-md;
     @include flex(row, space-between, center);
+}
 
-    .current-month {
+.bank-overalls {
+    margin: $spacing-md;
+    width: calc(100% - 2*$spacing-md) !important;
+
+    .bank-overalls-body {
+        @include flex(column);
+        gap: 2px;
+    }
+
+    .overall-header {
         color: var(--primary-800);
+    }
+
+    .overall-row {
+        margin-left: $spacing-md;
+        @include flex(row, space-between, flex-end);
+
+        p, span {
+            color: var(--primary-600);
+        }
+    }
+}
+
+.bank-budget {
+    @include flex(column);
+    gap: $spacing-sm;
+    width: calc(100% - 2*$spacing-md);
+    border-radius: $border-radius-sm;
+    background-color: rgb(23, 29, 30);
+    border: 1px solid rgba(var(--gray-600-rgb), 0.65);
+    padding: $spacing-sm;
+    margin: $spacing-md;
+
+    .budget-row {
+        @include flex(row, flex-start, center);
+    }
+
+    .budget-header {
+        gap: $spacing-sm;
+
+        p {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-light;
+        }
+    }
+
+    .budget-data-bar {
+        gap: $spacing-xs;
+
+        .data-bar-category {
+            height: 12px;
+            width: 25%;
+            border-radius: $border-radius-xs;
+        }
+    }
+
+    .color-legend {
+        @include flex(row, space-around, center);
+
+        .color-legend-row {
+            @include flex(row, center, center);
+            gap: $spacing-sm;
+
+            .color-block {
+                @include box(10px);
+            }
+        }
+    }
+}
+
+.color-block, .data-bar-category {
+    &.primary {
+        border: 1px solid var(--primary-600);
+        background-color: rgba(var(--primary-600-rgb), 0.2);
+    }
+
+    &.accent {
+        border: 1px solid var(--accent-600);
+        background-color: rgba(var(--accent-600-rgb), 0.2);
+    }
+
+    &.error {
+        border: 1px solid var(--error-600);
+        background-color: rgba(var(--error-600-rgb), 0.2);
+    }
+
+    &.gray {
+        border: 1px solid var(--text-700);
+        background-color: rgba(var(--text-600-rgb), 0.2);
     }
 }

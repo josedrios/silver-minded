@@ -14,6 +14,7 @@ import {
   LuArrowRight,
   LuChevronLeft,
   LuChevronRight,
+  LuWallet
 } from 'react-icons/lu';
 
 // EACH ICON SET USES DIFFERENT SIZES
@@ -77,6 +78,10 @@ export const ChevronLeft = ({ size = 'sm', className = '' }) => (
 
 export const ChevronRight = ({ size = 'sm', className = '' }) => (
   <LuChevronRight size={lucideSizes[size]} className={className} />
+);
+
+export const WalletIcon = ({ size = 'sm', className = '' }) => (
+  <LuWallet size={lucideSizes[size]} className={className} />
 );
 
 export const Icon = ({

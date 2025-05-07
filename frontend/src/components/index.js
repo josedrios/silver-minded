@@ -24,6 +24,7 @@ export {
   Icon,
   ChevronLeft,
   ChevronRight,
+  WalletIcon
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';

@@ -6,7 +6,7 @@ export default function TerminalBox({
     isRight= false
 }){
     return (
-        <div className={`terminal-box-container ${variant}`}>
+        <div className={`terminal-box-container ${variant} ${className}`}>
             <p className="terminal-box-header">{title}</p>
             <div className="terminal-box-body">{children}</div>
         </div>
