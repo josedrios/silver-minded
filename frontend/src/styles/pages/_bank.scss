@@ -1,0 +1,12 @@
+#bank-container {
+    
+}
+
+.bank-time-frame {
+    margin: $spacing-md;
+    @include flex(row, space-between, center);
+
+    .current-month {
+        color: var(--primary-800);
+    }
+}

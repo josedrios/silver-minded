@@ -143,3 +143,11 @@
     @include clickableContainer;
   }
 }
+
+// BANK RELATED
+// BANK TIME FRAME RELATED
+.bank-time-frame {
+  .borderless {
+    border: 1px solid transparent;
+  }
+}

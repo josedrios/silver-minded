@@ -1,9 +1,11 @@
+export { default as TerminalBox } from './ui/TerminalBox';
+
 export { default as Button } from './ui/Buttons';
 export { default as TextField } from './form/TextFields';
 
 export { Dropdown, IconDropdown } from './ui/Dropdowns';
 
-export { default as Modal } from './ui/Modal'
+export { default as Modal } from './ui/Modal';
 
 export {
   PlusIcon,
@@ -21,11 +23,11 @@ export {
   DangerIcon,
   Icon,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';
 
-export { SlideToggle, SlideToggleText } from './ui/Toggles'
+export { SlideToggle, SlideToggleText } from './ui/Toggles';
 
-export { RowSelect } from './ui/Selects'
+export { RowSelect } from './ui/Selects';
