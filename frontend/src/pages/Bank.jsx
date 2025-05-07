@@ -1,4 +1,4 @@
-import { TimeFrame, BankOveralls, BankBudget } from '../features/transactions';
+import { TimeFrame, BankOveralls, BankBudget, TransactionsList } from '../features/transactions';
 
 export default function Bank() {
   return (
@@ -6,6 +6,7 @@ export default function Bank() {
       <TimeFrame />
       <BankOveralls/>
       <BankBudget />
+      <TransactionsList />
     </div>
   );
 }

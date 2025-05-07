@@ -4,6 +4,7 @@
 
 .bank-time-frame {
     margin: $spacing-md;
+    margin-bottom: $spacing-lg;
     @include flex(row, space-between, center);
 }
 
@@ -32,12 +33,10 @@
 
 .bank-budget {
     @include flex(column);
-    gap: $spacing-sm;
     width: calc(100% - 2*$spacing-md);
     border-radius: $border-radius-sm;
     background-color: rgb(23, 29, 30);
     border: 1px solid rgba(var(--gray-600-rgb), 0.65);
-    padding: $spacing-sm;
     margin: $spacing-md;
 
     .budget-row {
@@ -46,6 +45,7 @@
 
     .budget-header {
         gap: $spacing-sm;
+        padding: $spacing-sm;
 
         p {
             font-size: $font-size-lg;
@@ -54,6 +54,9 @@
     }
 
     .budget-data-bar {
+        border-top: 1px solid var(--gray-800);
+        padding: $spacing-sm;
+        padding-bottom: $spacing-xs;
         gap: $spacing-xs;
 
         .data-bar-category {
@@ -65,6 +68,8 @@
 
     .color-legend {
         @include flex(row, space-around, center);
+        padding: $spacing-sm;
+        padding-top: $spacing-xs;
 
         .color-legend-row {
             @include flex(row, center, center);
@@ -96,5 +101,19 @@
     &.gray {
         border: 1px solid var(--text-700);
         background-color: rgba(var(--text-600-rgb), 0.2);
+    }
+}
+
+.transactions-list {
+    h4 {
+        padding-left: $spacing-md;
+        padding-bottom: $spacing-sm;
+        border-bottom: 1px solid var(--gray-700);
+        margin-bottom: $spacing-sm;
+    }
+
+    .transactions-body {
+        margin: 0 $spacing-md;
+        margin-bottom: $spacing-md;
     }
 }

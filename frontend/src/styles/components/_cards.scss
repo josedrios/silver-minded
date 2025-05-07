@@ -23,17 +23,67 @@
     }
 
     .event-header {
-        font-size: $font-size-md;
+      font-size: $font-size-md;
     }
 
     .event-sub {
-        color: var(--text-600);
+      color: var(--text-600);
 
-        .branch {
-            font-weight: $font-weight-bold;
-            font-size: $font-size-md;
-            color: var(--accent-600);
-        }
+      .branch {
+        font-weight: $font-weight-bold;
+        font-size: $font-size-md;
+        color: var(--accent-600);
+      }
+    }
+  }
+}
+
+// TRANSACTION LIST RELATED
+.transaction-card {
+  width: 100%;
+  background-color: transparent;
+  border-radius: $border-radius-xs;
+  border: 1px solid var(--gray-600);
+  padding: $spacing-sm;
+  @include flex(column);
+  gap: $spacing-xs;
+  @include clickableContainer;
+
+  .card-row,
+  .card-row {
+    @include flex(row, initial, center);
+
+    p {
+      text-align: left;
+    }
+
+    .transaction-info,
+    .transaction-date {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .transaction-amount,
+    .transaction-category {
+      margin-left: $spacing-xs;
+    }
+
+    .transaction-date, .transaction-category {
+      font-size: $font-size-xs;
+      color: var(--text-600);
+    }
+
+    .branch {
+      font-weight: $font-weight-bold;
+      font-size: $font-size-md;
+      color: var(--accent-600);
+      margin-right: $spacing-sm;
+    }
+
+    .transaction-amount {
+      color: var(--primary-800);
     }
   }
 }
