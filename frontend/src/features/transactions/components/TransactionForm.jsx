@@ -1,4 +1,5 @@
 import { TextField, SlideToggleText, Button } from '../../../components';
+import { formValidation } from '../';
 
 export default function TransactionForm({
   transactionForm,
@@ -26,7 +27,10 @@ export default function TransactionForm({
   };
 
   return (
-    <form className="transaction-form">
+    <form className="transaction-form" onSubmit={(e) => {
+      e.preventDefault();
+      formValidation(transactionForm, setTransactionForm);
+    }}>
       <h5>Create Transaction</h5>
       <TextField
         value={transactionForm.info}
