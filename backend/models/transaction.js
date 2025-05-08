@@ -9,13 +9,7 @@ const transactionSchema = new mongoose.Schema({
     default: "need",
     required: true,
   },
-  type: { 
-    type: String, 
-    enum: ["debit", "credit"],
-    default: "debit"
-  },
   createdAt: { type: Date, default: Date.now },
-  paidAt: { type: Date },
 });
 
 const Transaction = mongoose.model("Transaction", transactionSchema);

@@ -105,11 +105,14 @@
 }
 
 .transactions-list {
-    h4 {
-        padding-left: $spacing-md;
-        padding-bottom: $spacing-sm;
+    margin-top: $spacing-lg;
+
+    .transaction-list-header {
+        @include flex(row, space-between, center);
         border-bottom: 1px solid var(--gray-700);
-        margin-bottom: $spacing-sm;
+        padding: 0 $spacing-md;
+        padding-bottom: $spacing-sm;
+        margin-bottom: $spacing-md;
     }
 
     .transactions-body {

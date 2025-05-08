@@ -124,3 +124,18 @@ input {
     gap: $spacing-sm;
   }
 }
+
+// TRANSACTION RELATED
+
+.transaction-form {
+  @include flex(column);
+  gap: $spacing-sm;
+
+  h5 {
+    text-align: center;
+  }
+
+  .transaction-submit {
+    margin: auto;
+  }
+}

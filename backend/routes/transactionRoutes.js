@@ -13,6 +13,5 @@ router.post("/", createTransaction);
 router.put("/:id", editTransaction);
 router.delete("/:id", deleteTransaction);
 router.get("/:year/:month", getTransactions);
-router.get("/stats", getFinanceOveralls);
 
 module.exports = router;

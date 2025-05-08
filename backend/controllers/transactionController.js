@@ -2,15 +2,12 @@ const Transaction = require("../models/transaction");
 
 exports.createTransaction = async (req, res) => {
   try {
-    const { info, paidAt, type, amount, category } = req.body;
+    const { transaction } = req.body;
     const newTransaction = new Transaction({
-      info,
-      paidAt,
-      type,
-      amount,
-      category,
+      info: transaction.info,
+      category: transaction.category,
+      amount: transaction.amount,
     });
-    console.log(type)
     await newTransaction.save();
     return res.status(201).json(newTransaction);
   } catch (err) {
@@ -78,40 +75,3 @@ exports.getTransactions = async (req, res) => {
     });
   }
 };
-
-exports.getFinanceOveralls = async (req, res) => {
-  try {
-    const result = await Transaction.aggregate([
-      {
-        $group: {
-          _id: null,
-          totalMade: {
-            $sum: { $cond: [{ $eq: ["$category", "save"] }, "$amount", 0] }
-          },
-          totalSpent: {
-            $sum: {
-              $cond: [
-                { $in: ["$category", ["need", "fun", "sub"]] },
-                "$amount",
-                0
-              ]
-            }
-          }
-        }
-      }
-    ]);
-
-    const data = result[0] || { totalMade: 0, totalSpent: 0 };
-    return res.status(200).json({
-      totalMade: Number(data.totalMade).toFixed(2),
-      totalSpent: Number(data.totalSpent).toFixed(2),
-    })
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: "Error occurred while getting overall finance stats",
-      error: err.message,
-    });
-  }
-};
-

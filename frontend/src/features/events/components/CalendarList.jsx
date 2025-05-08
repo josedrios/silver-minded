@@ -63,7 +63,7 @@ function EventCard({ event, year, month, selectedEvent, setSelectedEvent }) {
           <span className="branch">
             {event.reoccurring.frequency === null ? '└─' : '├─'}
           </span>{' '}
-          {event.time.hour}:{event.time.minute}
+          {event.time.hour < 10 ? '0' : ''}{event.time.hour}:{event.time.minute < 10 ? '0' : ''}{event.time.minute}
         </p>
       ) : (
         ''
