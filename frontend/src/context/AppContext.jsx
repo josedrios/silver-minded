@@ -9,11 +9,19 @@ export default function AppProvider({ children }) {
     month: today.getMonth(),
     events: [],
   });
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState({
+    year: today.getFullYear(),
+    month: today.getMonth(),
+    transactions: []
+  });
 
   useEffect(() => {
     console.log(events);
   }, [events.events]);
+
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
 
   return (
     <AppContext.Provider

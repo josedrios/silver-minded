@@ -1,4 +1,4 @@
-const Transaction = require("../models/transaction");
+const Transaction = require('../models/transaction');
 
 exports.createTransaction = async (req, res) => {
   try {
@@ -13,7 +13,7 @@ exports.createTransaction = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while creating new transaction",
+      message: 'Error occurred while creating new transaction',
       error: err.message,
     });
   }
@@ -24,7 +24,7 @@ exports.editTransaction = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while editing transaction",
+      message: 'Error occurred while editing transaction',
       error: err.message,
     });
   }
@@ -35,7 +35,7 @@ exports.deleteTransaction = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while deleting transaction",
+      message: 'Error occurred while deleting transaction',
       error: err.message,
     });
   }
@@ -43,34 +43,27 @@ exports.deleteTransaction = async (req, res) => {
 
 exports.getTransactions = async (req, res) => {
   try {
-    const { year, month } = req.params;
-    let transactions;
+    const { start, end } = req.params;
 
-    if (month !== "-1") {
-      const m = Number(month); 
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const currentMonth = startDate.getUTCMonth() + 1;
 
-      const start = new Date(year, m, 1);
-      const end = new Date(year, m + 1, 1);
+    console.log(startDate, endDate, currentMonth);
 
-      transactions = await Transaction.find({
-        paidAt: { $gte: start, $lt: end },
-      }).sort({ paidAt: -1 });
-    } else if (month === "-1" && year === "-1")  {
-      transactions = await Transaction.find().sort({ paidAt: -1 });
-    }else {
-      const start = new Date(year, 0, 1);
-      const end = new Date(Number(year) + 1, 0, 1);
+    const transactions = await Transaction.find({
+      $and: [
+        { createdAt: { $gte: startDate, $lte: endDate } },
+      ],
+    }).sort({ createdAt: -1 });
 
-      transactions = await Transaction.find({
-        paidAt: { $gte: start, $lt: end },
-      }).sort({ paidAt: -1 });
-    }
     console.log(transactions);
+
     res.json(transactions);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error occurred while getting transactions",
+      message: 'Error occurred while getting transactions',
       error: err.message,
     });
   }
