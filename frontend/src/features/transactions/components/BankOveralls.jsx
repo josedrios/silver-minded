@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { TerminalBox } from '../../../components';
 
-export default function BankOveralls() {
+export default function BankOveralls({bankStats}) {
+  
   return (
     <TerminalBox
       title="5.2025 STATS"
@@ -11,13 +13,13 @@ export default function BankOveralls() {
         <p className="overall-header">~/2025/MAY/:</p>
         <div className="overall-row">
           <p>MADE:</p> 
-          <span>$136</span>
+          <span>${bankStats.made}</span>
         </div>
         <div className="overall-row">
-          <p>SPENT:</p> <span>$21</span>
+          <p>SPENT:</p> <span>${bankStats.spent}</span>
         </div>
         <div className="overall-row">
-          <p>SAVED:</p> <span>$118</span>
+          <p>SAVED:</p> <span>${bankStats.saved}</span>
         </div>
       </div>
     </TerminalBox>

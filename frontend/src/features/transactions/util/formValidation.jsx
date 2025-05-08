@@ -1,10 +1,14 @@
-import { createTransaction } from '../';
+import { createTransaction, fetchAndUpdateTransactions } from '../';
 
-export const formValidation = (form, setForm) => {
+export const formValidation = (form, setForm, transactions, setTransactions) => {
   let updatedForm = { ...form };
 
   if (updatedForm.info === '') {
     updatedForm.info = 'NO DESCRIPTION';
+  }
+
+  if(updatedForm.amount === '') {
+    updatedForm.amount = '0'
   }
 
   if (/[a-zA-Z]/.test(updatedForm.amount)) {
@@ -12,6 +16,8 @@ export const formValidation = (form, setForm) => {
   }
 
   createTransaction(updatedForm);
+
+  fetchAndUpdateTransactions(transactions, setTransactions);
 
   setForm({
     info: '',

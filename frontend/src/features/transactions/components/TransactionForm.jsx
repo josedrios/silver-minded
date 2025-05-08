@@ -4,6 +4,8 @@ import { formValidation } from '../';
 export default function TransactionForm({
   transactionForm,
   setTransactionForm,
+  transactions, 
+  setTransactions
 }) {
   const handleTransactionInfo = (newValue) => {
     setTransactionForm((prev) => ({
@@ -29,7 +31,7 @@ export default function TransactionForm({
   return (
     <form className="transaction-form" onSubmit={(e) => {
       e.preventDefault();
-      formValidation(transactionForm, setTransactionForm);
+      formValidation(transactionForm, setTransactionForm, transactions, setTransactions);
     }}>
       <h5>Create Transaction</h5>
       <TextField

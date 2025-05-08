@@ -1,122 +1,129 @@
 #bank-container {
-    
 }
 
 .bank-time-frame {
-    margin: $spacing-md;
-    margin-bottom: $spacing-lg;
-    @include flex(row, space-between, center);
+  margin: $spacing-md;
+  margin-bottom: $spacing-lg;
+  @include flex(row, space-between, center);
 }
 
 .bank-overalls {
-    margin: $spacing-md;
-    width: calc(100% - 2*$spacing-md) !important;
+  margin: $spacing-md;
+  width: calc(100% - 2 * $spacing-md) !important;
 
-    .bank-overalls-body {
-        @include flex(column);
-        gap: 2px;
+  .bank-overalls-body {
+    @include flex(column);
+    gap: 2px;
+  }
+
+  .overall-header {
+    color: var(--primary-800);
+  }
+
+  .overall-row {
+    margin-left: $spacing-md;
+    @include flex(row, space-between, flex-end);
+
+    p,
+    span {
+      color: var(--primary-600);
     }
-
-    .overall-header {
-        color: var(--primary-800);
-    }
-
-    .overall-row {
-        margin-left: $spacing-md;
-        @include flex(row, space-between, flex-end);
-
-        p, span {
-            color: var(--primary-600);
-        }
-    }
+  }
 }
 
 .bank-budget {
-    @include flex(column);
-    width: calc(100% - 2*$spacing-md);
-    border-radius: $border-radius-sm;
-    background-color: rgb(23, 29, 30);
-    border: 1px solid rgba(var(--gray-600-rgb), 0.65);
-    margin: $spacing-md;
+  @include flex(column);
+  width: calc(100% - 2 * $spacing-md);
+  border-radius: $border-radius-sm;
+  background-color: rgb(23, 29, 30);
+  border: 1px solid rgba(var(--gray-600-rgb), 0.65);
+  margin: $spacing-md;
 
-    .budget-row {
-        @include flex(row, flex-start, center);
+  .budget-row {
+    @include flex(row, flex-start, center);
+  }
+
+  .budget-header {
+    gap: $spacing-sm;
+    padding: $spacing-sm;
+
+    p {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-light;
     }
+  }
 
-    .budget-header {
-        gap: $spacing-sm;
-        padding: $spacing-sm;
+  .budget-data-bar {
+    border-top: 1px solid var(--gray-800);
+    padding: $spacing-sm;
+    padding-bottom: $spacing-xs;
+    gap: $spacing-xs;
 
-        p {
-            font-size: $font-size-lg;
-            font-weight: $font-weight-light;
-        }
+    .data-bar-category {
+      height: 12px;
+      width: 25%;
+      border-radius: $border-radius-xs;
     }
+  }
 
-    .budget-data-bar {
-        border-top: 1px solid var(--gray-800);
-        padding: $spacing-sm;
-        padding-bottom: $spacing-xs;
-        gap: $spacing-xs;
+  .color-legend {
+    @include flex(row, space-around, center);
+    padding: $spacing-sm;
+    padding-top: $spacing-xs;
 
-        .data-bar-category {
-            height: 12px;
-            width: 25%;
-            border-radius: $border-radius-xs;
-        }
+    .color-legend-row {
+      @include flex(row, center, center);
+      gap: $spacing-sm;
+
+      p {
+        font-size: $font-size-xs;
+      }
+
+      .color-block {
+        @include box(9px);
+      }
     }
-
-    .color-legend {
-        @include flex(row, space-around, center);
-        padding: $spacing-sm;
-        padding-top: $spacing-xs;
-
-        .color-legend-row {
-            @include flex(row, center, center);
-            gap: $spacing-sm;
-
-            .color-block {
-                @include box(10px);
-            }
-        }
-    }
+  }
 }
 
-.color-block, .data-bar-category {
-    &.primary {
-        border: 1px solid var(--primary-600);
-        background-color: rgba(var(--primary-600-rgb), 0.2);
-    }
+.color-block,
+.data-bar-category {
+  &.primary {
+    border: 1px solid var(--primary-600);
+    background-color: rgba(var(--primary-600-rgb), 0.2);
+  }
 
-    &.accent {
-        border: 1px solid var(--accent-600);
-        background-color: rgba(var(--accent-600-rgb), 0.2);
-    }
+  &.accent {
+    border: 1px solid var(--accent-600);
+    background-color: rgba(var(--accent-600-rgb), 0.2);
+  }
 
-    &.error {
-        border: 1px solid var(--error-600);
-        background-color: rgba(var(--error-600-rgb), 0.2);
-    }
+  &.error {
+    border: 1px solid var(--error-600);
+    background-color: rgba(var(--error-600-rgb), 0.2);
+  }
 
-    &.gray {
-        border: 1px solid var(--text-700);
-        background-color: rgba(var(--text-600-rgb), 0.2);
-    }
+  &.gray {
+    border: 1px solid var(--text-700);
+    background-color: rgba(var(--text-600-rgb), 0.2);
+  }
 }
 
 .transactions-list {
-    margin-top: $spacing-lg;
+  margin-top: $spacing-lg;
 
-    .transaction-list-header {
-        @include flex(row, space-between, center);
-        border-bottom: 1px solid var(--gray-700);
-        padding: 0 $spacing-md;
-        padding-bottom: $spacing-sm;
-        margin-bottom: $spacing-md;
-    }
+  .transaction-list-header {
+    @include flex(row, space-between, center);
+    border-bottom: 1px solid var(--gray-700);
+    padding: 0 $spacing-md;
+    padding-bottom: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
 
-    .transactions-body {
-        margin: 0 $spacing-md;
-        margin-bottom: $spacing-md;
-    }
+  .transactions-body {
+    @include flex(column);
+    gap: $spacing-sm;
+    margin: 0 $spacing-md;
+    margin-bottom: $spacing-md;
+  }
 }
