@@ -8,53 +8,70 @@ import {
   TransactionsList,
   TransactionForm,
   fetchAndUpdateTransactions,
+  selectedToForm,
 } from '../features/transactions';
 
 export default function Bank() {
   const { transactions, setTransactions } = useContext(AppContext);
   const [transactionModal, setTransactionModal] = useState(false);
-
   const [transactionForm, setTransactionForm] = useState({
     info: '',
     amount: '',
     category: 'need',
   });
-
-  useEffect(() => {
-    console.log(transactionForm);
-  }, [transactionForm]);
+  const [selectedTransaction, setSelectedTransaction] = useState('');
 
   useEffect(() => {
     fetchAndUpdateTransactions(transactions, setTransactions);
   }, [transactions.month, transactions.year]);
 
-  const bankStats = useMemo(() => {
-      const result = { save: 0, fun: 0, sub: 0, need: 0}
-      transactions.transactions.forEach(curr => {
-        if(result.hasOwnProperty(curr.category)) {
-          result[curr.category] += curr.amount;
-        }
+  useEffect(() => {
+    if (!transactionModal) {
+      setSelectedTransaction('');
+      setTransactionForm({
+        info: '',
+        amount: '',
+        category: 'need',
       });
-      return {
-        made: result.save,
-        spent: result.fun + result.need + result.sub,
-        saved: result.save - (result.fun + result.need + result.sub),
-        need: result.need,
-        fun: result.fun,
-        sub: result.sub
-      };
-    },[transactions.transactions])
+    }
+  }, [transactionModal]);
+
+  useEffect(() => {
+    if (selectedTransaction !== '') {
+      setTransactionForm(selectedToForm(selectedTransaction));
+      setTransactionModal(true);
+    }
+  }, [selectedTransaction]);
+
+  const bankStats = useMemo(() => {
+    const result = { save: 0, fun: 0, sub: 0, need: 0 };
+    transactions.transactions.forEach((curr) => {
+      if (result.hasOwnProperty(curr.category)) {
+        result[curr.category] += curr.amount;
+      }
+    });
+    return {
+      made: result.save,
+      spent: result.fun + result.need + result.sub,
+      saved: result.save - (result.fun + result.need + result.sub),
+      need: result.need,
+      fun: result.fun,
+      sub: result.sub,
+    };
+  }, [transactions.transactions]);
 
   return (
     <div id="bank-container">
       <TimeFrame />
-      <BankOveralls bankStats={bankStats}/>
-      <BankBudget bankStats={bankStats}/>
+      <BankOveralls transactions={transactions} bankStats={bankStats} />
+      <BankBudget bankStats={bankStats} />
       <TransactionsList
         transactions={transactions}
         setTransactions={setTransactions}
         transactionModal={transactionModal}
         setTransactionModal={setTransactionModal}
+        selectedTransaction={selectedTransaction}
+        setSelectedTransaction={setSelectedTransaction}
       />
       <Modal
         isOpen={transactionModal}
@@ -65,6 +82,9 @@ export default function Bank() {
           setTransactionForm={setTransactionForm}
           transactions={transactions}
           setTransactions={setTransactions}
+          selectedTransaction={selectedTransaction}
+          setSelectedTransaction={setSelectedTransaction}
+          setTransactionModal={setTransactionModal}
         />
       </Modal>
     </div>

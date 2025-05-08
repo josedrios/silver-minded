@@ -22,10 +22,6 @@
       content: none;
     }
 
-    .event-header {
-      font-size: $font-size-md;
-    }
-
     .event-sub {
       color: var(--text-600);
 
@@ -70,7 +66,8 @@
       margin-left: $spacing-xs;
     }
 
-    .transaction-date, .transaction-category {
+    .transaction-date,
+    .transaction-category {
       font-size: $font-size-xs;
       color: var(--text-600);
     }

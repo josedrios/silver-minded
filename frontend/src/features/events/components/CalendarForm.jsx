@@ -236,7 +236,7 @@ export function CreateEvent({
       )}
       <div className="event-form-footer">
         <Button className="event-form-submit" type="submit">
-          {selectedEvent === '' ? 'Create' : 'Edit'}
+          {selectedEvent === '' ? 'CREATE' : 'EDIT'}
         </Button>
         {selectedEvent !== '' ? (
           <Button

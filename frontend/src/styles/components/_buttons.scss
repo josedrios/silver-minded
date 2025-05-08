@@ -151,3 +151,9 @@
     border: 1px solid transparent;
   }
 }
+
+// BANK FORM RELATED
+.transaction-form-btns {
+  @include flex(row, center);
+  gap: $spacing-sm;
+}

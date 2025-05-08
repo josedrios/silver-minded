@@ -7,6 +7,15 @@ export { default as TransactionForm } from './components/TransactionForm';
 
 export { formValidation } from './util/formValidation';
 
-export { fetchAndUpdateTransactions } from './util/transactionUtil';
+export {
+  fetchAndUpdateTransactions,
+  formatTransactionDate,
+  selectedToForm,
+} from './util/transactionUtil';
 
-export { createTransaction, fetchTransactions } from './services/transactionService';
+export {
+  createTransaction,
+  editTransaction,
+  fetchTransactions,
+  deleteTransaction
+} from './services/transactionService';

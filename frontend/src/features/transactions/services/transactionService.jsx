@@ -48,3 +48,50 @@ export async function fetchTransactions(year, month) {
     throw err;
   }
 }
+
+export async function editTransaction(transaction, id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/transaction/${id}`,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transaction }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to edit transaction');
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Transaction Edit Error:', err.message);
+    throw err;
+  }
+}
+
+export async function deleteTransaction(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/transaction/${id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to delete transaction');
+    }
+
+    return data;
+  } catch (err) {
+    console.error('Transaction Deletion Error:', err.message);
+    throw err;
+  }
+}

@@ -1,6 +1,6 @@
-import { createTransaction, fetchAndUpdateTransactions } from '../';
+import { createTransaction, fetchAndUpdateTransactions, editTransaction } from '../';
 
-export const formValidation = (form, setForm, transactions, setTransactions) => {
+export const formValidation = async (form, setForm, transactions, setTransactions, selectedTransaction, setSelectedTransaction) => {
   let updatedForm = { ...form };
 
   if (updatedForm.info === '') {
@@ -15,10 +15,15 @@ export const formValidation = (form, setForm, transactions, setTransactions) => 
     updatedForm.amount = '0';
   }
 
-  createTransaction(updatedForm);
-
-  fetchAndUpdateTransactions(transactions, setTransactions);
-
+  if(selectedTransaction === '') {
+    await createTransaction(updatedForm);
+  } else {
+    await editTransaction(updatedForm, selectedTransaction._id);
+    setSelectedTransaction('');
+  }
+  
+  await fetchAndUpdateTransactions(transactions, setTransactions);
+  
   setForm({
     info: '',
     amount: '',

@@ -21,6 +21,21 @@ exports.createTransaction = async (req, res) => {
 
 exports.editTransaction = async (req, res) => {
   try {
+    const { id } = req.params;
+    const { transaction } = req.body;
+
+    const updated = await Transaction.findByIdAndUpdate(
+      id,
+      {
+        info: transaction.info,
+        amount: transaction.amount,
+        category: transaction.category,
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!updated) return res.status(404).json({ message: 'Event not found' });
+    res.status(200).json(updated);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -32,6 +47,11 @@ exports.editTransaction = async (req, res) => {
 
 exports.deleteTransaction = async (req, res) => {
   try {
+    const { id } = req.params;
+    const deleted = await Transaction.findByIdAndDelete(id);
+    if (!deleted)
+      return res.status(404).json({ message: 'Transaction not found' });
+    res.json({ message: 'Transaction deleted' });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -52,9 +72,7 @@ exports.getTransactions = async (req, res) => {
     console.log(startDate, endDate, currentMonth);
 
     const transactions = await Transaction.find({
-      $and: [
-        { createdAt: { $gte: startDate, $lte: endDate } },
-      ],
+      $and: [{ createdAt: { $gte: startDate, $lte: endDate } }],
     }).sort({ createdAt: -1 });
 
     console.log(transactions);
