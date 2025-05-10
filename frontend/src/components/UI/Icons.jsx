@@ -1,3 +1,4 @@
+// lucideIcons.js
 import {
   LuBrainCircuit,
   LuPlus,
@@ -17,72 +18,30 @@ import {
   LuWallet
 } from 'react-icons/lu';
 
-// EACH ICON SET USES DIFFERENT SIZES
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
 
-export const PlusIcon = ({ size = 'sm', className = '' }) => (
-  <LuPlus size={lucideSizes[size]} className={className} />
+// Helper function to generate icon components
+const createIcon = (IconComponent) => ({ size = 'sm', className = '' }) => (
+  <IconComponent size={lucideSizes[size]} className={className} />
 );
 
-export const BrainIcon = ({ size = 'sm', className = '' }) => (
-  <LuBrain size={lucideSizes[size]} className={className} />
-);
-
-export const BrainCircuitIcon = ({ size = 'sm', className = '' }) => (
-  <LuBrainCircuit size={lucideSizes[size]} className={className} />
-);
-
-export const TrashIcon = ({ size = 'sm', className = '' }) => (
-  <LuTrash size={lucideSizes[size]} className={className} />
-);
-
-export const SearchIcon = ({ size = 'sm', className = '' }) => (
-  <LuSearch size={lucideSizes[size]} className={className} />
-);
-
-export const PenIcon = ({ size = 'sm', className = '' }) => (
-  <LuPen size={lucideSizes[size]} className={className} />
-);
-
-export const FilterIcon = ({ size = 'sm', className = '' }) => (
-  <LuListFilter size={lucideSizes[size]} className={className} />
-);
-
-export const CheckmarkIcon = ({ size = 'sm', className = '' }) => (
-  <LuCheck size={lucideSizes[size]} className={className} />
-);
-
-export const PauseIcon = ({ size = 'sm', className = '' }) => (
-  <LuPause size={lucideSizes[size]} className={className} />
-);
-
-export const HourglassIcon = ({ size = 'sm', className = '' }) => (
-  <LuHourglass size={lucideSizes[size]} className={className} />
-);
-
-export const DangerIcon = ({ size = 'sm', className = '' }) => (
-  <LuTriangleAlert size={lucideSizes[size]} className={className} />
-);
-
-export const ArrowRightIcon = ({ size = 'sm', className = '' }) => (
-  <LuArrowRight size={lucideSizes[size]} className={className} />
-);
-
-export const ArrowLeftIcon = ({ size = 'sm', className = '' }) => (
-  <LuArrowLeft size={lucideSizes[size]} className={className} />
-);
-
-export const ChevronLeft = ({ size = 'sm', className = '' }) => (
-  <LuChevronLeft size={lucideSizes[size]} className={className} />
-);
-
-export const ChevronRight = ({ size = 'sm', className = '' }) => (
-  <LuChevronRight size={lucideSizes[size]} className={className} />
-);
-
-export const WalletIcon = ({ size = 'sm', className = '' }) => (
-  <LuWallet size={lucideSizes[size]} className={className} />
-);
+// All icon exports
+export const PlusIcon = createIcon(LuPlus);
+export const BrainIcon = createIcon(LuBrain);
+export const BrainCircuitIcon = createIcon(LuBrainCircuit);
+export const TrashIcon = createIcon(LuTrash);
+export const SearchIcon = createIcon(LuSearch);
+export const PenIcon = createIcon(LuPen);
+export const FilterIcon = createIcon(LuListFilter);
+export const CheckmarkIcon = createIcon(LuCheck);
+export const PauseIcon = createIcon(LuPause);
+export const HourglassIcon = createIcon(LuHourglass);
+export const DangerIcon = createIcon(LuTriangleAlert);
+export const ArrowLeftIcon = createIcon(LuArrowLeft);
+export const ArrowRightIcon = createIcon(LuArrowRight);
+export const ChevronLeft = createIcon(LuChevronLeft);
+export const ChevronRight = createIcon(LuChevronRight);
+export const WalletIcon = createIcon(LuWallet);
 
 export const Icon = ({
   children,

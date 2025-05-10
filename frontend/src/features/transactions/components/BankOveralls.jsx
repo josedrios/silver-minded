@@ -7,12 +7,11 @@ export default function BankOveralls({transactions, bankStats}) {
   return (
     <TerminalBox
       // title="5.2025 STATS"
-      title={`${transactions.month+1}.${transactions.year} STATS`}
+      title={`${getMonthName(transactions.month).toUpperCase()}.${transactions.year}`}
       className="bank-overalls"
       variant="primary"
     >
       <div className="bank-overalls-body">
-        <p className="overall-header">~/{transactions.year}/{getMonthName(transactions.month).toUpperCase()}/:</p>
         <div className="overall-row">
           <p>MADE:</p> 
           <span>${bankStats.made}</span>

@@ -5,7 +5,6 @@ import {
   CheckmarkIcon,
   HourglassIcon,
   DangerIcon,
-  
 } from '../../../components';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
@@ -109,7 +108,7 @@ export default function TaskList({
               />
             ))
           ) : (
-            <span className="no-task-message">NO TASKS</span>
+            <span className="empty-list-quote">No Tasks</span>
           )}
         </motion.ol>
       </AnimatePresence>
@@ -117,7 +116,7 @@ export default function TaskList({
         <span className="done-percentage">
           {!isNaN(completePercentage) ? completePercentage : '0'}%
         </span>{' '}
-        of tasks complete
+        of tasks complete <span className='task-count'>[{tasks.length}]</span>
       </div>
     </div>
   );

@@ -22,15 +22,17 @@ export default function TransactionsList({
         </Button>
       </div>
       <div className="transactions-body">
-        {transactions.transactions.map((transaction, i) => (
-          <TransactionCard
-            transaction={transaction}
-            selectedTransaction={selectedTransaction}
-            setSelectedTransaction={setSelectedTransaction}
-          />
-        ))}
-
-        {}
+        {transactions.transactions.length !== 0 ? (
+          transactions.transactions.map((transaction, i) => (
+            <TransactionCard
+              transaction={transaction}
+              selectedTransaction={selectedTransaction}
+              setSelectedTransaction={setSelectedTransaction}
+            />
+          ))
+        ) : (
+          <p className='empty-list-quote'>No transactions</p>
+        )}
       </div>
     </div>
   );

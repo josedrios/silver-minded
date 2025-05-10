@@ -1,0 +1,15 @@
+.mind-header-wrapper {
+    margin: $spacing-md;
+}
+
+.mind-header {
+    @include flex(row);
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+
+    .text-field {
+        flex: 1;
+    }
+}

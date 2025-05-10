@@ -9,6 +9,7 @@
     border: 1px solid transparent;
 
     &::after {
+      cursor: default;
       content: '';
       position: absolute;
       left: 0;

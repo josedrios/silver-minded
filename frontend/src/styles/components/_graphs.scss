@@ -1,0 +1,28 @@
+.budget-row {
+    @include flex(row, flex-start, center);
+  }
+
+  .budget-header {
+    gap: $spacing-sm;
+    padding: $spacing-sm;
+
+    p {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  .budget-data-bar {
+    border-top: 1px solid var(--gray-800);
+    padding: $spacing-sm;
+    padding-bottom: $spacing-xs;
+    gap: $spacing-xs;
+
+    .data-bar-category {
+      height: 12px;
+      width: 25%;
+      border-radius: $border-radius-xs;
+
+      min-width: 5px;
+    }
+  }

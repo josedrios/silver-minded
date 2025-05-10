@@ -51,7 +51,8 @@ export default function Bank() {
       }
     });
     return {
-      made: result.save,
+      made:
+        result.save === 0 ? result.fun + result.need + result.sub : result.save,
       spent: result.fun + result.need + result.sub,
       saved: result.save - (result.fun + result.need + result.sub),
       need: result.need,
@@ -63,8 +64,10 @@ export default function Bank() {
   return (
     <div id="bank-container">
       <TimeFrame />
-      <BankOveralls transactions={transactions} bankStats={bankStats} />
-      <BankBudget bankStats={bankStats} />
+      <div className="bank-budget-overall-wrapper">
+        <BankOveralls transactions={transactions} bankStats={bankStats} />
+        <BankBudget bankStats={bankStats} />
+      </div>
       <TransactionsList
         transactions={transactions}
         setTransactions={setTransactions}

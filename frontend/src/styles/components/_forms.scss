@@ -4,6 +4,11 @@ input {
   font-size: $font-size-sm;
 }
 
+form {
+  @include flex(column);
+  gap: $spacing-sm;
+}
+
 .text-field {
   @include flex(column, flex-start);
   gap: $spacing-xs;
@@ -134,4 +139,16 @@ input {
   h5 {
     text-align: center;
   }
+}
+
+// TREE RELATED
+
+.tree-form {
+  h5 {
+    margin: auto;
+  }
+}
+
+.tree-submit {
+  margin: auto;
 }

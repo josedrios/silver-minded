@@ -24,7 +24,7 @@ export default function CalendarList({
             />
           ))
         ) : (
-          <p>No events</p>
+          <p className='empty-list-quote'>No events</p>
         )}
       </div>
     </div>

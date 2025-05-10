@@ -1,7 +1,6 @@
 nav {
   max-width: 900px;
   width: calc(100vw - $spacing-md * 2 - 2px);
-  outline: 1px solid var(--gray-800);
   background-color: var(--primary-100);
   padding: $spacing-sm;
   margin: $spacing-md;

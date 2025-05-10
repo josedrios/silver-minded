@@ -2,7 +2,7 @@ export const RowSelect = ({
   selectState,
   setSelectState,
   options,
-  variant,
+  variant='primary',
   label
 }) => {
   const handleClick = (option) => {

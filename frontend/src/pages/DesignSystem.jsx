@@ -333,13 +333,13 @@ function DesignIcons() {
         </Icon>
       </div>
       <div className="raw-icons">
-        <Icon variant="border" type="stroke" size="lg">
+        <Icon variant="gray" type="stroke" size="lg">
           <BrainIcon size="lg" />
         </Icon>
-        <Icon variant="border" type="stroke" size="md">
+        <Icon variant="gray" type="stroke" size="md">
           <BrainIcon size="md" />
         </Icon>
-        <Icon variant="border" type="stroke">
+        <Icon variant="gray" type="stroke">
           <BrainIcon />
         </Icon>
       </div>

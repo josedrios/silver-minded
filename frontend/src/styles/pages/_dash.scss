@@ -14,7 +14,8 @@
   width: 100%;
 
   .task-list-header {
-    @include flex(row, space-between, center);
+    @include flex(row, space-between, flex-end);
+    margin-bottom: $spacing-xs;
 
     p {
       font-weight: $font-weight-bold;
@@ -53,6 +54,10 @@
   }
 }
 
-.no-task-message {
-    color: var(--text-600);
+.task-count {
+  color: var(--text-600);
+}
+
+.empty-list-quote {
+  color: var(--text-600);
 }
