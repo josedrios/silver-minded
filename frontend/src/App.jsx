@@ -28,7 +28,7 @@ function App() {
 
             <Route path="/mind" element={<Mind />}>
               <Route index element={<MindHome />} />
-              <Route path='tree' element={<TreePage />} />
+              <Route path=':id' element={<TreePage />} />
             </Route>
 
             <Route path="/designsystem" element={<DesignSystem />} />
