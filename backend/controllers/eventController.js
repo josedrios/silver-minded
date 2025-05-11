@@ -31,10 +31,15 @@ exports.editEvent = async (req, res) => {
 
     const updated = await Event.findByIdAndUpdate(
       id,
-      { info: event.info, date: event.date, time: event.time, reoccurring: event.reoccurring },
+      {
+        info: event.info,
+        date: event.date,
+        time: event.time,
+        reoccurring: event.reoccurring,
+      },
       { new: true, runValidators: true }
     );
-    
+
     if (!updated) return res.status(404).json({ message: 'Event not found' });
     res.status(200).json(updated);
   } catch (err) {

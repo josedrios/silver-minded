@@ -11,7 +11,7 @@ export default function Mind() {
   );
 }
 
-function MindHeader({setTreeModal}) {
+function MindHeader() {
   return (
     <div className="mind-header-wrapper">
       <div className="mind-header">
