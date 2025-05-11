@@ -3,8 +3,6 @@ const Event = require('../models/event');
 exports.createEvent = async (req, res) => {
   try {
     const { event } = req.body;
-    console.log('TESTING:');
-    console.log(event);
 
     const newEvent = new Event({
       info: event.info,
@@ -12,7 +10,6 @@ exports.createEvent = async (req, res) => {
       time: event.time,
       reoccurring: event.reoccurring,
     });
-    console.log(newEvent);
     await newEvent.save();
     return res.status(201).json(newEvent);
   } catch (err) {

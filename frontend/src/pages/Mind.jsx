@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 import { Button, TextField, PlusIcon, SearchIcon } from '../components';
 
-export default function Mind() {
+export function Mind() {
 
   return (
     <div>
       <MindHeader/>
-
+      <Outlet />
     </div>
   );
 }
@@ -26,4 +26,10 @@ function MindHeader() {
       </div>
     </div>
   );
+}
+
+export function MindHome() {
+  return (
+    <div>Default</div>
+  )
 }
