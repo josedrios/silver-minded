@@ -85,3 +85,16 @@
     }
   }
 }
+
+// Temp Tree Card 
+.temp-tree-card {
+  border: 1px solid white;
+  
+  > :first-child {
+    color: var(--accent-800);
+  }
+
+  &:hover {
+    background-color: var(--gray-700);
+  }
+}

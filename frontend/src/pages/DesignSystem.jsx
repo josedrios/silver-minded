@@ -19,9 +19,10 @@ import {
   SlideToggle,
   SlideToggleText,
   RowSelect,
-  TerminalBox
+  TerminalBox,
+  ReactMultiSelect,
 } from '../components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function DesignSystem() {
   const [selectedOption, setSelectedOption] = useState('test1');
@@ -35,22 +36,24 @@ export default function DesignSystem() {
 
   const [rowSelect, setRowSelect] = useState([]);
 
+  useEffect(() => {
+    console.log(rowSelect);
+  }, [rowSelect]);
+
   return (
     <div id="design-component-grid">
       <DesignComponent title={'Terminal Box'}>
-        <TerminalBox title='STATS 5.2025'> 
+        <TerminalBox title="STATS 5.2025">Test</TerminalBox>
+
+        <TerminalBox title="STATS 5.2025" variant="error">
           Test
         </TerminalBox>
 
-        <TerminalBox title='STATS 5.2025' variant='error'> 
+        <TerminalBox title="STATS 5.2025" variant="accent">
           Test
         </TerminalBox>
 
-        <TerminalBox title='STATS 5.2025' variant='accent'> 
-          Test
-        </TerminalBox>
-
-        <TerminalBox title='STATS 5.2025' variant='gray'> 
+        <TerminalBox title="STATS 5.2025" variant="gray">
           Test
         </TerminalBox>
       </DesignComponent>
@@ -60,6 +63,21 @@ export default function DesignSystem() {
           setSelectState={setRowSelect}
           options={['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']}
           variant={'primary'}
+        />
+
+        <ReactMultiSelect
+          options={[
+            { value: 'su', label: 'Sunday' },
+            { value: 'mo', label: 'Mo' },
+            { value: 'tu', label: 'Tu' },
+            { value: 'we', label: 'We' },
+            { value: 'th', label: 'Th' },
+            { value: 'fr', label: 'Fr' },
+            { value: 'sa', label: 'Sa' },
+          ]}
+          value={rowSelect}
+          onChange={setRowSelect}
+          placeholder='Add tags...'
         />
       </DesignComponent>
       <DesignComponent title={'Toggles'}>

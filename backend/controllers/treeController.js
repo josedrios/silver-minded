@@ -4,7 +4,7 @@ exports.createTree = async (req, res) => {
   try {
     const newTree = new Tree();
     await newTree.save();
-    console.log(newTree._id)
+    console.log(newTree._id);
     return res.status(201).json(newTree._id);
   } catch (err) {
     console.log(err);
@@ -39,3 +39,19 @@ exports.getTree = async (req, res) => {
 exports.deleteTree = async (req, res) => {};
 
 exports.updateTree = async (req, res) => {};
+
+// TEMP FOR DEV
+exports.getAllTrees = async (req, res) => {
+  try {
+    const fetchedTrees = await Tree.find();
+
+    console.log(fetchedTrees);
+    return res.status(200).json(fetchedTrees)
+  } catch (error) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while fetching trees',
+      error: err.message,
+    });
+  }
+};

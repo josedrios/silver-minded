@@ -1,1 +1,5 @@
-export { handleCreateTree, fetchTree } from './services/treeService';
+export {
+  handleCreateTree,
+  fetchTree,
+  fetchAllTrees,
+} from './services/treeService';

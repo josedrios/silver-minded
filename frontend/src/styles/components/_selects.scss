@@ -43,3 +43,79 @@
     }
   }
 }
+
+.custom-select {
+  &__control {
+    outline: none;
+    background-color: transparent !important;
+    border: 1px solid var(--gray-800) !important;
+    box-shadow: none !important;
+  }
+
+  &__control--is-focused {
+    border-color: var(--primary-800) !important;
+  }
+
+  &__value-container {
+    padding: $spacing-xs !important;
+    background-color: transparent;
+  }
+
+  &__multi-value {
+    position: relative;
+    border: 1px solid var(--primary-800) !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+  }
+
+  &__multi-value__label {
+    font-size: $font-size-sm !important;
+    padding: 0px $spacing-xs !important;
+    color: white !important;
+  }
+
+  &__multi-value__remove {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent !important;
+    padding: 0 !important;
+
+    svg {
+      display: none;
+    }
+  }
+
+  &__menu {
+    border: 1px solid var(--gray-800);
+    // MAKE BG GLASSMORPHISM
+    background-color: black !important;
+  }
+
+  &__option {
+  }
+
+  &__option--is-focused {
+    background-color: var(--gray-600) !important;
+  }
+
+  &__placeholder {
+    color: var(--text-600) !important;
+  }
+
+  &__input {
+    color: var(--text-800) !important;
+  }
+
+  // &__indicators {
+  //   display: none !important;
+  // }
+
+  &__indicator-separator {
+    display: none !important;
+  }
+
+  &__dropdown-indicator {
+    display: none !important;
+  }
+}

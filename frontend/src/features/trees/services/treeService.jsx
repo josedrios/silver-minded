@@ -33,3 +33,22 @@ export async function fetchTree(id) {
     return;
   }
 }
+
+// TEMP FOR DEV
+export async function fetchAllTrees() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/all`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch trees');
+    return data;
+  } catch (err) {
+    console.error('Fetch Trees Error:', err.message);
+    return;
+  }
+}

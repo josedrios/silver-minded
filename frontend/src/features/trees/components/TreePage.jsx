@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTree } from '../';
-import { SlashLoader } from '../../../components';
+import { SlashLoader, BoxesIcon, Icon } from '../../../components';
 
 export default function TreePage({}) {
   const { id } = useParams();
@@ -10,18 +10,26 @@ export default function TreePage({}) {
 
   useEffect(() => {
     const loadTree = async () => {
-        const data = await fetchTree(id);
-        setTree(data)
-    }
+      const data = await fetchTree(id);
+      setTree(data);
+    };
     loadTree();
-  },[id]);
+  }, [id]);
 
   return (
     <div>
-      {tree ? <div>
-        Tree Page - {tree.title}
-        <button onClick={() => navigate('/mind')}>DEFAULT</button>
-      </div> : <SlashLoader/>}
+      {tree ? (
+        <div>
+          <div>
+            <Icon variant='accent'>
+                <BoxesIcon />
+            </Icon>
+            {tree.title}
+          </div>
+        </div>
+      ) : (
+        <SlashLoader />
+      )}
     </div>
   );
 }

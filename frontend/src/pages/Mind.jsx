@@ -1,6 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { Button, TextField, PlusIcon, SearchIcon } from '../components';
-import { handleCreateTree } from '../features/trees';
+import { fetchAllTrees, handleCreateTree } from '../features/trees';
+import { useEffect, useState } from 'react';
 
 export function Mind() {
   const navigate = useNavigate();
@@ -22,11 +23,14 @@ function MindHeader({ navigate }) {
           afterIcon={SearchIcon}
           placeholder="Search for trees and nodes..."
         />
-        <Button squared={true} onClick={async () => {
-          const id = await handleCreateTree();
-          console.log(id)
-          navigate(`/mind/${id}`);
-        }}>
+        <Button
+          squared={true}
+          onClick={async () => {
+            const id = await handleCreateTree();
+            console.log(id);
+            navigate(`/mind/${id}`);
+          }}
+        >
           <PlusIcon />
         </Button>
       </div>
@@ -35,5 +39,38 @@ function MindHeader({ navigate }) {
 }
 
 export function MindHome() {
-  return <div>Default</div>;
+  const navigate = useNavigate();
+
+  const [trees, setTrees] = useState([]);
+
+  useEffect(() => {
+    const loadTrees = async () => {
+      const data = await fetchAllTrees();
+      setTrees(data);
+    };
+    loadTrees();
+  });
+
+  return (
+    <div>
+      <h5>DEFAULT:</h5>
+      {trees.map((tree, i) => (
+        <TempTreeCard tree={tree} navigate={navigate} key={i}/> 
+      ))}
+    </div>
+  );
+}
+
+export function TempTreeCard({ tree, navigate }) {
+  return (
+    <div
+      onClick={() => {
+        navigate(`/mind/${tree._id}`);
+      }}
+      className='temp-tree-card'
+    >
+      <p>{tree.title}</p>
+      <p>{tree.createdAt}</p>
+    </div>
+  );
 }

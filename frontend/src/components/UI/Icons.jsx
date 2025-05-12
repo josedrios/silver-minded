@@ -15,7 +15,9 @@ import {
   LuArrowRight,
   LuChevronLeft,
   LuChevronRight,
-  LuWallet
+  LuWallet,
+  LuBox,
+  LuBoxes
 } from 'react-icons/lu';
 
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
@@ -42,6 +44,8 @@ export const ArrowRightIcon = createIcon(LuArrowRight);
 export const ChevronLeft = createIcon(LuChevronLeft);
 export const ChevronRight = createIcon(LuChevronRight);
 export const WalletIcon = createIcon(LuWallet);
+export const BoxIcon = createIcon(LuBox);
+export const BoxesIcon = createIcon(LuBoxes);
 
 export const Icon = ({
   children,

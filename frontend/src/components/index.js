@@ -24,11 +24,13 @@ export {
   Icon,
   ChevronLeft,
   ChevronRight,
-  WalletIcon
+  WalletIcon,
+  BoxIcon,
+  BoxesIcon
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';
 
 export { SlideToggle, SlideToggleText } from './ui/Toggles';
 
-export { RowSelect } from './ui/Selects';
+export { RowSelect, MultiSelect, ReactMultiSelect } from './ui/Selects';
