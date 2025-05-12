@@ -83,6 +83,10 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &.borderless {
+    border: 1px solid transparent;
+  }
 }
 
 // DASH RELATED
@@ -156,4 +160,9 @@
 .transaction-form-btns {
   @include flex(row, center);
   gap: $spacing-sm;
+}
+
+// TREE PAGE RELATED
+.tree-header-ellipsis {
+  margin-left: auto;
 }

@@ -40,6 +40,22 @@
         }
       }
 
+      &.mind {
+        background-color: var(--mind-200);
+
+        &.fill {
+            svg {
+                fill: var(--mind-color);
+            }
+        }
+
+        &.stroke {
+            svg {
+                stroke: var(--mind-color);
+            }
+        }
+      }
+
       &.error {
         background-color: var(--error-200);
 

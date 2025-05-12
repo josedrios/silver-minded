@@ -87,6 +87,7 @@
   }
 
   &__menu {
+    max-width: 120px;
     border: 1px solid var(--gray-800);
     // MAKE BG GLASSMORPHISM
     background-color: black !important;
@@ -117,5 +118,37 @@
 
   &__dropdown-indicator {
     display: none !important;
+  }
+}
+
+.tree-category-select {
+  .custom-select__control {
+    border: 1px solid transparent !important;
+    padding: 0 !important;
+    min-height: 22px;
+  }
+
+  .custom-select__value-container {
+    padding: 0 !important;
+    gap: $spacing-sm;
+  }
+
+  .custom-select__multi-value {
+    border: 1px solid transparent !important;
+    min-height: 0;
+    margin: 0 !important;
+  }
+
+  .custom-select__multi-value__label {
+    padding: 0 !important;
+    color: var(--text-600) !important;
+  }
+
+  .custom-select__indicators {
+    display: none !important;
+  }
+
+  .custom-select__input-container {
+    font-size: 0 !important;
   }
 }

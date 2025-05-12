@@ -1,15 +1,43 @@
 .mind-header-wrapper {
-    margin: $spacing-md;
+  margin: $spacing-md;
 }
 
 .mind-header {
-    @include flex(row);
-    gap: $spacing-sm;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
+  @include flex(row);
+  gap: $spacing-sm;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 
-    .text-field {
-        flex: 1;
+  .text-field {
+    flex: 1;
+  }
+}
+
+.tree-page {
+  .tree-page-header {
+    @include flex(column);
+    gap: $spacing-sm;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    background-color: rgb(23, 29, 30);
+    margin: $spacing-md;
+
+    .header-row {
+      @include flex(row, initial, center);
+      gap: $spacing-sm;
     }
+
+    .tag-row {
+        @include flex(row, initial, center);
+
+        span {
+            margin-right: $spacing-xs;
+        }
+
+        .tree-category-select {
+            flex: 1;
+        }
+    }
+  }
 }

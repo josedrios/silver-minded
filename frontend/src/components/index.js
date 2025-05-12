@@ -26,7 +26,8 @@ export {
   ChevronRight,
   WalletIcon,
   BoxIcon,
-  BoxesIcon
+  BoxesIcon,
+  VerticalEllipsisIcon
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';
