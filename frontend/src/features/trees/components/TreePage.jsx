@@ -32,6 +32,8 @@ export default function TreePage({}) {
 function TreeHeader({ tree }) {
   const [treeCategories, setTreeCategories] = useState([]);
 
+  const [tempDesc, setTempDesc] = useState('This is a temporary description');
+
   return (
     <div className="tree-page-header">
       <div className="header-row">
@@ -39,23 +41,53 @@ function TreeHeader({ tree }) {
           <BoxesIcon size="md" />
         </Icon>
         <h5>{tree.title}</h5>
-        <Button variant="gray" squared={true} className="tree-header-ellipsis borderless">
+        <Button
+          variant="gray"
+          squared={true}
+          className="tree-header-ellipsis borderless"
+        >
           <VerticalEllipsisIcon />
         </Button>
       </div>
-      <div className='tag-row'>
-        <span>Tags:</span><ReactMultiSelect
-        options={[
-          { value: 'idea', label: 'Idea' },
-          { value: 'inspiration', label: 'Inspiration' },
-          { value: 'learning', label: 'Learning' },
-        ]}
-        value={treeCategories}
-        onChange={setTreeCategories}
-        placeholder="NONE"
-        className='tree-category-select'
-      />
+      <TreeDescription value={tempDesc} onChange={setTempDesc} />
+      <div className="tag-row">
+        <span>Tags:</span>
+        <ReactMultiSelect
+          options={[
+            { value: 'idea', label: 'Idea' },
+            { value: 'inspiration', label: 'Inspiration' },
+            { value: 'learning', label: 'Learning' },
+          ]}
+          value={treeCategories}
+          onChange={setTreeCategories}
+          placeholder="NONE"
+          className="tree-category-select"
+        />
       </div>
     </div>
+  );
+}
+
+function TreeDescription({ value, onChange }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempValue, setTempValue] = useState(value);
+
+  const handleBlur = () => {
+    onChange(tempValue);
+    setIsEditing(false);
+  };
+
+  return isEditing ? (
+    <textarea
+      autoFocus
+      value={tempValue}
+      onChange={(e) => setTempValue(e.target.value)}
+      onBlur={handleBlur}
+      onKeyDown={(e) => {
+        if(e.key === 'Enter') e.target.blur();
+      }}
+    />
+  ) : (
+    <p onClick={() => setIsEditing(true)}>{tempValue}</p>
   );
 }
