@@ -78,6 +78,21 @@
     }
   }
 
+  &.mind {
+    color: var(--mind-color);
+    background-color: var(--mind-200);
+    border: 1px solid rgba(var(--mind-300-rgb), 0.25);
+
+    &:hover {
+      background-color: var(--mind-300);
+      border: 1px solid rgba(var(--mind-400-rgb), 0.25);
+    }
+
+    svg {
+      stroke: var(--mind-color);
+    }
+  }
+
   &.disabled {
     // add respective color schemes
     opacity: 0.5;

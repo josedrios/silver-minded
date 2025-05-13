@@ -86,15 +86,35 @@
   }
 }
 
-// Temp Tree Card 
+// Temp Tree Card
 .temp-tree-card {
   border: 1px solid white;
-  
+
   > :first-child {
     color: var(--accent-800);
   }
 
   &:hover {
     background-color: var(--gray-700);
+  }
+}
+
+.tree-child-card {
+  border: 1px solid gray;
+  @include flex(row);
+
+  .tree-child-branch {
+    border: 1px solid magenta;
+    width: 40px;
+  }
+
+  .tree-child-body {
+    flex: 1;
+    @include flex(column);
+
+    .tree-child-content {
+      border: 1px solid red;
+      min-height: 40px;
+    }
   }
 }
