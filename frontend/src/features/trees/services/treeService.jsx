@@ -34,6 +34,25 @@ export async function fetchTree(id) {
   }
 }
 
+export async function editTree(id, changes) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/${id}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ changes }),
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to edit tree');
+    return data;
+  } catch (err) {
+    console.error('Edit Tree Error:', err.message);
+    return;
+  }
+}
+
 // TEMP FOR DEV
 export async function fetchAllTrees() {
   try {

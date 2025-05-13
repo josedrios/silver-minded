@@ -15,9 +15,13 @@ export default function TreePage({}) {
     loadTree();
   }, [id]);
 
+  useEffect(() => {
+    console.log("Tree:",tree)
+  }, [tree]);
+
   return (
     <div className="tree-page">
-      {tree ? <TreeHeader tree={tree} /> : <SlashLoader />}
+      {tree ? <TreeHeader tree={tree} setTree={setTree}/> : <SlashLoader />}
     </div>
   );
 }

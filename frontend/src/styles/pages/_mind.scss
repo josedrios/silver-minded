@@ -24,11 +24,21 @@
     margin: $spacing-md;
 
     .header-row {
-      @include flex(row, initial, center);
+      @include flex(row, initial, flex-start);
       gap: $spacing-sm;
 
       .tree-title {
         width: 100%;
+        overflow: hidden;
+
+        h5,
+        p {
+          min-width: 0px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+        }
 
         p {
           color: var(--mind-600);
@@ -51,7 +61,8 @@
         margin-right: $spacing-xs;
       }
 
-      .tree-category-select, .tree-categories {
+      .tree-category-select,
+      .tree-categories {
         flex: 1;
       }
 

@@ -10,23 +10,24 @@ import {
   TextField,
 } from '../../../components';
 import { formateCustomDate } from '../../transactions';
-import { tagOptions, getTagOption } from '../';
+import { tagOptions, getTagOption, editTreeHeader } from '../';
 
-export default function TreeHeader({ tree }) {
+export default function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
     title: tree.title,
     note: tree.note,
     categories: tree.categories.map(getTagOption),
   });
-  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    console.log('Tree:', tree);
+    setTreeChanges({
+      title: tree.title,
+      note: tree.note,
+      categories: tree.categories.map(getTagOption),
+    });
   }, [tree]);
 
-  useEffect(() => {
-    console.log(treeChanges);
-  }, [treeChanges]);
+  const [editMode, setEditMode] = useState(false);
 
   return (
     <div className="tree-page-header">
@@ -46,6 +47,8 @@ export default function TreeHeader({ tree }) {
         setTree={setTreeChanges}
         editMode={editMode}
         setEditMode={setEditMode}
+        oldTree={tree}
+        setOriginalTree={setTree}
       />
     </div>
   );
@@ -99,20 +102,42 @@ function TreeNote({ treeNote, setTree, editMode }) {
         }))
       }
       className="tree-note-text-field"
-      placeholder='Enter a note...'
+      placeholder="Enter a note..."
     />
   ) : (
     <p className="tree-note">{treeNote}</p>
   );
 }
 
-function TreeTags({ tree, setTree, editMode, setEditMode }) {
+function TreeTags({
+  tree,
+  setTree,
+  editMode,
+  setEditMode,
+  oldTree,
+  setOriginalTree,
+}) {
   const setTreeCategories = (newValue) => {
     setTree((prev) => ({
       ...prev,
       categories: newValue,
     }));
   };
+  const prevEditModeRef = useRef(editMode);
+
+  useEffect(() => {
+    const updateTree = async () => {
+      if (prevEditModeRef.current === true && editMode === false) {
+        const updatedTree = await editTreeHeader(oldTree, tree);
+        if (updatedTree && typeof updatedTree === 'object') {
+          setOriginalTree(updatedTree);
+        }
+      }
+    };
+
+    updateTree();
+    prevEditModeRef.current = editMode;
+  }, [editMode]);
 
   return (
     <div className="tag-row">
@@ -140,7 +165,7 @@ function TreeTags({ tree, setTree, editMode, setEditMode }) {
         className="borderless tree-edit-button"
         onClick={() => setEditMode((prev) => !prev)}
       >
-        {editMode ? <FilePenIcon /> : <FileBoxIcon />}
+        {editMode ? <FileBoxIcon /> : <FilePenIcon />}
       </Button>
     </div>
   );
