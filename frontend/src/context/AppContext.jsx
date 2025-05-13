@@ -15,14 +15,6 @@ export default function AppProvider({ children }) {
     transactions: []
   });
 
-  useEffect(() => {
-    console.log(events);
-  }, [events.events]);
-
-  useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
-
   return (
     <AppContext.Provider
       value={{

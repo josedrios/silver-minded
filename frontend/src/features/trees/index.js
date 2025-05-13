@@ -6,3 +6,5 @@ export {
 
 export { default as TreeHeader } from './components/TreeHeader';
 export { default as TreePage } from './components/TreePage';
+
+export { tagOptions, getTagOption } from './util/treeUtil';

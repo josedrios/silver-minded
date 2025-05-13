@@ -10,24 +10,40 @@ import {
   TextField,
 } from '../../../components';
 import { formateCustomDate } from '../../transactions';
+import { tagOptions, getTagOption } from '../';
 
 export default function TreeHeader({ tree }) {
+  const [treeChanges, setTreeChanges] = useState({
+    title: tree.title,
+    note: tree.note,
+    categories: tree.categories.map(getTagOption),
+  });
   const [editMode, setEditMode] = useState(false);
-  const [treeCategories, setTreeCategories] = useState([]);
-  const [tempDesc, setTempDesc] = useState('This is a temporary description');
 
   useEffect(() => {
-    console.log(treeCategories);
-  }, [treeCategories]);
+    console.log('Tree:', tree);
+  }, [tree]);
+
+  useEffect(() => {
+    console.log(treeChanges);
+  }, [treeChanges]);
 
   return (
     <div className="tree-page-header">
-      <TreeTitle tree={tree} editMode={editMode} />
-      <TreeNote value={tempDesc} editMode={editMode} />
+      <TreeTitle
+        tree={treeChanges}
+        setTree={setTreeChanges}
+        treeDate={tree.createdAt}
+        editMode={editMode}
+      />
+      <TreeNote
+        treeNote={treeChanges.note}
+        setTree={setTreeChanges}
+        editMode={editMode}
+      />
       <TreeTags
-        tree={tree}
-        treeCategories={treeCategories}
-        setTreeCategories={setTreeCategories}
+        tree={treeChanges}
+        setTree={setTreeChanges}
         editMode={editMode}
         setEditMode={setEditMode}
       />
@@ -35,7 +51,7 @@ export default function TreeHeader({ tree }) {
   );
 }
 
-function TreeTitle({ tree, editMode }) {
+function TreeTitle({ tree, setTree, treeDate, editMode }) {
   return (
     <div className="header-row">
       <Icon variant="mind" size="md">
@@ -43,8 +59,22 @@ function TreeTitle({ tree, editMode }) {
       </Icon>
       <div className="tree-title">
         <div className="tree-timestamp">
-          {editMode ? <TextField className='tree-title-edit' variant='gray' value={tree.title}/> : <h5>{tree.title}</h5>}
-          <p>CREATED: {formateCustomDate(tree.createdAt)}</p>
+          {editMode ? (
+            <TextField
+              className="tree-title-edit"
+              variant="gray"
+              value={tree.title}
+              onChange={(e) =>
+                setTree((prev) => ({
+                  ...prev,
+                  title: e.target.value,
+                }))
+              }
+            />
+          ) : (
+            <h5>{tree.title}</h5>
+          )}
+          <p>CREATED: {formateCustomDate(treeDate)}</p>
         </div>
       </div>
       <Button
@@ -58,43 +88,31 @@ function TreeTitle({ tree, editMode }) {
   );
 }
 
-function TreeNote({ value, editMode }) {
-  const [tempValue, setTempValue] = useState(value);
-  const textRef = useRef(null);
-
-  useEffect(() => {
-    if (editMode && textRef.current) {
-      const len = textRef.current.value.length;
-      textRef.current.setSelectionRange(len, len);
-    }
-  }, [editMode]);
-
+function TreeNote({ treeNote, setTree, editMode }) {
   return editMode ? (
     <textarea
-      ref={textRef}
-      value={tempValue}
-      onChange={(e) => setTempValue(e.target.value)}
+      value={treeNote}
+      onChange={(e) =>
+        setTree((prev) => ({
+          ...prev,
+          note: e.target.value,
+        }))
+      }
       className="tree-note-text-field"
+      placeholder='Enter a note...'
     />
   ) : (
-    <p className="tree-note" onClick={() => setIsEditing(true)}>
-      {tempValue}
-    </p>
+    <p className="tree-note">{treeNote}</p>
   );
 }
 
-function TreeTags({
-  tree,
-  treeCategories,
-  setTreeCategories,
-  editMode,
-  setEditMode,
-}) {
-  const tagOptions = [
-    { value: 'idea', label: '/Idea' },
-    { value: 'inspiration', label: '/Inspiration' },
-    { value: 'learning', label: '/Learning' },
-  ];
+function TreeTags({ tree, setTree, editMode, setEditMode }) {
+  const setTreeCategories = (newValue) => {
+    setTree((prev) => ({
+      ...prev,
+      categories: newValue,
+    }));
+  };
 
   return (
     <div className="tag-row">
@@ -102,17 +120,17 @@ function TreeTags({
       {editMode ? (
         <ReactMultiSelect
           options={tagOptions}
-          value={treeCategories}
+          value={tree.categories}
           onChange={setTreeCategories}
-          placeholder="/FLOATER"
+          placeholder="/Floater"
           className="tree-category-select"
         />
       ) : (
         <div className="tree-categories">
-          {treeCategories.length === 0 ? (
-            <p>/FLOATER</p>
+          {tree.categories.length === 0 ? (
+            <p>/Floater</p>
           ) : (
-            treeCategories.map((cat, i) => <p key={i}>{cat.label}</p>)
+            tree.categories.map((cat, i) => <p key={i}>{cat.label}</p>)
           )}
         </div>
       )}

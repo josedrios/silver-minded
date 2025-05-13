@@ -48,13 +48,12 @@
 
   &__control {
     outline: none;
-    background-color: var(--gray-600) !important;
+    background-color: var(--gray-200) !important;
     border: 1px solid var(--gray-800) !important;
     box-shadow: none !important;
     
     &:hover {
       cursor: pointer;
-      background-color: var(--gray-800) !important;
     }
   }
   
@@ -129,9 +128,13 @@
 
 .tree-category-select {
   .custom-select__control {
-    border: 1px solid transparent !important;
+    border: 1px solid var(--gray-800) !important;
     padding: $spacing-xs !important;
     min-height: 22px;
+  }
+
+  .custom-select__control--is-focused {
+    border-color: var(--primary-700) !important;
   }
 
   .custom-select__placeholder {
