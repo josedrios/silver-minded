@@ -26,18 +26,32 @@
     .header-row {
       @include flex(row, initial, center);
       gap: $spacing-sm;
+
+      .tree-title {
+        p {
+          color: var(--mind-500);
+          font-size: 10px;
+        }
+      }
     }
 
     .tag-row {
-        @include flex(row, initial, center);
+      @include flex(row, initial, center);
+      border-top: 1px solid var(--gray-800);
+      padding-top: $spacing-xs;
 
-        span {
-            margin-right: $spacing-xs;
-        }
+      span {
+        color: var(--text-600);
+        margin-right: $spacing-xs;
+      }
 
-        .tree-category-select {
-            flex: 1;
-        }
+      .tree-category-select {
+        flex: 1;
+      }
+    }
+
+    .tree-note {
+      color: var(--text-600);
     }
   }
 }

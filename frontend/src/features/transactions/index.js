@@ -9,7 +9,7 @@ export { formValidation } from './util/formValidation';
 
 export {
   fetchAndUpdateTransactions,
-  formatTransactionDate,
+  formateCustomDate,
   selectedToForm,
 } from './util/transactionUtil';
 

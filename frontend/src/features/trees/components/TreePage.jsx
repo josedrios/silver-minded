@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTree } from '../';
 import {
@@ -9,6 +9,7 @@ import {
   VerticalEllipsisIcon,
   ReactMultiSelect,
 } from '../../../components';
+import { formateCustomDate } from '../../transactions';
 
 export default function TreePage({}) {
   const { id } = useParams();
@@ -40,7 +41,12 @@ function TreeHeader({ tree }) {
         <Icon variant="mind" size="md">
           <BoxesIcon size="md" />
         </Icon>
-        <h5>{tree.title}</h5>
+        <div className="tree-title">
+          <h5>{tree.title}</h5>
+          <div className="tree-timestamp">
+            <p>CREATED: {formateCustomDate(tree.createdAt)}</p>
+          </div>
+        </div>
         <Button
           variant="gray"
           squared={true}
@@ -49,18 +55,20 @@ function TreeHeader({ tree }) {
           <VerticalEllipsisIcon />
         </Button>
       </div>
-      <TreeDescription value={tempDesc} onChange={setTempDesc} />
+      <div className="tree-note-wrapper">
+        <TreeNote value={tempDesc} onChange={setTempDesc} />
+      </div>
       <div className="tag-row">
-        <span>Tags:</span>
+        <span>TAGS:</span>
         <ReactMultiSelect
           options={[
-            { value: 'idea', label: 'Idea' },
-            { value: 'inspiration', label: 'Inspiration' },
-            { value: 'learning', label: 'Learning' },
+            { value: 'idea', label: '/Idea' },
+            { value: 'inspiration', label: '/Inspiration' },
+            { value: 'learning', label: '/Learning' },
           ]}
           value={treeCategories}
           onChange={setTreeCategories}
-          placeholder="NONE"
+          placeholder="/FLOATER"
           className="tree-category-select"
         />
       </div>
@@ -68,9 +76,17 @@ function TreeHeader({ tree }) {
   );
 }
 
-function TreeDescription({ value, onChange }) {
+function TreeNote({ value, onChange }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditing && textRef.current) {
+      const len = textRef.current.value.length;
+      textRef.current.setSelectionRange(len, len);
+    }
+  }, [isEditing]);
 
   const handleBlur = () => {
     onChange(tempValue);
@@ -79,15 +95,19 @@ function TreeDescription({ value, onChange }) {
 
   return isEditing ? (
     <textarea
+      ref={textRef}
       autoFocus
       value={tempValue}
       onChange={(e) => setTempValue(e.target.value)}
       onBlur={handleBlur}
       onKeyDown={(e) => {
-        if(e.key === 'Enter') e.target.blur();
+        if (e.key === 'Enter') e.target.blur();
       }}
+      className="tree-note-text-field"
     />
   ) : (
-    <p onClick={() => setIsEditing(true)}>{tempValue}</p>
+    <p className="tree-note" onClick={() => setIsEditing(true)}>
+      {tempValue}
+    </p>
   );
 }

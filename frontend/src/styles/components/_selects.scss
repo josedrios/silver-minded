@@ -128,6 +128,10 @@
     min-height: 22px;
   }
 
+  .custom-select__placeholder {
+    color: var(--accent-700) !important;
+  }
+
   .custom-select__value-container {
     padding: 0 !important;
     gap: $spacing-sm;
@@ -141,7 +145,7 @@
 
   .custom-select__multi-value__label {
     padding: 0 !important;
-    color: var(--text-600) !important;
+    color: var(--accent-700) !important;
   }
 
   .custom-select__indicators {
