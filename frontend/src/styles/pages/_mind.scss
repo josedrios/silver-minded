@@ -28,11 +28,17 @@
       gap: $spacing-sm;
 
       .tree-title {
+        width: 100%;
+
         p {
-          color: var(--mind-500);
+          color: var(--mind-600);
           font-size: 10px;
         }
       }
+    }
+
+    .tree-note {
+      color: var(--text-600);
     }
 
     .tag-row {
@@ -45,13 +51,20 @@
         margin-right: $spacing-xs;
       }
 
-      .tree-category-select {
+      .tree-category-select, .tree-categories {
         flex: 1;
       }
-    }
 
-    .tree-note {
-      color: var(--text-600);
+      .tree-categories {
+        @include flex(row);
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+
+        p {
+          color: var(--accent-700);
+          border: 1px solid transparent;
+        }
+      }
     }
   }
 }

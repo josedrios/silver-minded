@@ -45,22 +45,28 @@
 }
 
 .custom-select {
+
   &__control {
     outline: none;
-    background-color: transparent !important;
+    background-color: var(--gray-600) !important;
     border: 1px solid var(--gray-800) !important;
     box-shadow: none !important;
+    
+    &:hover {
+      cursor: pointer;
+      background-color: var(--gray-800) !important;
+    }
   }
-
+  
   &__control--is-focused {
     border-color: var(--primary-800) !important;
   }
-
+  
   &__value-container {
     padding: $spacing-xs !important;
     background-color: transparent;
   }
-
+  
   &__multi-value {
     position: relative;
     border: 1px solid var(--primary-800) !important;
@@ -124,7 +130,7 @@
 .tree-category-select {
   .custom-select__control {
     border: 1px solid transparent !important;
-    padding: 0 !important;
+    padding: $spacing-xs !important;
     min-height: 22px;
   }
 

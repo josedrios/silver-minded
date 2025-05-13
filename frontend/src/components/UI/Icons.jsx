@@ -18,7 +18,9 @@ import {
   LuWallet,
   LuBox,
   LuBoxes,
-  LuEllipsisVertical
+  LuEllipsisVertical,
+  LuFileBox,
+  LuFilePen
 } from 'react-icons/lu';
 
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
@@ -47,6 +49,8 @@ export const ChevronRight = createIcon(LuChevronRight);
 export const WalletIcon = createIcon(LuWallet);
 export const BoxIcon = createIcon(LuBox);
 export const BoxesIcon = createIcon(LuBoxes);
+export const FileBoxIcon = createIcon(LuFileBox);
+export const FilePenIcon = createIcon(LuFilePen);
 export const VerticalEllipsisIcon = createIcon(LuEllipsisVertical)
 
 export const Icon = ({
