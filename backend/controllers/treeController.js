@@ -3,7 +3,7 @@ const Tree = require('../models/tree');
 exports.createTree = async (req, res) => {
   try {
     const parentId = req.body.parentId;
-    const newTree = new Tree({parentId});
+    const newTree = new Tree({ parentId });
     await newTree.save();
     return res.status(201).json(newTree._id);
   } catch (err) {
@@ -25,12 +25,40 @@ exports.getTree = async (req, res) => {
       return res.status(404).json({ message: 'Tree not found' });
     }
 
-    console.log(fetchedTree);
     return res.status(200).json(fetchedTree);
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       message: 'Error occurred while fetching tree',
+      error: err.message,
+    });
+  }
+};
+
+exports.getTreeChildren = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const tree = await Tree.findById(id);
+
+    if (!tree) {
+      return res.status(404).json({ message: 'Tree not found' });
+    }
+
+    const orderedItems = await Promise.all(
+      tree.order.map(async ({ type, id }) => {
+        const Model = type === 'tree' ? Tree : Node;
+        return await Model.findById(id);
+      })
+    );
+
+    console.log('ORDERED ITEMS:')
+    console.log(orderedItems)
+    return res.status(200).json(orderedItems);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while fetching children of tree',
       error: err.message,
     });
   }
@@ -52,8 +80,6 @@ exports.updateTree = async (req, res) => {
       }
     }
 
-    console.log('Edited');
-
     await tree.save();
     return res.status(200).json(tree);
   } catch (err) {
@@ -65,7 +91,7 @@ exports.updateTree = async (req, res) => {
   }
 };
 
-exports.updateTreeOrder = async (req,res) => {
+exports.updateTreeOrder = async (req, res) => {
   try {
     const { treeId } = req.params;
     const { childId, referenceId, type } = req.body;
@@ -73,18 +99,23 @@ exports.updateTreeOrder = async (req,res) => {
     const tree = await Tree.findById(treeId);
     if (!tree) return res.status(404).send('Tree not found');
 
-    tree.order = tree.order.filter(child => child.id.toString() !== childId);
+    tree.order = tree.order.filter((child) => child.id.toString() !== childId);
 
-    if(!referenceId) {
+    if (!referenceId) {
       tree.order.push({
         type: type,
-        id: childId
+        id: childId,
       });
     } else {
-      const refIndex = tree.order.findIndex(tree => tree.id.toString() === referenceId);
-      if(refIndex === -1) return res.status(400).json({ message: 'Reference ID not found in order' });
-      
-      tree.order.splice(refIndex, 0, {type: type, id: childId});
+      const refIndex = tree.order.findIndex(
+        (tree) => tree.id.toString() === referenceId
+      );
+      if (refIndex === -1)
+        return res
+          .status(400)
+          .json({ message: 'Reference ID not found in order' });
+
+      tree.order.splice(refIndex, 0, { type: type, id: childId });
     }
 
     await tree.save();
@@ -96,13 +127,12 @@ exports.updateTreeOrder = async (req,res) => {
       error: err.message,
     });
   }
-}
+};
 
 // TEMP FOR DEV
 exports.getAllTrees = async (req, res) => {
   try {
     const fetchedTrees = await Tree.find().sort({ updatedAt: -1 });
-    console.log(fetchedTrees);
     return res.status(200).json(fetchedTrees);
   } catch (error) {
     console.log(err);

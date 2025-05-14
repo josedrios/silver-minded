@@ -3,7 +3,8 @@ export {
   fetchTree,
   fetchAllTrees,
   editTree,
-  editTreeOrder
+  editTreeOrder,
+  fetchTreeChildren
 } from './services/treeService';
 
 export { default as TreeHeader } from './components/TreeHeader';

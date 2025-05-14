@@ -193,7 +193,7 @@
   margin-top: $spacing-sm;
 
   button {
-    @include flex(row, center,center);
+    @include flex(row, center, center);
     gap: $spacing-xs;
     background-color: transparent;
     width: 50%;
@@ -213,34 +213,21 @@
 }
 
 .insert-child-container {
-  &:hover {
-    button {
-      color: var(--mind-800);
-
-      svg {
-        stroke: var(--mind-800);
-      }
-    }
-  }
-
   button {
-    @include flex(row, center, center);
+    @include flex(row, flex-end, center);
     gap: $spacing-xs;
-    width: 50%;
+    width: 30px;
     transition: color $transition-fast;
     background-color: transparent;
-    color: transparent;
 
     svg {
       transition: stroke $transition-fast;
-      stroke: transparent;
+      stroke: var(--mind-400);
     }
 
     &:hover {
-      color: var(--mind-500);
-
       svg {
-        stroke: var(--mind-500)
+        stroke: var(--mind-800);
       }
     }
   }

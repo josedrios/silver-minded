@@ -54,7 +54,7 @@ export async function editTree(id, changes) {
   }
 }
 
-export async function editTreeOrder(treeId, childId, type, referenceId = null,) {
+export async function editTreeOrder(treeId, childId, type, referenceId = null) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/tree/order/${treeId}`,
@@ -69,6 +69,24 @@ export async function editTreeOrder(treeId, childId, type, referenceId = null,) 
     return data;
   } catch (err) {
     console.error('Edit Tree Order Error:', err.message);
+    return;
+  }
+}
+
+export async function fetchTreeChildren(id) {
+try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/children/${id}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch children of tree');
+    return data;
+  } catch (err) {
+    console.error('Fetch Tree Children Error:', err.message);
     return;
   }
 }

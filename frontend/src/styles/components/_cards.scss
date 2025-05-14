@@ -107,16 +107,45 @@
     flex: 1;
     @include flex(column);
     margin: $spacing-sm 0;
-    margin-top: 0;
 
     .insert-child-container {
       height: 25px;
-      @include flex(row);
+      @include flex(row, flex-end);
+      margin-right: $spacing-sm;
     }
 
     .tree-child-content {
-      height: 50px;
-      background-color: var(--gray-600);
+      border-radius: $border-radius-xs;
+      background-color: rgb(23, 29, 30);
+      padding: $spacing-sm;
     }
+  }
+}
+
+.tree-child-content {
+  @include flex(column);
+  gap: $spacing-xs;
+
+  &.tree {
+  }
+  &.node {
+  }
+
+  .header-row {
+    @include flex(row, initial, center);
+    gap: $spacing-sm;
+
+    p {
+      font-size: $font-size-md;
+    }
+  }
+
+  .note-section {
+    color: var(--text-600);
+  }
+
+  .timestamp-section {
+    font-size: $font-size-xs;
+    color: var(--mind-700);
   }
 }
