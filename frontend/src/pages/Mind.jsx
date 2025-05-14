@@ -73,6 +73,7 @@ export function MindHome() {
 
   return (
     <div>
+      Trees:
       {trees
         ? trees.map((tree, i) => (
             <TempTreeCard tree={tree} navigate={navigate} key={i} />

@@ -2,7 +2,8 @@ export {
   handleCreateTree,
   fetchTree,
   fetchAllTrees,
-  editTree
+  editTree,
+  editTreeOrder
 } from './services/treeService';
 
 export { default as TreeHeader } from './components/TreeHeader';

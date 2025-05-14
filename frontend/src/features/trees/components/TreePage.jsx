@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchTree, TreeHeader, TreeChildCard, handleCreateTree } from '../';
+import { fetchTree, TreeHeader, TreeChildCard, handleCreateTree, editTreeOrder } from '../';
 import { SlashLoader, BoxesIcon, BoxIcon } from '../../../components';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,6 +33,7 @@ function ChildCreate({ navigate, parentId }) {
     <div className="create-child-container">
       <button onClick={async() => {
         const id = await handleCreateTree(parentId);
+        await editTreeOrder(parentId, id, 'tree');
         navigate(`/mind/${id}`)
       }}>
         <BoxesIcon /> Tree
