@@ -100,21 +100,17 @@
 }
 
 .tree-child-card {
-  border: 1px solid gray;
   @include flex(row);
-
-  .tree-child-branch {
-    border: 1px solid magenta;
-    width: 40px;
-  }
 
   .tree-child-body {
     flex: 1;
     @include flex(column);
+    margin-top: $spacing-sm;
+    margin-bottom: $spacing-sm;
 
     .tree-child-content {
-      border: 1px solid red;
-      min-height: 40px;
+      background-color: var(--gray-600);
+      min-height: 200px;
     }
   }
 }
