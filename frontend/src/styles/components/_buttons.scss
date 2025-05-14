@@ -211,24 +211,3 @@
     }
   }
 }
-
-.insert-child-container {
-  button {
-    @include flex(row, flex-end, center);
-    gap: $spacing-xs;
-    width: 30px;
-    transition: color $transition-fast;
-    background-color: transparent;
-
-    svg {
-      transition: stroke $transition-fast;
-      stroke: var(--mind-400);
-    }
-
-    &:hover {
-      svg {
-        stroke: var(--mind-800);
-      }
-    }
-  }
-}

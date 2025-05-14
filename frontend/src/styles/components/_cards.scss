@@ -101,18 +101,30 @@
 
 .tree-child-card {
   @include flex(row);
-  flex: 1;
+
+  .tree-branch-wrapper {
+    @include flex(row, flex-end);
+    width: 25px;
+    display: flex;
+
+    .tree-branch-vertical {
+      height: 35px;
+      width: 2px;
+      background-color: var(--accent-800);
+    }
+
+    .tree-branch-horizontal {
+      width: 10px;
+      margin-top: 33px;
+      height: 2px;
+      background-color: var(--accent-800);
+    }
+  }
 
   .tree-child-body {
     flex: 1;
     @include flex(column);
     margin: $spacing-sm 0;
-
-    .insert-child-container {
-      height: 25px;
-      @include flex(row, flex-end);
-      margin-right: $spacing-sm;
-    }
 
     .tree-child-content {
       border-radius: $border-radius-xs;
@@ -145,6 +157,7 @@
   }
 
   .timestamp-section {
+    text-align: right;
     font-size: $font-size-xs;
     color: var(--mind-700);
   }

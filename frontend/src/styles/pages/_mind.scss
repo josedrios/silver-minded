@@ -82,6 +82,7 @@
 }
 
 .tree-children-container {
+  @include flex(column);
   margin: $spacing-md;
   margin-top: 0;
 }

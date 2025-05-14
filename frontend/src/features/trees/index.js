@@ -12,4 +12,4 @@ export { default as TreePage } from './components/TreePage';
 
 export { tagOptions, getTagOption, editTreeHeader } from './util/treeUtil';
 
-export { TreeChildCard } from './components/TreeChild'
+export { TreeChildCard } from './components/TreeChildCard'
