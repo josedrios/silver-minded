@@ -101,16 +101,16 @@
 
 .tree-child-card {
   @include flex(row);
+  flex: 1;
 
   .tree-child-body {
     flex: 1;
     @include flex(column);
-    margin-top: $spacing-sm;
-    margin-bottom: $spacing-sm;
+    margin: $spacing-sm 0;
 
     .tree-child-content {
+      height: 50px;
       background-color: var(--gray-600);
-      min-height: 200px;
     }
   }
 }

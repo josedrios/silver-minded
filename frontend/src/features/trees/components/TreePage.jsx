@@ -26,18 +26,27 @@ export default function TreePage({}) {
 }
 
 function TreeChildCard() {
-  const svgRef = useRef(null);
+   const cardRef = useRef(null);
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (svgRef.current) {
-      setSvgHeight(svgRef.current.clientHeight - 2);
+    const observer = new ResizeObserver(([entry]) => {
+      setSvgHeight(entry.contentRect.height + 15);
+    });
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
     }
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
-  
+
+
   return (
-    <div className="tree-child-card" ref={svgRef}>
-      <svg width="40">
+    <div className="tree-child-card">
+      <svg width="40" height={svgHeight}>
         {/* Main vertical line */}
         <line
           x1="19"
@@ -50,6 +59,7 @@ function TreeChildCard() {
 
         {/* Optional vertical extension */}
         <line
+          className="optional"
           x1="19"
           y1="40"
           x2="19"
@@ -68,7 +78,7 @@ function TreeChildCard() {
           strokeWidth="2"
         />
       </svg>
-      <div className="tree-child-body">
+      <div className="tree-child-body" ref={cardRef}>
         <button className="add-child-button">
           <PlusIcon />
         </button>
