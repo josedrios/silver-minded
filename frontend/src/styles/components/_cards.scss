@@ -107,6 +107,12 @@
     flex: 1;
     @include flex(column);
     margin: $spacing-sm 0;
+    margin-top: 0;
+
+    .insert-child-container {
+      height: 25px;
+      @include flex(row);
+    }
 
     .tree-child-content {
       height: 50px;

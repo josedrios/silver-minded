@@ -1,10 +1,11 @@
-export async function handleCreateTree() {
+export async function handleCreateTree(parentId = null) {
   try {
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/tree/`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({parentId}),
       }
     );
     const data = await response.json();

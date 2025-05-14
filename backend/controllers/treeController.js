@@ -2,7 +2,8 @@ const Tree = require('../models/tree');
 
 exports.createTree = async (req, res) => {
   try {
-    const newTree = new Tree();
+    const parentId = req.body.parentId;
+    const newTree = new Tree({parentId});
     await newTree.save();
     console.log(newTree._id);
     return res.status(201).json(newTree._id);
@@ -52,7 +53,7 @@ exports.updateTree = async (req, res) => {
       }
     }
 
-    console.log("Edited");
+    console.log('Edited');
 
     await tree.save();
     return res.status(200).json(tree);
@@ -68,8 +69,7 @@ exports.updateTree = async (req, res) => {
 // TEMP FOR DEV
 exports.getAllTrees = async (req, res) => {
   try {
-    const fetchedTrees = await Tree.find();
-
+    const fetchedTrees = await Tree.find().sort({ updatedAt: -1 });
     console.log(fetchedTrees);
     return res.status(200).json(fetchedTrees);
   } catch (error) {

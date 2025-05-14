@@ -186,6 +186,62 @@
   margin-left: $spacing-sm;
 }
 
-.add-child-button {
-  height: 23px;
+.create-child-container {
+  @include flex(row);
+  height: 30px;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+
+  button {
+    @include flex(row, center,center);
+    gap: $spacing-xs;
+    background-color: transparent;
+    width: 50%;
+    color: var(--mind-800);
+    border-radius: $border-radius-xs;
+    background-color: var(--mind-200);
+    transition: background-color $transition-fast;
+
+    svg {
+      stroke: var(--mind-800);
+    }
+
+    &:hover {
+      background-color: var(--mind-400);
+    }
+  }
+}
+
+.insert-child-container {
+  &:hover {
+    button {
+      color: var(--mind-800);
+
+      svg {
+        stroke: var(--mind-800);
+      }
+    }
+  }
+
+  button {
+    @include flex(row, center, center);
+    gap: $spacing-xs;
+    width: 50%;
+    transition: color $transition-fast;
+    background-color: transparent;
+    color: transparent;
+
+    svg {
+      transition: stroke $transition-fast;
+      stroke: transparent;
+    }
+
+    &:hover {
+      color: var(--mind-500);
+
+      svg {
+        stroke: var(--mind-500)
+      }
+    }
+  }
 }
