@@ -1,4 +1,5 @@
 const Tree = require('../models/tree');
+const Node = require('../models/node')
 
 exports.createTree = async (req, res) => {
   try {
@@ -51,7 +52,8 @@ exports.getTreeChildren = async (req, res) => {
       const Model = type === 'tree' ? Tree : Node;
       const doc = await Model.findById(id);
       if (doc) {
-        orderedItems.push(doc);
+        const itemWithType = { ...doc.toObject(), type }; 
+        orderedItems.push(itemWithType);
         newOrder.push({ type, id });
       }
     }

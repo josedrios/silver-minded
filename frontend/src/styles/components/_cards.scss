@@ -126,27 +126,21 @@
     flex: 1;
     overflow: hidden;
     @include flex(column);
+    gap: $spacing-xs;
+    border: 1px solid transparent;
+    border-radius: $border-radius-xs;
+    background-color: rgb(23, 29, 30);
+    padding: $spacing-sm;
+    width: 100%;
 
-    .tree-child-content {
-      border: 1px solid transparent;
-      border-radius: $border-radius-xs;
-      background-color: rgb(23, 29, 30);
-      padding: $spacing-sm;
-      @include flex(column);
-      gap: $spacing-xs;
-      width: 100%;
-
-      &.tree {
-      }
-      &.node {
-      }
+    &.tree {
 
       .header-row {
         @include flex(row, flex-start, center);
         gap: $spacing-sm;
         overflow: hidden;
         width: 100%;
-        
+
         p {
           white-space: nowrap;
           overflow: hidden;
@@ -169,6 +163,9 @@
         cursor: pointer;
       }
       @include clickableContainer;
+    }
+
+    &.node {
     }
   }
 }

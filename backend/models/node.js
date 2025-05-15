@@ -9,13 +9,19 @@ const nodeSchema = new mongoose.Schema(
       type: {
         type: String,
         required: true,
+        default: 'none',
       },
       data: mongoose.Schema.Types.Mixed,
     },
-    parentId: { type: mongoose.Schema.ObjectId, ref: 'Tree', default: null },
+    parentId: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Tree',
+      required: true,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
 const Node = mongoose.model('Node', nodeSchema);
-module.exports = Node;  
+module.exports = Node;

@@ -1,57 +1,37 @@
-import { BoxesIcon, Icon } from '../../../components';
-import { formateCustomDate } from '../../transactions';
 import { useNavigate } from 'react-router-dom';
-import { editTreeOrder, handleCreateTree } from '../services/treeService';
+import { editTreeOrder, handleCreateTree, TreeCardContent } from '../';
+import { NodeCardContent } from '../../nodes';
 
-export function TreeChildCard({ child, lastChild, parentId }) {
+export default function TreeChildCard({ child, lastChild, parentId }) {
   const navigate = useNavigate();
 
   return (
     <>
       <button
+        className="insert-child-button"
         onClick={async () => {
           const id = await handleCreateTree(parentId);
           await editTreeOrder(parentId, id, 'tree', child._id);
           navigate(`/mind/${id}`);
         }}
-        className="insert-child-button"
       />
       <div className="tree-child-card">
         <TreeBranch lastChild={lastChild} />
-        <div className="tree-child-body">
-          {/* CLASSNAME CONTAINS TREE CHILD TYPE TO DIFFERENTIATE STYLES BETWEEN TREES AND NODES */}
-          <div
-            className="tree-child-content tree"
-            onClick={() => {
+        <div
+          className={`tree-child-body ${child.type}`}
+          onClick={() => {
+            if (child.type === 'tree') {
               navigate(`/mind/${child._id}`);
-            }}
-          >
-            <TreeChildContent tree={child} />
-          </div>
+            }
+          }}
+        >
+          {/* Add NodeCardContent for else */}
+          {child.type === 'tree' ? <TreeCardContent tree={child} /> : <NodeCardContent node={child}/>}
         </div>
       </div>
     </>
   );
 }
-
-function TreeChildContent({ tree }) {
-  return (
-    <>
-      <div className="header-row">
-        <Icon variant="mind">
-          <BoxesIcon />
-        </Icon>
-        <p>{tree.title}</p>{' '}
-      </div>
-      <p className="note-section">{tree.note}</p>
-      <p className="timestamp-section">
-        CREATED: {formateCustomDate(tree.createdAt)}
-      </p>
-    </>
-  );
-}
-
-function NodeChildContent({ node }) {}
 
 function TreeBranch({ lastChild = false }) {
   return (

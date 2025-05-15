@@ -3,26 +3,18 @@ import { useParams } from 'react-router-dom';
 import {
   fetchTree,
   TreeHeader,
-  TreeChildCard,
-  handleCreateTree,
-  editTreeOrder,
-  fetchTreeChildren,
+  TreeBody
 } from '../';
-import { SlashLoader, BoxesIcon, BoxIcon } from '../../../components';
-import { useNavigate } from 'react-router-dom';
+import { SlashLoader} from '../../../components';
 
 export default function TreePage({}) {
   const { id } = useParams();
   const [tree, setTree] = useState(null);
-  const [treeChildren, setTreeChildren] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const loadTree = async () => {
       const fetchedTree = await fetchTree(id);
       setTree(fetchedTree);
-      const fetchedChildren = await fetchTreeChildren(id);
-      setTreeChildren(fetchedChildren);
     };
     loadTree();
   }, [id]);
@@ -32,45 +24,11 @@ export default function TreePage({}) {
       {tree ? (
         <>
           <TreeHeader tree={tree} setTree={setTree} />
-          <div className="tree-children-container">
-            {treeChildren
-              ? treeChildren.map((child, index) => (
-                  <TreeChildCard
-                    child={child}
-                    lastChild={index === treeChildren.length - 1}
-                    parentId={tree._id}
-                  />
-                ))
-              : ''}
-              
-            <CreateChild
-              navigate={navigate}
-              parentId={tree ? tree._id : null}
-            />
-          </div>
+          <TreeBody tree={tree}/>
         </>
       ) : (
         <SlashLoader />
       )}
-    </div>
-  );
-}
-
-function CreateChild({ navigate, parentId }) {
-  return (
-    <div className="create-child-container">
-      <button
-        onClick={async () => {
-          const id = await handleCreateTree(parentId);
-          await editTreeOrder(parentId, id, 'tree');
-          navigate(`/mind/${id}`);
-        }}
-      >
-        <BoxesIcon /> Tree
-      </button>
-      <button>
-        <BoxIcon /> Node
-      </button>
     </div>
   );
 }
