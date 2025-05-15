@@ -1,18 +1,35 @@
 import { useNavigate } from 'react-router-dom';
-import { editTreeOrder, handleCreateTree, TreeCardContent } from '../';
-import { NodeCardContent } from '../../nodes';
+import {
+  editTreeOrder,
+  handleCreateTree,
+  TreeCardContent,
+  loadChildren,
+} from '../';
+import { NodeCardContent, handleCreateNode } from '../../nodes';
+import { Modal, BoxesIcon, BoxIcon } from '../../../components';
+import { useState } from 'react';
 
-export default function TreeChildCard({ child, lastChild, parentId }) {
+export default function TreeChildCard({
+  child,
+  lastChild,
+  parentId,
+  setTreeChildren,
+}) {
   const navigate = useNavigate();
+  const [insertChildModal, setInsertChildModal] = useState(false);
 
   return (
     <>
       <button
         className="insert-child-button"
-        onClick={async () => {
-          const id = await handleCreateTree(parentId);
-          await editTreeOrder(parentId, id, 'tree', child._id);
-          navigate(`/mind/${id}`);
+        // instead open a modal, then give options
+        // onClick={async () => {
+        //   const id = await handleCreateTree(parentId);
+        //   await editTreeOrder(parentId, id, 'tree', child._id);
+        //   navigate(`/mind/${id}`);
+        // }}
+        onClick={() => {
+          setInsertChildModal(true);
         }}
       />
       <div className="tree-child-card">
@@ -25,10 +42,25 @@ export default function TreeChildCard({ child, lastChild, parentId }) {
             }
           }}
         >
-          {/* Add NodeCardContent for else */}
-          {child.type === 'tree' ? <TreeCardContent tree={child} /> : <NodeCardContent node={child}/>}
+          {child.type === 'tree' ? (
+            <TreeCardContent tree={child} />
+          ) : (
+            <NodeCardContent node={child} />
+          )}
         </div>
       </div>
+      <Modal
+        isOpen={insertChildModal}
+        onClose={() => setInsertChildModal(false)}
+      >
+        <InsertChildModal
+          navigate={navigate}
+          parentId={parentId}
+          referenceId={child._id}
+          setTreeChildren={setTreeChildren}
+          setInsertChildModal={setInsertChildModal}
+        />
+      </Modal>
     </>
   );
 }
@@ -41,6 +73,46 @@ function TreeBranch({ lastChild = false }) {
         style={{ height: !lastChild ? '100%' : '' }}
       />
       <div className="tree-branch-horizontal" />
+    </div>
+  );
+}
+
+function InsertChildModal({
+  navigate,
+  parentId,
+  referenceId,
+  setTreeChildren,
+  setInsertChildModal,
+}) {
+  return (
+    <div className='insert-child-modal'>
+      <h5>INSERT:</h5>
+      <div className="insert-button-options">
+        <button
+                className="create-child-button"
+
+          onClick={async () => {
+            const id = await handleCreateTree(parentId);
+            await editTreeOrder(parentId, id, 'tree',referenceId);
+            navigate(`/mind/${id}`);
+          }}
+        >
+          <BoxesIcon /> Tree
+        </button>
+        <p>OR</p>
+        <button
+                className="create-child-button"
+
+          onClick={async () => {
+            const id = await handleCreateNode(parentId);
+            await editTreeOrder(parentId, id, 'node', referenceId);
+            loadChildren(parentId, setTreeChildren);
+            setInsertChildModal(false);
+          }}
+        >
+          <BoxIcon /> Node
+        </button>
+      </div>
     </div>
   );
 }

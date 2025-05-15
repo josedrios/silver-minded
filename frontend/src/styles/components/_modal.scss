@@ -21,3 +21,18 @@
     z-index: $z-modal;
     overflow: scroll;
 }
+
+.insert-child-modal {
+    @include flex(column, center, center);
+    gap: $spacing-lg;
+
+    .insert-button-options {
+        @include flex(row, center, center);
+        width: 100%;
+        gap: $spacing-sm;
+
+        button {
+            height: 30px;
+        }
+    }
+}

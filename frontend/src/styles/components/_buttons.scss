@@ -191,24 +191,25 @@
   height: 30px;
   gap: $spacing-sm;
   margin-top: $spacing-sm;
+}
 
-  button {
-    @include flex(row, center, center);
-    gap: $spacing-xs;
-    background-color: transparent;
-    width: 50%;
-    color: var(--mind-800);
-    border-radius: $border-radius-xs;
-    background-color: var(--mind-200);
-    transition: background-color $transition-fast;
+.create-child-button {
+  @include flex(row, center, center);
+  gap: $spacing-xs;
+  width: 50%;
+  color: var(--mind-800);
+  border-radius: $border-radius-xs;
+  border: 1px solid var(--mind-300);
+  background-color: var(--mind-200);
+  transition: background-color $transition-fast, border-color $transition-fast;
 
-    svg {
-      stroke: var(--mind-800);
-    }
+  svg {
+    stroke: var(--mind-800);
+  }
 
-    &:hover {
-      background-color: var(--mind-400);
-    }
+  &:hover {
+    background-color: var(--mind-400);
+    border-color: var(--mind-500);
   }
 }
 
