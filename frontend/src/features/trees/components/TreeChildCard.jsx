@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
-import { BoxesIcon, BoxIcon, Icon } from '../../../components';
+import { BoxesIcon, Icon } from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { useNavigate } from 'react-router-dom';
 import { editTreeOrder, handleCreateTree } from '../services/treeService';

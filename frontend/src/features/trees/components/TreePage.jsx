@@ -29,25 +29,34 @@ export default function TreePage({}) {
 
   return (
     <div className="tree-page">
-      {tree ? <TreeHeader tree={tree} setTree={setTree} /> : <SlashLoader />}
-      <div className="tree-children-container">
-        {/* <TreeChildCard /> */}
-        {treeChildren
-          ? treeChildren.map((child, index) => (
-              <TreeChildCard
-                child={child}
-                lastChild={index === treeChildren.length - 1}
-                parentId={tree._id}
-              />
-            ))
-          : ''}
-        <ChildCreate navigate={navigate} parentId={tree ? tree._id : null} />
-      </div>
+      {tree ? (
+        <>
+          <TreeHeader tree={tree} setTree={setTree} />
+          <div className="tree-children-container">
+            {treeChildren
+              ? treeChildren.map((child, index) => (
+                  <TreeChildCard
+                    child={child}
+                    lastChild={index === treeChildren.length - 1}
+                    parentId={tree._id}
+                  />
+                ))
+              : ''}
+              
+            <CreateChild
+              navigate={navigate}
+              parentId={tree ? tree._id : null}
+            />
+          </div>
+        </>
+      ) : (
+        <SlashLoader />
+      )}
     </div>
   );
 }
 
-function ChildCreate({ navigate, parentId }) {
+function CreateChild({ navigate, parentId }) {
   return (
     <div className="create-child-container">
       <button

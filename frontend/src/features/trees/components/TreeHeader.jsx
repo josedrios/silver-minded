@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   BoxesIcon,
   Icon,
@@ -11,6 +11,7 @@ import {
 } from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { tagOptions, getTagOption, editTreeHeader } from '../';
+import { useLocation } from 'react-router-dom';
 
 export default function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
@@ -18,6 +19,7 @@ export default function TreeHeader({ tree, setTree }) {
     note: tree.note,
     categories: tree.categories.map(getTagOption),
   });
+  const location = useLocation();
 
   useEffect(() => {
     setTreeChanges({
@@ -28,6 +30,10 @@ export default function TreeHeader({ tree, setTree }) {
   }, [tree]);
 
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    setEditMode(false);
+  }, [location.pathname])
 
   return (
     <div className="tree-page-header">
@@ -123,21 +129,6 @@ function TreeTags({
       categories: newValue,
     }));
   };
-  const prevEditModeRef = useRef(editMode);
-
-  useEffect(() => {
-    const updateTree = async () => {
-      if (prevEditModeRef.current === true && editMode === false) {
-        const updatedTree = await editTreeHeader(oldTree, tree);
-        if (updatedTree && typeof updatedTree === 'object') {
-          setOriginalTree(updatedTree);
-        }
-      }
-    };
-
-    updateTree();
-    prevEditModeRef.current = editMode;
-  }, [editMode]);
 
   return (
     <div className="tag-row">
@@ -163,7 +154,17 @@ function TreeTags({
         variant="gray"
         squared={true}
         className="borderless tree-edit-button"
-        onClick={() => setEditMode((prev) => !prev)}
+        onClick={async() => {
+          if(editMode === true) {
+            const updatedTree = await editTreeHeader(oldTree, tree);
+            if(updatedTree) {
+              setOriginalTree(updatedTree);
+            }
+            setEditMode(false);
+          } else {
+            setEditMode(true);
+          }
+        }}
       >
         {editMode ? <FileBoxIcon /> : <FilePenIcon />}
       </Button>
