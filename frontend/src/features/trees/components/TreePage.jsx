@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   fetchTree,
@@ -37,6 +37,7 @@ export default function TreePage({}) {
               <TreeChildCard
                 child={child}
                 lastChild={index === treeChildren.length - 1}
+                parentId={tree._id}
               />
             ))
           : ''}

@@ -40,20 +40,26 @@ exports.getTreeChildren = async (req, res) => {
     const { id } = req.params;
 
     const tree = await Tree.findById(id);
-
     if (!tree) {
       return res.status(404).json({ message: 'Tree not found' });
     }
 
-    const orderedItems = await Promise.all(
-      tree.order.map(async ({ type, id }) => {
-        const Model = type === 'tree' ? Tree : Node;
-        return await Model.findById(id);
-      })
-    );
+    const orderedItems = [];
+    const newOrder = [];
 
-    console.log('ORDERED ITEMS:')
+    for (const { type, id } of tree.order) {
+      const Model = type === 'tree' ? Tree : Node;
+      const doc = await Model.findById(id);
+      if (doc) {
+        orderedItems.push(doc);
+        newOrder.push({ type, id });
+      }
+    }
+
+    tree.order = newOrder;
+
     console.log(orderedItems)
+    await tree.save();
     return res.status(200).json(orderedItems);
   } catch (err) {
     console.log(err);

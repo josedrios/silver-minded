@@ -211,3 +211,15 @@
     }
   }
 }
+
+.insert-child-button {
+  border: 1px solid transparent;
+  background-color: transparent;
+  height: $spacing-sm;
+  transition: background-color $transition-slow, border $transition-slow;
+
+  &:hover {
+    background-color: var(--mind-300);
+    border: 1px solid var(--mind-600);
+  }
+}

@@ -104,8 +104,9 @@
 
   .tree-branch-wrapper {
     @include flex(row, flex-end);
-    width: 25px;
+    width: 20px;
     display: flex;
+    margin-right: $spacing-xs;
 
     .tree-branch-vertical {
       height: 35px;
@@ -123,42 +124,51 @@
 
   .tree-child-body {
     flex: 1;
+    overflow: hidden;
     @include flex(column);
-    margin: $spacing-sm 0;
 
     .tree-child-content {
+      border: 1px solid transparent;
       border-radius: $border-radius-xs;
       background-color: rgb(23, 29, 30);
       padding: $spacing-sm;
+      @include flex(column);
+      gap: $spacing-xs;
+      width: 100%;
+
+      &.tree {
+      }
+      &.node {
+      }
+
+      .header-row {
+        @include flex(row, flex-start, center);
+        gap: $spacing-sm;
+        overflow: hidden;
+        width: 100%;
+        
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: $font-size-md;
+        }
+      }
+
+      .note-section {
+        color: var(--text-600);
+      }
+
+      .timestamp-section {
+        text-align: right;
+        font-size: $font-size-xs;
+        color: var(--text-500);
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+      @include clickableContainer;
     }
-  }
-}
-
-.tree-child-content {
-  @include flex(column);
-  gap: $spacing-xs;
-
-  &.tree {
-  }
-  &.node {
-  }
-
-  .header-row {
-    @include flex(row, initial, center);
-    gap: $spacing-sm;
-
-    p {
-      font-size: $font-size-md;
-    }
-  }
-
-  .note-section {
-    color: var(--text-600);
-  }
-
-  .timestamp-section {
-    text-align: right;
-    font-size: $font-size-xs;
-    color: var(--mind-700);
   }
 }

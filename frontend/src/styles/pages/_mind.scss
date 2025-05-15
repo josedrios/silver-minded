@@ -22,7 +22,7 @@
     border-radius: $border-radius-xs;
     background-color: rgb(23, 29, 30);
     margin: $spacing-md;
-    margin-bottom: 0;
+    margin-bottom: $spacing-sm;
 
     .header-row {
       @include flex(row, initial, flex-start);
