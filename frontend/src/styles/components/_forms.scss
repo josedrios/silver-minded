@@ -181,19 +181,32 @@ form {
   div {
     border-radius: $border-radius-xs !important;
     padding-right: 0 !important;
-    padding-left: 0 !important;
+    padding-left: 2px !important;
   }
 }
 
+.bn-editor {
+  background-color: rgb(23, 29, 30) !important;
+}
+
 .bn-side-menu {
+  outline: 1px solid var(--gray-600);
+  background-color: rgb(23, 29, 30) !important;
   height: 25px !important;
 }
 
 // EDITING BULLET POINT PART OF A BULLET LIST
-[data-content-type="bulletListItem"]::before {
-  content: "-" !important;
+[data-content-type='bulletListItem']::before {
+  content: '-' !important;
 }
 
-.bn-block-group .bn-block-group .bn-block-outer:not([data-prev-depth-changed])::before {
+.bn-block-group
+  .bn-block-group
+  .bn-block-outer:not([data-prev-depth-changed])::before {
   border-left: 1px solid transparent !important;
 }
+
+// KEEP HIDDEN WHEN NOT EDITING (ITS THE LAST LINE OF THE EDITOR
+// .bn-editor [data-content-type="paragraph"]:last-child:has(:empty) {
+//   display: none;
+// }

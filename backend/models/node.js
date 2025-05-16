@@ -11,7 +11,7 @@ const nodeSchema = new mongoose.Schema(
         required: true,
         default: 'none',
       },
-      data: mongoose.Schema.Types.Mixed,
+      data: {type: mongoose.Schema.Types.Mixed, default: null},
     },
     parentId: {
       type: mongoose.Schema.ObjectId,

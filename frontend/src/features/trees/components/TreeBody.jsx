@@ -8,20 +8,24 @@ import {
 import { BoxesIcon, BoxIcon } from '../../../components';
 import { useNavigate } from 'react-router-dom';
 import { handleCreateNode } from '../../nodes';
-
-export const loadChildren = async (treeId, setTreeChildren) => {
-  const fetchedChildren = await fetchTreeChildren(treeId);
-  setTreeChildren(fetchedChildren);
-  console.log(fetchedChildren);
-};
+import { node } from 'prop-types';
 
 export function TreeBody({ tree }) {
   const navigate = useNavigate();
   const [treeChildren, setTreeChildren] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const refreshChildren = () => setRefreshKey((prev) => prev + 1);
+
+  const loadChildren = async () => {
+    const fetchedChildren = await fetchTreeChildren(tree._id);
+    setTreeChildren(fetchedChildren);
+    console.log(fetchedChildren);
+  };
 
   useEffect(() => {
-    loadChildren(tree._id, setTreeChildren);
-  }, [tree]);
+    loadChildren();
+  }, [tree, refreshKey]);
 
   return (
     <div className="tree-body">
@@ -29,10 +33,11 @@ export function TreeBody({ tree }) {
         {treeChildren
           ? treeChildren.map((child, index) => (
               <TreeChildCard
+                key={node._id}
                 child={child}
                 lastChild={index === treeChildren.length - 1}
                 parentId={tree._id}
-                setTreeChildren={setTreeChildren}
+                refreshChildren={refreshChildren}
               />
             ))
           : ''}
@@ -41,13 +46,12 @@ export function TreeBody({ tree }) {
         navigate={navigate}
         loadChildren={loadChildren}
         parentId={tree ? tree._id : null}
-        setTreeChildren={setTreeChildren}
       />
     </div>
   );
 }
 
-function CreateChild({ navigate, parentId, loadChildren, setTreeChildren }) {
+function CreateChild({ navigate, parentId, loadChildren }) {
   return (
     <div className="create-child-container">
       <button
@@ -65,7 +69,7 @@ function CreateChild({ navigate, parentId, loadChildren, setTreeChildren }) {
         onClick={async () => {
           const id = await handleCreateNode(parentId);
           await editTreeOrder(parentId, id, 'node');
-          loadChildren(parentId, setTreeChildren);
+          loadChildren();
         }}
       >
         <BoxIcon /> Node

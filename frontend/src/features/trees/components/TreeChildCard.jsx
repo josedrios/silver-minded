@@ -3,7 +3,6 @@ import {
   editTreeOrder,
   handleCreateTree,
   TreeCardContent,
-  loadChildren,
 } from '../';
 import { NodeCardContent, handleCreateNode } from '../../nodes';
 import { Modal, BoxesIcon, BoxIcon } from '../../../components';
@@ -13,7 +12,7 @@ export default function TreeChildCard({
   child,
   lastChild,
   parentId,
-  setTreeChildren,
+  refreshChildren,
 }) {
   const navigate = useNavigate();
   const [insertChildModal, setInsertChildModal] = useState(false);
@@ -51,7 +50,7 @@ export default function TreeChildCard({
           navigate={navigate}
           parentId={parentId}
           referenceId={child._id}
-          setTreeChildren={setTreeChildren}
+          refreshChildren={refreshChildren}
           setInsertChildModal={setInsertChildModal}
         />
       </Modal>
@@ -75,32 +74,32 @@ function InsertChildModal({
   navigate,
   parentId,
   referenceId,
-  setTreeChildren,
+  refreshChildren,
   setInsertChildModal,
 }) {
   return (
-    <div className='insert-child-modal'>
+    <div className="insert-child-modal">
       <h5>INSERT:</h5>
       <div className="insert-button-options">
         <button
-                className="create-child-button"
-
+          className="create-child-button"
           onClick={async () => {
             const id = await handleCreateTree(parentId);
-            await editTreeOrder(parentId, id, 'tree',referenceId);
+            await editTreeOrder(parentId, id, 'tree', referenceId);
             navigate(`/mind/${id}`);
+            // refreshChildren();
+            // setInsertChildModal(false);
           }}
         >
           <BoxesIcon /> Tree
         </button>
         <p>OR</p>
         <button
-                className="create-child-button"
-
+          className="create-child-button"
           onClick={async () => {
             const id = await handleCreateNode(parentId);
             await editTreeOrder(parentId, id, 'node', referenceId);
-            loadChildren(parentId, setTreeChildren);
+            refreshChildren();
             setInsertChildModal(false);
           }}
         >
