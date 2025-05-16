@@ -22,12 +22,6 @@ export default function TreeChildCard({
     <>
       <button
         className="insert-child-button"
-        // instead open a modal, then give options
-        // onClick={async () => {
-        //   const id = await handleCreateTree(parentId);
-        //   await editTreeOrder(parentId, id, 'tree', child._id);
-        //   navigate(`/mind/${id}`);
-        // }}
         onClick={() => {
           setInsertChildModal(true);
         }}

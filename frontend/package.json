@@ -10,6 +10,9 @@
     "dev": "vite --host"
   },
   "dependencies": {
+    "@blocknote/core": "^0.30.0",
+    "@blocknote/mantine": "^0.30.0",
+    "@blocknote/react": "^0.30.0",
     "dayjs": "^1.11.13",
     "downshift": "^9.0.9",
     "motion": "^12.9.2",

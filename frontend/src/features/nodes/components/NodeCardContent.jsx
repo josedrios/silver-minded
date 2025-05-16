@@ -1,7 +1,55 @@
+import { BoxIcon, Icon, SlashLoader } from '../../../components';
+import { formateCustomDate } from '../../transactions';
+import { BlockNoteView } from '@blocknote/mantine';
+import '@blocknote/mantine/style.css';
+import { useCreateBlockNote } from '@blocknote/react';
+import { useEffect, useState } from 'react';
+import { handleEditContent } from '../services/nodeService';
+
 export default function NodeCardContent({ node }) {
-    return (
-        <div>
-            {node.title}
-        </div>
-    )
+  console.log(node);
+  console.log(node.content);
+  console.log(node.content.data);
+
+  const initialContent = node.content?.data
+  ? JSON.parse(node.content.data)
+  : undefined;
+
+  const editor = useCreateBlockNote({
+    initialContent: initialContent,
+  });
+
+  useEffect(() => {
+    const handleChange = async () => {
+      const updatedContent = editor.document;
+      const safeContent = JSON.parse(JSON.stringify(updatedContent));
+      console.log(safeContent);
+      await handleEditContent(node._id, {
+        content: {
+          type: 'blocknote',
+          data: JSON.stringify(safeContent),
+        },
+      });
+    };
+
+    const unsubscribe = editor.onChange(handleChange);
+    return () => unsubscribe();
+  }, [editor]);
+
+  return (
+    <>
+      <div className="header-row">
+        <Icon variant="mind">
+          <BoxIcon />
+        </Icon>
+        <p>{node.title}</p>
+      </div>
+
+      <BlockNoteView editor={editor} />
+
+      <p className="timestamp-section">
+        CREATED: {formateCustomDate(node.createdAt)}
+      </p>
+    </>
+  );
 }

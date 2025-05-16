@@ -172,3 +172,28 @@ form {
 .tree-title-edit {
   height: 23px;
 }
+
+.bn-container {
+  border: 1px solid var(--gray-800);
+  border-radius: $border-radius-xs;
+  padding: $spacing-xs $spacing-sm;
+
+  div {
+    border-radius: $border-radius-xs !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+}
+
+.bn-side-menu {
+  height: 25px !important;
+}
+
+// EDITING BULLET POINT PART OF A BULLET LIST
+[data-content-type="bulletListItem"]::before {
+  content: "-" !important;
+}
+
+.bn-block-group .bn-block-group .bn-block-outer:not([data-prev-depth-changed])::before {
+  border-left: 1px solid transparent !important;
+}
