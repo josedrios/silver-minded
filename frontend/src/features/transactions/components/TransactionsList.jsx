@@ -13,16 +13,18 @@ export default function TransactionsList({
   return (
     <div className="transactions-list">
       <div className="transaction-list-header">
-        <h4>Transactions</h4>
-        {
-          transactions.month === today.getMonth() ? <Button
-          variant="gray"
-          squared={true}
-          onClick={() => setTransactionModal(true)}
-        >
-          <PlusIcon />
-        </Button> : ''
-        }
+        <h4>Transactions:</h4>
+        {transactions.month === today.getMonth() ? (
+          <Button
+            variant="gray"
+            squared={true}
+            onClick={() => setTransactionModal(true)}
+          >
+            <PlusIcon />
+          </Button>
+        ) : (
+          ''
+        )}
       </div>
       <div className="transactions-body">
         {transactions.transactions.length !== 0 ? (
@@ -34,7 +36,7 @@ export default function TransactionsList({
             />
           ))
         ) : (
-          <p className='empty-list-quote'>No transactions</p>
+          <p className="empty-list-quote">No transactions</p>
         )}
       </div>
     </div>
@@ -61,7 +63,13 @@ function TransactionCard({
     >
       <div className="card-row">
         <p className="transaction-info">{transaction.info}</p>
-        <p className="transaction-amount">${transaction.amount}</p>
+        <p
+          className={`transaction-amount ${
+            transaction.category !== 'save' ? 'negative-amount' : ''
+          }`}
+        >
+          {transaction.category !== 'save' ? '-' : ''}${transaction.amount}
+        </p>
       </div>
       <div className="card-row">
         <span className="branch">└─</span>

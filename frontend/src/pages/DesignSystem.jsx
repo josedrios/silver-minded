@@ -19,7 +19,6 @@ import {
   SlideToggle,
   SlideToggleText,
   RowSelect,
-  TerminalBox,
   ReactMultiSelect,
 } from '../components';
 import { useEffect, useState } from 'react';
@@ -42,21 +41,6 @@ export default function DesignSystem() {
 
   return (
     <div id="design-component-grid">
-      <DesignComponent title={'Terminal Box'}>
-        <TerminalBox title="STATS 5.2025">Test</TerminalBox>
-
-        <TerminalBox title="STATS 5.2025" variant="error">
-          Test
-        </TerminalBox>
-
-        <TerminalBox title="STATS 5.2025" variant="accent">
-          Test
-        </TerminalBox>
-
-        <TerminalBox title="STATS 5.2025" variant="gray">
-          Test
-        </TerminalBox>
-      </DesignComponent>
       <DesignComponent title={'Selects'}>
         <RowSelect
           selectState={rowSelect}

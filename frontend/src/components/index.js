@@ -1,5 +1,3 @@
-export { default as TerminalBox } from './ui/TerminalBox';
-
 export { default as Button } from './ui/Buttons';
 export { default as TextField } from './form/TextFields';
 

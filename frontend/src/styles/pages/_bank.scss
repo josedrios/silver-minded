@@ -11,28 +11,38 @@
   @include flex(row);
 }
 
-@media (max-width: 520px) {
-  .bank-budget-overall-wrapper {
-    flex-direction: column;
-  }
-}
-
 .bank-overalls {
   margin: $spacing-md;
-  width: calc(100% - 2 * $spacing-md) !important;
+  padding: $spacing-sm 0;
+  width: calc(100% - 2 * $spacing-md);
+  max-width: 275px;
+  @include flex(column, space-between);
+  background-color: rgb(23, 29, 30);
+  border-radius: $border-radius-sm;
+  border: 1px solid rgba(var(--gray-600-rgb), 0.65);
 
-  .bank-overalls-body {
-    @include flex(column);
-    gap: 2px;
+  .overall-header {
+    border-bottom: 1px solid var(--gray-800);
+    text-align: center;
+    color: var(--text-600);
+    padding: 0 $spacing-sm;
+    padding-bottom: $spacing-sm;
+    margin-bottom: $spacing-xs;
   }
 
   .overall-row {
     @include flex(row, space-between, flex-end);
+    padding: 0 $spacing-sm;
+  }
+}
 
-    p,
-    span {
-      color: var(--primary-600);
-    }
+@media (max-width: 520px) {
+  .bank-budget-overall-wrapper {
+    flex-direction: column;
+  }
+
+  .bank-overalls {
+    max-width: none;
   }
 }
 
@@ -104,4 +114,8 @@
     margin: 0 $spacing-md;
     margin-bottom: $spacing-md;
   }
+}
+
+.negative-amount {
+  color: var(--error-800) !important;
 }
