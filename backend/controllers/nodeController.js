@@ -17,15 +17,12 @@ exports.createNode = async (req, res) => {
 
 exports.editContent = async (req, res) => {
   try {
-    console.log(req.body)
     const { content } = req.body;
-    console.log(content.data);
     const node = await Node.findByIdAndUpdate(
       req.params.id,
       { content },
       { new: true }
     );
-    console.log(node);
     return res.status(201).json(node);
   } catch (err) {
     console.log(err);

@@ -7,7 +7,7 @@ export default function Nav() {
       <Link to="/time">TIME</Link>
       <Link to="/bank">BANK</Link>
       <Link to="/mind">MIND</Link>
-      <Link to="/designsystem">DESIGN</Link>
+      {/* <Link to="/designsystem">DESIGN</Link> */}
     </nav>
   );
 }

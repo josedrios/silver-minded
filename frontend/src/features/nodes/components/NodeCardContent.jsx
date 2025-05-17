@@ -7,13 +7,11 @@ import { useEffect, useState } from 'react';
 import { handleEditContent } from '../services/nodeService';
 
 export default function NodeCardContent({ node }) {
-  console.log(node);
-  console.log(node.content);
-  console.log(node.content.data);
+  const [isEditable, setIsEditable] = useState(false);
 
   const initialContent = node.content?.data
-  ? JSON.parse(node.content.data)
-  : undefined;
+    ? JSON.parse(node.content.data)
+    : undefined;
 
   const editor = useCreateBlockNote({
     initialContent: initialContent,
@@ -45,7 +43,13 @@ export default function NodeCardContent({ node }) {
         <p>{node.title}</p>
       </div>
 
-      <BlockNoteView editor={editor} spellCheck={false}/>
+      <BlockNoteView
+        editor={editor}
+        spellCheck={false}
+        editable={isEditable}
+        onMouseEnter={() => setIsEditable(true)}
+        onMouseLeave={() => setIsEditable(false)}
+      />
 
       <p className="timestamp-section">
         CREATED: {formateCustomDate(node.createdAt)}

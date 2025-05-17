@@ -1,9 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import {
-  editTreeOrder,
-  handleCreateTree,
-  TreeCardContent,
-} from '../';
+import { editTreeOrder, handleCreateTree, TreeCardContent } from '../';
 import { NodeCardContent, handleCreateNode } from '../../nodes';
 import { Modal, BoxesIcon, BoxIcon } from '../../../components';
 import { useState } from 'react';
@@ -87,8 +83,6 @@ function InsertChildModal({
             const id = await handleCreateTree(parentId);
             await editTreeOrder(parentId, id, 'tree', referenceId);
             navigate(`/mind/${id}`);
-            // refreshChildren();
-            // setInsertChildModal(false);
           }}
         >
           <BoxesIcon /> Tree

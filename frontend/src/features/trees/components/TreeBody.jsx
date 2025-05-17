@@ -24,7 +24,7 @@ export function TreeBody({ tree }) {
 
   useEffect(() => {
     loadChildren();
-  }, [tree, refreshKey]);
+  }, [tree._id, refreshKey]);
 
   return (
     <div className="tree-body">
