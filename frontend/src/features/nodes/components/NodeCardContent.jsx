@@ -1,4 +1,4 @@
-import { BoxIcon, Icon, SlashLoader } from '../../../components';
+import { BoxIcon, Icon } from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
@@ -17,8 +17,18 @@ export default function NodeCardContent({ node }) {
     initialContent: initialContent,
   });
 
+  function debounce(func, delay) {
+    let timeout;
+    const debounced = (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+    debounced.cancel = () => clearTimeout(timeout);
+    return debounced;
+  }
+
   useEffect(() => {
-    const handleChange = async () => {
+    const handleChange = debounce(async () => {
       const updatedContent = editor.document;
       const safeContent = JSON.parse(JSON.stringify(updatedContent));
 
@@ -28,10 +38,13 @@ export default function NodeCardContent({ node }) {
           data: JSON.stringify(safeContent),
         },
       });
-    };
+    }, 1000); // waits 1 second after last change
 
     const unsubscribe = editor.onChange(handleChange);
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      handleChange.cancel(); // cleanup
+    };
   }, [editor]);
 
   return (
