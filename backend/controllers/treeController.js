@@ -60,7 +60,6 @@ exports.getTreeChildren = async (req, res) => {
 
     tree.order = newOrder;
 
-    console.log(orderedItems)
     await tree.save();
     return res.status(200).json(orderedItems);
   } catch (err) {

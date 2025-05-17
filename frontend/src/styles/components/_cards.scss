@@ -161,6 +161,7 @@
       &:hover {
         cursor: pointer;
       }
+
       @include clickableContainer;
     }
 
@@ -184,11 +185,6 @@
         font-size: $font-size-xs;
         color: var(--text-500);
       }
-
-      &:hover {
-        cursor: pointer;
-      }
-      // @include clickableContainer;
     }
   }
 }

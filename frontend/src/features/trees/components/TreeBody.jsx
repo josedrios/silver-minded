@@ -8,7 +8,6 @@ import {
 import { BoxesIcon, BoxIcon } from '../../../components';
 import { useNavigate } from 'react-router-dom';
 import { handleCreateNode } from '../../nodes';
-import { node } from 'prop-types';
 
 export function TreeBody({ tree }) {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ export function TreeBody({ tree }) {
         {treeChildren
           ? treeChildren.map((child, index) => (
               <TreeChildCard
-                key={node._id}
+                key={child._id}
                 child={child}
                 lastChild={index === treeChildren.length - 1}
                 parentId={tree._id}

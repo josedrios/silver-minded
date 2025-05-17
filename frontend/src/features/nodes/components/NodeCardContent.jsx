@@ -23,7 +23,7 @@ export default function NodeCardContent({ node }) {
     const handleChange = async () => {
       const updatedContent = editor.document;
       const safeContent = JSON.parse(JSON.stringify(updatedContent));
-      console.log(safeContent);
+
       await handleEditContent(node._id, {
         content: {
           type: 'blocknote',
@@ -45,7 +45,7 @@ export default function NodeCardContent({ node }) {
         <p>{node.title}</p>
       </div>
 
-      <BlockNoteView editor={editor} />
+      <BlockNoteView editor={editor} spellCheck={false}/>
 
       <p className="timestamp-section">
         CREATED: {formateCustomDate(node.createdAt)}
