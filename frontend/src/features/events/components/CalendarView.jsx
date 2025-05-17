@@ -19,25 +19,25 @@ export default function CalendarView({
   return (
     <div className="calendar-view-container">
       <header className="calendar-view-header">
-          <Button
-            variant="gray"
-            squared={true}
-            onClick={() => changeMonth(setEvents, false)}
-            className='borderless'
-          >
-            <ChevronLeft />
-          </Button>
-          <h6>
+        <Button
+          variant="gray"
+          squared={true}
+          onClick={() => changeMonth(setEvents, false)}
+          className="borderless"
+        >
+          <ChevronLeft />
+        </Button>
+        <h6>
           {getMonthName(events.month).toUpperCase()} {events.year}
         </h6>
-          <Button
-            variant="gray"
-            squared={true}
-            onClick={() => changeMonth(setEvents, true)}
-            className='borderless'
-          >
-            <ChevronRight />
-          </Button>
+        <Button
+          variant="gray"
+          squared={true}
+          onClick={() => changeMonth(setEvents, true)}
+          className="borderless"
+        >
+          <ChevronRight />
+        </Button>
       </header>
       <div className="calendar-view-body">
         <WeekHeader />

@@ -63,7 +63,7 @@ export default function Bank() {
 
   return (
     <div id="bank-container">
-      <TimeFrame />
+      <TimeFrame transactions={transactions} setTransactions={setTransactions}/>
       <div className="bank-budget-overall-wrapper">
         <BankOveralls transactions={transactions} bankStats={bankStats} />
         <BankBudget bankStats={bankStats} />

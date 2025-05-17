@@ -1,5 +1,6 @@
 import { Button, PlusIcon } from '../../../components';
 import { formateCustomDate } from '../';
+import { today } from '../../events';
 
 export default function TransactionsList({
   transactionModal,
@@ -13,13 +14,15 @@ export default function TransactionsList({
     <div className="transactions-list">
       <div className="transaction-list-header">
         <h4>Transactions</h4>
-        <Button
+        {
+          transactions.month === today.getMonth() ? <Button
           variant="gray"
           squared={true}
           onClick={() => setTransactionModal(true)}
         >
           <PlusIcon />
-        </Button>
+        </Button> : ''
+        }
       </div>
       <div className="transactions-body">
         {transactions.transactions.length !== 0 ? (

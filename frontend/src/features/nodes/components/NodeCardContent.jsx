@@ -5,9 +5,11 @@ import '@blocknote/mantine/style.css';
 import { useCreateBlockNote } from '@blocknote/react';
 import { useEffect, useState } from 'react';
 import { handleEditContent } from '../services/nodeService';
+import { en } from "@blocknote/core/locales";
 
 export default function NodeCardContent({ node }) {
   const [isEditable, setIsEditable] = useState(false);
+  const locale = en;
 
   const initialContent = node.content?.data
     ? JSON.parse(node.content.data)
@@ -15,6 +17,14 @@ export default function NodeCardContent({ node }) {
 
   const editor = useCreateBlockNote({
     initialContent: initialContent,
+    dictionary: {
+      ...locale,
+      placeholders: {
+        ...locale.placeholders,
+        emptyDocument: 'Tap to edit node...',
+        default: 'Type here...'
+      }
+    }
   });
 
   function debounce(func, delay) {
