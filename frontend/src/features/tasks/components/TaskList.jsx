@@ -5,10 +5,12 @@ import {
   CheckmarkIcon,
   HourglassIcon,
   DangerIcon,
+  TrashIcon,
+  Button,
 } from '../../../components';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
-import { editTask } from '../';
+import { editTask, removeDoneTasks } from '../';
 
 const list = {
   hidden: { opacity: 0 },
@@ -33,6 +35,7 @@ export default function TaskList({
   taskInputRef,
   listChanges,
   setListChanges,
+  loadTasks,
 }) {
   const doneCount = tasks.filter((task) => task.status === 'done').length;
   const pendingCount = tasks.filter((task) => task.status === 'pending').length;
@@ -113,10 +116,22 @@ export default function TaskList({
         </motion.ol>
       </AnimatePresence>
       <div className="task-list-footer" variants={item}>
-        <span className="done-percentage">
-          {!isNaN(completePercentage) ? completePercentage : '0'}%
-        </span>{' '}
-        of tasks complete <span className='task-count'>[{tasks.length}]</span>
+        <div>
+          <span className="done-percentage">
+            {!isNaN(completePercentage) ? completePercentage : '0'}%
+          </span>{' '}
+          of tasks complete <span className="task-count">[{tasks.length}]</span>
+        </div>
+        <Button
+          variant="error"
+          className="delete-done-tasks"
+          onClick={async () => {
+            await removeDoneTasks();
+            loadTasks();
+          }}
+        >
+          DELETE DONE
+        </Button>
       </div>
     </div>
   );

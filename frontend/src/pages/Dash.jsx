@@ -57,6 +57,7 @@ export default function Dash() {
           taskInputRef={taskInputRef}
           listChanges={listChanges}
           setListChanges={setListChanges}
+          loadTasks={loadTasks}
         />
       </div>
     </div>

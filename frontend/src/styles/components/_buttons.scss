@@ -224,3 +224,17 @@
     border: 1px solid var(--mind-600);
   }
 }
+
+.delete-done-tasks {
+  white-space: nowrap;
+  border-color: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  align-items: flex-end !important; 
+  color: var(--error-500) !important; 
+  transition: color $transition-fast;
+
+  &:hover {
+    color: var(--error-800) !important;
+  }
+}

@@ -47,6 +47,7 @@
   }
 
   .task-list-footer {
+    @include flex(row, space-between, flex-end);
     margin-top: $spacing-md;
     .done-percentage {
       color: var(--primary-800);
