@@ -78,3 +78,15 @@
     gap: $spacing-sm;
   }
 }
+
+.current-marker {
+  @include flex(row, flex-start, center);
+  gap: $spacing-sm;
+  color: var(--error-800);
+
+  div {
+    height: 1px;
+    background-color: var(--error-600);
+    width: 100%;
+  }
+}

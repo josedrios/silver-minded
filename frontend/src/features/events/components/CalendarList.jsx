@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { getMonthName } from '../util/dateUtil';
+import { getMonthName, today } from '../util/dateUtil';
+import { useState } from 'react';
 
 export default function CalendarList({
   events,
@@ -8,23 +9,61 @@ export default function CalendarList({
 }) {
   const currentYear = events.year;
   const currentMonth = events.month;
+  const pastEvents = events.events.filter(
+    (event) => new Date(event.date).getDate() < today.getDate()
+  );
+  const [showPastEvents, setShowPastEvents] = useState(false);
+
   return (
     <div className="calendar-list-container">
       <h4 className="list-header">Upcoming Events:</h4>
       <div className="calendar-list-body">
-        {events.events.length !== 0 ? (
-          events.events.map((event, i) => (
-            <EventCard
-              event={event}
-              year={currentYear}
-              month={currentMonth}
-              key={i}
-              selectedEvent={selectedEvent}
-              setSelectedEvent={setSelectedEvent}
-            />
-          ))
+        {pastEvents.length !== 0 ? (
+          <button
+            className="show-past-events"
+            onClick={() => setShowPastEvents((prev) => !prev)}
+          >
+            {showPastEvents ? 'HIDE' : 'SHOW'} PAST EVENTS
+          </button>
         ) : (
-          <p className='empty-list-quote'>No events</p>
+          ''
+        )}
+        {events.events.length !== 0 && showPastEvents
+          ? <>
+          {events.events.map((event, i) =>
+              new Date(event.date).getDate() < today.getDate() ? (
+                <EventCard
+                  event={event}
+                  year={currentYear}
+                  month={currentMonth}
+                  key={i}
+                  selectedEvent={selectedEvent}
+                  setSelectedEvent={setSelectedEvent}
+                />
+              ) : (
+                ''
+              )
+            )}
+            <div className='current-marker'>CURRENT <div /></div>
+            </>
+          : ''}
+        {events.events.length !== 0 ? (
+          events.events.map((event, i) =>
+            new Date(event.date).getDate() >= today.getDate() ? (
+              <EventCard
+                event={event}
+                year={currentYear}
+                month={currentMonth}
+                key={i}
+                selectedEvent={selectedEvent}
+                setSelectedEvent={setSelectedEvent}
+              />
+            ) : (
+              ''
+            )
+          )
+        ) : (
+          <p className="empty-list-quote">No events</p>
         )}
       </div>
     </div>
@@ -63,7 +102,9 @@ function EventCard({ event, year, month, selectedEvent, setSelectedEvent }) {
           <span className="branch">
             {event.reoccurring.frequency === null ? '└─' : '├─'}
           </span>{' '}
-          {event.time.hour < 10 ? '0' : ''}{event.time.hour}:{event.time.minute < 10 ? '0' : ''}{event.time.minute}
+          {event.time.hour < 10 ? '0' : ''}
+          {event.time.hour}:{event.time.minute < 10 ? '0' : ''}
+          {event.time.minute}
         </p>
       ) : (
         ''

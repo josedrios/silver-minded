@@ -155,11 +155,24 @@
       }
     }
 
-    &.today {
+    &.today {      
       color: var(--error-800);
     }
 
     @include clickableContainer;
+  }
+}
+
+.show-past-events {
+  width: fit-content;
+  margin: auto; 
+  color: var(--text-600);
+  background-color: transparent;
+  transition: $transition-instant;
+  font-size: $font-size-xs;
+
+  &:hover {
+    color: var(--text-800);
   }
 }
 
@@ -230,7 +243,7 @@
   border-color: transparent !important;
   background-color: transparent !important;
   padding: 0 !important;
-  align-items: flex-end !important; 
+  align-items: flex-end !important;
   color: var(--error-500) !important; 
   transition: color $transition-fast;
 

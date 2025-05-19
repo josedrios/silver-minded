@@ -8,13 +8,14 @@
 }
 
 .bank-budget-overall-wrapper {
+  margin: $spacing-md;
   @include flex(row);
+  gap: $spacing-md;
 }
 
 .bank-overalls {
-  margin: $spacing-md;
   padding: $spacing-sm 0;
-  width: calc(100% - 2 * $spacing-md);
+  width: 100%;
   max-width: 275px;
   @include flex(column, space-between);
   background-color: rgb(23, 29, 30);
@@ -48,11 +49,10 @@
 
 .bank-budget {
   @include flex(column);
-  width: calc(100% - 2 * $spacing-md);
+  width: 100%;
   border-radius: $border-radius-sm;
   background-color: rgb(23, 29, 30);
   border: 1px solid rgba(var(--gray-600-rgb), 0.65);
-  margin: $spacing-md;
 
   .color-legend {
     @include flex(row, space-around, center);

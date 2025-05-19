@@ -4,24 +4,9 @@
     position: relative;
     text-align: left;
     background-color: transparent;
-    padding: $spacing-xs;
+    padding: $spacing-sm;
     @include clickableContainer;
-    border: 1px solid transparent;
-
-    &::after {
-      cursor: default;
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: calc(-#{$spacing-sm / 2} - 2px);
-      height: 1px;
-      background-color: var(--gray-600);
-    }
-
-    &:last-child::after {
-      content: none;
-    }
+    border: 1px solid var(--gray-600);
 
     .event-sub {
       color: var(--text-600);
