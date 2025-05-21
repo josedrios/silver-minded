@@ -6,8 +6,9 @@ import { useCreateBlockNote } from '@blocknote/react';
 import { useEffect, useState } from 'react';
 import { handleEditContent } from '../services/nodeService';
 import { en } from "@blocknote/core/locales";
+import { TreeNodeDropdown } from '../../trees';
 
-export default function NodeCardContent({ node }) {
+export default function NodeCardContent({ node, refreshChildren }) {
   const [isEditable, setIsEditable] = useState(false);
   const locale = en;
 
@@ -64,9 +65,7 @@ export default function NodeCardContent({ node }) {
           <BoxIcon />
         </Icon>
         <p>{node.title}</p>
-        <Button variant='gray' squared={true} className='borderless'>
-          <VerticalEllipsisIcon />
-        </Button>
+        <TreeNodeDropdown type='node' id={node._id} refreshChildren={refreshChildren}/>
       </div>
 
       <BlockNoteView

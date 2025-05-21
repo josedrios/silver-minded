@@ -1,3 +1,3 @@
 export { default as NodeCardContent } from './components/NodeCardContent';
 
-export { handleCreateNode } from './services/nodeService';
+export { handleCreateNode, handleEditContent, handleDeleteNode } from './services/nodeService';

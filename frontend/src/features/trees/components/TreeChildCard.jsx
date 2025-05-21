@@ -34,7 +34,7 @@ export default function TreeChildCard({
           {child.type === 'tree' ? (
             <TreeCardContent tree={child} />
           ) : (
-            <NodeCardContent node={child} />
+            <NodeCardContent node={child} refreshChildren={refreshChildren} />
           )}
         </div>
       </div>
@@ -46,7 +46,6 @@ export default function TreeChildCard({
           navigate={navigate}
           parentId={parentId}
           referenceId={child._id}
-          refreshChildren={refreshChildren}
           setInsertChildModal={setInsertChildModal}
         />
       </Modal>

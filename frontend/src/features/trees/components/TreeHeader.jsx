@@ -13,6 +13,7 @@ import { formateCustomDate } from '../../transactions';
 import { tagOptions, getTagOption, editTreeHeader, deleteTree } from '../';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { handleDeleteNode } from '../../nodes';
 
 export function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
@@ -171,7 +172,7 @@ function TreeTags({
   );
 }
 
-export function TreeNodeDropdown({navigate, type, id}) {
+export function TreeNodeDropdown({navigate, type, id, refreshChildren}) {
   return (
     <Menu as="div" className="tree-node-dropdown">
       <MenuButton as={'button'} className={'btn squared gray borderless'}>
@@ -190,7 +191,8 @@ export function TreeNodeDropdown({navigate, type, id}) {
               if(type === 'tree') {
                 await deleteTree(id);
               } else {
-
+                await handleDeleteNode(id);
+                await refreshChildren();
               }
               navigate('/mind');
             }}

@@ -15,6 +15,26 @@ exports.createNode = async (req, res) => {
   }
 };
 
+exports.deleteNode = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const node = await Node.findByIdAndDelete(id);
+
+    if (!node) {
+      return res.status(404).json({ message: 'Node not found' });
+    }
+
+    return res.status(200).json({ message: 'Node was deleted' });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while deleting node',
+      error: err.message,
+    });
+  }
+};
+
 exports.editContent = async (req, res) => {
   try {
     const { content } = req.body;

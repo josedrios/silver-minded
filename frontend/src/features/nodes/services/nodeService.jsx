@@ -35,3 +35,21 @@ export async function handleEditContent(id, content) {
     return;
   }
 }
+
+export async function handleDeleteNode(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/node/${id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to delete node content');
+    return data;
+  } catch (err) {
+    console.error('Node Deletion Content Error:', err.message);
+    return;
+  }
+}
