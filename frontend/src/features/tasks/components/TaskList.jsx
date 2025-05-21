@@ -37,9 +37,18 @@ export default function TaskList({
   setListChanges,
   loadTasks,
 }) {
-  const doneCount = tasks.filter((task) => task.status === 'done').length;
-  const pendingCount = tasks.filter((task) => task.status === 'pending').length;
-  const completePercentage = ((doneCount / tasks.length) * 100).toFixed(0);
+  const doneCount = Array.isArray(tasks)
+    ? tasks.filter((task) => task.status === 'done').length
+    : 0;
+
+  const pendingCount = Array.isArray(tasks)
+    ? tasks.filter((task) => task.status === 'pending').length
+    : 0;
+
+  const completePercentage =
+    doneCount + pendingCount > 0
+      ? ((doneCount / (doneCount + pendingCount)) * 100).toFixed(0)
+      : '0';
 
   const updateStatus = async (task) => {
     const updatedTasks = tasks.map((currTask) =>
@@ -98,7 +107,7 @@ export default function TaskList({
           variants={list}
           className="task-list-body selected-task-safe"
         >
-          {tasks.length !== 0 ? (
+          {Array.isArray(tasks) && tasks.length !== 0 ? (
             tasks.map((task, i) => (
               <TaskItem
                 task={task}
@@ -120,7 +129,10 @@ export default function TaskList({
           <span className="done-percentage">
             {!isNaN(completePercentage) ? completePercentage : '0'}%
           </span>{' '}
-          of tasks complete <span className="task-count">[{tasks.length}]</span>
+          of tasks complete{' '}
+          <span className="task-count">
+            [{Array.isArray(tasks) && tasks.length !== 0 ? tasks.length : '?'}]
+          </span>
         </div>
         <Button
           variant="error"

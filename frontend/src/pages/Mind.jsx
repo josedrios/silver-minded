@@ -11,6 +11,13 @@ import { useEffect, useState } from 'react';
 
 export function Mind() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/mind')) {
+      localStorage.setItem('lastMindPath', location.pathname);
+    }
+  }, [location]);
 
   return (
     <div>
@@ -46,6 +53,7 @@ function MindHeader({ navigate }) {
         />
         <Button
           squared={true}
+          variant='mind'
           onClick={async () => {
             const id = await handleCreateTree();
             navigate(`/mind/${id}`);

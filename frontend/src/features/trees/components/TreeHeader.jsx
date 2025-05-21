@@ -12,6 +12,7 @@ import {
 import { formateCustomDate } from '../../transactions';
 import { tagOptions, getTagOption, editTreeHeader } from '../';
 import { useLocation } from 'react-router-dom';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 export default function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
@@ -86,13 +87,31 @@ function TreeTitle({ tree, setTree, treeDate, editMode }) {
           <p>CREATED: {formateCustomDate(treeDate)}</p>
         </div>
       </div>
-      <Button
-        variant="gray"
-        squared={true}
-        className="tree-header-ellipsis borderless"
+      <Menu
+      as='div'
+      className='tree-node-dropdown'
       >
-        <VerticalEllipsisIcon />
-      </Button>
+        <MenuButton as={'button'} className={'btn squared gray borderless'}>
+          <VerticalEllipsisIcon />
+        </MenuButton>
+          <MenuItems anchor={'bottom-end'} className={'tree-node-dropdown-menu'}>
+            <MenuItem>
+              <button onClick={() => console.log('fav')}>
+                Favorite
+              </button>
+            </MenuItem>
+            <MenuItem>
+              <button onClick={() => console.log('mov')}>
+                Move
+              </button>
+            </MenuItem>
+            <MenuItem>
+              <button onClick={() => console.log('del')}>
+                Delete
+              </button>
+            </MenuItem>
+          </MenuItems>
+      </Menu>
     </div>
   );
 }

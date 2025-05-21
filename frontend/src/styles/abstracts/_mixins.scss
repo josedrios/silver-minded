@@ -30,10 +30,12 @@
   transition: background-color $transition-instant,
     border-color $transition-instant;
 
-  &:hover {
-    background-color: var(--primary-300);
-    border: 1px solid var(--primary-400);
-    cursor: pointer;
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--primary-300);
+      border: 1px solid var(--primary-400);
+      cursor: pointer;
+    }
   }
 
   &.selected {

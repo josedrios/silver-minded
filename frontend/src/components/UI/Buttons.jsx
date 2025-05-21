@@ -9,6 +9,7 @@ const Button = ({
   disabled = false,
   className = '',
   squared = false,
+  ref
 }) => {
   return (
     <button
@@ -18,6 +19,7 @@ const Button = ({
       } ${className}`}
       onClick={onClick}
       disabled={disabled}
+      ref={ref}
     >
       {children}
     </button>

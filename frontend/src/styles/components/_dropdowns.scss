@@ -184,3 +184,27 @@
   height: 30px;
   padding: 0 0;
 }
+
+.tree-node-dropdown {
+  margin-left: auto;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.tree-node-dropdown-menu {
+  @include flex(column);
+  border-radius: $border-radius-xs;
+  background-color: rgba(0, 0, 0, 0.717);
+
+  button {
+    background: transparent;
+    padding: $spacing-xs $spacing-sm;
+
+    &:hover {
+      background-color: var(--mind-300);
+    }
+  }
+}
