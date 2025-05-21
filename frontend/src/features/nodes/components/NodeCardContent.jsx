@@ -1,4 +1,4 @@
-import { BoxIcon, Icon } from '../../../components';
+import { BoxIcon, Icon, Button, VerticalEllipsisIcon } from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
@@ -64,6 +64,9 @@ export default function NodeCardContent({ node }) {
           <BoxIcon />
         </Icon>
         <p>{node.title}</p>
+        <Button variant='gray' squared={true} className='borderless'>
+          <VerticalEllipsisIcon />
+        </Button>
       </div>
 
       <BlockNoteView

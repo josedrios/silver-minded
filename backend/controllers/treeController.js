@@ -78,7 +78,37 @@ exports.getTreeChildren = async (req, res) => {
   }
 };
 
-exports.deleteTree = async (req, res) => {};
+exports.deleteTree = async (req, res) => {
+  try {
+    await deleteTreeRecursive(req.params.id);
+    return res.status(200).json({ message: 'Tree deleted' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      message: 'Error occurred while deleting tree',
+      error: err.message,
+    });
+  }
+};
+
+async function deleteTreeRecursive(id) {
+  const tree = await Tree.findById(id);
+  if (!tree) throw new Error('Tree not found');
+
+  for (const { type, id: childId } of tree.order) {
+    const Model = type === 'tree' ? Tree : Node;
+    const child = await Model.findById(childId);
+    if (child) {
+      if (type === 'tree') {
+        await deleteTreeRecursive(childId);
+      } else {
+        await child.deleteOne();
+      }
+    }
+  }
+
+  await Tree.deleteOne({ _id: id });
+}
 
 exports.updateTree = async (req, res) => {
   try {

@@ -5,7 +5,7 @@ export async function handleCreateTree(parentId = null) {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({parentId}),
+        body: JSON.stringify({ parentId }),
       }
     );
     const data = await response.json();
@@ -31,6 +31,24 @@ export async function fetchTree(id) {
     return data;
   } catch (err) {
     console.error('Fetch Tree Error:', err.message);
+    return;
+  }
+}
+
+export async function deleteTree(id) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/${id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to delete tree');
+    return data;
+  } catch (err) {
+    console.error('Delete Tree Error:', err.message);
     return;
   }
 }
@@ -65,7 +83,8 @@ export async function editTreeOrder(treeId, childId, type, referenceId = null) {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to edit tree order');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to edit tree order');
     return data;
   } catch (err) {
     console.error('Edit Tree Order Error:', err.message);
@@ -74,7 +93,7 @@ export async function editTreeOrder(treeId, childId, type, referenceId = null) {
 }
 
 export async function fetchTreeChildren(id) {
-try {
+  try {
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/tree/children/${id}`,
       {
@@ -83,7 +102,8 @@ try {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to fetch children of tree');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to fetch children of tree');
     return data;
   } catch (err) {
     console.error('Fetch Tree Children Error:', err.message);
