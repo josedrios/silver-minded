@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { handleEditContent } from '../services/nodeService';
 import { en } from "@blocknote/core/locales";
 import { TreeNodeDropdown } from '../../trees';
+import { convertToLocal } from '../../events';
 
 export default function NodeCardContent({ node, refreshChildren }) {
   const [isEditable, setIsEditable] = useState(false);
@@ -77,7 +78,7 @@ export default function NodeCardContent({ node, refreshChildren }) {
       />
 
       <p className="timestamp-section">
-        CREATED: {formateCustomDate(node.createdAt)}
+        CREATED: {formateCustomDate(convertToLocal(node.createdAt))}
       </p>
     </>
   );

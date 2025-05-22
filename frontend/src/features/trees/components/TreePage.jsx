@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  fetchTree,
-  TreeHeader,
-  TreeBody
-} from '../';
-import { SlashLoader} from '../../../components';
+import { fetchTree, TreeHeader, TreeBody } from '../';
+import { SlashLoader } from '../../../components';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function TreePage({}) {
   const { id } = useParams();
@@ -20,15 +17,20 @@ export default function TreePage({}) {
   }, [id]);
 
   return (
-    <div className="tree-page">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.15 }}
+      className="tree-page"
+    >
       {tree ? (
         <>
           <TreeHeader tree={tree} setTree={setTree} />
-          <TreeBody tree={tree}/>
+          <TreeBody tree={tree} />
         </>
       ) : (
         <SlashLoader />
       )}
-    </div>
+    </motion.div>
   );
 }

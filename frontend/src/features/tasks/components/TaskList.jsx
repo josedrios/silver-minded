@@ -5,12 +5,11 @@ import {
   CheckmarkIcon,
   HourglassIcon,
   DangerIcon,
-  TrashIcon,
   Button,
 } from '../../../components';
-import { motion, AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
 import { editTask, removeDoneTasks } from '../';
+import { motion, AnimatePresence } from 'motion/react';
 
 const list = {
   hidden: { opacity: 0 },

@@ -1,6 +1,7 @@
 import { AppContext } from '../context/AppContext';
 import { fetchTasks, TaskForm, TaskList } from '../features/tasks';
 import { useState, useRef, useContext, useEffect } from 'react';
+import { motion } from 'motion/react';
 
 export default function Dash() {
   const { tasks, setTasks } = useContext(AppContext);
@@ -41,7 +42,11 @@ export default function Dash() {
 
   return (
     <div id="dash-container">
-      <div className="task-section">
+      <motion.div 
+        initial={{opacity: 0}}
+        animate={{ opacity: 1}}
+        transition={{duration: 0.15}}
+      className="task-section">
         <TaskForm
           tasks={tasks}
           loadTasks={loadTasks}
@@ -59,7 +64,7 @@ export default function Dash() {
           setListChanges={setListChanges}
           loadTasks={loadTasks}
         />
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -7,9 +7,10 @@ import {
   today,
   CreateEvent,
   selectedToForm,
-  fetchAndUpdateEvents
+  fetchAndUpdateEvents,
 } from '../features/events';
 import { Modal } from '../components';
+import { motion } from 'motion/react';
 
 export default function Time() {
   const { events, setEvents } = useContext(AppContext);
@@ -71,7 +72,12 @@ export default function Time() {
   }, [eventModal]);
 
   return (
-    <div id="time-container">
+    <motion.div
+      id="time-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.15 }}
+    >
       <CalendarView
         events={events}
         setEvents={setEvents}
@@ -93,6 +99,6 @@ export default function Time() {
           setEventModal={setEventModal}
         />
       </Modal>
-    </div>
+    </motion.div>
   );
 }

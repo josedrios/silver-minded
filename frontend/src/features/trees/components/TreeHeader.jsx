@@ -15,6 +15,7 @@ import { tagOptions, getTagOption, editTreeHeader, deleteTree } from '../';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { handleDeleteNode } from '../../nodes';
+import { convertToLocal } from '../../events';
 
 export function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
@@ -124,7 +125,11 @@ function TreeTitle({
           ) : (
             <h5>{tree.title}</h5>
           )}
-          {editMode ? '' : <p>CREATED: {formateCustomDate(treeDate)}</p>}
+          {editMode ? (
+            ''
+          ) : (
+            <p>CREATED: {formateCustomDate(convertToLocal(treeDate))}</p>
+          )}
         </div>
       </div>
       <TreeNodeDropdown navigate={navigate} type={'tree'} id={treeId} />

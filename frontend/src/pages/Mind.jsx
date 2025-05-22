@@ -14,6 +14,37 @@ import {
   handleCreateTree,
 } from '../features/trees';
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+const list = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { type: 'tween', duration: 0.15 } },
+};
+
+const cardList = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.3 } },
+};
 
 export function Mind() {
   const navigate = useNavigate();
@@ -26,10 +57,12 @@ export function Mind() {
   }, [location]);
 
   return (
-    <div>
-      <MindHeader navigate={navigate} />
-      <Outlet />
-    </div>
+    <AnimatePresence>
+      <motion.div initial="hidden" animate="visible" variants={list}>
+        <MindHeader navigate={navigate} />
+        <Outlet />
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -43,7 +76,12 @@ function MindHeader({ navigate }) {
   };
 
   return (
-    <div className="mind-header-wrapper">
+    <motion.div
+      layout
+      variants={item}
+      exit={{ opacity: 0, y: 20 }}
+      className="mind-header-wrapper"
+    >
       <div className="mind-header">
         {location.pathname !== '/mind' ? (
           <Button
@@ -74,13 +112,13 @@ function MindHeader({ navigate }) {
           variant="mind"
           onClick={async () => {
             const id = await handleCreateTree();
-            navigate(`/mind/${id}`);
+            navigate(`/mind/id/${id}`);
           }}
         >
           <PlusIcon />
         </Button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -88,7 +126,7 @@ export function MindHome() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <motion.div layout variants={item} exit={{ opacity: 0, y: 20 }}>
       <TreeCardSection
         navigate={navigate}
         title={'FAVORITES'}
@@ -99,7 +137,7 @@ export function MindHome() {
         title={'RECENTLY VIEWED'}
         fetchFunction={fetchRecentTrees}
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -117,21 +155,35 @@ export function TreeCardSection({ navigate, title, fetchFunction, query }) {
   return (
     <div className="trees-section">
       <p className="tree-section-header">{title}</p>
-      <div className="tree-cards-container">
-        {trees
-          ? trees.map((tree, i) => (
-              <HomeTreeCard tree={tree} navigate={navigate} key={i} />
-            ))
-          : ''}
-        {trees.length === 0 ? <p className='no-trees-found'>No trees found...</p> : ''}
-      </div>
+      <AnimatePresence>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={cardList}
+          className="tree-cards-container"
+        >
+          {trees
+            ? trees.map((tree, i) => (
+                <HomeTreeCard tree={tree} navigate={navigate} key={tree._id} />
+              ))
+            : ''}
+          {trees.length === 0 ? (
+            <p className="no-trees-found">No trees found...</p>
+          ) : (
+            ''
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
 
 export function HomeTreeCard({ tree, navigate }) {
   return (
-    <div
+    <motion.div
+      layout
+      variants={cardItem}
+      exit={{ opacity: 0, y: 20 }}
       onClick={() => {
         navigate(`/mind/id/${tree._id}`);
       }}
@@ -144,6 +196,6 @@ export function HomeTreeCard({ tree, navigate }) {
         <p>{tree.title}</p>
       </div>
       <p className="tree-card-note">{tree.note}</p>
-    </div>
+    </motion.div>
   );
 }

@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const nodeSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, default: 'Untitled' },
-    note: { type: String, default: '' },
-    isFavorite: { type: Boolean, default: false },
     content: {
       type: {
         type: String,

@@ -10,6 +10,7 @@ import {
   fetchAndUpdateTransactions,
   selectedToForm,
 } from '../features/transactions';
+import { motion } from 'motion/react';
 
 export default function Bank() {
   const { transactions, setTransactions } = useContext(AppContext);
@@ -62,8 +63,16 @@ export default function Bank() {
   }, [transactions.transactions]);
 
   return (
-    <div id="bank-container">
-      <TimeFrame transactions={transactions} setTransactions={setTransactions}/>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.15 }}
+      id="bank-container"
+    >
+      <TimeFrame
+        transactions={transactions}
+        setTransactions={setTransactions}
+      />
       <div className="bank-budget-overall-wrapper">
         <BankOveralls transactions={transactions} bankStats={bankStats} />
         <BankBudget bankStats={bankStats} />
@@ -90,6 +99,6 @@ export default function Bank() {
           setTransactionModal={setTransactionModal}
         />
       </Modal>
-    </div>
+    </motion.div>
   );
 }

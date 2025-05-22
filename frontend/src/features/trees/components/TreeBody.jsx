@@ -8,6 +8,17 @@ import {
 import { BoxesIcon, BoxIcon } from '../../../components';
 import { useNavigate } from 'react-router-dom';
 import { handleCreateNode } from '../../nodes';
+import { motion, AnimatePresence } from 'motion/react';
+
+const list = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
 
 export function TreeBody({ tree }) {
   const navigate = useNavigate();
@@ -28,19 +39,23 @@ export function TreeBody({ tree }) {
 
   return (
     <div className="tree-body">
-      <div className="tree-children-container">
-        {treeChildren
-          ? treeChildren.map((child, index) => (
-              <TreeChildCard
-                key={child._id}
-                child={child}
-                lastChild={index === treeChildren.length - 1}
-                parentId={tree._id}
-                refreshChildren={refreshChildren}
-              />
-            ))
-          : ''}
-      </div>
+      <AnimatePresence>
+        <motion.div initial="hidden"
+          animate="visible"
+          variants={list} className="tree-children-container">
+          {treeChildren
+            ? treeChildren.map((child, index) => (
+                <TreeChildCard
+                  key={child._id}
+                  child={child}
+                  lastChild={index === treeChildren.length - 1}
+                  parentId={tree._id}
+                  refreshChildren={refreshChildren}
+                />
+              ))
+            : ''}
+        </motion.div>
+      </AnimatePresence>
       <CreateChild
         navigate={navigate}
         loadChildren={loadChildren}
@@ -58,7 +73,7 @@ function CreateChild({ navigate, parentId, loadChildren }) {
         onClick={async () => {
           const id = await handleCreateTree(parentId);
           await editTreeOrder(parentId, id, 'tree');
-          navigate(`/mind/${id}`);
+          navigate(`/mind/id/${id}`);
         }}
       >
         <BoxesIcon /> Tree

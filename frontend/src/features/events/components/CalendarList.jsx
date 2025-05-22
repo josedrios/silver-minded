@@ -1,6 +1,22 @@
 import dayjs from 'dayjs';
 import { getMonthName, today } from '../util/dateUtil';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+const list = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.03,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: -15 },
+  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.3 } },
+};
 
 export default function CalendarList({
   events,
@@ -17,21 +33,54 @@ export default function CalendarList({
   return (
     <div className="calendar-list-container">
       <h4 className="list-header">Upcoming Events:</h4>
-      <div className="calendar-list-body">
-        {pastEvents.length !== 0 ? (
-          <button
-            className="show-past-events"
-            onClick={() => setShowPastEvents((prev) => !prev)}
-          >
-            {showPastEvents ? 'HIDE' : 'SHOW'} PAST EVENTS
-          </button>
-        ) : (
-          ''
-        )}
-        {events.events.length !== 0 && showPastEvents
-          ? <>
-          {events.events.map((event, i) =>
-              new Date(event.date).getDate() < today.getDate() ? (
+      <AnimatePresence>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={list}
+          className="calendar-list-body"
+        >
+          {pastEvents.length !== 0 ? (
+            <button
+              className="show-past-events"
+              onClick={() => setShowPastEvents((prev) => !prev)}
+            >
+              {showPastEvents ? 'HIDE' : 'SHOW'} PAST EVENTS
+            </button>
+          ) : (
+            ''
+          )}
+          {events.events.length !== 0 && showPastEvents ? (
+            <>
+              {events.events.map((event, i) =>
+                new Date(event.date).getDate() < today.getDate() ? (
+                  <EventCard
+                    event={event}
+                    year={currentYear}
+                    month={currentMonth}
+                    key={i}
+                    selectedEvent={selectedEvent}
+                    setSelectedEvent={setSelectedEvent}
+                  />
+                ) : (
+                  ''
+                )
+              )}
+              <motion.div
+                layout
+                variants={item}
+                exit={{ opacity: 0, y: 20 }}
+                className="current-marker"
+              >
+                CURRENT <div />
+              </motion.div>
+            </>
+          ) : (
+            ''
+          )}
+          {events.events.length !== 0 ? (
+            events.events.map((event, i) =>
+              new Date(event.date).getDate() >= today.getDate() ? (
                 <EventCard
                   event={event}
                   year={currentYear}
@@ -43,36 +92,29 @@ export default function CalendarList({
               ) : (
                 ''
               )
-            )}
-            <div className='current-marker'>CURRENT <div /></div>
-            </>
-          : ''}
-        {events.events.length !== 0 ? (
-          events.events.map((event, i) =>
-            new Date(event.date).getDate() >= today.getDate() ? (
-              <EventCard
-                event={event}
-                year={currentYear}
-                month={currentMonth}
-                key={i}
-                selectedEvent={selectedEvent}
-                setSelectedEvent={setSelectedEvent}
-              />
-            ) : (
-              ''
             )
-          )
-        ) : (
-          <p className="empty-list-quote">No events</p>
-        )}
-      </div>
+          ) : (
+            <motion.p
+              layout
+              variants={item}
+              exit={{ opacity: 0, y: 20 }}
+              className="empty-list-quote"
+            >
+              No events
+            </motion.p>
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
 
 function EventCard({ event, year, month, selectedEvent, setSelectedEvent }) {
   return (
-    <button
+    <motion.button
+      layout
+      variants={item}
+      exit={{ opacity: 0, y: 20 }}
       className={`calendar-list-item ${
         selectedEvent._id === event._id ? 'selected' : ''
       }`}
@@ -117,6 +159,6 @@ function EventCard({ event, year, month, selectedEvent, setSelectedEvent }) {
       ) : (
         ''
       )}
-    </button>
+    </motion.button>
   );
 }
