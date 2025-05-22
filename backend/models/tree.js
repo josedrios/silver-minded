@@ -18,5 +18,9 @@ const treeSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+treeSchema.index({
+  title: 'text'
+})
+
 const Tree = mongoose.model('Tree', treeSchema);
 module.exports = Tree;

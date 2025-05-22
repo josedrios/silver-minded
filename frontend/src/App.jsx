@@ -6,6 +6,7 @@ import { Mind, MindHome } from './pages/Mind';
 import Dash from './pages/Dash';
 import DesignSystem from './pages/DesignSystem';
 import TreePage from './features/trees/components/TreePage';
+import { TreeResults } from './features/trees';
 
 function App() {
   return (
@@ -28,11 +29,12 @@ function App() {
 
             <Route path="/mind" element={<Mind />}>
               <Route index element={<MindHome />} />
-              <Route path=':id' element={<TreePage />} />
+              <Route path="id/:id" element={<TreePage />} />
+              <Route path="search" element={<TreeResults />} />
             </Route>
 
             <Route path="/designsystem" element={<DesignSystem />} />
-            
+
             <Route path="*" element={<Dash />} />
           </Routes>
         </main>

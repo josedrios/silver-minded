@@ -22,7 +22,6 @@ exports.getTree = async (req, res) => {
 
     const fetchedTree = await Tree.findById(id);
 
-
     if (!fetchedTree) {
       return res.status(404).json({ message: 'Tree not found' });
     }
@@ -180,8 +179,10 @@ exports.updateTreeOrder = async (req, res) => {
 };
 
 exports.getFavoriteTrees = async (req, res) => {
-   try {
-    const fetchedTrees = await Tree.find({isFavorite: true}).sort({ lastViewedAt: -1 });
+  try {
+    const fetchedTrees = await Tree.find({ isFavorite: true }).sort({
+      lastViewedAt: -1,
+    });
     return res.status(200).json(fetchedTrees);
   } catch (error) {
     console.log(err);
@@ -190,10 +191,10 @@ exports.getFavoriteTrees = async (req, res) => {
       error: err.message,
     });
   }
-}
+};
 
 exports.getRecentTrees = async (req, res) => {
-   try {
+  try {
     const fetchedTrees = await Tree.find().sort({ lastViewedAt: -1 });
     return res.status(200).json(fetchedTrees);
   } catch (error) {
@@ -203,7 +204,27 @@ exports.getRecentTrees = async (req, res) => {
       error: err.message,
     });
   }
-}
+};
+
+exports.getSearchedTrees = async (req, res) => {
+  try {
+    const { q } = req.query;
+    console.log(q)
+
+    const fetchedTrees = await Tree.find(
+      { $text: { $search: q } },
+      { score: { $meta: 'textScore' } }
+    ).sort({ score: { $meta: 'textScore' } });
+
+    return res.status(200).json(fetchedTrees);
+  } catch (error) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while fetching for searched trees',
+      error: err.message,
+    });
+  }
+};
 
 // TEMP FOR DEV
 exports.getAllTrees = async (req, res) => {

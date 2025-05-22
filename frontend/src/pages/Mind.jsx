@@ -8,10 +8,12 @@ import {
   BoxesIcon,
   Icon,
 } from '../components';
-import { fetchAllTrees, fetchFavoriteTrees, fetchRecentTrees, handleCreateTree } from '../features/trees';
+import {
+  fetchFavoriteTrees,
+  fetchRecentTrees,
+  handleCreateTree,
+} from '../features/trees';
 import { useEffect, useState } from 'react';
-import { convertToLocal } from '../features/events';
-import { formateCustomDate } from '../features/transactions';
 
 export function Mind() {
   const navigate = useNavigate();
@@ -33,6 +35,12 @@ export function Mind() {
 
 function MindHeader({ navigate }) {
   const location = useLocation();
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`search?q=${encodeURIComponent(searchQuery.trim())}`);
+  };
 
   return (
     <div className="mind-header-wrapper">
@@ -43,6 +51,7 @@ function MindHeader({ navigate }) {
             variant="mind"
             onClick={async () => {
               navigate('');
+              setSearchQuery('');
             }}
           >
             <BrainCircuitIcon />
@@ -50,11 +59,16 @@ function MindHeader({ navigate }) {
         ) : (
           ''
         )}
-        <TextField
-          variant="gray"
-          afterIcon={SearchIcon}
-          placeholder="Search for trees and nodes..."
-        />
+        <form action="" onSubmit={(e) => handleSearch(e)}>
+          <TextField
+            variant="gray"
+            name="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            afterIcon={SearchIcon}
+            placeholder="Search for trees..."
+          />
+        </form>
         <Button
           squared={true}
           variant="mind"
@@ -75,41 +89,51 @@ export function MindHome() {
 
   return (
     <div>
-      <TreeCardSection navigate={navigate} title={'FAVORITES'} fetchFunction={fetchFavoriteTrees}/>
-      <TreeCardSection navigate={navigate} title={'RECENTLY VIEWED'} fetchFunction={fetchRecentTrees}/>
+      <TreeCardSection
+        navigate={navigate}
+        title={'FAVORITES'}
+        fetchFunction={fetchFavoriteTrees}
+      />
+      <TreeCardSection
+        navigate={navigate}
+        title={'RECENTLY VIEWED'}
+        fetchFunction={fetchRecentTrees}
+      />
     </div>
   );
 }
 
-export function TreeCardSection({ navigate, title, fetchFunction }) {
+export function TreeCardSection({ navigate, title, fetchFunction, query }) {
   const [trees, setTrees] = useState([]);
 
   useEffect(() => {
     const loadTrees = async () => {
-      const data = await fetchFunction();
+      const data = await fetchFunction(query);
       setTrees(data);
     };
     loadTrees();
-  }, []);
+  }, [query]);
+
   return (
     <div className="trees-section">
       <p className="tree-section-header">{title}</p>
       <div className="tree-cards-container">
         {trees
           ? trees.map((tree, i) => (
-              <TempTreeCard tree={tree} navigate={navigate} key={i} />
+              <HomeTreeCard tree={tree} navigate={navigate} key={i} />
             ))
           : ''}
+        {trees.length === 0 ? <p className='no-trees-found'>No trees found...</p> : ''}
       </div>
     </div>
   );
 }
 
-export function TempTreeCard({ tree, navigate }) {
+export function HomeTreeCard({ tree, navigate }) {
   return (
     <div
       onClick={() => {
-        navigate(`/mind/${tree._id}`);
+        navigate(`/mind/id/${tree._id}`);
       }}
       className="home-tree-card"
     >

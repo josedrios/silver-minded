@@ -1,6 +1,7 @@
 export {
   handleCreateTree,
   fetchTree,
+  searchTrees,
   fetchFavoriteTrees,
   fetchRecentTrees,
   fetchAllTrees,
@@ -16,3 +17,4 @@ export { TreeHeader, TreeNodeDropdown } from './components/TreeHeader';
 export { TreeBody } from './components/TreeBody';
 export { default as TreeChildCard } from './components/TreeChildCard'
 export { default as TreeCardContent } from './components/TreeCardContent';
+export { default as TreeResults } from './components/TreeResults';

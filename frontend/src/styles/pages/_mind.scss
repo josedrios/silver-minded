@@ -9,7 +9,7 @@
   max-width: 400px;
   margin: 0 auto;
 
-  .text-field {
+  form {
     flex: 1;
   }
 }
@@ -110,8 +110,6 @@
 }
 
 .trees-section {
-  margin-bottom: $spacing-sm;
-
   .tree-section-header {
     font-size: $font-size-md;
     padding: 0 $spacing-md;
@@ -127,4 +125,7 @@
   padding: $spacing-md;
 }
 
-
+.no-trees-found {
+  font-size: $font-size-xs;
+  color: var(--text-600);
+}

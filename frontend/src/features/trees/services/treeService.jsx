@@ -35,6 +35,24 @@ export async function fetchTree(id) {
   }
 }
 
+export async function searchTrees(query) {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/search?q=${encodeURIComponent(query)}`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to search for tree');
+    return data;
+  } catch (err) {
+    console.error('Tree Search Error:', err.message);
+    return;
+  }
+}
+
 export async function deleteTree(id) {
   try {
     const response = await fetch(
