@@ -179,6 +179,32 @@ exports.updateTreeOrder = async (req, res) => {
   }
 };
 
+exports.getFavoriteTrees = async (req, res) => {
+   try {
+    const fetchedTrees = await Tree.find({isFavorite: true}).sort({ lastViewedAt: -1 });
+    return res.status(200).json(fetchedTrees);
+  } catch (error) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while fetching favorite trees',
+      error: err.message,
+    });
+  }
+}
+
+exports.getRecentTrees = async (req, res) => {
+   try {
+    const fetchedTrees = await Tree.find().sort({ lastViewedAt: -1 });
+    return res.status(200).json(fetchedTrees);
+  } catch (error) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while fetching recent trees',
+      error: err.message,
+    });
+  }
+}
+
 // TEMP FOR DEV
 exports.getAllTrees = async (req, res) => {
   try {

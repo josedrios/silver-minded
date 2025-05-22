@@ -111,6 +111,43 @@ export async function fetchTreeChildren(id) {
   }
 }
 
+export async function fetchFavoriteTrees() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/favorites`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch favorite trees');
+    return data;
+  } catch (err) {
+    console.error('Fetch Favorite Trees Error:', err.message);
+    return;
+  }
+}
+
+export async function fetchRecentTrees() {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/recents`,
+      {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch recent trees');
+    return data;
+  } catch (err) {
+    console.error('Fetch Recent Trees Error:', err.message);
+    return;
+  }
+}
+
+
 // TEMP FOR DEV
 export async function fetchAllTrees() {
   try {
@@ -122,7 +159,7 @@ export async function fetchAllTrees() {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to fetch trees');
+    if (!response.ok) throw new Error(data.message || 'Failed to fetch all trees');
     return data;
   } catch (err) {
     console.error('Fetch Trees Error:', err.message);

@@ -109,6 +109,17 @@
   margin-top: 0;
 }
 
+.trees-section {
+  margin-bottom: $spacing-sm;
+
+  .tree-section-header {
+    font-size: $font-size-md;
+    padding: 0 $spacing-md;
+    padding-bottom: $spacing-sm;
+    border-bottom: 1px solid var(--gray-800);
+  }
+}
+
 .tree-cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

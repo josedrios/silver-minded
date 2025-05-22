@@ -7,11 +7,15 @@ const {
   getAllTrees,
   updateTreeOrder,
   getTreeChildren,
+  getFavoriteTrees,
+  getRecentTrees,
 } = require('../controllers/treeController');
 const router = express.Router();
 
 router.post('/', createTree);
 router.get('/all', getAllTrees);
+router.get('/favorites', getFavoriteTrees);
+router.get('/recents', getRecentTrees);
 router.get('/:id', getTree);
 router.get('/children/:id', getTreeChildren);
 router.delete('/:id', deleteTree);

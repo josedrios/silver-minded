@@ -74,7 +74,8 @@
 // Temp Tree Card
 .home-tree-card {
   padding: $spacing-sm;
-  border: 1px solid var(--gray-800);
+  background-color: rgb(23, 29, 30);
+  border: 1px solid transparent;
   border-radius: $border-radius-xs;
   @include flex(column);
   gap: $spacing-xs;
@@ -84,6 +85,9 @@
     gap: $spacing-sm;
 
     p {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       font-size: $font-size-md;
     }
   }
@@ -95,17 +99,7 @@
     color: var(--text-600);
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 4; // number of lines before ellipsis
-  }
-
-  .tree-card-timestamp {
-    margin-left: auto;
-    font-size: $font-size-xs;
-
-    span {
-      color: var(--mind-600);
-      margin-right: $spacing-sm;
-    }
+    -webkit-line-clamp: 3;
   }
 
   @include clickableContainer;

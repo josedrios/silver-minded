@@ -1,6 +1,8 @@
 export {
   handleCreateTree,
   fetchTree,
+  fetchFavoriteTrees,
+  fetchRecentTrees,
   fetchAllTrees,
   editTree,
   editTreeOrder,
