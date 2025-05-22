@@ -115,6 +115,8 @@ exports.updateTree = async (req, res) => {
     const { id } = req.params;
     const updates = req.body.changes;
 
+    console.log(updates);
+
     const tree = await Tree.findById(id);
     if (!tree) return res.status(404).send('Tree not found');
 

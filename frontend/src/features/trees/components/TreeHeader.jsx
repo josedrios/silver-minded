@@ -8,6 +8,7 @@ import {
   FileBoxIcon,
   FilePenIcon,
   TextField,
+  StarIcon,
 } from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { tagOptions, getTagOption, editTreeHeader, deleteTree } from '../';
@@ -20,6 +21,7 @@ export function TreeHeader({ tree, setTree }) {
     title: tree.title,
     note: tree.note,
     categories: tree.categories.map(getTagOption),
+    isFavorite: tree.isFavorite,
   });
   const location = useLocation();
 
@@ -28,6 +30,7 @@ export function TreeHeader({ tree, setTree }) {
       title: tree.title,
       note: tree.note,
       categories: tree.categories.map(getTagOption),
+      isFavorite: tree.isFavorite,
     });
   }, [tree]);
 
@@ -48,6 +51,7 @@ export function TreeHeader({ tree, setTree }) {
         editMode={editMode}
         navigate={navigate}
         treeId={tree._id}
+        treeChanges={treeChanges}
       />
       <TreeNote
         treeNote={treeChanges.note}
@@ -66,13 +70,40 @@ export function TreeHeader({ tree, setTree }) {
   );
 }
 
-function TreeTitle({ tree, setTree, treeDate, editMode, navigate, treeId }) {
+function TreeTitle({
+  tree,
+  setTree,
+  treeDate,
+  editMode,
+  navigate,
+  treeId,
+  treeChanges,
+}) {
   return (
     <div className="header-row">
       <Icon variant="mind" size="md">
         <BoxesIcon size="md" />
       </Icon>
       <div className="tree-title">
+        {editMode || tree.isFavorite ? (
+          <div
+            className="star-tree-icon-container"
+            onClick={() => {
+              setTree((prev) => ({
+                ...prev,
+                isFavorite: !prev.isFavorite,
+              }));
+            }}
+          >
+            <StarIcon
+              className={`star-tree-icon ${
+                treeChanges.isFavorite ? 'is-favorite' : ''
+              }`}
+            />
+          </div>
+        ) : (
+          ''
+        )}
         <div className="tree-timestamp">
           {editMode ? (
             <TextField
@@ -89,10 +120,10 @@ function TreeTitle({ tree, setTree, treeDate, editMode, navigate, treeId }) {
           ) : (
             <h5>{tree.title}</h5>
           )}
-          <p>CREATED: {formateCustomDate(treeDate)}</p>
+          {editMode ? '' : <p>CREATED: {formateCustomDate(treeDate)}</p>}
         </div>
       </div>
-      <TreeNodeDropdown navigate={navigate} type={'tree'} id={treeId}/>
+      <TreeNodeDropdown navigate={navigate} type={'tree'} id={treeId} />
     </div>
   );
 }
@@ -172,23 +203,27 @@ function TreeTags({
   );
 }
 
-export function TreeNodeDropdown({navigate, type, id, refreshChildren}) {
+export function TreeNodeDropdown({ navigate, type, id, refreshChildren }) {
   return (
     <Menu as="div" className="tree-node-dropdown">
       <MenuButton as={'button'} className={'btn squared gray borderless'}>
         <VerticalEllipsisIcon />
       </MenuButton>
       <MenuItems anchor={'bottom-end'} className={'tree-node-dropdown-menu'}>
-        <MenuItem>
-          <button onClick={() => console.log('fav')}>Favorite</button>
-        </MenuItem>
-        <MenuItem>
+        {/* {type === 'tree' ? (
+          <MenuItem>
+            <button onClick={() => console.log('fav')}>Favorite</button>
+          </MenuItem>
+        ) : (
+          ''
+        )} */}
+        {/* <MenuItem>
           <button onClick={() => console.log('mov')}>Move</button>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem>
           <button
             onClick={async () => {
-              if(type === 'tree') {
+              if (type === 'tree') {
                 await deleteTree(id);
               } else {
                 await handleDeleteNode(id);

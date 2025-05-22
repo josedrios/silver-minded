@@ -20,7 +20,8 @@ import {
   LuBoxes,
   LuEllipsisVertical,
   LuFileBox,
-  LuFilePen
+  LuFilePen,
+  LuStar
 } from 'react-icons/lu';
 
 const lucideSizes = { sm: 18, md: 24, lg: 36 };
@@ -52,6 +53,7 @@ export const BoxesIcon = createIcon(LuBoxes);
 export const FileBoxIcon = createIcon(LuFileBox);
 export const FilePenIcon = createIcon(LuFilePen);
 export const VerticalEllipsisIcon = createIcon(LuEllipsisVertical)
+export const StarIcon = createIcon(LuStar)
 
 export const Icon = ({
   children,

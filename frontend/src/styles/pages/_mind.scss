@@ -31,6 +31,24 @@
       .tree-title {
         width: 100%;
         overflow: hidden;
+        @include flex(row, initial, center);
+        gap: $spacing-sm;
+
+        div {
+          flex: 1;
+        }
+
+        .star-tree-icon-container {
+          width: min-content !important;
+          flex: 0;
+          .star-tree-icon {
+            stroke: var(--accent-800);
+
+            &.is-favorite {
+              fill: var(--accent-800);
+            }
+          }
+        }
 
         h5,
         p {

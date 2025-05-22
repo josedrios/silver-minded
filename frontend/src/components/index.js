@@ -27,7 +27,8 @@ export {
   BoxesIcon,
   VerticalEllipsisIcon,
   FileBoxIcon,
-  FilePenIcon
+  FilePenIcon,
+  StarIcon
 } from './ui/Icons';
 
 export { SlashLoader, DotLoader } from './ui/Loaders';

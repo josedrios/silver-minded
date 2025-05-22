@@ -17,9 +17,11 @@ export async function editTreeHeader(tree, treeChanges) {
     JSON.stringify(tree.categories) !==
     JSON.stringify(treeChanges.categories.map((cat) => cat.value));
 
-    if(!titleChange && !noteChange && !catChange) {
-        return false;
-    }
+  const isFavoriteChange = tree.isFavorite !== treeChanges.isFavorite;
+
+  if (!titleChange && !noteChange && !catChange && !isFavoriteChange) {
+    return false;
+  }
 
   if (titleChange) {
     payload.title = treeChanges.title;
@@ -31,6 +33,11 @@ export async function editTreeHeader(tree, treeChanges) {
 
   if (catChange) {
     payload.categories = treeChanges.categories.map((cat) => cat.value);
+  }
+
+  if (isFavoriteChange) {
+    console.log('differing favs');
+    payload.isFavorite = treeChanges.isFavorite;
   }
 
   const newTree = await editTree(tree._id, payload);
