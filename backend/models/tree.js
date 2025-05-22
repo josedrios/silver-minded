@@ -6,6 +6,7 @@ const treeSchema = new mongoose.Schema(
     note: { type: String, default: '' },
     categories: { type: [String], default: [] },
     isFavorite: { type: Boolean, default: false },
+    lastViewedAt: { type: Date, default: null },
     order: [
       {
         type: { type: String, enum: ['tree', 'node'], required: true },

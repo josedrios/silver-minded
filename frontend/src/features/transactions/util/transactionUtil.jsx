@@ -15,6 +15,7 @@ export const fetchAndUpdateTransactions = async (transactions, setTransactions) 
   }));
 };
 
+// I SHOULD PROLLY MOVE THIS TO THE EVENTS UTIL FILE
 export const formateCustomDate = (date) => {
   return dayjs(date).format('DD MMM YYYY, HH:mm').toUpperCase();
 }

@@ -72,16 +72,43 @@
 }
 
 // Temp Tree Card
-.temp-tree-card {
-  border: 1px solid white;
+.home-tree-card {
+  padding: $spacing-sm;
+  border: 1px solid var(--gray-800);
+  border-radius: $border-radius-xs;
+  @include flex(column);
+  gap: $spacing-xs;
 
-  > :first-child {
-    color: var(--accent-800);
+  .tree-card-header {
+    @include flex(row, flex-start, center);
+    gap: $spacing-sm;
+
+    p {
+      font-size: $font-size-md;
+    }
   }
 
-  &:hover {
-    background-color: var(--gray-700);
+  .tree-card-note {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    font-size: $font-size-xs;
+    color: var(--text-600);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4; // number of lines before ellipsis
   }
+
+  .tree-card-timestamp {
+    margin-left: auto;
+    font-size: $font-size-xs;
+
+    span {
+      color: var(--mind-600);
+      margin-right: $spacing-sm;
+    }
+  }
+
+  @include clickableContainer;
 }
 
 .tree-child-card {
@@ -164,7 +191,7 @@
           font-size: $font-size-md;
         }
       }
-      
+
       .timestamp-section {
         text-align: right;
         font-size: $font-size-xs;

@@ -88,12 +88,16 @@ function TreeTitle({
         {editMode || tree.isFavorite ? (
           <div
             className="star-tree-icon-container"
-            onClick={() => {
-              setTree((prev) => ({
-                ...prev,
-                isFavorite: !prev.isFavorite,
-              }));
-            }}
+            onClick={
+              editMode
+                ? () => {
+                    setTree((prev) => ({
+                      ...prev,
+                      isFavorite: !prev.isFavorite,
+                    }));
+                  }
+                : undefined
+            }
           >
             <StarIcon
               className={`star-tree-icon ${

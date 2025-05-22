@@ -22,9 +22,13 @@ exports.getTree = async (req, res) => {
 
     const fetchedTree = await Tree.findById(id);
 
+
     if (!fetchedTree) {
       return res.status(404).json({ message: 'Tree not found' });
     }
+
+    fetchedTree.lastViewedAt = new Date();
+    await fetchedTree.save();
 
     return res.status(200).json(fetchedTree);
   } catch (err) {
@@ -178,7 +182,7 @@ exports.updateTreeOrder = async (req, res) => {
 // TEMP FOR DEV
 exports.getAllTrees = async (req, res) => {
   try {
-    const fetchedTrees = await Tree.find().sort({ updatedAt: -1 });
+    const fetchedTrees = await Tree.find().sort({ lastViewedAt: -1 });
     return res.status(200).json(fetchedTrees);
   } catch (error) {
     console.log(err);

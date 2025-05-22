@@ -109,6 +109,11 @@
   margin-top: 0;
 }
 
-.debug {
-  @include flex(column);
+.tree-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: $spacing-md;
+  padding: $spacing-md;
 }
+
+

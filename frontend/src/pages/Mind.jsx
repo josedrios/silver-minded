@@ -5,9 +5,13 @@ import {
   PlusIcon,
   SearchIcon,
   BrainCircuitIcon,
+  BoxesIcon,
+  Icon,
 } from '../components';
 import { fetchAllTrees, handleCreateTree } from '../features/trees';
 import { useEffect, useState } from 'react';
+import { convertToLocal } from '../features/events';
+import { formateCustomDate } from '../features/transactions';
 
 export function Mind() {
   const navigate = useNavigate();
@@ -53,7 +57,7 @@ function MindHeader({ navigate }) {
         />
         <Button
           squared={true}
-          variant='mind'
+          variant="mind"
           onClick={async () => {
             const id = await handleCreateTree();
             navigate(`/mind/${id}`);
@@ -81,12 +85,22 @@ export function MindHome() {
 
   return (
     <div>
-      Trees:
-      {trees
-        ? trees.map((tree, i) => (
-            <TempTreeCard tree={tree} navigate={navigate} key={i} />
-          ))
-        : ''}
+      <p>FAVORITE TREES:</p>
+      <div className='tree-cards-container'>
+        {trees
+          ? trees.map((tree, i) => (
+              <TempTreeCard tree={tree} navigate={navigate} key={i} />
+            ))
+          : ''}
+      </div>
+      <p>RECENTLY VIEWED TREES:</p>
+      <div className='tree-cards-container'>
+        {trees
+          ? trees.map((tree, i) => (
+              <TempTreeCard tree={tree} navigate={navigate} key={i} />
+            ))
+          : ''}
+      </div>
     </div>
   );
 }
@@ -97,10 +111,19 @@ export function TempTreeCard({ tree, navigate }) {
       onClick={() => {
         navigate(`/mind/${tree._id}`);
       }}
-      className="temp-tree-card"
+      className="home-tree-card"
     >
-      <p>{tree.title}</p>
-      <p>{tree.createdAt}</p>
+      <div className="tree-card-header">
+        <Icon variant="mind">
+          <BoxesIcon />
+        </Icon>
+        <p>{tree.title}</p>
+      </div>
+      <p className="tree-card-note">{tree.note}</p>
+      <p className="tree-card-timestamp">
+        <span>UPDATED:</span>
+        {formateCustomDate(convertToLocal(tree.updatedAt))}
+      </p>
     </div>
   );
 }
