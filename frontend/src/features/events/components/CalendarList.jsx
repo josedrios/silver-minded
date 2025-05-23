@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { getMonthName, today } from '../util/dateUtil';
+import { getMonthName } from '../util/dateUtil';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -23,6 +23,7 @@ export default function CalendarList({
   selectedEvent,
   setSelectedEvent,
 }) {
+  const today = new Date();
   const currentYear = events.year;
   const currentMonth = events.month;
   const pastEvents = events.events.filter(
@@ -52,8 +53,9 @@ export default function CalendarList({
           )}
           {events.events.length !== 0 && showPastEvents ? (
             <>
+            {/* DATE COMPARISON FOR PAST DATES */}
               {events.events.map((event, i) =>
-                new Date(event.date).getDate() < today.getDate() ? (
+                new Date(event.date) < today ? (
                   <EventCard
                     event={event}
                     year={currentYear}
@@ -80,7 +82,8 @@ export default function CalendarList({
           )}
           {events.events.length !== 0 ? (
             events.events.map((event, i) =>
-              new Date(event.date).getDate() >= today.getDate() ? (
+              // DATE COMPARISON FOR PAST DATES
+              new Date(event.date) >= today ? (
                 <EventCard
                   event={event}
                   year={currentYear}
