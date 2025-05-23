@@ -1,9 +1,9 @@
-export { default as Button } from './ui/Buttons';
+export { default as Button } from './UI/Buttons';
 export { default as TextField } from './form/TextFields';
 
-export { Dropdown, IconDropdown } from './ui/Dropdowns';
+export { Dropdown, IconDropdown } from './UI/Dropdowns';
 
-export { default as Modal } from './ui/Modal';
+export { default as Modal } from './UI/Modal';
 
 export {
   PlusIcon,
@@ -29,10 +29,10 @@ export {
   FileBoxIcon,
   FilePenIcon,
   StarIcon
-} from './ui/Icons';
+} from './UI/Icons';
 
-export { SlashLoader, DotLoader } from './ui/Loaders';
+export { SlashLoader, DotLoader } from './UI/Loaders';
 
-export { SlideToggle, SlideToggleText } from './ui/Toggles';
+export { SlideToggle, SlideToggleText } from './UI/Toggles';
 
-export { RowSelect, MultiSelect, ReactMultiSelect } from './ui/Selects';
+export { RowSelect, MultiSelect, ReactMultiSelect } from './UI/Selects';
