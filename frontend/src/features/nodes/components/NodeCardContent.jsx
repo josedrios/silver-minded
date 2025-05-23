@@ -1,11 +1,19 @@
-import { BoxIcon, Icon, Button, VerticalEllipsisIcon } from '../../../components';
+import {
+  BoxIcon,
+  Icon,
+  Button,
+  VerticalEllipsisIcon,
+} from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
 import { useCreateBlockNote } from '@blocknote/react';
 import { useEffect, useState } from 'react';
-import { handleEditContent } from '../services/nodeService';
-import { en } from "@blocknote/core/locales";
+import {
+  handleEditContent,
+  handleNodeTitleChange,
+} from '../services/nodeService';
+import { en } from '@blocknote/core/locales';
 import { TreeNodeDropdown } from '../../trees';
 import { convertToLocal } from '../../events';
 
@@ -24,9 +32,9 @@ export default function NodeCardContent({ node, refreshChildren }) {
       placeholders: {
         ...locale.placeholders,
         emptyDocument: 'Tap to edit node...',
-        default: 'Type here...'
-      }
-    }
+        default: 'Type here...',
+      },
+    },
   });
 
   function debounce(func, delay) {
@@ -59,14 +67,34 @@ export default function NodeCardContent({ node, refreshChildren }) {
     };
   }, [editor]);
 
+  const [title, setTitle] = useState(node.title || '');
+
+  useEffect(() => {
+    const debouncedUpdate = debounce(async (newTitle) => {
+      await handleNodeTitleChange(node._id, newTitle);
+    }, 1000);
+
+    debouncedUpdate(title);
+
+    return () => {
+      debouncedUpdate.cancel();
+    };
+  }, [title]);
+
   return (
     <>
       <div className="header-row">
         <Icon variant="mind">
           <BoxIcon />
         </Icon>
-        <p>{node.title}</p>
-        <TreeNodeDropdown type='node' id={node._id} refreshChildren={refreshChildren}/>
+        <input className="node-title-editor" type="text" value={title} 
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <TreeNodeDropdown
+          type="node"
+          id={node._id}
+          refreshChildren={refreshChildren}
+        />
       </div>
 
       <BlockNoteView

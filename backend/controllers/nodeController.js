@@ -52,3 +52,24 @@ exports.editContent = async (req, res) => {
     });
   }
 };
+
+exports.editTitle = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title } = req.body;
+
+    const node = await Node.findByIdAndUpdate(id, { title }, { new: true });
+
+    if (!node) {
+      return res.status(404).json({ message: 'Node not found' });
+    }
+
+    return res.status(200).json({ message: 'Node title was edited' });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while editing node title',
+      err: err.message,
+    });
+  }
+};

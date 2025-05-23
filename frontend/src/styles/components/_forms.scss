@@ -187,7 +187,6 @@ form {
 
 .bn-editor {
   background-color: rgb(23, 29, 30) !important;
-
 }
 
 .bn-side-menu {
@@ -207,7 +206,14 @@ form {
   border-left: 1px solid transparent !important;
 }
 
-// KEEP HIDDEN WHEN NOT EDITING (ITS THE LAST LINE OF THE EDITOR
+.node-title-editor {
+  flex: 1;
+  font-size: $font-size-md !important;
+  height: 30px;
+  background-color: transparent;
+}
+
+// KEEP HIDDEN WHEN NOT EDITING (ITS THE LAST LINE OF THE EDITOR (IN TESTING)
 // .bn-editor [data-content-type="paragraph"]:last-child:has(:empty) {
 //   display: none;
 // }
