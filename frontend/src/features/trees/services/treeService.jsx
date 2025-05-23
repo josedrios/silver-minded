@@ -71,6 +71,8 @@ export async function deleteTree(id) {
   }
 }
 
+
+// REMOVE EDIT TREE AND BREAK IT DOWN FOR EACH FIELD (TITLE, NOTE, TAGS, FAVORITE)
 export async function editTree(id, changes) {
   try {
     const response = await fetch(
@@ -184,3 +186,4 @@ export async function fetchAllTrees() {
     return;
   }
 }
+

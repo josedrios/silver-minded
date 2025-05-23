@@ -47,6 +47,10 @@
             &.is-favorite {
               fill: var(--accent-800);
             }
+
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
 

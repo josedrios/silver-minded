@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   BoxesIcon,
   Icon,
@@ -34,6 +34,16 @@ export function TreeHeader({ tree, setTree }) {
       isFavorite: tree.isFavorite,
     });
   }, [tree]);
+
+  useEffect(() => {
+    const updateTree = async () => {
+      const updatedTree = await editTreeHeader(tree, treeChanges);
+      if (updatedTree) {
+        setTree(updatedTree);
+      }
+    };
+    updateTree();
+  }, [treeChanges]);
 
   const navigate = useNavigate();
 
@@ -79,6 +89,7 @@ function TreeTitle({
   navigate,
   treeId,
   treeChanges,
+  setTreeChanges,
 }) {
   return (
     <div className="header-row">
@@ -86,50 +97,34 @@ function TreeTitle({
         <BoxesIcon size="md" />
       </Icon>
       <div className="tree-title">
-        {editMode || tree.isFavorite ? (
-          <div
-            className="star-tree-icon-container"
-            onClick={
-              editMode
-                ? () => {
-                    setTree((prev) => ({
-                      ...prev,
-                      isFavorite: !prev.isFavorite,
-                    }));
-                  }
-                : undefined
-            }
-          >
-            <StarIcon
-              className={`star-tree-icon ${
-                treeChanges.isFavorite ? 'is-favorite' : ''
-              }`}
-            />
-          </div>
-        ) : (
-          ''
-        )}
+        <div
+          className="star-tree-icon-container"
+          onClick={() => {
+            setTree((prev) => ({
+              ...prev,
+              isFavorite: !prev.isFavorite,
+            }));
+          }}
+        >
+          <StarIcon
+            className={`star-tree-icon ${
+              treeChanges.isFavorite ? 'is-favorite' : ''
+            }`}
+          />
+        </div>
         <div className="tree-timestamp">
-          {editMode ? (
-            <TextField
-              className="tree-title-edit"
-              variant="gray"
-              value={tree.title}
-              onChange={(e) =>
-                setTree((prev) => ({
-                  ...prev,
-                  title: e.target.value,
-                }))
-              }
-            />
-          ) : (
-            <h5>{tree.title}</h5>
-          )}
-          {editMode ? (
-            ''
-          ) : (
-            <p>CREATED: {formateCustomDate(convertToLocal(treeDate))}</p>
-          )}
+          <input
+            type="text"
+            className="tree-title-editor"
+            value={tree.title}
+            onChange={(e) =>
+              setTree((prev) => ({
+                ...prev,
+                title: e.target.value,
+              }))
+            }
+          />
+          <p>CREATED: {formateCustomDate(convertToLocal(treeDate))}</p>
         </div>
       </div>
       <TreeNodeDropdown navigate={navigate} type={'tree'} id={treeId} />
@@ -138,9 +133,28 @@ function TreeTitle({
 }
 
 function TreeNote({ treeNote, setTree, editMode }) {
-  return editMode ? (
+  const textareaRef = useRef(null);
+
+  const adjustHeight = () => {
+    const el = textareaRef.current;
+    if (el) {
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    }
+  };
+
+  useEffect(() => {
+    adjustHeight();
+  }, [treeNote]);
+
+  return (
     <textarea
+      ref={textareaRef}
       value={treeNote}
+      rows={'1'}
+      autoCorrect="off"
+      autoCapitalize="off"
+      spellCheck={false}
       onChange={(e) =>
         setTree((prev) => ({
           ...prev,
@@ -150,8 +164,6 @@ function TreeNote({ treeNote, setTree, editMode }) {
       className="tree-note-text-field"
       placeholder="Enter a note..."
     />
-  ) : (
-    <p className="tree-note">{treeNote}</p>
   );
 }
 
@@ -196,10 +208,10 @@ function TreeTags({
         className="borderless tree-edit-button"
         onClick={async () => {
           if (editMode === true) {
-            const updatedTree = await editTreeHeader(oldTree, tree);
-            if (updatedTree) {
-              setOriginalTree(updatedTree);
-            }
+            // const updatedTree = await editTreeHeader(oldTree, tree);
+            // if (updatedTree) {
+            //   setOriginalTree(updatedTree);
+            // }
             setEditMode(false);
           } else {
             setEditMode(true);

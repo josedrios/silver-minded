@@ -8,7 +8,7 @@ export {
   editTree,
   editTreeOrder,
   fetchTreeChildren,
-  deleteTree
+  deleteTree,
 } from './services/treeService';
 export { tagOptions, getTagOption, editTreeHeader } from './util/treeUtil';
 

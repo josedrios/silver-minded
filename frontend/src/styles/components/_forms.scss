@@ -155,22 +155,23 @@ form {
 
 .tree-note-text-field {
   width: 100%;
+  height: auto;
+  min-height: 30px;
+  overflow: none;
   resize: none;
   outline: none;
-  min-height: 100px;
-  background-color: var(--gray-200);
-  border: 1px solid var(--gray-800);
-  color: var(--text-color) !important;
+  background-color: transparent;
+  color: var(--text-600) !important;
+  font-size: $font-size-sm;
   padding: $spacing-xs;
   border-radius: $border-radius-xs;
-
-  &:focus {
-    border: 1px solid var(--primary-700);
-  }
 }
 
-.tree-title-edit {
-  height: 30px;
+.tree-title-editor {
+  height: 23px;
+  background-color: transparent;
+  width: 100%;
+  font-size: $font-size-md;
 }
 
 .bn-container {
