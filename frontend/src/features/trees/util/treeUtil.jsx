@@ -36,7 +36,6 @@ export async function editTreeHeader(tree, treeChanges) {
   }
 
   if (isFavoriteChange) {
-    console.log('differing favs');
     payload.isFavorite = treeChanges.isFavorite;
   }
 

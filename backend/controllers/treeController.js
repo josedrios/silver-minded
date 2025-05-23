@@ -114,11 +114,10 @@ async function deleteTreeRecursive(id) {
 }
 
 exports.updateTree = async (req, res) => {
+  console.log('tree updated')
   try {
     const { id } = req.params;
     const updates = req.body.changes;
-
-    console.log(updates);
 
     const tree = await Tree.findById(id);
     if (!tree) return res.status(404).send('Tree not found');

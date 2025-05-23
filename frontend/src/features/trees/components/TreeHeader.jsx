@@ -35,14 +35,29 @@ export function TreeHeader({ tree, setTree }) {
     });
   }, [tree]);
 
+  function debounce(func, delay) {
+    let timeout;
+    const debounced = (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+    debounced.cancel = () => clearTimeout(timeout);
+    return debounced;
+  }
+
   useEffect(() => {
-    const updateTree = async () => {
+    const debouncedUpdate = debounce(async () => {
       const updatedTree = await editTreeHeader(tree, treeChanges);
       if (updatedTree) {
         setTree(updatedTree);
       }
+    }, 1000);
+
+    debouncedUpdate();
+
+    return () => {
+      debouncedUpdate.cancel();
     };
-    updateTree();
   }, [treeChanges]);
 
   const navigate = useNavigate();
