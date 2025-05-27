@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { getMonthName } from '../util/dateUtil';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const list = {
@@ -26,9 +26,17 @@ export default function CalendarList({
   const today = new Date();
   const currentYear = events.year;
   const currentMonth = events.month;
-  const pastEvents = events.events.filter(
-    (event) => new Date(event.date).getDate() < today.getDate()
-  );
+
+  const pastEvents = events.events.filter((event) => {
+    const eventDate = new Date(event.date);
+    console.log(
+      `Event: ${eventDate.toLocaleString()}, Today: ${today.toLocaleString()}`
+    );
+    return (
+      eventDate < today && new Date(eventDate).getDate() !== today.getDate()
+    );
+  });
+
   const [showPastEvents, setShowPastEvents] = useState(false);
 
   return (
@@ -53,21 +61,16 @@ export default function CalendarList({
           )}
           {events.events.length !== 0 && showPastEvents ? (
             <>
-            {/* DATE COMPARISON FOR PAST DATES */}
-              {events.events.map((event, i) =>
-                new Date(event.date) < today ? (
-                  <EventCard
-                    event={event}
-                    year={currentYear}
-                    month={currentMonth}
-                    key={i}
-                    selectedEvent={selectedEvent}
-                    setSelectedEvent={setSelectedEvent}
-                  />
-                ) : (
-                  ''
-                )
-              )}
+              {pastEvents.map((event, i) => (
+                <EventCard
+                  event={event}
+                  year={currentYear}
+                  month={currentMonth}
+                  key={i}
+                  selectedEvent={selectedEvent}
+                  setSelectedEvent={setSelectedEvent}
+                />
+              ))}
               <motion.div
                 layout
                 variants={item}
@@ -82,8 +85,8 @@ export default function CalendarList({
           )}
           {events.events.length !== 0 ? (
             events.events.map((event, i) =>
-              // DATE COMPARISON FOR PAST DATES
-              new Date(event.date) >= today ? (
+              new Date(event.date) >= today ||
+              new Date(event.date).getDate() === today.getDate() ? (
                 <EventCard
                   event={event}
                   year={currentYear}

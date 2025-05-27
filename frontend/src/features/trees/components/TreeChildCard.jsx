@@ -38,7 +38,7 @@ export default function TreeChildCard({
           className={`tree-child-body ${child.type}`}
           onClick={() => {
             if (child.type === 'tree') {
-              navigate(`/mind/${child._id}`);
+              navigate(`/mind/id/${child._id}`);
             }
           }}
         >
@@ -57,6 +57,7 @@ export default function TreeChildCard({
           navigate={navigate}
           parentId={parentId}
           referenceId={child._id}
+          refreshChildren={refreshChildren}
           setInsertChildModal={setInsertChildModal}
         />
       </Modal>
