@@ -10,10 +10,10 @@ export function TreeBody({ tree }) {
 
   console.log(tree.content);
 
-  const initialContent = tree.content === null ? undefined : JSON.parse(tree.content);
-    
+  // const initialContent = tree.content === null ? undefined : JSON.parse(tree.content);
+
   const editor = useCreateBlockNote({
-    initialContent: initialContent,
+    // initialContent: initialContent,
     dictionary: {
       ...locale,
       placeholders: {
@@ -23,6 +23,23 @@ export function TreeBody({ tree }) {
       },
     },
   });
+
+  useEffect(() => {
+    if (tree.content !== null && tree.content !== undefined) {
+      try {
+        const parsedContent = JSON.parse(tree.content);
+        // If the retrieved tree has content, put it in the blocknote
+        editor.replaceBlocks(editor.document, parsedContent); 
+      } catch (error) {
+        console.error("Error parsing tree.content:", error);
+        // If error occurs parsing the trees content, leave the blocknote empty
+        editor.replaceBlocks(editor.document, []); 
+      }
+    } else {
+      // If tree.content is null or undefined, leave the blocknote empty
+      editor.replaceBlocks(editor.document, []);
+    }
+  }, [tree.content, editor]); 
 
   function debounce(func, delay) {
     let timeout;
