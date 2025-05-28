@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchTree, TreeHeader, TreeBody } from '../';
 import { SlashLoader } from '../../../components';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 
 export default function TreePage({}) {
   const { id } = useParams();

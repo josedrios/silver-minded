@@ -38,14 +38,17 @@ export async function fetchTree(id) {
 export async function searchTrees(query) {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/tree/search?q=${encodeURIComponent(query)}`,
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/tree/search?q=${encodeURIComponent(query)}`,
       {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to search for tree');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to search for tree');
     return data;
   } catch (err) {
     console.error('Tree Search Error:', err.message);
@@ -71,8 +74,6 @@ export async function deleteTree(id) {
   }
 }
 
-
-// REMOVE EDIT TREE AND BREAK IT DOWN FOR EACH FIELD (TITLE, NOTE, TAGS, FAVORITE)
 export async function editTree(id, changes) {
   try {
     const response = await fetch(
@@ -92,45 +93,6 @@ export async function editTree(id, changes) {
   }
 }
 
-export async function editTreeOrder(treeId, childId, type, referenceId = null) {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/tree/order/${treeId}`,
-      {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ childId, referenceId, type }),
-      }
-    );
-    const data = await response.json();
-    if (!response.ok)
-      throw new Error(data.message || 'Failed to edit tree order');
-    return data;
-  } catch (err) {
-    console.error('Edit Tree Order Error:', err.message);
-    return;
-  }
-}
-
-export async function fetchTreeChildren(id) {
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/tree/children/${id}`,
-      {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
-    const data = await response.json();
-    if (!response.ok)
-      throw new Error(data.message || 'Failed to fetch children of tree');
-    return data;
-  } catch (err) {
-    console.error('Fetch Tree Children Error:', err.message);
-    return;
-  }
-}
-
 export async function fetchFavoriteTrees() {
   try {
     const response = await fetch(
@@ -141,7 +103,8 @@ export async function fetchFavoriteTrees() {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to fetch favorite trees');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to fetch favorite trees');
     return data;
   } catch (err) {
     console.error('Fetch Favorite Trees Error:', err.message);
@@ -159,7 +122,8 @@ export async function fetchRecentTrees() {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to fetch recent trees');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to fetch recent trees');
     return data;
   } catch (err) {
     console.error('Fetch Recent Trees Error:', err.message);
@@ -167,6 +131,26 @@ export async function fetchRecentTrees() {
   }
 }
 
+export async function handleEditContent(id, content) {
+  try {
+    console.log(content)
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/tree/content/${id}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({content}),
+      }
+    );
+    const data = await response.json();
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to edit tree content');
+    return data;
+  } catch (err) {
+    console.error('Edit Tree Content Error:', err.message);
+    return;
+  }
+}
 
 // TEMP FOR DEV
 export async function fetchAllTrees() {
@@ -179,11 +163,11 @@ export async function fetchAllTrees() {
       }
     );
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Failed to fetch all trees');
+    if (!response.ok)
+      throw new Error(data.message || 'Failed to fetch all trees');
     return data;
   } catch (err) {
     console.error('Fetch Trees Error:', err.message);
     return;
   }
 }
-

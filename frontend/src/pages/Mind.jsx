@@ -195,7 +195,6 @@ export function HomeTreeCard({ tree, navigate }) {
         </Icon>
         <p>{tree.title}</p>
       </div>
-      <p className="tree-card-note">{tree.note}</p>
     </motion.div>
   );
 }

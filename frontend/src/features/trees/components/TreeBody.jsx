@@ -1,93 +1,56 @@
 import { useEffect, useState } from 'react';
-import {
-  TreeChildCard,
-  handleCreateTree,
-  editTreeOrder,
-  fetchTreeChildren,
-} from '../';
-import { BoxesIcon, BoxIcon } from '../../../components';
-import { useNavigate } from 'react-router-dom';
-import { handleCreateNode } from '../../nodes';
-import { motion, AnimatePresence } from 'motion/react';
-
-const list = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.03,
-    },
-  },
-};
+import { BlockNoteView } from '@blocknote/mantine';
+import '@blocknote/mantine/style.css';
+import { useCreateBlockNote } from '@blocknote/react';
+import { en } from '@blocknote/core/locales';
+import { handleEditContent } from '../services/treeService';
 
 export function TreeBody({ tree }) {
-  const navigate = useNavigate();
-  const [treeChildren, setTreeChildren] = useState([]);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const locale = en;
 
-  const refreshChildren = () => setRefreshKey((prev) => prev + 1);
+  console.log(tree.content);
 
-  const loadChildren = async () => {
-    const fetchedChildren = await fetchTreeChildren(tree._id);
-    setTreeChildren(fetchedChildren);
-    console.log(fetchedChildren);
-  };
+  const initialContent = tree.content === null ? undefined : JSON.parse(tree.content);
+    
+  const editor = useCreateBlockNote({
+    initialContent: initialContent,
+    dictionary: {
+      ...locale,
+      placeholders: {
+        ...locale.placeholders,
+        emptyDocument: 'Tap to edit node...',
+        default: 'Type here...',
+      },
+    },
+  });
+
+  function debounce(func, delay) {
+    let timeout;
+    const debounced = (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), delay);
+    };
+    debounced.cancel = () => clearTimeout(timeout);
+    return debounced;
+  }
 
   useEffect(() => {
-    loadChildren();
-  }, [tree._id, refreshKey]);
+    const handleChange = debounce(async () => {
+      const updatedContent = editor.document;
+      const safeContent = JSON.parse(JSON.stringify(updatedContent));
+      await handleEditContent(tree._id, JSON.stringify(safeContent));
+    }, 1000); // waits 1 second after last change
+
+    const unsubscribe = editor.onChange(handleChange);
+    return () => {
+      unsubscribe();
+      handleChange.cancel();
+    };
+  }, [editor]);
 
   return (
     <div className="tree-body">
-      <AnimatePresence>
-        <motion.div initial="hidden"
-          animate="visible"
-          variants={list} className="tree-children-container">
-          {treeChildren
-            ? treeChildren.map((child, index) => (
-                <TreeChildCard
-                  key={child._id}
-                  child={child}
-                  lastChild={index === treeChildren.length - 1}
-                  parentId={tree._id}
-                  refreshChildren={refreshChildren}
-                />
-              ))
-            : ''}
-        </motion.div>
-      </AnimatePresence>
-      <CreateChild
-        navigate={navigate}
-        loadChildren={loadChildren}
-        parentId={tree ? tree._id : null}
-      />
-    </div>
-  );
-}
-
-function CreateChild({ navigate, parentId, loadChildren }) {
-  return (
-    <div className="create-child-container">
-      <button
-        className="create-child-button"
-        onClick={async () => {
-          const id = await handleCreateTree(parentId);
-          await editTreeOrder(parentId, id, 'tree');
-          navigate(`/mind/id/${id}`);
-        }}
-      >
-        <BoxesIcon /> Tree
-      </button>
-      <button
-        className="create-child-button"
-        onClick={async () => {
-          const id = await handleCreateNode(parentId);
-          await editTreeOrder(parentId, id, 'node');
-          loadChildren();
-        }}
-      >
-        <BoxIcon /> Node
-      </button>
+      <BlockNoteView editor={editor} spellCheck={false} />
     </div>
   );
 }

@@ -39,48 +39,6 @@ exports.getTree = async (req, res) => {
   }
 };
 
-exports.getTreeChildren = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const tree = await Tree.findById(id);
-    if (!tree) return res.status(404).json({ message: 'Tree not found' });
-
-    const orderedItems = [];
-    const newOrder = [];
-
-    for (const { type, id } of tree.order) {
-      const Model = type === 'tree' ? Tree : Node;
-      const doc = await Model.findById(id);
-      if (doc) {
-        orderedItems.push({ ...doc.toObject(), type });
-        newOrder.push({ type, id });
-      }
-    }
-
-    const cleanOrder = (order) =>
-      order.map(({ type, id }) => ({ type, id: id.toString() }));
-
-    const orderChanged =
-      JSON.stringify(cleanOrder(tree.order)) !==
-      JSON.stringify(cleanOrder(newOrder));
-    if (orderChanged) {
-      console.log(tree.order);
-      console.log(newOrder);
-      console.log('UPDATED TREE');
-      tree.order = newOrder;
-      await tree.save();
-    }
-
-    return res.status(200).json(orderedItems);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      message: 'Error occurred while fetching children of tree',
-      error: err.message,
-    });
-  }
-};
-
 exports.deleteTree = async (req, res) => {
   try {
     await deleteTreeRecursive(req.params.id);
@@ -114,7 +72,7 @@ async function deleteTreeRecursive(id) {
 }
 
 exports.updateTree = async (req, res) => {
-  console.log('tree updated')
+  console.log('tree updated');
   try {
     const { id } = req.params;
     const updates = req.body.changes;
@@ -134,44 +92,6 @@ exports.updateTree = async (req, res) => {
     console.log(err);
     return res.status(500).json({
       message: 'Error occurred while editing tree',
-      error: err.message,
-    });
-  }
-};
-
-exports.updateTreeOrder = async (req, res) => {
-  try {
-    const { treeId } = req.params;
-    const { childId, referenceId, type } = req.body;
-
-    const tree = await Tree.findById(treeId);
-    if (!tree) return res.status(404).send('Tree not found');
-
-    tree.order = tree.order.filter((child) => child.id.toString() !== childId);
-
-    if (!referenceId) {
-      tree.order.push({
-        type: type,
-        id: childId,
-      });
-    } else {
-      const refIndex = tree.order.findIndex(
-        (tree) => tree.id.toString() === referenceId
-      );
-      if (refIndex === -1)
-        return res
-          .status(400)
-          .json({ message: 'Reference ID not found in order' });
-
-      tree.order.splice(refIndex, 0, { type: type, id: childId });
-    }
-
-    await tree.save();
-    return res.status(200).json(tree.order);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({
-      message: 'Error occurred while editing tree order',
       error: err.message,
     });
   }
@@ -208,7 +128,7 @@ exports.getRecentTrees = async (req, res) => {
 exports.getSearchedTrees = async (req, res) => {
   try {
     const { q } = req.query;
-    console.log(q)
+    console.log(q);
 
     const fetchedTrees = await Tree.find(
       { $text: { $search: q } },
@@ -234,6 +154,26 @@ exports.getAllTrees = async (req, res) => {
     console.log(err);
     return res.status(500).json({
       message: 'Error occurred while fetching trees',
+      error: err.message,
+    });
+  }
+};
+
+exports.editContent = async (req, res) => {
+  console.log(req.params.id);
+  console.log(req.body);
+  try {
+    const { content } = req.body;
+    const tree = await Tree.findByIdAndUpdate(
+      req.params.id,
+      { content },
+      { new: true }
+    );
+    return res.status(201).json(tree);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Error occurred while editing node content',
       error: err.message,
     });
   }

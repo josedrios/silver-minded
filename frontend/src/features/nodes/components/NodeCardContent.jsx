@@ -1,9 +1,3 @@
-import {
-  BoxIcon,
-  Icon,
-  Button,
-  VerticalEllipsisIcon,
-} from '../../../components';
 import { formateCustomDate } from '../../transactions';
 import { BlockNoteView } from '@blocknote/mantine';
 import '@blocknote/mantine/style.css';
@@ -11,13 +5,11 @@ import { useCreateBlockNote } from '@blocknote/react';
 import { useEffect, useState } from 'react';
 import {
   handleEditContent,
-  handleNodeTitleChange,
 } from '../services/nodeService';
 import { en } from '@blocknote/core/locales';
-import { TreeNodeDropdown } from '../../trees';
 import { convertToLocal } from '../../events';
 
-export default function NodeCardContent({ node, refreshChildren }) {
+export default function NodeCardContent({ node }) {
   const [isEditable, setIsEditable] = useState(false);
   const locale = en;
 
@@ -67,36 +59,8 @@ export default function NodeCardContent({ node, refreshChildren }) {
     };
   }, [editor]);
 
-  const [title, setTitle] = useState(node.title || '');
-
-  useEffect(() => {
-    const debouncedUpdate = debounce(async (newTitle) => {
-      await handleNodeTitleChange(node._id, newTitle);
-    }, 1000);
-
-    debouncedUpdate(title);
-
-    return () => {
-      debouncedUpdate.cancel();
-    };
-  }, [title]);
-
   return (
     <>
-      <div className="header-row">
-        <Icon variant="mind">
-          <BoxIcon />
-        </Icon>
-        <input className="node-title-editor" type="text" value={title} 
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <TreeNodeDropdown
-          type="node"
-          id={node._id}
-          refreshChildren={refreshChildren}
-        />
-      </div>
-
       <BlockNoteView
         editor={editor}
         spellCheck={false}
@@ -104,10 +68,6 @@ export default function NodeCardContent({ node, refreshChildren }) {
         onMouseEnter={() => setIsEditable(true)}
         onMouseLeave={() => setIsEditable(false)}
       />
-
-      <p className="timestamp-section">
-        CREATED: {formateCustomDate(convertToLocal(node.createdAt))}
-      </p>
     </>
   );
 }

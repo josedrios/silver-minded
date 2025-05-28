@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { editTreeOrder, handleCreateTree, TreeCardContent } from '../';
+import { handleCreateTree, TreeCardContent } from '../';
 import { NodeCardContent, handleCreateNode } from '../../nodes';
 import { Modal, BoxesIcon, BoxIcon } from '../../../components';
 import { useState } from 'react';
@@ -92,7 +92,6 @@ function InsertChildModal({
           className="create-child-button"
           onClick={async () => {
             const id = await handleCreateTree(parentId);
-            await editTreeOrder(parentId, id, 'tree', referenceId);
             navigate(`/mind/id/${id}`);
           }}
         >
@@ -103,7 +102,6 @@ function InsertChildModal({
           className="create-child-button"
           onClick={async () => {
             const id = await handleCreateNode(parentId);
-            await editTreeOrder(parentId, id, 'node', referenceId);
             refreshChildren();
             setInsertChildModal(false);
           }}
