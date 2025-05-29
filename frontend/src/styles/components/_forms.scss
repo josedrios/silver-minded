@@ -174,9 +174,9 @@ form {
 }
 
 .bn-container {
-  border: 1px solid var(--gray-800);
   border-radius: $border-radius-xs;
-  padding: $spacing-xs $spacing-sm;
+  padding-top: $spacing-md;
+  margin-left: $spacing-md !important;
 
   div {
     border-radius: $border-radius-xs !important;
@@ -186,7 +186,7 @@ form {
 }
 
 .bn-editor {
-  background-color: rgb(23, 29, 30) !important;
+  background-color: transparent !important;
 }
 
 .bn-side-menu {
@@ -204,13 +204,6 @@ form {
   .bn-block-group
   .bn-block-outer:not([data-prev-depth-changed])::before {
   border-left: 1px solid transparent !important;
-}
-
-.node-title-editor {
-  flex: 1;
-  font-size: $font-size-md !important;
-  height: 30px;
-  background-color: transparent;
 }
 
 // KEEP HIDDEN WHEN NOT EDITING (ITS THE LAST LINE OF THE EDITOR (IN TESTING)

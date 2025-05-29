@@ -18,7 +18,7 @@ export function TreeBody({ tree }) {
       ...locale,
       placeholders: {
         ...locale.placeholders,
-        emptyDocument: 'Tap to edit node...',
+        emptyDocument: 'Tap to edit content...',
         default: 'Type here...',
       },
     },

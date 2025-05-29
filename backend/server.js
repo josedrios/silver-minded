@@ -24,7 +24,6 @@ app.use('/api/task', require('./routes/taskRoutes'));
 app.use('/api/event', require('./routes/eventRoutes'));
 app.use('/api/transaction', require('./routes/transactionRoutes'));
 app.use('/api/tree', require('./routes/treeRoutes'));
-app.use('/api/node', require('./routes/nodeRoutes'))
 
 // Server
 app.listen(PORT, '0.0.0.0', () =>

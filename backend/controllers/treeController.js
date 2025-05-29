@@ -1,5 +1,4 @@
 const Tree = require('../models/tree');
-const Node = require('../models/node');
 
 exports.createTree = async (req, res) => {
   try {
@@ -41,7 +40,7 @@ exports.getTree = async (req, res) => {
 
 exports.deleteTree = async (req, res) => {
   try {
-    await deleteTreeRecursive(req.params.id);
+    await Tree.findByIdAndDelete(req.params.id)
     return res.status(200).json({ message: 'Tree deleted' });
   } catch (err) {
     console.error(err);
@@ -51,25 +50,6 @@ exports.deleteTree = async (req, res) => {
     });
   }
 };
-
-async function deleteTreeRecursive(id) {
-  const tree = await Tree.findById(id);
-  if (!tree) throw new Error('Tree not found');
-
-  for (const { type, id: childId } of tree.order) {
-    const Model = type === 'tree' ? Tree : Node;
-    const child = await Model.findById(childId);
-    if (child) {
-      if (type === 'tree') {
-        await deleteTreeRecursive(childId);
-      } else {
-        await child.deleteOne();
-      }
-    }
-  }
-
-  await Tree.deleteOne({ _id: id });
-}
 
 exports.updateTree = async (req, res) => {
   console.log('tree updated');
@@ -160,8 +140,6 @@ exports.getAllTrees = async (req, res) => {
 };
 
 exports.editContent = async (req, res) => {
-  console.log(req.params.id);
-  console.log(req.body);
   try {
     const { content } = req.body;
     const tree = await Tree.findByIdAndUpdate(
@@ -173,7 +151,7 @@ exports.editContent = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: 'Error occurred while editing node content',
+      message: 'Error occurred while editing tree content',
       error: err.message,
     });
   }
