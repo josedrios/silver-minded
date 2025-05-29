@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import {
-  BoxesIcon,
+  BoxIcon,
   Icon,
   Button,
   VerticalEllipsisIcon,
@@ -98,7 +98,7 @@ function TreeTitle({
   return (
     <div className="header-row">
       <Icon variant="mind" size="md">
-        <BoxesIcon size="md" />
+        <BoxIcon size="md" />
       </Icon>
       <div className="tree-title">
         <div
@@ -157,13 +157,13 @@ function TreeTags({
           options={tagOptions}
           value={tree.categories}
           onChange={setTreeCategories}
-          placeholder="/Floater"
+          placeholder="Select Tags"
           className="tree-category-select"
         />
       ) : (
         <div className="tree-categories">
           {tree.categories.length === 0 ? (
-            <p>/Floater</p>
+            <p>NONE</p>
           ) : (
             tree.categories.map((cat, i) => <p key={i}>{cat.label}</p>)
           )}

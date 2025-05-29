@@ -114,10 +114,9 @@
 }
 
 .tree-cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: $spacing-md;
-  padding: $spacing-md;
+  @include flex(column);
+  gap: $spacing-sm;
+  margin: $spacing-md;
 }
 
 .no-trees-found {

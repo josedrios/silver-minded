@@ -73,34 +73,40 @@
 
 // Temp Tree Card
 .home-tree-card {
-  padding: $spacing-sm;
-  background-color: rgb(23, 29, 30);
-  border: 1px solid transparent;
-  border-radius: $border-radius-xs;
-  @include flex(column);
-  gap: $spacing-xs;
+  border: 1px solid var(--gray-800);
+  @include flex(row, initial, center);
+  padding-right: $spacing-sm;
+  width: 100%;
 
-  .tree-card-header {
-    @include flex(row, flex-start, center);
-    gap: $spacing-sm;
+  .tree-card-title {
+    @include flex(row, initial, center);
+    flex: 1;
+    min-width: 0;
+    gap: $spacing-xs;
 
     p {
+      min-width: 0;
+      text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      text-overflow: ellipsis;
-      font-size: $font-size-md;
+    }
+
+    .icon {
+      background-color: transparent;
     }
   }
 
-  .tree-card-note {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    font-size: $font-size-xs;
+  .tree-card-id {
     color: var(--text-600);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 3;
+    margin-left: auto;
+    font-size: $font-size-xs;
   }
 
   @include clickableContainer;
+}
+
+@media (max-width: 575px) {
+  .tree-card-id {
+    display: none !important;
+  }
 }

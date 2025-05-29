@@ -53,7 +53,7 @@ export default function Bank() {
     });
     return {
       made:
-        result.save === 0 ? result.fun + result.need + result.sub : result.save,
+        result.save === 0 ? 0 : result.save,
       spent: result.fun + result.need + result.sub,
       saved: result.save - (result.fun + result.need + result.sub),
       need: result.need,

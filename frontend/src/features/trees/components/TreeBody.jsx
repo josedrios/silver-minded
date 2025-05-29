@@ -8,8 +8,6 @@ import { handleEditContent } from '../services/treeService';
 export function TreeBody({ tree }) {
   const locale = en;
 
-  console.log(tree.content);
-
   // const initialContent = tree.content === null ? undefined : JSON.parse(tree.content);
 
   const editor = useCreateBlockNote({
@@ -23,6 +21,9 @@ export function TreeBody({ tree }) {
       },
     },
   });
+
+  // use this to store the actual text of the tree.content
+  console.log(editor._tiptapEditor.getText());
 
   useEffect(() => {
     if (tree.content !== null && tree.content !== undefined) {

@@ -14,4 +14,4 @@ export { tagOptions, getTagOption, editTreeHeader } from './util/treeUtil';
 export { default as TreePage } from './components/TreePage';
 export { TreeHeader } from './components/TreeHeader';
 export { TreeBody } from './components/TreeBody';
-export { default as TreeResults } from './components/TreeResults';
+export {  TreeResults, TreeCardSection } from './components/TreeResults';

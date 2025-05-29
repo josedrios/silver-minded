@@ -57,6 +57,8 @@ exports.updateTree = async (req, res) => {
     const { id } = req.params;
     const updates = req.body.changes;
 
+    console.log(updates)
+
     const tree = await Tree.findById(id);
     if (!tree) return res.status(404).send('Tree not found');
 
@@ -108,7 +110,6 @@ exports.getRecentTrees = async (req, res) => {
 exports.getSearchedTrees = async (req, res) => {
   try {
     const { q } = req.query;
-    console.log(q);
 
     const fetchedTrees = await Tree.find(
       { $text: { $search: q } },

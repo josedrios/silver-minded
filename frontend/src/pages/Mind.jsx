@@ -5,13 +5,12 @@ import {
   PlusIcon,
   SearchIcon,
   BrainCircuitIcon,
-  BoxesIcon,
-  Icon,
 } from '../components';
 import {
   fetchFavoriteTrees,
   fetchRecentTrees,
   handleCreateTree,
+  TreeCardSection,
 } from '../features/trees';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -29,21 +28,6 @@ const list = {
 const item = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { type: 'tween', duration: 0.15 } },
-};
-
-const cardList = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.03,
-    },
-  },
-};
-
-const cardItem = {
-  hidden: { opacity: 0, y: -10 },
-  visible: { opacity: 1, y: 0, transition: { type: 'tween', duration: 0.3 } },
 };
 
 export function Mind() {
@@ -137,64 +121,6 @@ export function MindHome() {
         title={'RECENTLY VIEWED'}
         fetchFunction={fetchRecentTrees}
       />
-    </motion.div>
-  );
-}
-
-export function TreeCardSection({ navigate, title, fetchFunction, query }) {
-  const [trees, setTrees] = useState([]);
-
-  useEffect(() => {
-    const loadTrees = async () => {
-      const data = await fetchFunction(query);
-      setTrees(data);
-    };
-    loadTrees();
-  }, [query]);
-
-  return (
-    <div className="trees-section">
-      <p className="tree-section-header">{title}</p>
-      <AnimatePresence>
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={cardList}
-          className="tree-cards-container"
-        >
-          {trees
-            ? trees.map((tree, i) => (
-                <HomeTreeCard tree={tree} navigate={navigate} key={tree._id} />
-              ))
-            : ''}
-          {trees.length === 0 ? (
-            <p className="no-trees-found">No trees found...</p>
-          ) : (
-            ''
-          )}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-}
-
-export function HomeTreeCard({ tree, navigate }) {
-  return (
-    <motion.div
-      layout
-      variants={cardItem}
-      exit={{ opacity: 0, y: 20 }}
-      onClick={() => {
-        navigate(`/mind/id/${tree._id}`);
-      }}
-      className="home-tree-card"
-    >
-      <div className="tree-card-header">
-        <Icon variant="mind">
-          <BoxesIcon />
-        </Icon>
-        <p>{tree.title}</p>
-      </div>
     </motion.div>
   );
 }

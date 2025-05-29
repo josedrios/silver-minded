@@ -128,13 +128,13 @@
 
 .tree-category-select {
   .custom-select__control {
-    border: 1px solid var(--gray-800) !important;
+    border: 1px solid var(--gray-400) !important;
     padding: $spacing-xs !important;
     min-height: 22px;
   }
 
   .custom-select__control--is-focused {
-    border-color: var(--primary-700) !important;
+    border-color: var(--gray-800) !important;
   }
 
   .custom-select__placeholder {
