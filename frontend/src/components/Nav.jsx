@@ -1,25 +1,32 @@
-import { Link, useNavigate } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
 
 export default function Nav() {
-  const navigate = useNavigate();
-
-  // const handleMindClick = (e) => {
-  //   e.preventDefault(); // prevent default Link behavior
-  //   const lastMindPath = localStorage.getItem('lastMindPath') || '/mind';
-  //   navigate(lastMindPath);
-  // };
-
   return (
     <nav>
-      <Link to="/dash">DASH</Link>
-      <Link to="/time">TIME</Link>
-      <Link to="/bank">BANK</Link>
-      <Link to="/mind">MIND</Link>
-      {/* <a href="/mind" onClick={handleMindClick}>
+      <NavLink
+        to="/dash"
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        DASH
+      </NavLink>
+      <NavLink
+        to="/time"
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        TIME
+      </NavLink>
+      <NavLink
+        to="/bank"
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        BANK
+      </NavLink>
+      <NavLink
+        to="/mind"
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
         MIND
-      </a>{' '} */}
-      {/* <Link to="/designsystem">DESIGN</Link> */}
+      </NavLink>
     </nav>
   );
 }

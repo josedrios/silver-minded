@@ -23,24 +23,24 @@ export function TreeBody({ tree }) {
   });
 
   // use this to store the actual text of the tree.content
-  console.log(editor._tiptapEditor.getText());
+  // console.log(editor._tiptapEditor.getText());
 
   useEffect(() => {
     if (tree.content !== null && tree.content !== undefined) {
       try {
         const parsedContent = JSON.parse(tree.content);
         // If the retrieved tree has content, put it in the blocknote
-        editor.replaceBlocks(editor.document, parsedContent); 
+        editor.replaceBlocks(editor.document, parsedContent);
       } catch (error) {
-        console.error("Error parsing tree.content:", error);
+        console.error('Error parsing tree.content:', error);
         // If error occurs parsing the trees content, leave the blocknote empty
-        editor.replaceBlocks(editor.document, []); 
+        editor.replaceBlocks(editor.document, []);
       }
     } else {
       // If tree.content is null or undefined, leave the blocknote empty
       editor.replaceBlocks(editor.document, []);
     }
-  }, [tree.content, editor]); 
+  }, [tree.content, editor]);
 
   function debounce(func, delay) {
     let timeout;
@@ -56,7 +56,11 @@ export function TreeBody({ tree }) {
     const handleChange = debounce(async () => {
       const updatedContent = editor.document;
       const safeContent = JSON.parse(JSON.stringify(updatedContent));
-      await handleEditContent(tree._id, JSON.stringify(safeContent));
+      await handleEditContent(
+        tree._id,
+        JSON.stringify(safeContent),
+        editor._tiptapEditor.getText()
+      );
     }, 1000); // waits 1 second after last change
 
     const unsubscribe = editor.onChange(handleChange);

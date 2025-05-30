@@ -18,10 +18,6 @@ export default function Time() {
   const [selectedEvent, setSelectedEvent] = useState('');
 
   useEffect(() => {
-    console.log(selectedEvent);
-  }, [selectedEvent]);
-
-  useEffect(() => {
     fetchAndUpdateEvents(events, setEvents);
   }, [events.month, events.year]);
 

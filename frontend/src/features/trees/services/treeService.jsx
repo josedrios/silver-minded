@@ -131,15 +131,14 @@ export async function fetchRecentTrees() {
   }
 }
 
-export async function handleEditContent(id, content) {
+export async function handleEditContent(id, content, readableContent) {
   try {
-    console.log(content)
     const response = await fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/tree/content/${id}`,
       {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({content}),
+        body: JSON.stringify({content, readableContent}),
       }
     );
     const data = await response.json();

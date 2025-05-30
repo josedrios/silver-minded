@@ -40,7 +40,7 @@ exports.getTree = async (req, res) => {
 
 exports.deleteTree = async (req, res) => {
   try {
-    await Tree.findByIdAndDelete(req.params.id)
+    await Tree.findByIdAndDelete(req.params.id);
     return res.status(200).json({ message: 'Tree deleted' });
   } catch (err) {
     console.error(err);
@@ -57,7 +57,7 @@ exports.updateTree = async (req, res) => {
     const { id } = req.params;
     const updates = req.body.changes;
 
-    console.log(updates)
+    console.log(updates);
 
     const tree = await Tree.findById(id);
     if (!tree) return res.status(404).send('Tree not found');
@@ -111,10 +111,11 @@ exports.getSearchedTrees = async (req, res) => {
   try {
     const { q } = req.query;
 
-    const fetchedTrees = await Tree.find(
-      { $text: { $search: q } },
-      { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } });
+    const regex = new RegExp(q, 'i'); 
+
+    const fetchedTrees = await Tree.find({
+      $or: [{ title: regex }, { readableContent: regex }],
+    });
 
     return res.status(200).json(fetchedTrees);
   } catch (error) {
@@ -142,12 +143,14 @@ exports.getAllTrees = async (req, res) => {
 
 exports.editContent = async (req, res) => {
   try {
-    const { content } = req.body;
+    const { content, readableContent } = req.body;
+    console.log(readableContent);
     const tree = await Tree.findByIdAndUpdate(
       req.params.id,
-      { content },
+      { content, readableContent },
       { new: true }
     );
+    console.log(tree);
     return res.status(201).json(tree);
   } catch (err) {
     console.log(err);

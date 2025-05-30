@@ -29,9 +29,9 @@ export default function CalendarList({
 
   const pastEvents = events.events.filter((event) => {
     const eventDate = new Date(event.date);
-    console.log(
-      `Event: ${eventDate.toLocaleString()}, Today: ${today.toLocaleString()}`
-    );
+    // console.log(
+    //   `Event: ${eventDate.toLocaleString()}, Today: ${today.toLocaleString()}`
+    // );
     return (
       eventDate < today && new Date(eventDate).getDate() !== today.getDate()
     );

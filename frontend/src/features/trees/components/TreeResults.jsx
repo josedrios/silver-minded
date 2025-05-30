@@ -33,7 +33,7 @@ export function TreeResults() {
     >
       <TreeCardSection
         navigate={navigate}
-        title={`Searched: ${query}`}
+        title={`Searched: '${query}'`}
         fetchFunction={searchTrees}
         query={query}
       />
@@ -64,7 +64,12 @@ export function TreeCardSection({ navigate, title, fetchFunction, query }) {
         >
           {trees
             ? trees.map((tree, i) => (
-                <HomeTreeCard tree={tree} navigate={navigate} key={tree._id} />
+                <HomeTreeCard
+                  tree={tree}
+                  navigate={navigate}
+                  key={tree._id}
+                  query={query}
+                />
               ))
             : ''}
           {trees.length === 0 ? (
@@ -78,7 +83,7 @@ export function TreeCardSection({ navigate, title, fetchFunction, query }) {
   );
 }
 
-function HomeTreeCard({ tree, navigate }) {
+function HomeTreeCard({ tree, navigate, query }) {
   return (
     <motion.div
       layout
@@ -90,15 +95,96 @@ function HomeTreeCard({ tree, navigate }) {
       className="home-tree-card"
       title={`Last Updated: ${formateCustomDate(tree.updatedAt)}`}
     >
-      <div className="tree-card-title">
-        <Icon variant="mind">
-          <BoxIcon />
-        </Icon>
-        <p>{tree.title}</p>
+      <div className="tree-card-body">
+        <div className="tree-card-title">
+          <Icon variant="mind">
+            <BoxIcon />
+          </Icon>
+          <p>{tree.title}</p>
+        </div>
+        <div className="tree-card-id">ID: {tree._id}</div>
       </div>
-      <div className="tree-card-id">
-        ID: {tree._id}
-      </div>
+      {query ? highlightWordRadius(tree.readableContent, query) : ''}
     </motion.div>
   );
 }
+
+function highlightWordRadius(content, query, radius = 7) {
+  if (!content) return '';
+  const target = query.toLowerCase();
+  const words = content.split(/\s+/);
+
+  const ranges = words.reduce((acc, word, i) => {
+    if (word.toLowerCase().includes(target)) {
+      acc.push({
+        min: Math.max(0, i - radius),
+        max: Math.min(words.length, i + radius + 1),
+      });
+    }
+    return acc;
+  }, []);
+
+  return ranges.map((range, i) => {
+    return (
+      <div className="tree-card-previews">
+      <div className="tree-preview">
+        <p className="branch">└─</p>
+        <p className="preview-text">
+          {words.slice(range.min, range.max).map((word, i) => {
+            const lowerWord = word.toLowerCase();
+            if (lowerWord.includes(target)) {
+              const parts = word.split(new RegExp(`(${target})`, 'i'));
+              return (
+                <span key={i}>
+                  {parts.map((part, j) =>
+                    part.toLowerCase() === target ? (
+                      <span key={j} className="highlighted">
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )
+                  )}{' '}
+                </span>
+              );
+            }
+            return <span key={i}>{word} </span>;
+          })}
+        </p>
+      </div>
+    </div>
+    )
+  });
+}
+
+
+// function highlightWordRadius(content, target, radius = 7) {
+//   if (!content) return '';
+//   const words = content.split(/\s+/);
+//   const index = words.findIndex((word) =>
+//     word.toLowerCase().includes(target.toLowerCase())
+//   );
+//   if (index === -1) return '';
+
+//   const start = Math.max(0, index - radius);
+//   const end = Math.min(words.length, index + radius + 1);
+//   return words.slice(start, end).map((word, i) => {
+//     const lowerWord = word.toLowerCase();
+//     const lowerTarget = target.toLowerCase();
+//     if (lowerWord.includes(lowerTarget)) {
+//       const parts = word.split(new RegExp(`(${target})`, 'i'));
+//       return (
+//         <span key={i}>
+//           {parts.map((part, j) =>
+//             part.toLowerCase() === lowerTarget ? (
+//               <span key={j} className='highlighted'>{part}</span>
+//             ) : (
+//               part
+//             )
+//           )}{' '}
+//         </span>
+//       );
+//     }
+//     return <span key={i}>{word} </span>;
+//   });
+// }

@@ -12,7 +12,7 @@ import {
   handleCreateTree,
   TreeCardSection,
 } from '../features/trees';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const list = {
@@ -52,11 +52,27 @@ export function Mind() {
 
 function MindHeader({ navigate }) {
   const location = useLocation();
-  const [searchQuery, setSearchQuery] = useState('');
+  const params = new URLSearchParams(location.search)
+  const [searchQuery, setSearchQuery] = useState(() => params.get('q') || '');
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    navigate(`search?q=${encodeURIComponent(searchQuery.trim())}`);
+  function debounce(fn, delay) {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  const debouncedSearch = useRef(
+    debounce((query) => {
+      navigate(`search?q=${encodeURIComponent(query.trim())}`);
+    }, 150)
+  ).current;
+
+  const handleInputChange = (e) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    debouncedSearch(val);
   };
 
   return (
@@ -81,12 +97,12 @@ function MindHeader({ navigate }) {
         ) : (
           ''
         )}
-        <form action="" onSubmit={(e) => handleSearch(e)}>
+        <form action="" onSubmit={(e) => e.preventDefault()}>
           <TextField
             variant="gray"
             name="search"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleInputChange}
             afterIcon={SearchIcon}
             placeholder="Search for trees..."
           />
