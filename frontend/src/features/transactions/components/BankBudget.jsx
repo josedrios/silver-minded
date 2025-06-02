@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Icon, WalletIcon } from '../../../components';
 
 export default function BankBudget({ bankStats }) {
+ const [denominator, setDenominator] = useState(bankStats.made >= bankStats.spent ? bankStats.made : bankStats.spent);
+
   return (
     <div className="bank-budget">
       <div className="budget-row budget-header">
@@ -12,35 +15,39 @@ export default function BankBudget({ bankStats }) {
       <div className="budget-row budget-data-bar">
         <div
           className="data-bar-category primary"
-          style={{ width: `${(bankStats.saved / bankStats.made) * 100}%`, display: bankStats.saved <= 0 ? 'none' : ''}}
+          title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(bankStats.saved)}`}
+          style={{ width: `${(bankStats.saved / denominator) * 100}%`, display: bankStats.saved <= 0 ? 'none' : ''}}
         />
         <div
           className="data-bar-category accent"
-          style={{ width: `${(bankStats.need / bankStats.made) * 100}%`, display: bankStats.need === 0 ? 'none' : ''}}
+          title={`$${bankStats.need}`}
+          style={{ width: `${(bankStats.need / denominator) * 100}%`, display: bankStats.need === 0 ? 'none' : ''}}
         />
         <div
           className="data-bar-category error"
-          style={{ width: `${(bankStats.fun / bankStats.made) * 100}%`, display: bankStats.fun === 0 ? 'none' : ''}}
+          title={`$${bankStats.fun}`}
+          style={{ width: `${(bankStats.fun / denominator) * 100}%`, display: bankStats.fun === 0 ? 'none' : ''}}
         />
         <div
           className="data-bar-category gray"
-          style={{ width: `${(bankStats.sub / bankStats.made) * 100}%`, display: bankStats.sub === 0 ? 'none' : ''}}
+          title={`$${bankStats.sub}`}
+          style={{ width: `${(bankStats.sub / denominator) * 100}%`, display: bankStats.sub === 0 ? 'none' : ''}}
         />
       </div>
       <div className="budget-row color-legend">
-        <div className="color-legend-row">
+        <div className="color-legend-row" title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(bankStats.saved)}`}>
           <p>Save</p>
-          <div className="primary color-block" />
+          <div className="primary color-block"/>
         </div>
-        <div className="color-legend-row">
+        <div className="color-legend-row" title={`$${bankStats.need}`}>
           <p>Need</p>
           <div className="accent color-block" />
         </div>
-        <div className="color-legend-row">
+        <div className="color-legend-row" title={`$${bankStats.fun}`}>
           <p>Fun</p>
           <div className="error color-block" />
         </div>
-        <div className="color-legend-row">
+        <div className="color-legend-row" title={`$${bankStats.sub}`}>
           <p>Sub</p>
           <div className="gray color-block" />
         </div>

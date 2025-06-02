@@ -52,7 +52,7 @@ export function Mind() {
 
 function MindHeader({ navigate }) {
   const location = useLocation();
-  const params = new URLSearchParams(location.search)
+  const params = new URLSearchParams(location.search);
   const [searchQuery, setSearchQuery] = useState(() => params.get('q') || '');
 
   function debounce(fn, delay) {
@@ -66,12 +66,16 @@ function MindHeader({ navigate }) {
   const debouncedSearch = useRef(
     debounce((query) => {
       navigate(`search?q=${encodeURIComponent(query.trim())}`);
-    }, 150)
+    }, 1000)
   ).current;
 
   const handleInputChange = (e) => {
     const val = e.target.value;
     setSearchQuery(val);
+    if (val === '') {
+      navigate('/mind');
+      return;
+    }
     debouncedSearch(val);
   };
 

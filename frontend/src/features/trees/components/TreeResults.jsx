@@ -109,7 +109,8 @@ function HomeTreeCard({ tree, navigate, query }) {
   );
 }
 
-function highlightWordRadius(content, query, radius = 7) {
+function highlightWordRadius(content, query) {
+  const radius = 3;
   if (!content) return '';
   const target = query.toLowerCase();
   const words = content.split(/\s+/);
@@ -125,10 +126,14 @@ function highlightWordRadius(content, query, radius = 7) {
   }, []);
 
   return ranges.map((range, i) => {
+    console.log('RANGES LENGTH: ', ranges.length)
+    console.log('ITERATION: ', i)
     return (
       <div className="tree-card-previews">
       <div className="tree-preview">
-        <p className="branch">└─</p>
+        <p className="branch">{ranges.length === i + 1
+              ? '└─'
+              : '├─'}</p>
         <p className="preview-text">
           {words.slice(range.min, range.max).map((word, i) => {
             const lowerWord = word.toLowerCase();
