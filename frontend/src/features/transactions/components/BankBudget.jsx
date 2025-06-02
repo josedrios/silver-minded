@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Icon, WalletIcon } from '../../../components';
 
 export default function BankBudget({ bankStats }) {
- const [denominator, setDenominator] = useState(bankStats.made >= bankStats.spent ? bankStats.made : bankStats.spent);
+  const denominator = useMemo(() => {
+    return bankStats.made > bankStats.spent ? bankStats.made : bankStats.spent;
+  }, [bankStats.made, bankStats.spent]);
+  console.log(denominator);
 
   return (
     <div className="bank-budget">
@@ -15,29 +18,48 @@ export default function BankBudget({ bankStats }) {
       <div className="budget-row budget-data-bar">
         <div
           className="data-bar-category primary"
-          title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(bankStats.saved)}`}
-          style={{ width: `${(bankStats.saved / denominator) * 100}%`, display: bankStats.saved <= 0 ? 'none' : ''}}
+          title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(
+            bankStats.saved
+          )}`}
+          style={{
+            width: `${(bankStats.saved / denominator) * 100}%`,
+            display: bankStats.saved <= 0 ? 'none' : '',
+          }}
         />
         <div
           className="data-bar-category accent"
           title={`$${bankStats.need}`}
-          style={{ width: `${(bankStats.need / denominator) * 100}%`, display: bankStats.need === 0 ? 'none' : ''}}
+          style={{
+            width: `${(bankStats.need / denominator) * 100}%`,
+            display: bankStats.need === 0 ? 'none' : '',
+          }}
         />
         <div
           className="data-bar-category error"
           title={`$${bankStats.fun}`}
-          style={{ width: `${(bankStats.fun / denominator) * 100}%`, display: bankStats.fun === 0 ? 'none' : ''}}
+          style={{
+            width: `${(bankStats.fun / denominator) * 100}%`,
+            display: bankStats.fun === 0 ? 'none' : '',
+          }}
         />
         <div
           className="data-bar-category gray"
           title={`$${bankStats.sub}`}
-          style={{ width: `${(bankStats.sub / denominator) * 100}%`, display: bankStats.sub === 0 ? 'none' : ''}}
+          style={{
+            width: `${(bankStats.sub / denominator) * 100}%`,
+            display: bankStats.sub === 0 ? 'none' : '',
+          }}
         />
       </div>
       <div className="budget-row color-legend">
-        <div className="color-legend-row" title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(bankStats.saved)}`}>
+        <div
+          className="color-legend-row"
+          title={`${bankStats.saved < 0 ? '-' : ''}$${Math.abs(
+            bankStats.saved
+          )}`}
+        >
           <p>Save</p>
-          <div className="primary color-block"/>
+          <div className="primary color-block" />
         </div>
         <div className="color-legend-row" title={`$${bankStats.need}`}>
           <p>Need</p>

@@ -1,9 +1,13 @@
 import { editTree } from '../services/treeService';
 
 export const tagOptions = [
-  { value: 'thought', label: '/Thought' },
-  { value: 'idea', label: '/Idea' },
-  { value: 'learning', label: '/Learning' },
+  { value: 'thought', label: 'thought' },
+  { value: 'idea', label: 'idea' },
+  { value: 'study', label: 'study' },
+  { value: 'remind', label: 'remind' },
+  { value: 'junk', label: 'junk' },
+  { value: 'project', label: 'project' },
+  { value: 'comm', label: 'comm' },
 ];
 
 export const getTagOption = (value) =>
