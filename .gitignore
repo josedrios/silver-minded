@@ -141,6 +141,7 @@ dist/
 out/
 build/
 SecondMind-darwin-x64/
+SilverMinded-darwin-x64/
 frontend/public/icon.png
 public/*.png
 public/*.jpg
