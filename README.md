@@ -23,6 +23,7 @@ Ensure you have the following installed on your system before beginning:
 
 - Node.js: [Download from Official Wesbite](https://nodejs.org)
 - npm: Should come with Node.js
+- MongoDB: [Download from Official Website](https://www.mongodb.com/) (The database that will be used by this application)
 - PM2: Will be used to manage the backend process. Install this globally:
 
 ```
@@ -55,17 +56,18 @@ npm install
 # yarn install
 ```
 
-#### 2.2 Setup Database
-
-*WIP*
-
 #### 2.2 Setup .ENV File
 
-*WIP*
+Set up the .ENV file for your backend. When it comes to the ports being utilized I chose 4000 for the backend and 4001 for the frontend:
+```
+PORT=4000
+MONGO_URL=mongodb://localhost:27017/silver-minded
+FRONTEND_URL=http://localhost:4001
+```
 
 #### 2.3 Start the Backend with PM2
 
-PM2 will keep your backend running in the background, will in the backend directory run this command:
+PM2 will keep your backend running in the background. While in the backend directory, we will now run the backend itself through PM2:
 
 ```
 pm2 start server.js --name "SilverMinded-Backend"
@@ -77,18 +79,20 @@ You can verify that your backend process is running properly by executing this c
 pm2 list
 ```
 
-If it is not running properly, you can check the logs of the backend process:
+You should see a process called 'SilverMinded-Backend' running in you list, if it is not running properly you can check the logs of the backend process:
 
 ```
-pm2 logs backend
+pm2 logs SilverMinded-Backend
 ```
 
 **OPTIONAL:** To let your backend automatically restart if your system reboots do the following:
 
 ```
-pm2 save
 pm2 startup
+pm2 save
 ```
+
+The PM2 save command saves you list of processes so on boot, they can be restored as intended.
 
 ### 3. Frontend Setup (Electron)
 
@@ -97,28 +101,35 @@ The frontend for Silver Minded is an Electron desktop application.
 #### 3.1 Download Dependencies
 
 First move into the frontend directory and install the frontend dependencies:
+
 ```
 cd ../frontend
 # If you are in the root directory do:
 # cd frontend
 
-npm install 
+npm install
 # if you use Yarn do this instead:
 # yarn install
 ```
 
 #### 3.2 Setup .ENV
 
-*WIP*
+Set up the .ENV file for your frontend:
+
+```
+VITE_BACKEND_URL=http://localhost:4000
+```
 
 #### 3.3 Build the Frontend for Electron
+
 ```
 npm build
-# or 
+# or
 # yarn build
 ```
 
 #### 3.4 Create the Electron Application
+
 ```
 npm run package
 ```
@@ -126,10 +137,28 @@ npm run package
 ### 4. Access the application
 
 ## Learned
-*WIP*
+
+- Better file structure when it comes to dividing frontend and backend as well a better file structure specifically in the frontend to promote clean, reusable code usage
+- An organized UI design system makes everything so much trackable and consistent, still learning more about this but has been a real game changer
+- Keeping things simple, from UI to code structure to literally everything is key to making nice UIs and softwares. I think finding the perfect balance of simplicity and complexity is the way to go, although sometimes it is very hard.
 
 ## Challenges
-*WIP*
 
-## Plan to Add
-*WIP*
+- **Using a good design system:** I was so caught up in trying to find the right spectrum of colors, creating every single variant of buttons and combine them will every color that it was a bit overwhelming. I plan to find better ways to go about this process and preferably move it to the beginning of the website building process. I found out about design systems mid way through.
+- **Naming Conventions:** When writing new code and I am in the groove I find myself just throwing out whatever naming convention sounds best at the time for that said thing but when I come back to the same piece of code I wonder what was going through my mind to give this variable or classname or ID such a unfitting name. I honestly believe there is a hidden are to naming convention and will definitely be spending time improving in this field.
+- **Underestimating Time Frames:** There would be times when I think of a feature I want to implement and I give myself a time frame of implementing it but I greatly underestimate how long it would take. This would throw off my plan for the week, constantly pushing back other features I wanted to implement. In order to fix this I began overestimating the time I would need. This is definitely something I should have been doing since the start of the project.
+
+## Plan to Add / Fix:
+
+- Make search queries happen on character change (mind page)
+- Disable buttons when and where they should be
+- Incorporate box shadows more
+- Past months should already have all their events open for display, no need to click a button to show past events
+- Fix dollar input amounts (bank page)
+- Add red dots on events that are on the current day
+- Fix amounts in bank page (.toFixed(2))
+- Faster update times on tree changes (mind page)
+- Add pagination on tree searches and sections
+- Fix new tree creation error when already on a tree page
+- Remove tag edit button and just leave it open to always be able to change
+- Move star favorite button in tree page to somewhere where the UI would be nicer
