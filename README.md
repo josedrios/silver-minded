@@ -130,11 +130,35 @@ npm build
 
 #### 3.4 Create the Electron Application
 
+Go back to the root directory:
 ```
-npm run package
+cd ..
 ```
 
-### 4. Access the application
+Download the dependencies needed for electron:
+```
+npm install
+```
+
+Now run the following to package your application:
+
+For macOS:
+```
+npm run package:mac
+```
+You will find you application in SilverMinded-darwin-x64
+
+For Windows:
+```
+npm run package:win
+```
+You will find you application in SilverMinded-win32-x64
+
+For Linux:
+```
+npm run package:linux
+```
+You will find you application in SilverMinded-linux-x64
 
 ## Learned
 

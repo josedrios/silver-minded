@@ -6,7 +6,9 @@
     "start": "vite",
     "server": "node server.js",
     "electron": "electron main.js",
-    "package": "electron-packager . SilverMinded --platform=darwin --arch=x64 --overwrite"
+    "package:mac": "electron-packager . SilverMinded --platform=darwin --arch=x64 --overwrite",
+    "package:win": "electron-packager . SilverMinded --platform=win32 --arch=x64 --overwrite",
+    "package:linux": "electron-packager . SilverMinded --platform=linux --arch=x64 --overwrite"
   },
   "devDependencies": {
     "electron": "^35.1.4",
