@@ -128,17 +128,14 @@
 
 .tree-category-select {
   .custom-select__control {
-    border: 1px solid var(--gray-400) !important;
+    border: none !important;
+    background-color: transparent !important;
     padding: $spacing-xs !important;
     min-height: 22px;
   }
 
-  .custom-select__control--is-focused {
-    border-color: var(--gray-800) !important;
-  }
-
   .custom-select__placeholder {
-    color: var(--accent-700) !important;
+    color: var(--accent-500) !important;
   }
 
   .custom-select__value-container {

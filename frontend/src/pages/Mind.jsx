@@ -66,7 +66,9 @@ function MindHeader({ navigate }) {
   const debouncedSearch = useRef(
     debounce((query) => {
       navigate(`search?q=${encodeURIComponent(query.trim())}`);
-    }, 1000)
+    }, 50)
+    // very small debounce so not all trees are being searched on first
+    // character change
   ).current;
 
   const handleInputChange = (e) => {

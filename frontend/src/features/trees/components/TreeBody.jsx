@@ -61,7 +61,7 @@ export function TreeBody({ tree }) {
         JSON.stringify(safeContent),
         editor._tiptapEditor.getText()
       );
-    }, 1000); // waits 1 second after last change
+    }, 100); // waits 1 second after last change
 
     const unsubscribe = editor.onChange(handleChange);
     return () => {

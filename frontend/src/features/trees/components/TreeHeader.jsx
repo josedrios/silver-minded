@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from "react";
 import {
   BoxIcon,
   Icon,
@@ -9,12 +9,12 @@ import {
   FilePenIcon,
   TextField,
   StarIcon,
-} from '../../../components';
-import { formateCustomDate } from '../../transactions';
-import { tagOptions, getTagOption, editTreeHeader, deleteTree } from '../';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { convertToLocal } from '../../events';
+} from "../../../components";
+import { formateCustomDate } from "../../transactions";
+import { tagOptions, getTagOption, editTreeHeader, deleteTree } from "../";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { convertToLocal } from "../../events";
 
 export function TreeHeader({ tree, setTree }) {
   const [treeChanges, setTreeChanges] = useState({
@@ -48,7 +48,10 @@ export function TreeHeader({ tree, setTree }) {
       if (updatedTree) {
         setTree(updatedTree);
       }
-    }, 1000);
+    }, 100);
+    // adding the smallest debounce possible
+    // to hopefully prevent my spam favorite toggle errors
+    // (i never do those in purpose, just for testing purposes)
 
     debouncedUpdate();
 
@@ -58,12 +61,6 @@ export function TreeHeader({ tree, setTree }) {
   }, [treeChanges]);
 
   const navigate = useNavigate();
-
-  const [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    setEditMode(false);
-  }, [location.pathname]);
 
   return (
     <div className="tree-page-header">
@@ -78,8 +75,6 @@ export function TreeHeader({ tree, setTree }) {
       <TreeTags
         tree={treeChanges}
         setTree={setTreeChanges}
-        editMode={editMode}
-        setEditMode={setEditMode}
         oldTree={tree}
         setOriginalTree={setTree}
       />
@@ -87,14 +82,7 @@ export function TreeHeader({ tree, setTree }) {
   );
 }
 
-function TreeTitle({
-  tree,
-  setTree,
-  treeDate,
-  navigate,
-  treeId,
-  treeChanges,
-}) {
+function TreeTitle({ tree, setTree, treeDate, navigate, treeId, treeChanges }) {
   return (
     <div className="header-row">
       <Icon variant="mind" size="md">
@@ -112,7 +100,7 @@ function TreeTitle({
         >
           <StarIcon
             className={`star-tree-icon ${
-              treeChanges.isFavorite ? 'is-favorite' : ''
+              treeChanges.isFavorite ? "is-favorite" : ""
             }`}
           />
         </div>
@@ -131,17 +119,12 @@ function TreeTitle({
           <p>CREATED: {formateCustomDate(convertToLocal(treeDate))}</p>
         </div>
       </div>
-      <TreeDropdown navigate={navigate} type={'tree'} id={treeId} />
+      <TreeDropdown navigate={navigate} type={"tree"} id={treeId} />
     </div>
   );
 }
 
-function TreeTags({
-  tree,
-  setTree,
-  editMode,
-  setEditMode,
-}) {
+function TreeTags({ tree, setTree }) {
   const setTreeCategories = (newValue) => {
     setTree((prev) => ({
       ...prev,
@@ -152,37 +135,13 @@ function TreeTags({
   return (
     <div className="tag-row">
       <span>TAGS:</span>
-      {editMode ? (
-        <ReactMultiSelect
-          options={tagOptions}
-          value={tree.categories}
-          onChange={setTreeCategories}
-          placeholder="Select Tags"
-          className="tree-category-select"
-        />
-      ) : (
-        <div className="tree-categories">
-          {tree.categories.length === 0 ? (
-            <p>NONE</p>
-          ) : (
-            tree.categories.map((cat, i) => <p key={i}>{cat.label}</p>)
-          )}
-        </div>
-      )}
-      <Button
-        variant="gray"
-        squared={true}
-        className="borderless tree-edit-button"
-        onClick={async () => {
-          if (editMode === true) {
-            setEditMode(false);
-          } else {
-            setEditMode(true);
-          }
-        }}
-      >
-        {editMode ? <FileBoxIcon /> : <FilePenIcon />}
-      </Button>
+      <ReactMultiSelect
+        options={tagOptions}
+        value={tree.categories}
+        onChange={setTreeCategories}
+        placeholder="Select Tags"
+        className="tree-category-select"
+      />
     </div>
   );
 }
@@ -190,15 +149,15 @@ function TreeTags({
 function TreeDropdown({ navigate, id }) {
   return (
     <Menu as="div" className="tree-node-dropdown">
-      <MenuButton as={'button'} className={'btn squared gray borderless'}>
+      <MenuButton as={"button"} className={"btn squared gray borderless"}>
         <VerticalEllipsisIcon />
       </MenuButton>
-      <MenuItems anchor={'bottom-end'} className={'tree-node-dropdown-menu'}>
+      <MenuItems anchor={"bottom-end"} className={"tree-node-dropdown-menu"}>
         <MenuItem>
           <button
             onClick={async () => {
               await deleteTree(id);
-              navigate('/mind');
+              navigate("/mind");
             }}
           >
             Delete

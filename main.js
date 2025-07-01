@@ -27,9 +27,15 @@ app.whenReady().then(() => {
     backgroundColor: "rgb(31, 29, 29)",
   });
 
+  // Show inspect tools in electron
   globalShortcut.register("CommandOrControl+Shift+I", () => {
     win.webContents.toggleDevTools();
   });
+
+  // Refresh electron
+  globalShortcut.register("CommandOrControl+R", () => {
+  win.reload();
+});
 
   // Wait for backend before loading frontend
   waitForBackend(() => {

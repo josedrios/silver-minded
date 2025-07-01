@@ -23,17 +23,15 @@ nav {
     transition: background-color $transition-base;
 
     &::before {
-      content: '*';
+      content: "*";
       margin-right: $spacing-xs;
       color: transparent;
       transition: color $transition-instant;
     }
-    
-    &:hover::before {
-      color: var(--primary-800);
-    }
 
-    &:hover {
+    &:hover::before,
+    &.active::before {
+      color: var(--primary-800);
     }
   }
 }
