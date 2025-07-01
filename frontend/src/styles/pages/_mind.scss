@@ -109,14 +109,15 @@
     font-size: $font-size-md;
     padding: 0 $spacing-md;
     padding-bottom: $spacing-sm;
-    border-bottom: 1px solid var(--gray-800);
   }
+  margin-bottom: $spacing-md;
 }
 
 .tree-cards-container {
   @include flex(column);
   gap: $spacing-sm;
-  margin: $spacing-md;
+  padding: $spacing-md;
+  border: 1px solid var(--gray-700);
 }
 
 .no-trees-found {

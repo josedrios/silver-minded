@@ -102,17 +102,15 @@
 
   .transaction-list-header {
     @include flex(row, space-between, center);
-    border-bottom: 1px solid var(--gray-700);
     padding: 0 $spacing-md;
     padding-bottom: $spacing-sm;
-    margin-bottom: $spacing-md;
   }
-
+  
   .transactions-body {
+    border: 1px solid var(--gray-700);
     @include flex(column);
     gap: $spacing-sm;
-    margin: 0 $spacing-md;
-    margin-bottom: $spacing-md;
+    padding: $spacing-md;
   }
 }
 

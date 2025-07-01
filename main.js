@@ -19,9 +19,9 @@ app.whenReady().then(() => {
   // Create window
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   const win = new BrowserWindow({
-    width: 600,
+    width: 900,
     height: height,
-    x: width - 600,
+    x: width - 900,
     minWidth: 400,
     y: 0,
     backgroundColor: "rgb(31, 29, 29)",
