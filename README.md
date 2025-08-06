@@ -4,6 +4,12 @@ Silver Minded helps track and organize all the different facets of your life, br
 
 The application is broken down into four main concepts: tasks, events, transactions, and trees. The tasks list in the Dash page is for high priority or quick, executable tasks. The events in the Time page are meant to help organize your plans and overall time. In the Bank page, one's transactions are tracked and broken down into categories for improved insight on spending. Lastly is the tree concept, which are documents that you can make in the Mind page to hold any sort of information.
 
+## Screenshots
+![Dash](images/dash.png)
+![Calendar](images/time.png)
+![Finance Tracker](images/bank.png)
+![File Network](images/mind.png)
+
 ## Features
 
 Silver Minded offers very straight forward tools to track and organize your life:

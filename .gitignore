@@ -153,3 +153,5 @@ icon.iconset/
 icon.icns
 
 .prettierrc
+
+.DS_Store
